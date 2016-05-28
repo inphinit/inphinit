@@ -25,28 +25,28 @@ For check requirements see
 
   ```
   cd c:\wamp\www\
-  composer create-project brcontainer/inphinit:dev-master [project_name]
+  composer create-project inphinit/inphinit:dev-master [project_name]
   ```
 
 1. Or (if no using Wamp/Xampp/easyphp)
 
     ```
     cd c:\Users\[username]\Documents\
-    composer create-project brcontainer/inphinit:dev-master [project_name]
+    composer create-project inphinit/inphinit:dev-master [project_name]
     ```
 
 1. Install in Unix-like:
 
     ```
     cd /etc/www/
-    php composer.phar create-project brcontainer/inphinit [project_name]
+    php composer.phar create-project inphinit/inphinit [project_name]
     ```
 
 1. Or (if no using Apache)
 
     ```
     cd /home/
-    php composer.phar create-project brcontainer/inphinit:dev-master [project_name]
+    php composer.phar create-project inphinit/inphinit:dev-master [project_name]
     ```
 
 1. Alternate is download git repository and copy content from zip file to folder project

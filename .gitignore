@@ -1,0 +1,4 @@
+.phpintel
+composer.lock
+system/vendor/
+unfinished/

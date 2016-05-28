@@ -1,0 +1,33 @@
+{
+    "name": "inphinit/inphinit",
+    "description": "A framework for easy creation of routes",
+    "keywords": [ "framework" ],
+    "license": "MIT",
+    "type": "project",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "vendor-dir": "system/vendor"
+    },
+    "authors": [
+        {
+            "name": "Guilherme Nascimento",
+            "email": "brcontainer@yahoo.com.br"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "inphinit/framework": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Controller\\": "system/application/Controller",
+            "Model\\": "system/application/Model"
+        }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "php system/boot/importpackages.php"
+        ]
+    }
+}

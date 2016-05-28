@@ -4,7 +4,7 @@ PHP framework, routes, controllers and views
 
 #Perfomance
 
-The reason I created this framework was to try to achieve a good performance and have the basic features of a framework with routes, see details https://github.com/inphinit/inphinit/performance.md
+The reason I created this framework was to try to achieve a good performance and have the basic features of a framework with routes, see details https://github.com/inphinit/inphinit/blob/master/performance.md
 
 #Requirements
 

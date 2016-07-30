@@ -21,7 +21,13 @@ $path = ltrim($path, '/');
 
 define('INPHINIT_RUNNING_SERVER', true);
 
-if ($path !== '/' && file_exists($serverPath . $path)) {
+if (
+    $path !== '' &&
+    $path !== '/' &&
+    strcasecmp($path, 'system') !== 0 &&
+    stripos($path, 'system/') !== 0 &&
+    file_exists($serverPath . $path)
+) {
     return false;
 }
 

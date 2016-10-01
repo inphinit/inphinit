@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>Inphinit - php framework</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
     <style type="text/css">
@@ -31,7 +32,7 @@
     .container:before {
         display: inline-block;
         vertical-align: middle;
-        content: "";
+        content: " ";
         height: 100%;
         width: 0;
     }

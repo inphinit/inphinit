@@ -1,4 +1,5 @@
 <?php
-use Experimental\Debug;
+
+use Inphinit\Experimental\Debug;
 
 Debug::view('error', 'debug.error');

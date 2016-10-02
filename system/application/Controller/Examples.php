@@ -10,17 +10,6 @@ class Examples
         App::on('ready', 'phpinfo');
     }
 
-    public function arrayArgs()
-    {
-        $args = array(
-            'foo' => 'Foo',
-            'bar' => 'bar',
-            'baz' => 'baz'
-        );
-
-        App::on('ready', 'print_r', array($args));
-    }
-
     public function arrayClosure()
     {
         $args = array(
@@ -29,8 +18,8 @@ class Examples
             'baz' => 'baz'
         );
 
-        App::on('ready', function ($args) {
+        App::on('ready', function () use ($args) {
             print_r($args);
-        }, array($args));
+        });
     }
 }

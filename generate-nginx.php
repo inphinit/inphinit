@@ -37,7 +37,7 @@ location ~ \.php$ {
 $ngnix = str_replace('$base', $base, $data);
 
 if (PHP_SAPI !== 'cli') {
-    echo str_replace(chr(10), '<br>', $ngnix);
+    echo '<xmp>', $ngnix, '</xmp>';
 } else {
     echo $ngnix;
 }

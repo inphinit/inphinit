@@ -32,14 +32,14 @@ For check requirements see
 
     ```
     cd c:\Users\[username]\Documents\
-    composer create-project inphinit/inphinit:dev-master [project_name]
+    composer create-project inphinit/inphinit:dev-master:dev-master [project_name]
     ```
 
 1. Install in Unix-like:
 
     ```
     cd /etc/www/
-    php composer.phar create-project inphinit/inphinit [project_name]
+    php composer.phar create-project inphinit/inphinit:dev-master [project_name]
     ```
 
 1. Or (if no using Apache)

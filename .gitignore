@@ -1,4 +1,5 @@
 .phpintel
 composer.lock
-system/vendor/
 unfinished/
+system/vendor/
+system/storage/

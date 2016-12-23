@@ -7,21 +7,21 @@ $systemData = $system . '/storage';
 if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
     echo 'Ok: Your current version of PHP is ', PHP_VERSION, $bl;
 } else {
-    echo 'Fix it: Inphinit requires PHP5.3 or major, your current version of PHP is ',
-            PHP_VERSION, ' - Fix it', $bl;
+    echo 'Fail: Inphinit requires PHP5.3 or major, your current version of PHP is ',
+            PHP_VERSION, $bl;
 }
 
 if (function_exists('get_magic_quotes_gpc') === false || get_magic_quotes_gpc() === false) {
     echo 'Ok: magic_quotes_gpc is disabled', $bl;
 } else {
-    echo 'Fail: magic_quotes_gpc is enabled - Fix it', $bl;
+    echo 'Fail: magic_quotes_gpc is enabled', $bl;
 }
 
 if (is_writable($systemData)) {
     echo 'Ok: Folder ./system/storage/ is writable', $bl;
 } else {
     echo $systemData, $bl;
-    echo 'Fail: Folder ./system/storage/ requires write permissions, use chmode - Fix it', $bl;
+    echo 'Fail: Folder ./system/storage/ requires write permissions, use chmode', $bl;
 }
 
 if (function_exists('mb_detect_encoding')) {
@@ -30,7 +30,7 @@ if (function_exists('mb_detect_encoding')) {
 } else {
     echo 'Fail: (Optinal) Class Inphinit\Helper (asciiTranslit and makeUrl methods) ',
             'not work, "Multibyte String" is disabled',
-            ' in php - Fix it (if needed for you)', $bl;
+            ' in php (if needed for you)', $bl;
 }
 
 if (function_exists('iconv')) {
@@ -38,7 +38,7 @@ if (function_exists('iconv')) {
             'enabled in php', $bl;
 } else {
     echo 'Fail: (Optinal) Class Inphinit\Helper (asciiTranslit and makeUrl methods) not work, ',
-            '"iconv" is disabled in php - Fix it (if needed for you)', $bl;
+            '"iconv" is disabled in php (if needed for you)', $bl;
 }
 
 if (function_exists('finfo_file')) {
@@ -46,7 +46,7 @@ if (function_exists('finfo_file')) {
             'enabled in php', $bl;
 } else {
     echo 'Fail: (Optinal) Class Inphinit\Files (mimeType method) not work, ',
-            '"finfo" is disabled in php - Fix it (if needed for you)', $bl;
+            '"finfo" is disabled in php (if needed for you)', $bl;
 }
 
 $systemConfigs = require $system . 'application/Config/config.php';

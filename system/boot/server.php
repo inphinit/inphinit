@@ -18,7 +18,7 @@ if (
     $path !== '/' &&
     strcasecmp($path, 'system') !== 0 &&
     stripos($path, 'system/') !== 0 &&
-    file_exists($serverPath . $path)
+    is_file($serverPath . $path)
 ) {
     return false;
 }

@@ -38,7 +38,7 @@ For check requirements see
 1. Install in Unix-like:
 
     ```
-    cd /etc/www/
+    cd /var/www/
     php composer.phar create-project inphinit/inphinit:dev-master [project_name]
     ```
 

@@ -11,7 +11,7 @@ App::on('changestatus', function ($status, $msg) {
         View::forceRender();
 
         View::render('httpview', array(
-            'title'  => $msg ? $msg : 'Página inacessível',
+            'title'  => $msg ? $msg : 'This page is not reachable',
             'method' => $_SERVER['REQUEST_METHOD'],
             'path'   => Request::path(),
             'route'  => Request::path(true),

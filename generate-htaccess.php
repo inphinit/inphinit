@@ -50,4 +50,4 @@ $htaccess = str_replace('$base', $base, $data);
 
 file_put_contents('.htaccess', $htaccess);
 
-echo '<xmp>', $htaccess, '</xmp>';
+echo '<pre>', htmlspecialchars($htaccess), '</pre>';

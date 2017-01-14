@@ -8,14 +8,14 @@
 
 ##Memory peak comparison
 
-- Inphinit: 374.4921875
-- Silex: 2426.9140625
-- Lumen: 2595.03125
-- laravel 5.2: 7869.96875
-- CodeIgniter 3: 1284.6875
-- FatFree: 990.140625
+- Inphinit: 374.49 Kb
+- Silex: 2426.91 Kb
+- Lumen: 2595.03 Kb
+- Laravel 5.2: 7869.96 Kb
+- CodeIgniter 3: 1284.68 Kb
+- FatFree: 990.14 Kb
 
-![memory peak](https://i.imgsafe.org/cdd4786.png)
+![memory peak](https://cloud.githubusercontent.com/assets/4368952/21951981/a9235632-d9f7-11e6-9939-0cb327acb5b4.png)
 
 ##Requests per second comparison
 
@@ -26,4 +26,4 @@
 - CodeIgniter 3: 141.33 requests per second
 - FatFree: 385.82 requests per second
 
-![requests per second](https://i.imgsafe.org/cf583c9.png)
+![requests per second](https://cloud.githubusercontent.com/assets/4368952/21951982/a95a725c-d9f7-11e6-801e-9a5c1ac253e2.png)

@@ -7,7 +7,7 @@ define('BOOT_PATH', rtrim(strtr(dirname(__FILE__), '\\', '/'), '/') . '/');
 
 require_once BOOT_PATH . '../vendor/inphinit/framework/src/Inphinit/Packages.php';
 
-$composer = BOOT_PATH . '../vendor/composer-fake/';
+$composer = BOOT_PATH . '../vendor/composer/';
 
 $packages = new Inphinit\Packages($composer);
 

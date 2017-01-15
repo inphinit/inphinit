@@ -9,8 +9,8 @@ The reason I created this framework was to try to achieve a good performance and
 #Requirements
 
 1. PHP 5.3.0+
-1. Multibyte String (GD also) (optional, only used in `Inphinit\Helper::makeUrl`)
-1. libiconv (optional, only used in `Inphinit\Helper::makeUrl`)
+1. Multibyte String (GD also) (optional, only used in `Inphinit\Helper::toAscii`)
+1. libiconv (optional, only used in `Inphinit\Helper::toAscii`)
 1. fileinfo (optional, only used in `Inphinit\File::mimeType`)
 1. Apache or Nginx or IIS for production
 
@@ -75,7 +75,7 @@ For check requirements see
 
     ```
     cd /home/[project_name]/
-    php -S localhost:9000 system/server.php
+    php -S localhost:9000 system/boot/server.php
     ```
 
 1. Open web-browser and navigate to `http://localhost:9000`
@@ -128,7 +128,7 @@ For check requirements see
 
 #Check requirements
 
-For check requeriments navigate with your web-browser to `http://localhost:9000/check.php` or `http://localhost/[project_name]/check.php`
+For check requirements navigate with your web-browser to `http://localhost:9000/check.php` or `http://localhost/[project_name]/check.php`
 
 #Developer vs production
 

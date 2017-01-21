@@ -25,19 +25,19 @@ if (is_writable($systemData)) {
 }
 
 if (function_exists('mb_detect_encoding')) {
-    echo 'Ok: Class Inphinit\Helper (asciiTranslit and makeUrl methods) work, ',
+    echo 'Ok: Experimental\Uri class and Inphinit\Helper::toAscii work, ',
             '"Multibyte String" is enabled in php', $bl;
 } else {
-    echo 'Fail: (Optinal) Class Inphinit\Helper (asciiTranslit and makeUrl methods) ',
+    echo 'Fail: (Optinal) Inphinit\Experimental\Uri class and Inphinit\Helper::toAscii ',
             'not work, "Multibyte String" is disabled',
             ' in php (if needed for you)', $bl;
 }
 
 if (function_exists('iconv')) {
-    echo 'Ok: Class Inphinit\Helper (asciiTranslit and makeUrl methods) work, "iconv" is ',
+    echo 'Ok: Experimental\Uri work, "iconv" is ',
             'enabled in php', $bl;
 } else {
-    echo 'Fail: (Optinal) Class Inphinit\Helper (asciiTranslit and makeUrl methods) not work, ',
+    echo 'Fail: (Optinal) Inphinit\Experimental\Uri not work, ',
             '"iconv" is disabled in php (if needed for you)', $bl;
 }
 

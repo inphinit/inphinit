@@ -13,7 +13,7 @@
 
 $base = dirname(__FILE__);
 $base = rtrim(strtr($base, '\\', '/'), '/');
-$data = 'root $base/;
+$data = 'root "$base/";
 
 location / {
     autoindex on;

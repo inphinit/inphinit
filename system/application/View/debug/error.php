@@ -1,4 +1,4 @@
-<div style="border: 1px #c0c0c0 solid; padding: 5px; margin: 5px; text-align: left;">
+<div class="box">
 <h1>Error</h1>
 <h2><?php echo $message, ' in ', $file , ':', $line; ?></h2>
 <pre><?php

@@ -1,8 +1,16 @@
-<div style="border: 1px #c0c0c0 solid; padding: 5px; margin: 5px;">
+<div class="box">
 <h1>Declared classes</h1>
-<?php foreach ($classes as $key => $value): ?>
+<?php foreach ($classes as $className => $properties): ?>
+    <h2><?php echo $className; ?></h2>
+
+    <?php foreach ($properties as $name => $value): ?>
     <ul>
-        <li><?php echo $key; ?></li>
+        <li>
+            <strong>$<?php echo $name; ?>:</strong>
+            <pre class="box"><?php var_dump($value); ?></pre>
+        </li>
     </ul>
+    <?php endforeach; ?>
+
 <?php endforeach; ?>
 </div>

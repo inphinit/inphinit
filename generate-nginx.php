@@ -6,8 +6,8 @@
  *
  * Released under the MIT license
  *
- * Usage with command line: php generate-ngix.php
- * Or navigate to: http://[your website]/generate-ngix.php
+ * Usage with command line: php generate-nginx.php
+ * Or navigate to: http://[your website]/generate-nginx.php
  * Copy content in ouput and put in nginx.conf
  */
 

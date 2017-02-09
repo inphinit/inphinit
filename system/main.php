@@ -30,5 +30,12 @@ Route::set('ANY', '/user/{:[a-z0-9_.]+:}', 'Users.Profile:view');
 // Navitate to http://[server]/info
 Route::set('ANY', '/info', 'Examples:info');
 
-// Navitate to http://[server]/closure
-Route::set('ANY', '/closure', 'Examples:arrayClosure');
+// Navitate to http://[server]/eventexample
+Route::set('ANY', '/eventexample', 'Examples:eventready');
+
+/*
+ * Navigate to http://[server]/product/12345 or http://[server]/product/12345/
+ */
+Route::set('ANY', '/product/{:\d+:}{:(|/):}', function($id) {
+    return 'Product ID: ' . $id;
+});

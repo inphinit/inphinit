@@ -36,6 +36,6 @@ Route::set('ANY', '/eventexample', 'Examples:eventready');
 /*
  * Navigate to http://[server]/product/12345 or http://[server]/product/12345/
  */
-Route::set('ANY', '/product/{:\d+:}{:(|/):}', function($id) {
+Route::set('GET', '/product/{:\d+:}{:|/:}', function($id) {
     return 'Product ID: ' . $id;
 });

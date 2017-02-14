@@ -29,9 +29,9 @@ $data = '<IfModule mod_negotiation.c>
 IndexIgnore *
 
 # Redirect page errors to route system
-ErrorDocument 401 $base/index.php/RESERVED.INPHINIT-401.html
-ErrorDocument 403 $base/index.php/RESERVED.INPHINIT-403.html
-ErrorDocument 501 $base/index.php/RESERVED.INPHINIT-501.html
+ErrorDocument 401 ' . $base . '/index.php/RESERVED.INPHINIT-401.html
+ErrorDocument 403 ' . $base . '/index.php/RESERVED.INPHINIT-403.html
+ErrorDocument 501 ' . $base . '/index.php/RESERVED.INPHINIT-501.html
 
 RewriteEngine On
 
@@ -46,8 +46,6 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [L]
 ';
 
-$htaccess = str_replace('$base', $base, $data);
+file_put_contents('.htaccess', $data);
 
-file_put_contents('.htaccess', $htaccess);
-
-echo '<pre>', htmlspecialchars($htaccess), '</pre>';
+echo '<pre>', htmlspecialchars($data), '</pre>';

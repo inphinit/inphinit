@@ -12,10 +12,8 @@
  */
 
 if (
-    PHP_SAPI === 'cli' ||
-    PHP_SAPI === 'cli-server' ||
-    empty($_SERVER['SERVER_SOFTWARE']) //||
-    //stripos($_SERVER['SERVER_SOFTWARE'], 'microsoft-iis') === false
+    empty($_SERVER['SERVER_SOFTWARE']) ||
+    stripos($_SERVER['SERVER_SOFTWARE'], 'microsoft-iis') === false
 ) {
     echo 'Use this script only with IIS or IIS Express';
     exit;

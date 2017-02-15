@@ -10,8 +10,6 @@
  */
 
 if (
-    PHP_SAPI === 'cli' ||
-    PHP_SAPI === 'cli-server' ||
     empty($_SERVER['SERVER_SOFTWARE']) ||
     stripos($_SERVER['SERVER_SOFTWARE'], 'apache') === false
 ) {

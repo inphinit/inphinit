@@ -13,7 +13,7 @@
 
 $base = dirname(__FILE__);
 $base = rtrim(strtr($base, '\\', '/'), '/');
-$data = 'root "$base/";
+$data = 'root "' . $base . '/";
 
 location / {
     autoindex on;
@@ -33,8 +33,6 @@ location ~ \.php$ {
     include        fastcgi_params;
 }
 ';
-
-$ngnix = str_replace('$base', $base, $data);
 
 if (PHP_SAPI !== 'cli') {
     echo '<pre>', htmlspecialchars($ngnix), '</pre>';

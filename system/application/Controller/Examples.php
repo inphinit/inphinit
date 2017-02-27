@@ -10,7 +10,7 @@ class Examples
         App::on('ready', 'phpinfo');
     }
 
-    public function eventready()
+    public function eventReady()
     {
         $args = array(
             'foo' => 'Foo',

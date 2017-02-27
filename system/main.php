@@ -25,7 +25,7 @@ App::on('changestatus', function ($status, $msg) {
 Route::set('ANY', '/', 'Home:index');
 
 // Navitate to http://[server]/user/[YOUR NAME] like: http://[server]/user/mary
-Route::set('ANY', '/user/{:[a-z0-9_.]+:}', 'Users.Profile:view');
+Route::set('ANY', '/user/{:[a-z0-9_.\-]+:}', 'Users.Profile:view');
 
 // Navitate to http://[server]/info
 Route::set('ANY', '/info', 'Examples:info');
@@ -33,9 +33,7 @@ Route::set('ANY', '/info', 'Examples:info');
 // Navitate to http://[server]/eventexample
 Route::set('ANY', '/eventexample', 'Examples:eventready');
 
-/*
- * Navigate to http://[server]/product/12345 or http://[server]/product/12345/
- */
+// Navigate to http://[server]/product/12345 or http://[server]/product/12345/
 Route::set('GET', '/product/{:\d+:}{:|/:}', function($id) {
     return 'Product ID: ' . $id;
 });

@@ -7,7 +7,7 @@ HOST_HOST="localhost"
 HOST_PORT=9000
 
 # Used to restore current dir if using command line
-BASEDIR=$(dirname "$0")
+BASEDIR=$(dirname "${0}")
 
 # Router path
 ROUTER="$BASEDIR/system/boot/server.php"

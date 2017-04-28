@@ -34,7 +34,7 @@ ErrorDocument 501 ' . $base . '/index.php/RESERVED.INPHINIT-501.html
 RewriteEngine On
 
 # Disable access to folder and redirect ./system/* path to "routes"
-RewriteRule ^system/ index.php [L]
+RewriteRule ^(system/|system$) index.php [L]
 
 # Check file or folders exists
 RewriteCond %{REQUEST_FILENAME} !-d

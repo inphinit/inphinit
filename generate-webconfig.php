@@ -48,7 +48,7 @@ $data = '<?xml version="1.0" encoding="UTF-8"?>
         <rewrite>
             <rules>
                 <rule name="Ignore system folder" stopProcessing="true">
-                    <match url="^system/" ignoreCase="false" />
+                    <match url="^(system/|system$)" ignoreCase="false" />
                     <action type="Rewrite" url="index.php" />
                 </rule>
                 <rule name="Redirect to routes" stopProcessing="true">

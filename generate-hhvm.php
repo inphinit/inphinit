@@ -6,8 +6,10 @@
  *
  * Released under the MIT license
  *
- * Usage with command line: php generate-nginx.php
- * Or navigate to: http://[your website]/generate-nginx.php
+ * Note: This is used only fast-cgi (eg. nginx)
+ *
+ * Usage with command line: php generate-hhvm.php
+ * Or navigate to: http://[your website]/generate-hhvm.php
  * Copy content in ouput and put in nginx.conf
  */
 
@@ -32,7 +34,7 @@ location / {
 }
 
 # Option, your server may have already been configured
-location ~ \.php$ {
+location ~ \.(php|hh)$ {
     fastcgi_pass   127.0.0.1:9000; # Replace by your fastcgi
     fastcgi_index  index.php;
     fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;

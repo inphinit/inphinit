@@ -1,6 +1,13 @@
 <?php
+/*
+ * Inphinit
+ *
+ * Copyright (c) 2017 Guilherme Nascimento (brcontainer@yahoo.com.br)
+ *
+ * Released under the MIT license
+ */
 
-define('INPHINIT_ROOT', rtrim(strtr(dirname(__FILE__), '\\', '/'), '/') . '/');
+define('INPHINIT_ROOT', strtr(__DIR__, '\\', '/') . '/');
 define('INPHINIT_PATH', INPHINIT_ROOT . 'system/');
 
 $response = require INPHINIT_PATH . 'vendor/inphinit/framework/src/requirements.php';

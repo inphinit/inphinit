@@ -14,15 +14,15 @@ $response = require INPHINIT_PATH . 'vendor/inphinit/framework/src/requirements.
 
 if (php_sapi_name() === 'cli') {
     if (empty($response->error) === false) {
-        echo ' - Fail: ' . implode(PHP_EOL . ' - Fail: ', $fail), PHP_EOL;
+        echo ' - Fail: ' . implode(PHP_EOL . ' - Fail: ', $response->error), PHP_EOL;
     }
 
     if (empty($response->warn) === false) {
-        echo ' - Optional: ' . implode(PHP_EOL . ' - Optional: ', $warn), PHP_EOL;
+        echo ' - Optional: ' . implode(PHP_EOL . ' - Optional: ', $response->warn), PHP_EOL;
     }
 
     if (empty($response->error) && empty($response->warn)) {
-        echo ' ((( Your server is fine! ;] )))', PHP_EOL;
+        echo 'Your server is fine! ;]', PHP_EOL;
     }
 } else {
 ?><!DOCTYPE html>

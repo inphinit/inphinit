@@ -19,7 +19,7 @@ if (INPHINIT_COMPOSER) {
 
 UtilsConfig();
 
-if (App::env('developer') === true) {
+if (App::env('developer')) {
     require_once INPHINIT_PATH . 'dev.php';
 }
 

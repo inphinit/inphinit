@@ -4,6 +4,7 @@
  */
 
 define('BOOT_PATH', rtrim(strtr(dirname(__FILE__), '\\', '/'), '/') . '/');
+define('INPHINIT_PATH', dirname(BOOT_PATH) . '/');
 
 require_once BOOT_PATH . '../vendor/inphinit/framework/src/Inphinit/Packages.php';
 
@@ -14,6 +15,8 @@ $packages = new Inphinit\Packages($composer);
 $packages->auto();
 
 $logs = $packages->logs();
+
+$packages->save(BOOT_PATH . 'namespaces.php');
 
 echo 'Importing packages:', PHP_EOL;
 

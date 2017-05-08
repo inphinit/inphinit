@@ -7,20 +7,19 @@ if (PHP_SAPI !== 'cli-server') {
     exit;
 }
 
-$serverPath = realpath(dirname(__FILE__) . '/../../');
-$serverPath = rtrim(strtr($serverPath, '\\', '/'), '/') . '/';
+$serverPath = strtr(realpath(__DIR__ . '/../../'), '\\', '/') . '/';
 
-$path = urldecode(preg_replace('#\?(.*)$#', '', $_SERVER['REQUEST_URI']));
-$path = ltrim($path, '/');
+require_once $serverPath . '/system/vendor/inphinit/framework/src/Utils.php';
+
+$path = UtilsPath();
 
 if (
-    $path !== '' &&
     $path !== '/' &&
-    strcasecmp($path, 'system') !== 0 &&
-    stripos($path, 'system/') !== 0 &&
+    strcasecmp($path, '/system') !== 0 &&
+    stripos($path, '/system/') !== 0 &&
     is_file($serverPath . $path)
 ) {
     return false;
 }
 
-require_once $serverPath . 'index.php';
+require_once $serverPath . '/index.php';

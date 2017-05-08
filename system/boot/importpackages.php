@@ -3,7 +3,7 @@
  * Usage with command line: php importpackages.php
  */
 
-define('BOOT_PATH', rtrim(strtr(dirname(__FILE__), '\\', '/'), '/') . '/');
+define('BOOT_PATH', strtr(__DIR__, '\\', '/') . '/');
 define('INPHINIT_PATH', dirname(BOOT_PATH) . '/');
 
 require_once BOOT_PATH . '../vendor/inphinit/framework/src/Inphinit/Packages.php';

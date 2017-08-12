@@ -1,7 +1,7 @@
 <?php
 namespace Controller;
 
-use Inphinit\View;
+use Inphinit\Viewing\View;
 
 class Home
 {

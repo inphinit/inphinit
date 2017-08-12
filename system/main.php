@@ -1,7 +1,7 @@
 <?php
 use Inphinit\App;
-use Inphinit\View;
 use Inphinit\Request;
+use Inphinit\Viewing\View;
 use Inphinit\Routing\Route;
 
 Route::set('ANY', '/', 'Home:index');

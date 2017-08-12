@@ -1,7 +1,7 @@
 <?php
 namespace Controller\Users;
 
-use Inphinit\View;
+use Inphinit\Viewing\View;
 
 class Profile
 {

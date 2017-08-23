@@ -1,16 +1,19 @@
-<div class="box">
-<h1>Error</h1>
-<h2><?php echo $message, ' in ', $file , ':', $line; ?></h2>
-<pre><?php
-    $data = $source['preview'];
-    $breakpoint = $source['breakpoint'];
-    $lines = count($data);
-
+<div class="code-inphinit">
+<div class="code-inphinit-header">
+    <?php echo $file; ?> on line <?php echo $line; ?>
+</div>
+<h3 class="error"><?php echo $message; ?></h3>
+<?php
+$data = $source['preview'];
+$breakpoint = $source['breakpoint'];
+$lines = count($data);
+?>
+<pre style="counter-reset: line <?php echo $line - $breakpoint - 1; ?>"><?php
     for ($i = 0; $i < $lines; $i++) {
         if ($breakpoint === $i) {
-            echo '<strong style="color: red;">', htmlspecialchars($data[$i], ENT_QUOTES), '</strong>', EOL;
+            echo '<span class="hl-line">', htmlspecialchars($data[$i], ENT_QUOTES), '</span>', EOL;
         } else {
-            echo htmlspecialchars($data[$i], ENT_QUOTES), EOL;
+            echo '<span>', htmlspecialchars($data[$i], ENT_QUOTES), '</span>', EOL;
         }
     }
 ?></pre>

@@ -1,12 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php $title; ?></title>
+    <meta charset="utf-8">
+    <title><?php echo $status . ' ' . $title; ?></title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300" rel="stylesheet" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+    <style type="text/css">
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        background-color: #F7F6F6;
+        min-width: 210px;
+    }
+    .container {
+        height: 100%;
+        text-align: center;
+        -webkit-user-select: none;
+           -moz-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+        -webkit-touch-callout: none;
+    }
+    .container .header {
+        display: inline;
+        display: inline-block;
+        vertical-align: middle;
+        width: 96%;
+        font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif;
+        color: #5F5656;
+        -webkit-user-select: initial;
+           -moz-user-select: initial;
+            -ms-user-select: initial;
+                user-select: initial;
+        -webkit-touch-callout: initial;
+    }
+    .container h1 {
+        font-size: 48pt;
+        font-weight: 100;
+        padding: 5px 0;
+        margin: 0;
+    }
+    .container h1 strong {
+        display: block;
+        font-size: 200%;
+    }
+    .container:before, .container::before {
+        display: inline-block;
+        vertical-align: middle;
+        content: "";
+        height: 100%;
+        width: 0;
+    }
+
+    @media only screen and (max-width: 400px) {
+        .container h1 {
+            font-size: 36pt;
+        }
+    }
+    </style>
 </head>
 <body>
-    <h1><?php echo $title; ?></h1>
-    <p>Http status: <?php echo $status; ?></p>
-    <p>Path: <?php echo $path; ?></p>
-    <p>Route tried: <?php echo $route; ?></p>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <strong><?php echo $status; ?></strong>
+                <?php echo $title; ?>
+            </h1>
+            <p>
+                Route "<?php echo $route; ?>" not defined (in fullpath: <?php echo $path; ?>)
+            </p>
+        </div>
+    </div>
 </body>
 </html>

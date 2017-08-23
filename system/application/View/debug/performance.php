@@ -1,4 +1,4 @@
-<div class="box">
+<div class="debug-inphinit">
     <h1>Perfomance</h1>
     <p>Memory usage: <?php echo $usage; ?></p>
     <p>Memory peak: <?php echo $peak; ?></p>

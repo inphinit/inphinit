@@ -2,8 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Inphinit php framework</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
+    <title>Inphinit PHP framework</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300" rel="stylesheet" type="text/css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
@@ -56,19 +56,6 @@
         content: "";
         height: 100%;
         width: 0;
-    }
-
-    .box {
-        margin: 5px 15px 15px 15px;
-        padding: 10px;
-        border: 1px #cfcfcf solid;
-        background-color: #fcfcfc;
-        border-radius: 4px;
-    }
-    .box .box {
-        background-color: #F7F6F6;
-        color: #716a6a;
-        margin: 5px 0 15px 0;
     }
 
     @media only screen and (max-width: 400px) {

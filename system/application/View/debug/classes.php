@@ -1,7 +1,7 @@
-<div class="box">
-<h1>Declared classes</h1>
+<div class="debug-inphinit">
+<h3>Declared classes</h3>
 <?php foreach ($classes as $className => $properties): ?>
-    <h2><?php echo $className; ?></h2>
+    <h4><?php echo $className; ?></h4>
 
     <?php foreach ($properties as $name => $value): ?>
     <ul>
@@ -11,6 +11,6 @@
         </li>
     </ul>
     <?php endforeach; ?>
-
+    <hr>
 <?php endforeach; ?>
 </div>

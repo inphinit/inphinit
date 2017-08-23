@@ -1,0 +1,63 @@
+<style type="text/css">
+.debug-inphinit {
+    padding: 10px;
+    background-color: #fcfcfc;
+    border-radius: 4px;
+}
+.debug-inphinit, .code-inphinit {
+    margin: 15px 15px 25px 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.18), 0 1px 2px rgba(0,0,0,0.30);
+}
+.debug-inphinit h3, .debug-inphinit h4, .debug-inphinit .code-header {
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif;
+}
+.debug-inphinit .debug-inphinit {
+    background-color: #F7F6F6;
+    color: #716a6a;
+    margin: 5px 0 15px 0;
+    box-shadow: none;
+}
+.code-inphinit .hl-line {
+    display: inline-block;
+    background-color: #656565;
+    padding: 5px 0;
+    margin: 5px 0;
+    color: #fff;
+    width: 100%;
+}
+.code-inphinit {
+    background-color: #282C35;
+    border-radius: 4px;
+    overflow: hidden;
+    color: #dfe0e0;
+}
+.code-inphinit-header {
+    background-color: #ed591a;
+    font-size: 10pt;
+    padding: 10px;
+    color: #fff;
+}
+.code-inphinit .error {
+    background-color: #fcfcfc;
+    color: #282C35;
+    padding: 10px;
+    margin: 0;
+}
+.code-inphinit pre {
+    line-height: 24px;
+    padding: 5px;
+    font-size: 9pt;
+}
+
+.code-inphinit pre span:before, .code-inphinit pre span::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    min-width: 22px;
+    border-right: 1px solid #414856;
+    margin-right: 10px;
+    color: #888;
+    text-align: right;
+    padding-right: 10px;
+}
+</style>

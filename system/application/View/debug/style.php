@@ -1,5 +1,6 @@
 <style type="text/css">
 .debug-inphinit {
+    text-align: left;
     padding: 10px;
     background-color: #fcfcfc;
     border-radius: 4px;
@@ -17,6 +18,13 @@
     margin: 5px 0 15px 0;
     box-shadow: none;
 }
+.code-inphinit {
+    text-align: left;
+    background-color: #282C35;
+    border-radius: 4px;
+    overflow: hidden;
+    color: #dfe0e0;
+}
 .code-inphinit .hl-line {
     display: inline-block;
     background-color: #656565;
@@ -24,12 +32,6 @@
     margin: 5px 0;
     color: #fff;
     width: 100%;
-}
-.code-inphinit {
-    background-color: #282C35;
-    border-radius: 4px;
-    overflow: hidden;
-    color: #dfe0e0;
 }
 .code-inphinit-header {
     background-color: #ed591a;
@@ -47,6 +49,8 @@
     line-height: 24px;
     padding: 5px;
     font-size: 9pt;
+    overflow: auto;
+    margin: 0;
 }
 
 .code-inphinit pre span:before, .code-inphinit pre span::before {

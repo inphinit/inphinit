@@ -1,4 +1,6 @@
 <style type="text/css">
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300');
+
 .debug-inphinit {
     text-align: left;
     padding: 10px;
@@ -9,7 +11,7 @@
     margin: 15px 15px 25px 15px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.18), 0 1px 2px rgba(0,0,0,0.30);
 }
-.debug-inphinit h3, .debug-inphinit h4, .debug-inphinit .code-header {
+.debug-inphinit h3, .debug-inphinit h4, .code-inphinit-header, .code-inphinit .error {
     font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif;
 }
 .debug-inphinit .debug-inphinit {
@@ -26,7 +28,6 @@
     color: #dfe0e0;
 }
 .code-inphinit .hl-line {
-    display: inline-block;
     background-color: #656565;
     padding: 5px 0;
     margin: 5px 0;
@@ -41,9 +42,15 @@
 }
 .code-inphinit .error {
     background-color: #fcfcfc;
+    font-weight: bold;
     color: #282C35;
     padding: 10px;
     margin: 0;
+}
+.code-inphinit .error > a {
+    color: #5f5f8c;
+    text-decoration: none;
+    border-bottom: 1px #3b4045 dotted;
 }
 .code-inphinit pre {
     line-height: 24px;
@@ -51,6 +58,9 @@
     font-size: 9pt;
     overflow: auto;
     margin: 0;
+}
+.code-inphinit pre > span {
+    display: inline-block;
 }
 
 .code-inphinit pre span:before, .code-inphinit pre span::before {

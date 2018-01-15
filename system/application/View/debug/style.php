@@ -63,7 +63,7 @@
     display: inline-block;
 }
 
-.code-inphinit pre span:before, .code-inphinit pre span::before {
+.code-inphinit pre span:before {
     counter-increment: line;
     content: counter(line);
     display: inline-block;
@@ -73,5 +73,23 @@
     color: #888;
     text-align: right;
     padding-right: 10px;
+}
+
+.code-inphinit pre span::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    min-width: 22px;
+    border-right: 1px solid #414856;
+    margin-right: 10px;
+    color: #888;
+    text-align: right;
+    padding-right: 10px;
+}
+.code-inphinit .hl-line:before {
+    border-right-color: #777e8e;
+}
+.code-inphinit .hl-line::before {
+    border-right-color: #777e8e;
 }
 </style>

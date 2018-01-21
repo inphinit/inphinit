@@ -20,11 +20,6 @@
     .container {
         height: 100%;
         text-align: center;
-        -webkit-user-select: none;
-           -moz-user-select: none;
-            -ms-user-select: none;
-                user-select: none;
-        -webkit-touch-callout: none;
     }
     .container .header {
         display: inline;
@@ -33,11 +28,6 @@
         width: 96%;
         font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif;
         color: #5F5656;
-        -webkit-user-select: initial;
-           -moz-user-select: initial;
-            -ms-user-select: initial;
-                user-select: initial;
-        -webkit-touch-callout: initial;
     }
     .container h1 {
         font-size: 48pt;
@@ -49,7 +39,14 @@
         display: block;
         font-size: 200%;
     }
-    .container:before, .container::before {
+    .container code {
+        display: inline-block;
+        padding: 3px 5px;
+        border-radius: 3px;
+        background-color: #756868;
+        color: #fff;
+    }
+    .container::before {
         display: inline-block;
         vertical-align: middle;
         content: "";
@@ -70,9 +67,10 @@
             <h1>
                 <strong><?php echo $status; ?></strong>
                 <?php echo $title; ?>
+
             </h1>
             <p>
-                Route "<?php echo $route; ?>" not defined (in fullpath: <?php echo $path; ?>)
+                Route <code><?php echo $route; ?></code> not defined (in fullpath: <?php echo $path; ?>)
             </p>
         </div>
     </div>

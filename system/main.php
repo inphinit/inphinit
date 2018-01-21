@@ -1,6 +1,6 @@
 <?php
 use Inphinit\App;
-use Inphinit\Request;
+use Inphinit\Http\Request;
 use Inphinit\Viewing\View;
 use Inphinit\Routing\Route;
 

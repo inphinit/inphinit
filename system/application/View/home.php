@@ -20,11 +20,6 @@
     .container {
         height: 100%;
         text-align: center;
-        -webkit-user-select: none;
-           -moz-user-select: none;
-            -ms-user-select: none;
-                user-select: none;
-        -webkit-touch-callout: none;
     }
     .container .header {
         display: inline;
@@ -33,11 +28,6 @@
         width: 96%;
         font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif;
         color: #5F5656;
-        -webkit-user-select: initial;
-           -moz-user-select: initial;
-            -ms-user-select: initial;
-                user-select: initial;
-        -webkit-touch-callout: initial;
     }
     .container h1 {
         font-size: 48pt;
@@ -50,7 +40,7 @@
         font-weight: normal;
         font-size: 18pt;
     }
-    .container:before, .container::before {
+    .container::before {
         display: inline-block;
         vertical-align: middle;
         content: "";

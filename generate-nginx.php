@@ -1,12 +1,6 @@
 <?php
 /*
- * Inphinit
- *
- * Copyright (c) 2017 Guilherme Nascimento (brcontainer@yahoo.com.br)
- *
- * Released under the MIT license
- *
- * If using Ngninx:
+ * If using Nginx:
  * - on command line type: php generate-nginx.php
  * - Or navigate to: http://[your website]/generate-nginx.php
  * - Copy content in ouput and put in nginx.conf

@@ -1,12 +1,4 @@
 <?php
-/*
- * Inphinit
- *
- * Copyright (c) 2017 Guilherme Nascimento (brcontainer@yahoo.com.br)
- *
- * Released under the MIT license
- */
-
 use Inphinit\App;
 
 require_once INPHINIT_PATH . 'vendor/inphinit/framework/src/Utils.php';

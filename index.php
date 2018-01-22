@@ -1,12 +1,4 @@
 <?php
-/*
- * Inphinit
- *
- * Copyright (c) 2017 Guilherme Nascimento (brcontainer@yahoo.com.br)
- *
- * Released under the MIT license
- */
-
 define('INPHINIT_START', microtime(true));
 define('INPHINIT_ROOT', strtr(__DIR__, '\\', '/') . '/');
 define('INPHINIT_PATH', INPHINIT_ROOT . 'system/');

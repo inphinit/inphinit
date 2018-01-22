@@ -70,7 +70,7 @@
 
             </h1>
             <p>
-                Route <code><?php echo $route; ?></code> not defined (in fullpath: <?php echo $path; ?>)
+                Route <code><?php echo $route; ?></code> not defined (in fullpath: <code><?php echo $path; ?></code>)
             </p>
         </div>
     </div>

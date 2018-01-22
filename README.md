@@ -8,7 +8,7 @@ PHP framework, routes, controllers and views
 1. PHP 5.3.0+
 1. Multibyte String (GD also) (optional, only used in `Inphinit\Helper::toAscii`)
 1. libiconv (optional, only used in `Inphinit\Helper::toAscii`)
-1. fileinfo (optional, only used in `Inphinit\File::mimeType`)
+1. fileinfo (optional, only used in `Inphinit\File::mime`)
 1. Apache or Nginx or IIS for production
 
 For check requirements see [Check requirements](#check-requirements)

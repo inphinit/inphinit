@@ -127,15 +127,15 @@ For check requirements see [Check requirements](#check-requirements)
 
 For check requirements navigate with your web-browser to `http://localhost:9000/check.php` or `http://localhost/[project_name]/check.php`
 
-## Developer vs production
+## Development vs production
 
-For setup access `[project_name]/system/application/Config/config.php` with your text editor and change `developer` key to `true` or `false`:
+For setup access `[project_name]/system/application/Config/config.php` with your text editor and change `development` key to `true` or `false`:
 
 ```php
 <?php
 return array(
     'appdata_expires' => 86400,
-    'developer'       => true,
+    'development'     => true,
     'maintenance'     => false
 );
 ```

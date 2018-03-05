@@ -7,7 +7,7 @@ if (PHP_SAPI !== 'cli-server') {
     exit;
 }
 
-$serverPath = strtr(realpath(__DIR__ . '/../../'), '\\', '/') . '/';
+$serverPath = strtr(realpath(__DIR__ . '/../../'), '\\', '/');
 
 require_once $serverPath . '/system/vendor/inphinit/framework/src/Utils.php';
 

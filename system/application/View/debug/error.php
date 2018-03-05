@@ -11,15 +11,20 @@ $start = $line - $breakpoint;
 $start = $start < 1 ? 0 : $start;
 $breakpoint--;
 ?>
+
+<?php if ($lines): ?>
 <pre style="counter-reset: line <?php echo $start; ?>"><?php
 for ($i = 0; $i < $lines; $i++) {
-    $data[$i] = trim($data[$i], "\r\n");
+    $current = trim($data[$i], "\r\n");
+    $current = htmlspecialchars($current, ENT_QUOTES);
 
     if ($breakpoint === $i) {
-        echo '<span class="hl-line">', htmlspecialchars($data[$i], ENT_QUOTES), '</span>', EOL;
+        echo '<span class="hl-line">', $current, '</span>', EOL;
     } else {
-        echo '<span>', htmlspecialchars($data[$i], ENT_QUOTES), '</span>', EOL;
+        echo '<span>', $current, '</span>', EOL;
     }
 }
 ?></pre>
+<?php endif; ?>
+
 </div>

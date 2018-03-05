@@ -29,6 +29,7 @@
 }
 .code-inphinit .hl-line {
     background-color: #656565;
+    border-radius: 2px;
     padding: 5px 0;
     margin: 5px 0;
     color: #fff;

@@ -13,4 +13,4 @@ BASEDIR=$(dirname "${0}")
 ROUTER="$BASEDIR/system/boot/server.php"
 
 # Start built in server
-$PHP_BIN -S $HOST_HOST:$HOST_PORT -c $PHP_INI $ROUTER
+$PHP_BIN -S $HOST_HOST:$HOST_PORT -c $PHP_INI -t $BASEDIR $ROUTER

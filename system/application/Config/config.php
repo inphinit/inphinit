@@ -1,6 +1,6 @@
 <?php
 return array(
     'appdata_expires' => 86400,
-    'developer'       => true,
+    'development'     => true,
     'maintenance'     => false
 );

@@ -23,7 +23,7 @@ Route::set('GET', '/product/{:\d+:}{:/?:}', function ($id) {
 App::on('changestatus', function ($status, $msg) {
     if ($status === 503) {
         echo 'This site is currently down for maintenance and should be back soon!';
-    } elseif (in_array($status, array(401, 403, 404, 500, 501))) {
+    } elseif ($msg || in_array($status, array(401, 403, 404, 500, 501))) {
         View::forceRender();
 
         View::render('httpview', array(

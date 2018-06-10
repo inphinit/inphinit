@@ -103,7 +103,7 @@ For check requirements see [Check requirements](#check-requirements)
     <?php
     namespace Controller;
 
-    use Inphinit\View;
+    use Inphinit\Viewing\View;
 
     class MyController
     {

@@ -86,28 +86,16 @@ if (php_sapi_name() === 'cli') {
         <h1>Check server requirements</h1>
 
         <?php
-        $errors = count($response->error);
-
-        if ($errors) {
-            echo '<ul class="fail">';
-
-            for ($i = 0; $i < $errors; $i++) {
-                echo '<li>Fail: ', $error[$i], '</li>';
-            }
-
-            echo '</ul>';
+        if ($response->error) {
+            echo '<ul class="fail"><li>Fail: ',
+                implode('</li><li>Fail: ', $response->error),
+                '</li></ul>';
         }
 
-        $warns = count($response->warn);
-
-        if ($warns) {
-            echo '<ul class="warn">';
-
-            for ($i = 0; $i < $warns; $i++) {
-                echo '<li>Warning: ', $response->warn[$i], '</li>';
-            }
-
-            echo '</ul>';
+        if ($response->warn) {
+            echo '<ul class="warn"><li>Optional: ',
+                implode('</li><li>Optional: ', $response->warn),
+                '</li></ul>';
         }
 
         if (empty($response->error) && empty($response->warn)) {

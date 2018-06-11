@@ -22,31 +22,45 @@ For check requirements see [Check requirements](#check-requirements)
 
   ```
   cd c:\wamp\www\
-  composer create-project inphinit/inphinit:dev-master [project_name]
+  composer create-project inphinit/inphinit [project_name]
   ```
 
 1. Or (if no using Wamp/Xampp/easyphp)
 
     ```
     cd c:\Users\[username]\Documents\
-    composer create-project inphinit/inphinit:dev-master [project_name]
+    composer create-project inphinit/inphinit [project_name]
     ```
 
 1. Install in Unix-like:
 
     ```
     cd /var/www/
-    php composer.phar create-project inphinit/inphinit:dev-master [project_name]
+    php composer.phar create-project inphinit/inphinit [project_name]
     ```
 
 1. Or (if no using Apache)
 
     ```
     cd /home/
-    php composer.phar create-project inphinit/inphinit:dev-master [project_name]
+    php composer.phar create-project inphinit/inphinit [project_name]
     ```
 
-1. Alternate is download git repository and copy content from zip file to folder project
+1. Alternate is download GIT repository and copy content from zip file to folder project (don't clone `master` for production use), clone last release example:
+
+    ```
+    git clone -b "0.1.0" https://github.com/inphinit/inphinit.git [project_name]
+    cd [project_name]
+    composer update
+    ```
+
+> **Note:** Don't use composer dev-master (eg. `create-projet inphinit/inphinit:dev-master`), to collaborate, prefer to clone with GIT, example:
+>
+> ```
+> git clone https://github.com/inphinit/inphinit.git [project_name]
+> cd [project_name]
+> composer update
+> ```
 
 ## Apache
 

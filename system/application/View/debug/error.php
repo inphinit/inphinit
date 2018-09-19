@@ -3,16 +3,23 @@
 <div class="error">
 <?php echo nl2br(Inphinit\Experimental\Debug::searcherror($message)); ?>
 </div>
+
+<?php if ($source): ?>
+
 <?php
 $data = $source['preview'];
-$breakpoint = $source['breakpoint'];
 $lines = count($data);
+?>
+
+<?php if ($lines): ?>
+
+<?php
+$breakpoint = $source['breakpoint'];
 $start = $line - $breakpoint;
 $start = $start < 1 ? 0 : $start;
 $breakpoint--;
 ?>
 
-<?php if ($lines): ?>
 <pre style="counter-reset: line <?php echo $start; ?>"><?php
 for ($i = 0; $i < $lines; $i++) {
     $current = trim($data[$i], "\r\n");
@@ -27,4 +34,5 @@ for ($i = 0; $i < $lines; $i++) {
 ?></pre>
 <?php endif; ?>
 
+<?php endif; ?>
 </div>

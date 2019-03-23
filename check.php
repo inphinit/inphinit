@@ -10,7 +10,7 @@ if (php_sapi_name() === 'cli') {
     }
 
     if (empty($response->warn) === false) {
-        echo ' - Optional: ' . implode(PHP_EOL . ' - Optional: ', $response->warn), PHP_EOL;
+        echo ' - Recommended: ' . implode(PHP_EOL . ' - Recommended: ', $response->warn), PHP_EOL;
     }
 
     if (empty($response->error) && empty($response->warn)) {

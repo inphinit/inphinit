@@ -67,11 +67,12 @@
             <h1>
                 <strong><?php echo $status; ?></strong>
                 <?php echo $title; ?>
-
             </h1>
             <p>
-                Route <code><?php echo $route; ?></code> is not defined
-                <?php if ($route !== $path): ?>(in fullpath: <code><?php echo $path; ?></code>)<?php endif; ?>
+                Route <code><?php echo $route; ?></code> is invalid
+                <?php if ($route !== $path): ?>
+                (in fullpath: <code><?php echo $path; ?></code>)
+                <?php endif; ?>
             </p>
         </div>
     </div>

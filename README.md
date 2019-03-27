@@ -49,9 +49,9 @@ For check requirements see [Check requirements](#check-requirements)
 1. Alternate is download GIT repository and copy content from zip file to folder project (don't clone `master` for production use), clone last release example:
 
     ```
-    git clone -b "0.1.0" https://github.com/inphinit/inphinit.git [project_name]
-    cd [project_name]
-    composer update
+    git clone -b "0.2.0" https://github.com/inphinit/inphinit.git inphinit
+    git clone -b "0.2.0" https://github.com/inphinit/framework.git inphinit/system/vendor/inphinit/framework
+    cd inphinit
     ```
 
 > **Note:** Don't use composer dev-master (eg. `create-projet inphinit/inphinit:dev-master`), to collaborate, prefer to clone with GIT, example:

@@ -93,8 +93,8 @@ if (php_sapi_name() === 'cli') {
         }
 
         if ($response->warn) {
-            echo '<ul class="warn"><li>Optional: ',
-                implode('</li><li>Optional: ', $response->warn),
+            echo '<ul class="warn"><li>Recommended: ',
+                implode('</li><li>Recommended: ', $response->warn),
                 '</li></ul>';
         }
 

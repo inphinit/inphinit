@@ -4,9 +4,14 @@
  */
 
 define('BOOT_PATH', strtr(__DIR__, '\\', '/') . '/');
+define('PACKAGES_PATH', BOOT_PATH . '../vendor/inphinit/framework/src/Inphinit/Packages.php');
 define('INPHINIT_PATH', dirname(BOOT_PATH) . '/');
 
-require_once BOOT_PATH . '../vendor/inphinit/framework/src/Inphinit/Packages.php';
+if (false === is_file(PACKAGES_PATH)) {
+    exit;
+}
+
+require_once PACKAGES_PATH;
 
 $composer = BOOT_PATH . '../vendor/composer/';
 

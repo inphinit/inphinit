@@ -1,4 +1,5 @@
 <?php
+
 use Inphinit\App;
 
 require_once INPHINIT_PATH . 'vendor/inphinit/framework/src/Utils.php';
@@ -8,6 +9,8 @@ if (INPHINIT_COMPOSER) {
 } else {
     UtilsAutoload();
 }
+
+$_POST = UtilsBodyParser();
 
 UtilsConfig();
 

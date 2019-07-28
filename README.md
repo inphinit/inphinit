@@ -39,8 +39,8 @@ For check requirements see [Check requirements](#check-requirements)
     ```
 1. Alternate is download GIT repository and copy content from zip file to folder project (don't clone `master` for production use), clone last release example:
     ```
-    git clone -b "0.4.1" https://github.com/inphinit/inphinit.git [project_name]
-    git clone -b "0.4.1" https://github.com/inphinit/framework.git [project_name]/system/vendor/inphinit/framework
+    git clone -b "0.4.2" https://github.com/inphinit/inphinit.git [project_name]
+    git clone -b "0.4.2" https://github.com/inphinit/framework.git [project_name]/system/vendor/inphinit/framework
     cd [project_name]
     ```
 

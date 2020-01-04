@@ -68,10 +68,11 @@
                 <strong><?php echo $status; ?></strong>
                 <?php echo $title; ?>
             </h1>
+
             <p>
-                Route <code><?php echo $route; ?></code> is invalid
+                Route <code><?php echo $route; ?></code>
                 <?php if ($route !== $path): ?>
-                (in fullpath: <code><?php echo $path; ?></code>)
+                (fullpath: <code><?php echo $path; ?></code>)
                 <?php endif; ?>
             </p>
         </div>

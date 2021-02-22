@@ -1,7 +1,7 @@
 {
     "name": "inphinit/inphinit",
     "description": "A framework for easy creation of routes",
-    "keywords": [ "framework" ],
+    "keywords": [ "framework", "routing", "url", "http", "dom", "rest", "api" ],
     "license": "MIT",
     "type": "project",
     "minimum-stability": "dev",

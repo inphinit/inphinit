@@ -1088,15 +1088,13 @@ php composer.phar create-project inphinit/inphinit [project_name]
 php composer.phar create-project inphinit/inphinit [project_name]
 </pre></div></li>
 <li>Alternate is download GIT repository and copy content from zip file to folder project (don&rsquo;t clone <code>master</code> for production use), clone last release example:
-    <div class="codehilite"><pre>git clone -b &quot;0.4.5&quot; https://github.com/inphinit/inphinit.git [project_name]
-git clone -b &quot;0.4.5&quot; https://github.com/inphinit/framework.git [project_name]/system/vendor/inphinit/framework
+    <div class="codehilite"><pre>git clone -b 0.5.13&quot; --recurse-submodules https://github.com/inphinit/inphinit.git [project_name]
 cd [project_name]
 </pre></div></li>
 </ol>
 <blockquote>
 <p><strong>Note:</strong> Don&rsquo;t use composer dev-master (eg. <code>create-projet inphinit/inphinit:dev-master</code>), to collaborate, prefer to clone with GIT, example:</p>
-<div class="codehilite"><pre>git clone https://github.com/inphinit/inphinit.git inphinit
-git clone https://github.com/inphinit/framework.git inphinit/system/vendor/inphinit/framework
+<div class="codehilite"><pre>git clone --recurse-submodules https://github.com/inphinit/inphinit.git inphinit
 cd inphinit
 </pre></div>
 

@@ -39,16 +39,14 @@ For check requirements see [Check requirements](#check-requirements)
     ```
 1. Alternate is download GIT repository and copy content from zip file to folder project (don't clone `master` for production use), clone last release example:
     ```
-    git clone -b "0.5.13" https://github.com/inphinit/inphinit.git [project_name]
-    git clone -b "0.5.13" https://github.com/inphinit/framework.git [project_name]/system/vendor/inphinit/framework
+    git clone -b 0.5.14" --recurse-submodules https://github.com/inphinit/inphinit.git [project_name]
     cd [project_name]
     ```
 
 > **Note:** Don't use composer dev-master (eg. `create-projet inphinit/inphinit:dev-master`), to collaborate, prefer to clone with GIT, example:
 >
 > ```
-> git clone https://github.com/inphinit/inphinit.git inphinit
-> git clone https://github.com/inphinit/framework.git inphinit/system/vendor/inphinit/framework
+> git clone --recurse-submodules https://github.com/inphinit/inphinit.git inphinit
 > cd inphinit
 > ```
 

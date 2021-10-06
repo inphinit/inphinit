@@ -75,14 +75,14 @@ For check requirements see [Check requirements](#check-requirements)
     php -S localhost:9000 system/boot/server.php
     ```
 1. Open web-browser and navigate to `http://localhost:9000`
-1. Or edit `server.sh`
+1. Or edit `server`
     ```
     #!/bin/bash
     PHP_BIN="/usr/bin/php"
     PHP_INI="/etc/php5/cli/php.ini"
     HOST_PORT=9000
     ```
-1. Save edition and run `./server.sh`
+1. Save edition and run `./server`
 
 ## Routing
 

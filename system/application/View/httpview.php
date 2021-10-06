@@ -41,6 +41,7 @@
     }
     .container code {
         display: inline-block;
+        vertical-align: middle;
         padding: 3px 5px;
         border-radius: 3px;
         background-color: #756868;

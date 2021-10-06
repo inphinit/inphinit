@@ -6,8 +6,8 @@ PHP_INI="/etc/php5/cli/php.ini"
 HOST_HOST=localhost
 HOST_PORT=9000
 
-# Used to restore current dir if using command line
-CURRENT_PATH=$(dirname "${0}")
+# Sets the project path so you can call the "./server" command from any location
+CURRENT_PATH=$(cd -- $(dirname ${BASH_SOURCE[0]}) && pwd -P)
 
 if [ ! -f "$PHP_BIN" ]; then
     echo "ERROR: $PHP_BIN not found"

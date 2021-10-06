@@ -6,25 +6,20 @@ set PHP_INI="C:\php\php.ini"
 set HOST_HOST=localhost
 set HOST_PORT=9000
 
-:: Current path
+:: Sets the project path so you can call the "./server" command from any location
 set CURRENT_PATH=%~dp0
 set CURRENT_PATH=%CURRENT_PATH:~0,-1%
 
+:: Router path
+set ROUTER="%CURRENT_PATH%\system\boot\server.php"
+
 if not exist %PHP_BIN% (
-    echo.
     echo ERROR: %PHP_BIN% not found
-    echo.
+    pause
 ) else if not exist %PHP_INI% (
-    echo.
     echo ERROR: %PHP_INI% not found
-    echo.
+    pause
 ) else (
-    :: Router path
-    set ROUTER="%CURRENT_PATH%\system\boot\server.php"
-
     :: Start built in server
-    %PHP_BIN% -S "%HOST_HOST%:%HOST_PORT%" -c %PHP_INI% -t "%CURRENT_PATH%" %ROUTER%
+    %PHP_BIN% -S "%HOST_HOST%:%HOST_PORT%" -c %PHP_INI% -t "%CURRENT_PATH%" %ROUTER% || pause
 )
-
-:: Prevent close if PHP failed to start
-pause

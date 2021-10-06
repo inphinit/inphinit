@@ -8,6 +8,7 @@
     border-radius: 4px;
 }
 .debug-inphinit, .code-inphinit {
+    white-space: normal;
     margin: 15px 15px 25px 15px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.18), 0 1px 2px rgba(0,0,0,0.30);
 }

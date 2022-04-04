@@ -12,8 +12,8 @@ ErrorDocument 501 /inphinit/index.php/RESERVED.INPHINIT-501.html
 
 RewriteEngine On
 
-# Disable access to folder and redirect ./system/* path to "routes"
-RewriteRule ^(system/|system$) index.php [L]
+# Disable protected folders and files
+RewriteRule (^\.|\/\.|^system/|system$) index.php [L]
 
 # Check file or folders exists
 RewriteCond %{REQUEST_FILENAME} !-d

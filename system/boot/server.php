@@ -15,6 +15,7 @@ $path = UtilsPath();
 
 if (
     $path !== '/' &&
+    strpos($path, '/.') === false &&
     strcasecmp($path, '/system') !== 0 &&
     stripos($path, '/system/') !== 0 &&
     is_file($serverPath . $path)

@@ -118,23 +118,28 @@ body .markdown-body
   padding: 0;
 }
 
-.markdown-body .codehilitetable {
+.markdown-body .codehilitetable,
+.markdown-body .highlighttable {
   border: 0;
   border-spacing: 0;
 }
 
-.markdown-body .codehilitetable tr {
+.markdown-body .codehilitetable tr,
+.markdown-body .highlighttable {
   border: 0;
 }
 
 .markdown-body .codehilitetable pre,
-.markdown-body .codehilitetable div.codehilite {
+.markdown-body .codehilitetable div.codehilite,
+.markdown-body .highlighttable pre,
+.markdown-body .highlighttable div.highlight {
   margin: 0;
 }
 
 .markdown-body .linenos,
 .markdown-body .code,
-.markdown-body .codehilitetable td {
+.markdown-body .codehilitetable td,
+.markdown-body .highlighttable td {
   border: 0;
   padding: 0;
 }
@@ -517,11 +522,13 @@ body .markdown-body
   border: 0;
 }
 
-.markdown-body .codehilite {
+.markdown-body .codehilite,
+.markdown-body .highlight {
   margin-bottom: 16px;
 }
 
 .markdown-body .codehilite pre,
+.markdown-body .highlight pre,
 .markdown-body pre {
   padding: 16px;
   overflow: auto;
@@ -531,7 +538,8 @@ body .markdown-body
   border-radius: 3px;
 }
 
-.markdown-body .codehilite pre {
+.markdown-body .codehilite pre,
+.markdown-body .highlight pre {
   margin-bottom: 0;
   word-break: normal;
 }
@@ -993,68 +1001,68 @@ body .markdown-body
   }
 }
 </style><style>/*GitHub*/
-.codehilite {background-color:#fff;color:#333333;}
-.codehilite .hll {background-color:#ffffcc;}
-.codehilite .c{color:#999988;font-style:italic}
-.codehilite .err{color:#a61717;background-color:#e3d2d2}
-.codehilite .k{font-weight:bold}
-.codehilite .o{font-weight:bold}
-.codehilite .cm{color:#999988;font-style:italic}
-.codehilite .cp{color:#999999;font-weight:bold}
-.codehilite .c1{color:#999988;font-style:italic}
-.codehilite .cs{color:#999999;font-weight:bold;font-style:italic}
-.codehilite .gd{color:#000000;background-color:#ffdddd}
-.codehilite .ge{font-style:italic}
-.codehilite .gr{color:#aa0000}
-.codehilite .gh{color:#999999}
-.codehilite .gi{color:#000000;background-color:#ddffdd}
-.codehilite .go{color:#888888}
-.codehilite .gp{color:#555555}
-.codehilite .gs{font-weight:bold}
-.codehilite .gu{color:#800080;font-weight:bold}
-.codehilite .gt{color:#aa0000}
-.codehilite .kc{font-weight:bold}
-.codehilite .kd{font-weight:bold}
-.codehilite .kn{font-weight:bold}
-.codehilite .kp{font-weight:bold}
-.codehilite .kr{font-weight:bold}
-.codehilite .kt{color:#445588;font-weight:bold}
-.codehilite .m{color:#009999}
-.codehilite .s{color:#dd1144}
-.codehilite .n{color:#333333}
-.codehilite .na{color:teal}
-.codehilite .nb{color:#0086b3}
-.codehilite .nc{color:#445588;font-weight:bold}
-.codehilite .no{color:teal}
-.codehilite .ni{color:purple}
-.codehilite .ne{color:#990000;font-weight:bold}
-.codehilite .nf{color:#990000;font-weight:bold}
-.codehilite .nn{color:#555555}
-.codehilite .nt{color:navy}
-.codehilite .nv{color:teal}
-.codehilite .ow{font-weight:bold}
-.codehilite .w{color:#bbbbbb}
-.codehilite .mf{color:#009999}
-.codehilite .mh{color:#009999}
-.codehilite .mi{color:#009999}
-.codehilite .mo{color:#009999}
-.codehilite .sb{color:#dd1144}
-.codehilite .sc{color:#dd1144}
-.codehilite .sd{color:#dd1144}
-.codehilite .s2{color:#dd1144}
-.codehilite .se{color:#dd1144}
-.codehilite .sh{color:#dd1144}
-.codehilite .si{color:#dd1144}
-.codehilite .sx{color:#dd1144}
-.codehilite .sr{color:#009926}
-.codehilite .s1{color:#dd1144}
-.codehilite .ss{color:#990073}
-.codehilite .bp{color:#999999}
-.codehilite .vc{color:teal}
-.codehilite .vg{color:teal}
-.codehilite .vi{color:teal}
-.codehilite .il{color:#009999}
-.codehilite .gc{color:#999;background-color:#EAF2F5}
+.highlight {background-color:#fff;color:#333333;}
+.highlight .hll {background-color:#ffffcc;}
+.highlight .c{color:#999988;font-style:italic}
+.highlight .err{color:#a61717;background-color:#e3d2d2}
+.highlight .k{font-weight:bold}
+.highlight .o{font-weight:bold}
+.highlight .cm{color:#999988;font-style:italic}
+.highlight .cp{color:#999999;font-weight:bold}
+.highlight .c1{color:#999988;font-style:italic}
+.highlight .cs{color:#999999;font-weight:bold;font-style:italic}
+.highlight .gd{color:#000000;background-color:#ffdddd}
+.highlight .ge{font-style:italic}
+.highlight .gr{color:#aa0000}
+.highlight .gh{color:#999999}
+.highlight .gi{color:#000000;background-color:#ddffdd}
+.highlight .go{color:#888888}
+.highlight .gp{color:#555555}
+.highlight .gs{font-weight:bold}
+.highlight .gu{color:#800080;font-weight:bold}
+.highlight .gt{color:#aa0000}
+.highlight .kc{font-weight:bold}
+.highlight .kd{font-weight:bold}
+.highlight .kn{font-weight:bold}
+.highlight .kp{font-weight:bold}
+.highlight .kr{font-weight:bold}
+.highlight .kt{color:#445588;font-weight:bold}
+.highlight .m{color:#009999}
+.highlight .s{color:#dd1144}
+.highlight .n{color:#333333}
+.highlight .na{color:teal}
+.highlight .nb{color:#0086b3}
+.highlight .nc{color:#445588;font-weight:bold}
+.highlight .no{color:teal}
+.highlight .ni{color:purple}
+.highlight .ne{color:#990000;font-weight:bold}
+.highlight .nf{color:#990000;font-weight:bold}
+.highlight .nn{color:#555555}
+.highlight .nt{color:navy}
+.highlight .nv{color:teal}
+.highlight .ow{font-weight:bold}
+.highlight .w{color:#bbbbbb}
+.highlight .mf{color:#009999}
+.highlight .mh{color:#009999}
+.highlight .mi{color:#009999}
+.highlight .mo{color:#009999}
+.highlight .sb{color:#dd1144}
+.highlight .sc{color:#dd1144}
+.highlight .sd{color:#dd1144}
+.highlight .s2{color:#dd1144}
+.highlight .se{color:#dd1144}
+.highlight .sh{color:#dd1144}
+.highlight .si{color:#dd1144}
+.highlight .sx{color:#dd1144}
+.highlight .sr{color:#009926}
+.highlight .s1{color:#dd1144}
+.highlight .ss{color:#990073}
+.highlight .bp{color:#999999}
+.highlight .vc{color:teal}
+.highlight .vg{color:teal}
+.highlight .vi{color:teal}
+.highlight .il{color:#009999}
+.highlight .gc{color:#999;background-color:#EAF2F5}
 </style><title>README</title></head><body><article class="markdown-body"><h2 id="about">About<a class="headerlink" href="#about" title="Permanent link"></a></h2>
 <p>PHP framework, routes, controllers and views</p>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link"></a></h2>
@@ -1072,29 +1080,29 @@ body .markdown-body
 <li>First method is using composers</li>
 <li>Download <a href="http://getcomposer.org/doc/00-intro.md">Composer</a> and install</li>
 <li>For create an project in Windows:
-    <div class="codehilite"><pre>cd c:\wamp\www\
+    <div class="highlight"><pre>cd c:\wamp\www\
 composer create-project inphinit/inphinit [project_name]
 </pre></div></li>
 <li>Or (if no using Wamp/Xampp/easyphp)
-    <div class="codehilite"><pre>cd c:\Users\[username]\Documents\
+    <div class="highlight"><pre>cd c:\Users\[username]\Documents\
 composer create-project inphinit/inphinit [project_name]
 </pre></div></li>
 <li>Install in Unix-like:
-    <div class="codehilite"><pre>cd /var/www/
+    <div class="highlight"><pre>cd /var/www/
 php composer.phar create-project inphinit/inphinit [project_name]
 </pre></div></li>
 <li>Or (if no using Apache)
-    <div class="codehilite"><pre>cd /home/
+    <div class="highlight"><pre>cd /home/
 php composer.phar create-project inphinit/inphinit [project_name]
 </pre></div></li>
 <li>Alternate is download GIT repository and copy content from zip file to folder project (don&rsquo;t clone <code>master</code> for production use), clone last release example:
-    <div class="codehilite"><pre>git clone -b 0.5.13&quot; --recurse-submodules https://github.com/inphinit/inphinit.git [project_name]
+    <div class="highlight"><pre>git clone -b 0.5.17 --recurse-submodules https://github.com/inphinit/inphinit.git [project_name]
 cd [project_name]
 </pre></div></li>
 </ol>
 <blockquote>
 <p><strong>Note:</strong> Don&rsquo;t use composer dev-master (eg. <code>create-projet inphinit/inphinit:dev-master</code>), to collaborate, prefer to clone with GIT, example:</p>
-<div class="codehilite"><pre>git clone --recurse-submodules https://github.com/inphinit/inphinit.git inphinit
+<div class="highlight"><pre>git clone --recurse-submodules https://github.com/inphinit/inphinit.git inphinit
 cd inphinit
 </pre></div>
 
@@ -1108,7 +1116,7 @@ cd inphinit
 <ol>
 <li>Navigate with explorer.exe to project folder</li>
 <li>Find and edit server.bat, change <code>php.exe</code> path and <code>php.ini</code> for your php path:
-    <div class="codehilite"><pre>set PHP_BIN=&quot;C:\php\php.exe&quot;
+    <div class="highlight"><pre>set PHP_BIN=&quot;C:\php\php.exe&quot;
 set PHP_INI=&quot;C:\php\php.ini&quot;
 set HOST_PORT=9000
 </pre></div></li>
@@ -1118,26 +1126,26 @@ set HOST_PORT=9000
 <h2 id="php-built-in-web-server-in-linux-and-mac-or-unix-like">PHP built-in web server in Linux and Mac (or Unix-like)<a class="headerlink" href="#php-built-in-web-server-in-linux-and-mac-or-unix-like" title="Permanent link"></a></h2>
 <ol>
 <li>If using Linux or Mac navigate to project folder and run using terminal:
-    <div class="codehilite"><pre>cd /home/[project_name]/
+    <div class="highlight"><pre>cd /home/[project_name]/
 php -S localhost:9000 system/boot/server.php
 </pre></div></li>
 <li>Open web-browser and navigate to <code>http://localhost:9000</code></li>
-<li>Or edit <code>server.sh</code>
-    <div class="codehilite"><pre>#!/bin/bash
+<li>Or edit <code>server</code>
+    <div class="highlight"><pre>#!/bin/bash
 PHP_BIN=&quot;/usr/bin/php&quot;
 PHP_INI=&quot;/etc/php5/cli/php.ini&quot;
 HOST_PORT=9000
 </pre></div></li>
-<li>Save edition and run <code>./server.sh</code></li>
+<li>Save edition and run <code>./server</code></li>
 </ol>
 <h2 id="routing">Routing<a class="headerlink" href="#routing" title="Permanent link"></a></h2>
 <ol>
 <li>In folder <code>[project_name]/system/</code> find <code>main.php</code> and put something like this:
-    <div class="codehilite"><pre><span class="x">Route::set(&#39;GET&#39;, &#39;/foo&#39;, &#39;MyController:action&#39;);</span>
+    <div class="highlight"><pre><span class="x">Route::set(&#39;GET&#39;, &#39;/foo&#39;, &#39;MyController:action&#39;);</span>
 </pre></div></li>
 <li>In <code>[project_name]/system/application/Controller/</code> folder create an file with this name <code>MyController.php</code> (case sensitive)</li>
 <li>Put this content:
-    <div class="codehilite"><pre><span class="cp">&lt;?php</span>
+    <div class="highlight"><pre><span class="cp">&lt;?php</span>
 <span class="k">namespace</span> <span class="nx">Controller</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">Inphinit\Viewing\View</span><span class="p">;</span>
@@ -1153,7 +1161,7 @@ HOST_PORT=9000
 </pre></div></li>
 <li>
 <p>In <code>[project_name]/system/application/View/</code> create file with this name <code>myview.php</code> (case sensitive) and put:
-    <div class="codehilite"><pre><span class="x">&lt;p&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$foo</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="nv">$baz</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x">&lt;/p&gt;</span>
+    <div class="highlight"><pre><span class="x">&lt;p&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$foo</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="nv">$baz</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x">&lt;/p&gt;</span>
 </pre></div></p>
 </li>
 <li>
@@ -1164,7 +1172,7 @@ HOST_PORT=9000
 <p>For check requirements navigate with your web-browser to <code>http://localhost:9000/check.php</code> or <code>http://localhost/[project_name]/check.php</code></p>
 <h2 id="development-vs-production">Development vs production<a class="headerlink" href="#development-vs-production" title="Permanent link"></a></h2>
 <p>For setup access <code>[project_name]/system/application/Config/config.php</code> with your text editor and change <code>development</code> key to <code>true</code> or <code>false</code>:</p>
-<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<div class="highlight"><pre><span class="cp">&lt;?php</span>
 <span class="k">return</span> <span class="k">array</span><span class="p">(</span>
     <span class="s1">&#39;appdata_expires&#39;</span> <span class="o">=&gt;</span> <span class="mi">86400</span><span class="p">,</span>
     <span class="s1">&#39;development&#39;</span>     <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
@@ -1174,7 +1182,7 @@ HOST_PORT=9000
 
 <h2 id="nginx">Nginx<a class="headerlink" href="#nginx" title="Permanent link"></a></h2>
 <p>For create nginx config run with terminal:</p>
-<div class="codehilite"><pre>cd /home/[project_name]/
+<div class="highlight"><pre>cd /home/[project_name]/
 php generate-nginx.php
 </pre></div>
 
@@ -1191,7 +1199,7 @@ php generate-nginx.php
 <li>Navigate to <code>%USERPROFILE%\Documents\IISExpress\config</code></li>
 <li>Edit <code>applicationHost.config</code></li>
 <li>And put in file this:
-    <div class="codehilite"><pre><span class="nt">&lt;location</span> <span class="na">path=</span><span class="s">&quot;WebSite1&quot;</span><span class="nt">&gt;</span>
+    <div class="highlight"><pre><span class="nt">&lt;location</span> <span class="na">path=</span><span class="s">&quot;WebSite1&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;system.webServer&gt;</span>
         <span class="nt">&lt;handlers&gt;</span>
             <span class="nt">&lt;add</span>
@@ -1215,7 +1223,7 @@ php generate-nginx.php
 <li>Navigate to <code>%windir%\System32\inetsrv\config\</code></li>
 <li>Edit <code>applicationHost.config</code> (requires Administrator Privileges)</li>
 <li>And put in file this like this:
-    <div class="codehilite"><pre><span class="nt">&lt;defaultDocument</span> <span class="na">enabled=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+    <div class="highlight"><pre><span class="nt">&lt;defaultDocument</span> <span class="na">enabled=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;files&gt;</span>
         <span class="nt">&lt;add</span> <span class="na">value=</span><span class="s">&quot;index.php&quot;</span> <span class="nt">/&gt;</span>
         <span class="nt">&lt;add</span> <span class="na">value=</span><span class="s">&quot;Default.htm&quot;</span> <span class="nt">/&gt;</span>
@@ -1241,7 +1249,7 @@ php generate-nginx.php
 <span class="nt">&lt;/fastCgi&gt;</span>
 </pre></div></li>
 <li>And after put:
-    <div class="codehilite"><pre><span class="nt">&lt;handlers</span> <span class="na">accessPolicy=</span><span class="s">&quot;Read, Script&quot;</span><span class="nt">&gt;</span>
+    <div class="highlight"><pre><span class="nt">&lt;handlers</span> <span class="na">accessPolicy=</span><span class="s">&quot;Read, Script&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;add</span>
         <span class="na">name=</span><span class="s">&quot;PHP_via_FastCGI&quot;</span>
         <span class="na">path=</span><span class="s">&quot;*.php&quot;</span>

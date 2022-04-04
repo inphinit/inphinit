@@ -39,7 +39,7 @@ For check requirements see [Check requirements](#check-requirements)
     ```
 1. Alternate is download GIT repository and copy content from zip file to folder project (don't clone `master` for production use), clone last release example:
     ```
-    git clone -b 0.5.16 --recurse-submodules https://github.com/inphinit/inphinit.git [project_name]
+    git clone -b 0.5.17 --recurse-submodules https://github.com/inphinit/inphinit.git [project_name]
     cd [project_name]
     ```
 

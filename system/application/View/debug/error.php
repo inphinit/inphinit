@@ -1,7 +1,10 @@
+<?php
+use Inphinit\Experimental\Debug;
+?>
 <div class="code-inphinit">
 <div class="code-inphinit-header"><?php echo $file; ?> on line <?php echo $line; ?></div>
 <div class="error">
-<?php echo nl2br(Inphinit\Experimental\Debug::searcherror($message)); ?>
+<?php echo nl2br(Debug::searcherror($message)); ?>
 </div>
 
 <?php if ($source): ?>

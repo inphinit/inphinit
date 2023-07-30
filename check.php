@@ -33,11 +33,22 @@ if (PHP_SAPI === 'cli') {
         height: 100%;
     }
     body {
+        font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif;
         background: #F7F6F6;
-        min-width: 210px;
+        min-width: 310px;
+        text-align: center;
+    }
+    body::before {
+        content: "";
+        height: 100%;
+        width: 0;
     }
     .container {
-        height: 100%;
+        width: 90%;
+    }
+    .container, body::before {
+        vertical-align: middle;
+        display: inline-block;
     }
     .container h1 {
         color: #5F5656;
@@ -45,12 +56,9 @@ if (PHP_SAPI === 'cli') {
         font-weight: 100;
         padding: 15px 0 20px 0;
         margin: 0;
-        text-align: center;
-    }
-    .container h1, .done {
-        font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif;
     }
     .container ul {
+        text-align: left;
         list-style-type: none;
         padding: 0 5px;
         margin: 0;
@@ -83,7 +91,7 @@ if (PHP_SAPI === 'cli') {
 </head>
 <body>
     <div class="container">
-        <h1>Check server requirements</h1>
+        <h1>Inphinit requirements</h1>
 
         <?php
         if ($response->error) {
@@ -99,7 +107,7 @@ if (PHP_SAPI === 'cli') {
         }
 
         if (empty($response->error) && empty($response->warn)) {
-            echo '<div class="done">Your server is fine! :)</div>';
+            echo '<div class="done">Your server is fine! 🖖👽</div>';
         }
         ?>
     </div>

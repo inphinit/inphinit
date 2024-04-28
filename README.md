@@ -18,34 +18,34 @@ For check requirements see [Check requirements](#check-requirements)
 1. First method is using composers
 1. Download [Composer](http://getcomposer.org/doc/00-intro.md) and install
 1. For create an project in Windows:
-    ```
+    ```bash
     cd c:\wamp\www\
     composer create-project inphinit/inphinit [project_name]
     ```
 1. Or (if no using Wamp/Xampp/easyphp)
-    ```
+    ```bash
     cd c:\Users\[username]\Documents\
     composer create-project inphinit/inphinit [project_name]
     ```
 1. Install in Unix-like:
-    ```
+    ```bash
     cd /var/www/
     php composer.phar create-project inphinit/inphinit [project_name]
     ```
 1. Or (if no using Apache)
-    ```
+    ```bash
     cd /home/
     php composer.phar create-project inphinit/inphinit [project_name]
     ```
 1. Alternate is download GIT repository and copy content from zip file to folder project (don't clone `master` for production use), clone last release example:
-    ```
+    ```bash
     git clone -b 0.5.17 --recurse-submodules https://github.com/inphinit/inphinit.git [project_name]
     cd [project_name]
     ```
 
-> **Note:** Don't use composer dev-master (eg. `create-projet inphinit/inphinit:dev-master`), to collaborate, prefer to clone with GIT, example:
+> **Note:** Don't use composer dev-master (eg. `create-project inphinit/inphinit:dev-master`), to collaborate, prefer to clone with GIT, example:
 >
-> ```
+> ```bash
 > git clone --recurse-submodules https://github.com/inphinit/inphinit.git inphinit
 > cd inphinit
 > ```
@@ -57,9 +57,9 @@ For check requirements see [Check requirements](#check-requirements)
 
 ## PHP built-in web server in Windows
 
-1. Navigate with explorer.exe to project folder
-1. Find and edit server.bat, change `php.exe` path and `php.ini` for your php path:
-    ```
+1. Navigate with `explorer.exe` to project folder
+1. Find and edit `server.bat`, change `php.exe` path and `php.ini` for your php path:
+    ```bash
     set PHP_BIN="C:\php\php.exe"
     set PHP_INI="C:\php\php.ini"
     set HOST_PORT=9000
@@ -67,19 +67,19 @@ For check requirements see [Check requirements](#check-requirements)
 1. Save the edition and run `server.bat`
 1. Open webbrowser and navigate to `http://localhost:9000`
 
-## PHP built-in web server in Linux and Mac (or Unix-like)
+## PHP built-in web server in Linux and macOS (or Unix-like)
 
-1. If using Linux or Mac navigate to project folder and run using terminal:
-    ```
+1. If using Linux or macOS navigate to project folder and run using terminal:
+    ```bash
     cd /home/[project_name]/
     php -S localhost:9000 system/boot/server.php
     ```
 1. Open web-browser and navigate to `http://localhost:9000`
 1. Or edit `server`
-    ```
+    ```bash
     #!/bin/bash
     PHP_BIN="/usr/bin/php"
-    PHP_INI="/etc/php5/cli/php.ini"
+    PHP_INI="/etc/php.ini"
     HOST_PORT=9000
     ```
 1. Save edition and run `./server`

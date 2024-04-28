@@ -1,7 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>body {
   max-width: 980px;
-  border: 1px solid #ddd;
-  outline: 1300px solid #fff;
   margin: 16px auto;
 }
 
@@ -502,8 +500,11 @@ body .markdown-body
   padding-bottom: 0.2em;
   margin: 0;
   font-size: 85%;
-  background-color: rgba(0,0,0,0.04);
   border-radius: 3px;
+}
+
+.markdown-body code:not(.highlight):not(.codehilite), .markdown-body samp {
+  background-color: rgba(0,0,0,0.04);
 }
 
 .markdown-body code:before,
@@ -534,8 +535,16 @@ body .markdown-body
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  background-color: #f7f7f7;
+}
+
+.markdown-body .codehilite,
+.markdown-body .highlight,
+.markdown-body pre {
   border-radius: 3px;
+}
+
+.markdown-body :not(.highlight) > pre {
+  background-color: #f7f7f7;
 }
 
 .markdown-body .codehilite pre,
@@ -899,6 +908,10 @@ body .markdown-body
   vertical-align: middle;
 }
 
+.markdown-body diagram-div, .markdown-body div.uml-sequence-diagram, .markdown-body, div.uml-flowchart {
+  overflow: auto;
+}
+
 /* Media */
 @media only screen and (min-width: 480px) {
   .markdown-body {
@@ -1001,7 +1014,7 @@ body .markdown-body
   }
 }
 </style><style>/*GitHub*/
-.highlight {background-color:#fff;color:#333333;}
+.highlight {background-color:#f7f7f7;color:#333333;}
 .highlight .hll {background-color:#ffffcc;}
 .highlight .c{color:#999988;font-style:italic}
 .highlight .err{color:#a61717;background-color:#e3d2d2}
@@ -1080,30 +1093,30 @@ body .markdown-body
 <li>First method is using composers</li>
 <li>Download <a href="http://getcomposer.org/doc/00-intro.md">Composer</a> and install</li>
 <li>For create an project in Windows:
-    <div class="highlight"><pre>cd c:\wamp\www\
-composer create-project inphinit/inphinit [project_name]
+    <div class="highlight"><pre><span class="nb">cd </span>c:<span class="se">\w</span>amp<span class="se">\w</span>ww<span class="se">\</span>
+composer create-project inphinit/inphinit <span class="o">[</span>project_name<span class="o">]</span>
 </pre></div></li>
 <li>Or (if no using Wamp/Xampp/easyphp)
-    <div class="highlight"><pre>cd c:\Users\[username]\Documents\
-composer create-project inphinit/inphinit [project_name]
+    <div class="highlight"><pre><span class="nb">cd </span>c:<span class="se">\U</span>sers<span class="se">\[</span>username<span class="o">]</span><span class="se">\D</span>ocuments<span class="se">\</span>
+composer create-project inphinit/inphinit <span class="o">[</span>project_name<span class="o">]</span>
 </pre></div></li>
 <li>Install in Unix-like:
-    <div class="highlight"><pre>cd /var/www/
-php composer.phar create-project inphinit/inphinit [project_name]
+    <div class="highlight"><pre><span class="nb">cd</span> /var/www/
+php composer.phar create-project inphinit/inphinit <span class="o">[</span>project_name<span class="o">]</span>
 </pre></div></li>
 <li>Or (if no using Apache)
-    <div class="highlight"><pre>cd /home/
-php composer.phar create-project inphinit/inphinit [project_name]
+    <div class="highlight"><pre><span class="nb">cd</span> /home/
+php composer.phar create-project inphinit/inphinit <span class="o">[</span>project_name<span class="o">]</span>
 </pre></div></li>
 <li>Alternate is download GIT repository and copy content from zip file to folder project (don&rsquo;t clone <code>master</code> for production use), clone last release example:
-    <div class="highlight"><pre>git clone -b 0.5.17 --recurse-submodules https://github.com/inphinit/inphinit.git [project_name]
-cd [project_name]
+    <div class="highlight"><pre>git clone -b 0.5.17 --recurse-submodules https://github.com/inphinit/inphinit.git <span class="o">[</span>project_name<span class="o">]</span>
+<span class="nb">cd</span> <span class="o">[</span>project_name<span class="o">]</span>
 </pre></div></li>
 </ol>
 <blockquote>
-<p><strong>Note:</strong> Don&rsquo;t use composer dev-master (eg. <code>create-projet inphinit/inphinit:dev-master</code>), to collaborate, prefer to clone with GIT, example:</p>
+<p><strong>Note:</strong> Don&rsquo;t use composer dev-master (eg. <code>create-project inphinit/inphinit:dev-master</code>), to collaborate, prefer to clone with GIT, example:</p>
 <div class="highlight"><pre>git clone --recurse-submodules https://github.com/inphinit/inphinit.git inphinit
-cd inphinit
+<span class="nb">cd </span>inphinit
 </pre></div>
 
 </blockquote>
@@ -1114,27 +1127,27 @@ cd inphinit
 </ol>
 <h2 id="php-built-in-web-server-in-windows">PHP built-in web server in Windows<a class="headerlink" href="#php-built-in-web-server-in-windows" title="Permanent link"></a></h2>
 <ol>
-<li>Navigate with explorer.exe to project folder</li>
-<li>Find and edit server.bat, change <code>php.exe</code> path and <code>php.ini</code> for your php path:
-    <div class="highlight"><pre>set PHP_BIN=&quot;C:\php\php.exe&quot;
-set PHP_INI=&quot;C:\php\php.ini&quot;
-set HOST_PORT=9000
+<li>Navigate with <code>explorer.exe</code> to project folder</li>
+<li>Find and edit <code>server.bat</code>, change <code>php.exe</code> path and <code>php.ini</code> for your php path:
+    <div class="highlight"><pre><span class="nb">set </span><span class="nv">PHP_BIN</span><span class="o">=</span><span class="s2">&quot;C:\php\php.exe&quot;</span>
+<span class="nb">set </span><span class="nv">PHP_INI</span><span class="o">=</span><span class="s2">&quot;C:\php\php.ini&quot;</span>
+<span class="nb">set </span><span class="nv">HOST_PORT</span><span class="o">=</span>9000
 </pre></div></li>
 <li>Save the edition and run <code>server.bat</code></li>
 <li>Open webbrowser and navigate to <code>http://localhost:9000</code></li>
 </ol>
-<h2 id="php-built-in-web-server-in-linux-and-mac-or-unix-like">PHP built-in web server in Linux and Mac (or Unix-like)<a class="headerlink" href="#php-built-in-web-server-in-linux-and-mac-or-unix-like" title="Permanent link"></a></h2>
+<h2 id="php-built-in-web-server-in-linux-and-macos-or-unix-like">PHP built-in web server in Linux and macOS (or Unix-like)<a class="headerlink" href="#php-built-in-web-server-in-linux-and-macos-or-unix-like" title="Permanent link"></a></h2>
 <ol>
-<li>If using Linux or Mac navigate to project folder and run using terminal:
-    <div class="highlight"><pre>cd /home/[project_name]/
+<li>If using Linux or macOS navigate to project folder and run using terminal:
+    <div class="highlight"><pre><span class="nb">cd</span> /home/<span class="o">[</span>project_name<span class="o">]</span>/
 php -S localhost:9000 system/boot/server.php
 </pre></div></li>
 <li>Open web-browser and navigate to <code>http://localhost:9000</code></li>
 <li>Or edit <code>server</code>
-    <div class="highlight"><pre>#!/bin/bash
-PHP_BIN=&quot;/usr/bin/php&quot;
-PHP_INI=&quot;/etc/php5/cli/php.ini&quot;
-HOST_PORT=9000
+    <div class="highlight"><pre><span class="ch">#!/bin/bash</span>
+<span class="nv">PHP_BIN</span><span class="o">=</span><span class="s2">&quot;/usr/bin/php&quot;</span>
+<span class="nv">PHP_INI</span><span class="o">=</span><span class="s2">&quot;/etc/php.ini&quot;</span>
+<span class="nv">HOST_PORT</span><span class="o">=</span>9000
 </pre></div></li>
 <li>Save edition and run <code>./server</code></li>
 </ol>

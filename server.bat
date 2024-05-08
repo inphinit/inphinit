@@ -3,15 +3,19 @@
 rem Setup PHP and PORT
 set PHP_BIN=C:\php\php.exe
 set PHP_INI=C:\php\php.ini
+
 set HOST_HOST=localhost
 set HOST_PORT=9000
 
-rem Sets the project path so you can call the "server" command from any location
-set DOCUMENT_ROOT=%~dp0
-set DOCUMENT_ROOT=%DOCUMENT_ROOT:~0,-1%
+rem Sets the project path so you can call the ".\server" command from any location
+set CURRENT_PATH=%~dp0
+set CURRENT_PATH=%CURRENT_PATH:~0,-1%
+
+rem Sets document root for application
+set DOCUMENT_ROOT=%CURRENT_PATH%\system\public
 
 rem Router path
-set ROUTER=%DOCUMENT_ROOT%\system\boot\server.php
+set ROUTER=%CURRENT_PATH%\system\boot\server.php
 
 if not exist %PHP_BIN% (
     echo ERROR: %PHP_BIN% not found & pause

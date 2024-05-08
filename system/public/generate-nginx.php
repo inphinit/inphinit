@@ -7,7 +7,7 @@
  * - Restart Nginx server
  */
 
-require 'system/vendor/inphinit/framework/src/Setup.php';
+require '../vendor/inphinit/framework/src/Setup.php';
 
 //Customize extensions used by PHP
 $extensions = array( 'php' );
@@ -15,4 +15,4 @@ $extensions = array( 'php' );
 //If using HHVM uncomment this line:
 /* $extensions = array( 'php', 'hh' ); */
 
-SetupNginx(__DIR__, $extensions);
+SetupNginx(__DIR__ . '/../..', $extensions);

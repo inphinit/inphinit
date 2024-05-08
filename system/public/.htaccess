@@ -1,0 +1,7 @@
+<IfModule mod_expires.c>
+    <FilesMatch "\.(?i:avif|ico|gif|jpe?g|a?png|css|js|svg|webm|oga|ogg|mpe?g|mp4|mpv|mkv)$">
+        ExpiresActive On
+        ExpiresDefault "access plus 1 mouth"
+        FileETag None
+    </FilesMatch>
+</IfModule>

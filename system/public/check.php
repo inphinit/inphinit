@@ -1,8 +1,8 @@
 <?php
-define('INPHINIT_ROOT', strtr(__DIR__, '\\', '/') . '/');
+define('INPHINIT_ROOT', strtr(dirname(dirname(__DIR__)), '\\', '/') . '/');
 define('INPHINIT_PATH', INPHINIT_ROOT . 'system/');
 
-$response = require INPHINIT_PATH . 'vendor/inphinit/framework/src/requirements.php';
+$response = require '../vendor/inphinit/framework/src/requirements.php';
 
 if (PHP_SAPI === 'cli') {
     if (empty($response->error) === false) {

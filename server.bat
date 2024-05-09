@@ -7,7 +7,7 @@ set PHP_INI=C:\php\php.ini
 set HOST_HOST=localhost
 set HOST_PORT=9000
 
-rem Sets the project path so you can call the ".\server" command from any location
+rem Sets the project path so you can call the "server" command from any location
 set CURRENT_PATH=%~dp0
 set CURRENT_PATH=%CURRENT_PATH:~0,-1%
 

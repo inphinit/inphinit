@@ -2,6 +2,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,300" rel="stylesheet" type="text/css">
 <style type="text/css">
 *, ::before, ::after {
@@ -15,7 +16,6 @@ body > .skip {
     width: 1px;
     height: 1px;
     margin: 0;
-    //overflow: hidden;
     clip: rect(1px, 1px, 1px, 1px);
     background: rgb(9, 105, 218);
     color: #fff;
@@ -29,7 +29,7 @@ body > .skip:focus {
 }
 
 html, body {
-    height: 100%; /* é necessário definir o height 100% no html, body ou qualquer elemento que estiver entre o body e o .container */
+    height: 100%;
     padding: 0;
     margin: 0;
 }

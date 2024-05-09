@@ -1,7 +1,9 @@
 ~*
-.phpintel
-composer.lock
-system/unfinished/
-system/vendor/
-system/storage/
+/.fleet
+/.idea
+/.phpintel
+/.phpunit.cache
+/.vscode
+/system/vendor/*
+/system/storage/*
 php_errors.log

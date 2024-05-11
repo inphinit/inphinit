@@ -1,5 +1,5 @@
 <?php
-use Inphinit\Experimental\Debug;
+use Inphinit\Debug;
 
 // Inject CSS for debug if necessary
 Debug::view('before', 'debug.style');

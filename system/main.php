@@ -1,5 +1,6 @@
 <?php
 use Inphinit\Routing\Route;
+use Inphinit\Experimental\Routing\Group;
 
 Route::set('ANY', '/', 'Home:index');
 
@@ -15,4 +16,8 @@ Route::set('ANY', '/eventexample', 'Examples:eventready');
 // Navigate to http://[server]/product/12345 or http://[server]/product/12345/
 Route::set('GET', '/product/{:\d+:}{:/?:}', function ($id) {
     return 'Product ID: ' . $id;
+});
+
+Route::set('GET', '/error', function () {
+    echo $undefined;
 });

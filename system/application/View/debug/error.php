@@ -1,5 +1,5 @@
 <?php
-use Inphinit\Experimental\Debug;
+use Inphinit\Debug;
 ?>
 <div class="code-inphinit">
 <div class="code-inphinit-header"><?php echo $file; ?> on line <?php echo $line; ?></div>

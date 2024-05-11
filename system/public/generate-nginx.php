@@ -2,17 +2,10 @@
 /*
  * If using Nginx:
  * - on command line type: php generate-nginx.php
- * - Or navigate to: http://[your website]/generate-nginx.php
- * - Copy content in ouput and put in nginx.conf
+ * - Copy ouput content and put in nginx.conf
  * - Restart Nginx server
  */
 
-require '../vendor/inphinit/framework/src/Setup.php';
+require '../vendor/inphinit/framework/src/setup.php';
 
-//Customize extensions used by PHP
-$extensions = array( 'php' );
-
-//If using HHVM uncomment this line:
-/* $extensions = array( 'php', 'hh' ); */
-
-SetupNginx(__DIR__ . '/../..', $extensions);
+setup_nginx(__DIR__ . '/../..', '127.0.0.1:9000');

@@ -7,9 +7,9 @@ if (PHP_SAPI !== 'cli-server') {
 
 $serverPath = strtr(realpath(__DIR__ . '/../../'), '\\', '/');
 
-require_once $serverPath . '/system/vendor/inphinit/framework/src/Utils.php';
+require_once $serverPath . '/system/vendor/inphinit/framework/src/boot.php';
 
-if (UtilsFileFromBuiltIn($serverPath . '/system/public')) {
+if (inphinit_file_builtin($serverPath . '/system/public')) {
     return false;
 }
 

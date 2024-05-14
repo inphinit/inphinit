@@ -6,6 +6,6 @@
  * - Restart Nginx server
  */
 
-require '../vendor/inphinit/framework/src/setup.php';
+require __DIR__ . '/../system/vendor/inphinit/framework/src/setup.php';
 
-setup_nginx(__DIR__ . '/../..', '127.0.0.1:9000');
+setup_nginx(__DIR__ . '/..', '127.0.0.1:9000');

@@ -12,7 +12,7 @@ CURRENT_PATH=$(cd -- $(dirname ${BASH_SOURCE:-$0}) && pwd -P)
 
 
 # Sets document root for application
-DOCUMENT_ROOT=$CURRENT_PATH/system/public
+DOCUMENT_ROOT=$CURRENT_PATH/public
 
 # Router path
 ROUTER=$CURRENT_PATH/system/boot/server.php

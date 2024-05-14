@@ -12,7 +12,7 @@ set CURRENT_PATH=%~dp0
 set CURRENT_PATH=%CURRENT_PATH:~0,-1%
 
 rem Sets document root for application
-set DOCUMENT_ROOT=%CURRENT_PATH%\system\public
+set DOCUMENT_ROOT=%CURRENT_PATH%\public
 
 rem Router path
 set ROUTER=%CURRENT_PATH%\system\boot\server.php

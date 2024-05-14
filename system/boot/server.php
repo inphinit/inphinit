@@ -1,16 +1,14 @@
 <?php
-if (PHP_SAPI !== 'cli-server') {
-    header('Content-Type: text/plain', true, 500);
-    echo 'server.php is not allowed with ', PHP_SAPI, ', use a command like this: ./server';
-    exit;
-}
+$path = $_SERVER['REQUEST_URI'];
 
-$serverPath = strtr(realpath(__DIR__ . '/../../'), '\\', '/');
-
-require_once $serverPath . '/system/vendor/inphinit/framework/src/boot.php';
-
-if (inphinit_file_builtin($serverPath . '/system/public')) {
+if (
+    $path !== '/' &&
+    strpos($path, '.') !== 0 &&
+    strpos($path, '/.') === false &&
+    PHP_SAPI === 'cli-server' &&
+    is_file($publicPath . $path)
+) {
     return false;
 }
 
-require_once $serverPath . '/index.php';
+require_once __DIR__ . '/../../index.php';

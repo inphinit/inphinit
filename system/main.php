@@ -1,6 +1,6 @@
 <?php
 use Inphinit\Routing\Route;
-use Inphinit\Experimental\Routing\Group;
+use Inphinit\Routing\Group;
 
 Route::set('ANY', '/', 'Home:index');
 
@@ -18,6 +18,18 @@ Route::set('GET', '/product/{:\d+:}{:/?:}', function ($id) {
     return 'Product ID: ' . $id;
 });
 
+// Navigate to http://[server]/error
 Route::set('GET', '/error', function () {
     echo $undefined;
+});
+
+// Navigate to http://[server]/resource/
+Group::create()->path('/resource/')->then(function () {
+    \Controller\ResourceSample::action();
+});
+
+// Navigate to http://[server]/treaty/
+// Navigate to http://[server]/treaty/about
+Group::create()->path('/treaty/')->then(function () {
+    \Controller\TreatySample::action();
 });

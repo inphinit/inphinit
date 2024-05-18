@@ -50,32 +50,21 @@ For check requirements see [Check requirements](#check-requirements)
 > cd inphinit
 > ```
 
-## Apache
-
-1. If using Apache (or Xampp, Wamp, Easyphp, etc) only navigate to `http://localhost/[project_name]/`
-1. Navigate `http://localhost/[project_name]/generate-htaccess.php` for create `.htaccess`
-
 ## PHP built-in web server in Windows
 
 1. Navigate with `explorer.exe` to project folder
-1. Find and edit `server.bat`, change `php.exe` path and `php.ini` for your php path:
-    ```bash
-    set PHP_BIN="C:\php\php.exe"
-    set PHP_INI="C:\php\php.ini"
-    set HOST_PORT=9000
+1. Find and edit `server.bat`, change `PHP_BIN` and `PHP_INI`:
+    ```batch
+    rem Setup PHP and PORT
+    set PHP_BIN=C:\php\php.exe
+    set PHP_INI=C:\php\php.ini
     ```
 1. Save the edition and run `server.bat`
-1. Open webbrowser and navigate to `http://localhost:9000`
+1. Open web-browser and navigate to `http://localhost:9000`
 
 ## PHP built-in web server in Linux and macOS (or Unix-like)
 
-1. If using Linux or macOS navigate to project folder and run using terminal:
-    ```bash
-    cd /home/[project_name]/
-    php -S localhost:9000 system/boot/server.php
-    ```
-1. Open web-browser and navigate to `http://localhost:9000`
-1. Or edit `server`
+1. Navigate to your project and find and edit `./server` file, change, change `PHP_BIN` and `PHP_INI`:
     ```bash
     #!/bin/bash
     PHP_BIN="/usr/bin/php"
@@ -83,6 +72,7 @@ For check requirements see [Check requirements](#check-requirements)
     HOST_PORT=9000
     ```
 1. Save edition and run `./server`
+1. Open web-browser and navigate to `http://localhost:9000`
 
 ## Routing
 
@@ -111,8 +101,76 @@ For check requirements see [Check requirements](#check-requirements)
     ```php
     <p><?php echo $foo, ' ', $baz; ?></p>
     ```
-
 1. Navigate to `http://localhost:9000/foo` or `http://localhost/[project_name]/foo`
+
+## Group routes
+
+In `main.php` put `use Inphinit\Routing\Group;` on top document, then you can use `Group` class. See examples:
+
+Group routes by domain:
+
+```php
+// The routes in the callback, called by the "then" method, will be executed when accessing the localhost domain
+Group::create()->domain('localhost')->then(function () {
+    Route::set(...);
+});
+
+// The routes in the callback, called by the "then" method, will be executed when accessing a subdomain from .site.com domain
+Group::create()->domain('{:\w+:}.site.com')->then(function ($domain) {
+    Route::set(...);
+});
+```
+
+```php
+// The routes in the callback, called by the "then" method, will be executed when accessing using HTTPS
+Group::create()->secure(Group::SECURE)->then(function () {
+    Route::set(...);
+});
+
+// The routes in the callback, called by the "then" method, will be executed when accessing using HTTP
+Group::create()->secure(Group::NONSECURE)->then(function () {
+    Route::set(...);
+});
+```
+
+Group routes by domain:
+
+```php
+// The routes in the callback, called by the "then" method, will be executed when accessing path urls starts with /foo/
+Group::create()->path('/foo/')->then(function () {
+    Route::set(...);
+});
+
+// The routes in the callback, called by the "then" method, will be executed when accessing path urls starts with /assets/<any word with A-Z0-9_ characters>
+Group::create()->path('/assets/{:\w+:}/')->then(function ($subPath) {
+    Route::set(...);
+});
+
+// The routes in the callback, called by the "then" method, will be executed when path and route matches with path and domain
+Group::create()->domain('localhost')->path('/foo/')->then(function () {
+    Route::set(...);
+});
+```
+
+Prefix controllers namespace on Group:
+
+```php
+Group::create()->prefixNS('Baz.Bar')->path('/foo/')->then(function () {
+    Route::set('GET', '/',         'Foo:index');
+    Route::set('GET', '/about',    'Foo:about');
+    Route::set('GET', '/contact',  'Foo:contact');
+    Route::set('GET', '/inphinit', 'Inphinit:index');
+});
+```
+
+Equivalent to:
+
+```php
+Route::set('GET', '/foo/',         'Baz.Bar.Foo:index');
+Route::set('GET', '/foo/about',    'Baz.Bar.Foo:about');
+Route::set('GET', '/foo/contact',  'Baz.Bar.Foo:contact');
+Route::set('GET', '/foo/inphinit', 'Baz.Bar.Inphinit:index');
+```
 
 ## Check requirements
 
@@ -131,91 +189,77 @@ return array(
 );
 ```
 
-## Nginx
+# Deploy for Apache server
 
-For create nginx config run with terminal:
+In `.htaccess`, adjust the path in the `ErrorDocument` according to the level at which your application is accessed at the URL, if it is at the root keep the `ErrorDocument`s as:
 
 ```
-cd /home/[project_name]/
-php generate-nginx.php
+ErrorDocument 403 /index.php/RESERVED.INPHINIT-403.html
+ErrorDocument 500 /index.php/RESERVED.INPHINIT-500.html
+ErrorDocument 501 /index.php/RESERVED.INPHINIT-501.html
 ```
 
-And copy content to clipboard and adjust `nginx.conf`
+If the application is in a subfolder, for example `https://foo.com/application/`, then it should look like:
 
-## IIS
+```
+ErrorDocument 403 /application/index.php/RESERVED.INPHINIT-403.html
+ErrorDocument 500 /application/index.php/RESERVED.INPHINIT-500.html
+ErrorDocument 501 /application/index.php/RESERVED.INPHINIT-501.html
+```
 
-Install PHP:
+If you intend to use authorization, uncomment the following lines in `.htaccess`:
 
-- Download PHP: http://windows.php.net/download/
-- Install PHP to `%SYSTEMROOT%\php` (like `c:\php`, `d:\php`)
+```
+# RewriteCond %{HTTP:Authorization} .
+# RewriteRule . - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+```
 
-### IIS Express
+# Deploy for NGINX server
 
-Installing in IIS Express:
+Use the following configuration as a starting point for configuring your nginxconf (you will probably need specific adjustments for your server):
 
-- Navigate to `%USERPROFILE%\Documents\IISExpress\config`
-- Edit `applicationHost.config`
-- And put in file this:
-    ```xml
-    <location path="WebSite1">
-        <system.webServer>
-            <handlers>
-                <add
-                    name="PHP_via_FastCGI"
-                    path="*.php"
-                    verb=""
-                    modules="FastCgiModule"
-                    scriptProcessor="c:\PHP\php-cgi.exe"
-                    resourceType="Either" />
-            </handlers>
-        </system.webServer>
-    </location>
-    ```
-- Restart IIS
-- Copy contents in `%USERPROFILE%\Documents\My Web Sites\WebSite1`
-- You can create a new website, so just change `WebSite1` to the new folder.
+```
+server {
+    listen 443;
+    listen [::]:443;
+    server_name foobar.com;
+    root /etc/www/sites/application;
 
-For more details in https://msdn.microsoft.com/en-us/library/hh994590(v=ws.11).aspx
+    index index.php;
 
-### Default IIS
+    charset utf-8;
 
-- Navigate to `%windir%\System32\inetsrv\config\`
-- Edit `applicationHost.config` (requires Administrator Privileges)
-- And put in file this like this:
-    ```xml
-    <defaultDocument enabled="true">
-        <files>
-            <add value="index.php" />
-            <add value="Default.htm" />
-            <add value="Default.asp" />
-            <add value="index.htm" />
-            <add value="index.html" />
-            <add value="iisstart.htm" />
-        </files>
-    </defaultDocument>
+    location / {
+        # Redirect page errors to route system
+        error_page 403 /index.php/RESERVED.INPHINIT-403.html;
+        error_page 500 /index.php/RESERVED.INPHINIT-500.html;
+        error_page 501 /index.php/RESERVED.INPHINIT-501.html;
 
-    <fastCgi>
-        <application
-            fullPath="C:\php\php-cgi.exe"
-            monitorChangesTo="C:\php\php.ini"
-            activityTimeout="300"
-            requestTimeout="300"
-            instanceMaxRequests="10000">
-            <environmentVariables>
-                <environmentVariable name="PHPRC" value="C:\php\" />
-                <environmentVariable name="PHP_FCGI_MAX_REQUESTS" value="10000" />
-            </environmentVariables>
-        </application>
-    </fastCgi>
-    ```
-- And after put:
-    ```xml
-    <handlers accessPolicy="Read, Script">
-        <add
-            name="PHP_via_FastCGI"
-            path="*.php"
-            verb="*"
-            modules="FastCgiModule"
-            scriptProcessor="C:\php\php-cgi.exe"
-            resourceType="Either" />
-    ```
+        try_files /public$uri /index.php?$query_string;
+
+        location = / {
+            try_files $uri /index.php?$query_string;
+        }
+
+        location ~ /\. {
+            try_files /index.php$uri /index.php?$query_string;
+        }
+
+        location ~ \.php$ {
+            # Replace by your FPM or FastCGI
+            fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+
+            fastcgi_index index.php;
+            include fastcgi_params;
+
+            set $inphinit_suffix "";
+
+            if ($uri != "/index.php") {
+                set $inphinit_suffix "/public";
+            }
+
+            fastcgi_param SCRIPT_FILENAME $realpath_root$inphinit_suffix$fastcgi_script_name;
+        }
+    }
+}
+```

@@ -1120,36 +1120,27 @@ php composer.phar create-project inphinit/inphinit <span class="o">[</span>proje
 </pre></div>
 
 </blockquote>
-<h2 id="apache">Apache<a class="headerlink" href="#apache" title="Permanent link"></a></h2>
-<ol>
-<li>If using Apache (or Xampp, Wamp, Easyphp, etc) only navigate to <code>http://localhost/[project_name]/</code></li>
-<li>Navigate <code>http://localhost/[project_name]/generate-htaccess.php</code> for create <code>.htaccess</code></li>
-</ol>
 <h2 id="php-built-in-web-server-in-windows">PHP built-in web server in Windows<a class="headerlink" href="#php-built-in-web-server-in-windows" title="Permanent link"></a></h2>
 <ol>
 <li>Navigate with <code>explorer.exe</code> to project folder</li>
-<li>Find and edit <code>server.bat</code>, change <code>php.exe</code> path and <code>php.ini</code> for your php path:
-    <div class="highlight"><pre><span class="nb">set </span><span class="nv">PHP_BIN</span><span class="o">=</span><span class="s2">&quot;C:\php\php.exe&quot;</span>
-<span class="nb">set </span><span class="nv">PHP_INI</span><span class="o">=</span><span class="s2">&quot;C:\php\php.ini&quot;</span>
-<span class="nb">set </span><span class="nv">HOST_PORT</span><span class="o">=</span>9000
+<li>Find and edit <code>server.bat</code>, change <code>PHP_BIN</code> and <code>PHP_INI</code>:
+    <div class="highlight"><pre><span class="c">rem Setup PHP and PORT</span>
+<span class="k">set</span> <span class="nv">PHP_BIN</span><span class="o">=</span>C:\php\php.exe
+<span class="k">set</span> <span class="nv">PHP_INI</span><span class="o">=</span>C:\php\php.ini
 </pre></div></li>
 <li>Save the edition and run <code>server.bat</code></li>
-<li>Open webbrowser and navigate to <code>http://localhost:9000</code></li>
+<li>Open web-browser and navigate to <code>http://localhost:9000</code></li>
 </ol>
 <h2 id="php-built-in-web-server-in-linux-and-macos-or-unix-like">PHP built-in web server in Linux and macOS (or Unix-like)<a class="headerlink" href="#php-built-in-web-server-in-linux-and-macos-or-unix-like" title="Permanent link"></a></h2>
 <ol>
-<li>If using Linux or macOS navigate to project folder and run using terminal:
-    <div class="highlight"><pre><span class="nb">cd</span> /home/<span class="o">[</span>project_name<span class="o">]</span>/
-php -S localhost:9000 system/boot/server.php
-</pre></div></li>
-<li>Open web-browser and navigate to <code>http://localhost:9000</code></li>
-<li>Or edit <code>server</code>
+<li>Navigate to your project and find and edit <code>./server</code> file, change, change <code>PHP_BIN</code> and <code>PHP_INI</code>:
     <div class="highlight"><pre><span class="ch">#!/bin/bash</span>
 <span class="nv">PHP_BIN</span><span class="o">=</span><span class="s2">&quot;/usr/bin/php&quot;</span>
 <span class="nv">PHP_INI</span><span class="o">=</span><span class="s2">&quot;/etc/php.ini&quot;</span>
 <span class="nv">HOST_PORT</span><span class="o">=</span>9000
 </pre></div></li>
 <li>Save edition and run <code>./server</code></li>
+<li>Open web-browser and navigate to <code>http://localhost:9000</code></li>
 </ol>
 <h2 id="routing">Routing<a class="headerlink" href="#routing" title="Permanent link"></a></h2>
 <ol>
@@ -1172,15 +1163,69 @@ php -S localhost:9000 system/boot/server.php
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div></li>
-<li>
-<p>In <code>[project_name]/system/application/View/</code> create file with this name <code>myview.php</code> (case sensitive) and put:
+<li>In <code>[project_name]/system/application/View/</code> create file with this name <code>myview.php</code> (case sensitive) and put:
     <div class="highlight"><pre><span class="x">&lt;p&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$foo</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="nv">$baz</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x">&lt;/p&gt;</span>
-</pre></div></p>
-</li>
-<li>
-<p>Navigate to <code>http://localhost:9000/foo</code> or <code>http://localhost/[project_name]/foo</code></p>
-</li>
+</pre></div></li>
+<li>Navigate to <code>http://localhost:9000/foo</code> or <code>http://localhost/[project_name]/foo</code></li>
 </ol>
+<h2 id="group-routes">Group routes<a class="headerlink" href="#group-routes" title="Permanent link"></a></h2>
+<p>In <code>main.php</code> put <code>use Inphinit\Routing\Group;</code> on top document, then you can use <code>Group</code> class. See examples:</p>
+<p>Group routes by domain:</p>
+<div class="highlight"><pre><span class="x">// The routes in the callback, called by the &quot;then&quot; method, will be executed when accessing the localhost domain</span>
+<span class="x">Group::create()-&gt;domain(&#39;localhost&#39;)-&gt;then(function () {</span>
+<span class="x">    Route::set(...);</span>
+<span class="x">});</span>
+
+<span class="x">// The routes in the callback, called by the &quot;then&quot; method, will be executed when accessing a subdomain from .site.com domain</span>
+<span class="x">Group::create()-&gt;domain(&#39;{:\w+:}.site.com&#39;)-&gt;then(function ($domain) {</span>
+<span class="x">    Route::set(...);</span>
+<span class="x">});</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="x">// The routes in the callback, called by the &quot;then&quot; method, will be executed when accessing using HTTPS</span>
+<span class="x">Group::create()-&gt;secure(Group::SECURE)-&gt;then(function () {</span>
+<span class="x">    Route::set(...);</span>
+<span class="x">});</span>
+
+<span class="x">// The routes in the callback, called by the &quot;then&quot; method, will be executed when accessing using HTTP</span>
+<span class="x">Group::create()-&gt;secure(Group::NONSECURE)-&gt;then(function () {</span>
+<span class="x">    Route::set(...);</span>
+<span class="x">});</span>
+</pre></div>
+
+<p>Group routes by domain:</p>
+<div class="highlight"><pre><span class="x">// The routes in the callback, called by the &quot;then&quot; method, will be executed when accessing path urls starts with /foo/</span>
+<span class="x">Group::create()-&gt;path(&#39;/foo/&#39;)-&gt;then(function () {</span>
+<span class="x">    Route::set(...);</span>
+<span class="x">});</span>
+
+<span class="x">// The routes in the callback, called by the &quot;then&quot; method, will be executed when accessing path urls starts with /assets/&lt;any word with A-Z0-9_ characters&gt;</span>
+<span class="x">Group::create()-&gt;path(&#39;/assets/{:\w+:}/&#39;)-&gt;then(function ($subPath) {</span>
+<span class="x">    Route::set(...);</span>
+<span class="x">});</span>
+
+<span class="x">// The routes in the callback, called by the &quot;then&quot; method, will be executed when path and route matches with path and domain</span>
+<span class="x">Group::create()-&gt;domain(&#39;localhost&#39;)-&gt;path(&#39;/foo/&#39;)-&gt;then(function () {</span>
+<span class="x">    Route::set(...);</span>
+<span class="x">});</span>
+</pre></div>
+
+<p>Prefix controllers namespace on Group:</p>
+<div class="highlight"><pre><span class="x">Group::create()-&gt;prefixNS(&#39;Baz.Bar&#39;)-&gt;path(&#39;/foo/&#39;)-&gt;then(function () {</span>
+<span class="x">    Route::set(&#39;GET&#39;, &#39;/&#39;,         &#39;Foo:index&#39;);</span>
+<span class="x">    Route::set(&#39;GET&#39;, &#39;/about&#39;,    &#39;Foo:about&#39;);</span>
+<span class="x">    Route::set(&#39;GET&#39;, &#39;/contact&#39;,  &#39;Foo:contact&#39;);</span>
+<span class="x">    Route::set(&#39;GET&#39;, &#39;/inphinit&#39;, &#39;Inphinit:index&#39;);</span>
+<span class="x">});</span>
+</pre></div>
+
+<p>Equivalent to:</p>
+<div class="highlight"><pre><span class="x">Route::set(&#39;GET&#39;, &#39;/foo/&#39;,         &#39;Baz.Bar.Foo:index&#39;);</span>
+<span class="x">Route::set(&#39;GET&#39;, &#39;/foo/about&#39;,    &#39;Baz.Bar.Foo:about&#39;);</span>
+<span class="x">Route::set(&#39;GET&#39;, &#39;/foo/contact&#39;,  &#39;Baz.Bar.Foo:contact&#39;);</span>
+<span class="x">Route::set(&#39;GET&#39;, &#39;/foo/inphinit&#39;, &#39;Baz.Bar.Inphinit:index&#39;);</span>
+</pre></div>
+
 <h2 id="check-requirements">Check requirements<a class="headerlink" href="#check-requirements" title="Permanent link"></a></h2>
 <p>For check requirements navigate with your web-browser to <code>http://localhost:9000/check.php</code> or <code>http://localhost/[project_name]/check.php</code></p>
 <h2 id="development-vs-production">Development vs production<a class="headerlink" href="#development-vs-production" title="Permanent link"></a></h2>
@@ -1193,82 +1238,67 @@ php -S localhost:9000 system/boot/server.php
 <span class="p">);</span>
 </pre></div>
 
-<h2 id="nginx">Nginx<a class="headerlink" href="#nginx" title="Permanent link"></a></h2>
-<p>For create nginx config run with terminal:</p>
-<div class="highlight"><pre>cd /home/[project_name]/
-php generate-nginx.php
+<h1 id="deploy-for-apache-server">Deploy for Apache server<a class="headerlink" href="#deploy-for-apache-server" title="Permanent link"></a></h1>
+<p>In <code>.htaccess</code>, adjust the path in the <code>ErrorDocument</code> according to the level at which your application is accessed at the URL, if it is at the root keep the <code>ErrorDocument</code>s as:</p>
+<div class="highlight"><pre>ErrorDocument 403 /index.php/RESERVED.INPHINIT-403.html
+ErrorDocument 500 /index.php/RESERVED.INPHINIT-500.html
+ErrorDocument 501 /index.php/RESERVED.INPHINIT-501.html
 </pre></div>
 
-<p>And copy content to clipboard and adjust <code>nginx.conf</code></p>
-<h2 id="iis">IIS<a class="headerlink" href="#iis" title="Permanent link"></a></h2>
-<p>Install PHP:</p>
-<ul>
-<li>Download PHP: <a href="http://windows.php.net/download/">http://windows.php.net/download/</a></li>
-<li>Install PHP to <code>%SYSTEMROOT%\php</code> (like <code>c:\php</code>, <code>d:\php</code>)</li>
-</ul>
-<h3 id="iis-express">IIS Express<a class="headerlink" href="#iis-express" title="Permanent link"></a></h3>
-<p>Installing in IIS Express:</p>
-<ul>
-<li>Navigate to <code>%USERPROFILE%\Documents\IISExpress\config</code></li>
-<li>Edit <code>applicationHost.config</code></li>
-<li>And put in file this:
-    <div class="highlight"><pre><span class="nt">&lt;location</span> <span class="na">path=</span><span class="s">&quot;WebSite1&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;system.webServer&gt;</span>
-        <span class="nt">&lt;handlers&gt;</span>
-            <span class="nt">&lt;add</span>
-                <span class="na">name=</span><span class="s">&quot;PHP_via_FastCGI&quot;</span>
-                <span class="na">path=</span><span class="s">&quot;*.php&quot;</span>
-                <span class="na">verb=</span><span class="s">&quot;&quot;</span>
-                <span class="na">modules=</span><span class="s">&quot;FastCgiModule&quot;</span>
-                <span class="na">scriptProcessor=</span><span class="s">&quot;c:\PHP\php-cgi.exe&quot;</span>
-                <span class="na">resourceType=</span><span class="s">&quot;Either&quot;</span> <span class="nt">/&gt;</span>
-        <span class="nt">&lt;/handlers&gt;</span>
-    <span class="nt">&lt;/system.webServer&gt;</span>
-<span class="nt">&lt;/location&gt;</span>
-</pre></div></li>
-<li>Restart IIS</li>
-<li>Copy contents in <code>%USERPROFILE%\Documents\My Web Sites\WebSite1</code></li>
-<li>You can create a new website, so just change <code>WebSite1</code> to the new folder.</li>
-</ul>
-<p>For more details in <a href="https://msdn.microsoft.com/en-us/library/hh994590(v=ws.11).aspx">https://msdn.microsoft.com/en-us/library/hh994590(v=ws.11).aspx</a></p>
-<h3 id="default-iis">Default IIS<a class="headerlink" href="#default-iis" title="Permanent link"></a></h3>
-<ul>
-<li>Navigate to <code>%windir%\System32\inetsrv\config\</code></li>
-<li>Edit <code>applicationHost.config</code> (requires Administrator Privileges)</li>
-<li>And put in file this like this:
-    <div class="highlight"><pre><span class="nt">&lt;defaultDocument</span> <span class="na">enabled=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;files&gt;</span>
-        <span class="nt">&lt;add</span> <span class="na">value=</span><span class="s">&quot;index.php&quot;</span> <span class="nt">/&gt;</span>
-        <span class="nt">&lt;add</span> <span class="na">value=</span><span class="s">&quot;Default.htm&quot;</span> <span class="nt">/&gt;</span>
-        <span class="nt">&lt;add</span> <span class="na">value=</span><span class="s">&quot;Default.asp&quot;</span> <span class="nt">/&gt;</span>
-        <span class="nt">&lt;add</span> <span class="na">value=</span><span class="s">&quot;index.htm&quot;</span> <span class="nt">/&gt;</span>
-        <span class="nt">&lt;add</span> <span class="na">value=</span><span class="s">&quot;index.html&quot;</span> <span class="nt">/&gt;</span>
-        <span class="nt">&lt;add</span> <span class="na">value=</span><span class="s">&quot;iisstart.htm&quot;</span> <span class="nt">/&gt;</span>
-    <span class="nt">&lt;/files&gt;</span>
-<span class="nt">&lt;/defaultDocument&gt;</span>
+<p>If the application is in a subfolder, for example <code>https://foo.com/application/</code>, then it should look like:</p>
+<div class="highlight"><pre>ErrorDocument 403 /application/index.php/RESERVED.INPHINIT-403.html
+ErrorDocument 500 /application/index.php/RESERVED.INPHINIT-500.html
+ErrorDocument 501 /application/index.php/RESERVED.INPHINIT-501.html
+</pre></div>
 
-<span class="nt">&lt;fastCgi&gt;</span>
-    <span class="nt">&lt;application</span>
-        <span class="na">fullPath=</span><span class="s">&quot;C:\php\php-cgi.exe&quot;</span>
-        <span class="na">monitorChangesTo=</span><span class="s">&quot;C:\php\php.ini&quot;</span>
-        <span class="na">activityTimeout=</span><span class="s">&quot;300&quot;</span>
-        <span class="na">requestTimeout=</span><span class="s">&quot;300&quot;</span>
-        <span class="na">instanceMaxRequests=</span><span class="s">&quot;10000&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;environmentVariables&gt;</span>
-            <span class="nt">&lt;environmentVariable</span> <span class="na">name=</span><span class="s">&quot;PHPRC&quot;</span> <span class="na">value=</span><span class="s">&quot;C:\php\&quot;</span> <span class="nt">/&gt;</span>
-            <span class="nt">&lt;environmentVariable</span> <span class="na">name=</span><span class="s">&quot;PHP_FCGI_MAX_REQUESTS&quot;</span> <span class="na">value=</span><span class="s">&quot;10000&quot;</span> <span class="nt">/&gt;</span>
-        <span class="nt">&lt;/environmentVariables&gt;</span>
-    <span class="nt">&lt;/application&gt;</span>
-<span class="nt">&lt;/fastCgi&gt;</span>
-</pre></div></li>
-<li>And after put:
-    <div class="highlight"><pre><span class="nt">&lt;handlers</span> <span class="na">accessPolicy=</span><span class="s">&quot;Read, Script&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;add</span>
-        <span class="na">name=</span><span class="s">&quot;PHP_via_FastCGI&quot;</span>
-        <span class="na">path=</span><span class="s">&quot;*.php&quot;</span>
-        <span class="na">verb=</span><span class="s">&quot;*&quot;</span>
-        <span class="na">modules=</span><span class="s">&quot;FastCgiModule&quot;</span>
-        <span class="na">scriptProcessor=</span><span class="s">&quot;C:\php\php-cgi.exe&quot;</span>
-        <span class="na">resourceType=</span><span class="s">&quot;Either&quot;</span> <span class="nt">/&gt;</span>
-</pre></div></li>
-</ul></article></body></html>
+<p>If you intend to use authorization, uncomment the following lines in <code>.htaccess</code>:</p>
+<div class="highlight"><pre># RewriteCond %{HTTP:Authorization} .
+# RewriteRule . - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</pre></div>
+
+<h1 id="deploy-for-nginx-server">Deploy for NGINX server<a class="headerlink" href="#deploy-for-nginx-server" title="Permanent link"></a></h1>
+<p>Use the following configuration as a starting point for configuring your nginxconf (you will probably need specific adjustments for your server):</p>
+<div class="highlight"><pre>server {
+    listen 443;
+    listen [::]:443;
+    server_name foobar.com;
+    root /etc/www/sites/application;
+
+    index index.php;
+
+    charset utf-8;
+
+    location / {
+        # Redirect page errors to route system
+        error_page 403 /index.php/RESERVED.INPHINIT-403.html;
+        error_page 500 /index.php/RESERVED.INPHINIT-500.html;
+        error_page 501 /index.php/RESERVED.INPHINIT-501.html;
+
+        try_files /public$uri /index.php?$query_string;
+
+        location = / {
+            try_files $uri /index.php?$query_string;
+        }
+
+        location ~ /\. {
+            try_files /index.php$uri /index.php?$query_string;
+        }
+
+        location ~ \.php$ {
+            # Replace by your FPM or FastCGI
+            fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+
+            fastcgi_index index.php;
+            include fastcgi_params;
+
+            set $inphinit_suffix &quot;&quot;;
+
+            if ($uri != &quot;/index.php&quot;) {
+                set $inphinit_suffix &quot;/public&quot;;
+            }
+
+            fastcgi_param SCRIPT_FILENAME $realpath_root$inphinit_suffix$fastcgi_script_name;
+        }
+    }
+}
+</pre></div></article></body></html>

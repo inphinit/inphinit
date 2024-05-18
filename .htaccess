@@ -11,6 +11,10 @@ ErrorDocument 501 /index.php/RESERVED.INPHINIT-501.html
 
 RewriteEngine On
 
+# Handle Authorization Header
+# RewriteCond %{HTTP:Authorization} .
+# RewriteRule . - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
 # Ignore hidden files
 RewriteRule ^\.|/\. index.php [L]
 

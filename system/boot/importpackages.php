@@ -3,25 +3,21 @@
  * Usage with command line: php importpackages.php
  */
 
-define('BOOT_PATH', strtr(__DIR__, '\\', '/') . '/');
-define('PACKAGES_PATH', BOOT_PATH . '../vendor/inphinit/framework/src/Inphinit/Packages.php');
-define('INPHINIT_PATH', dirname(BOOT_PATH) . '/');
+define('INPHINIT_ROOT', str_replace('\\', '/', realpath(__DIR__ . '/../..')) . '/');
+define('INPHINIT_PATH', INPHINIT_ROOT . 'system/');
+define('INPHINIT_COMPOSER', false);
 
-if (false === is_file(PACKAGES_PATH)) {
-    exit;
-}
+require_once INPHINIT_PATH . 'vendor/inphinit/framework/src/Inphinit/Packages.php';
 
-require_once PACKAGES_PATH;
-
-$composer = BOOT_PATH . '../vendor/composer/';
-
-$packages = new Inphinit\Packages($composer);
+$packages = new Inphinit\Packages();
 
 $packages->auto();
 
 $logs = $packages->logs();
 
-$packages->save(BOOT_PATH . 'namespaces.php');
+var_dump(INPHINIT_PATH . 'namespaces.php');
+
+$packages->save(INPHINIT_PATH . 'boot/namespaces.php');
 
 echo 'Importing packages:', PHP_EOL;
 

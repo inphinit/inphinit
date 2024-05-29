@@ -19,9 +19,10 @@ RewriteEngine On
 RewriteRule ^\.|/\. index.php [L]
 
 # Redirect to public folder
-RewriteCond %{REQUEST_URI} !(^$|public/|index\.php(/|$))
-RewriteRule ^(.*)$ public/$1
+RewriteCond %{REQUEST_URI} !(^$|/$|public/|index\.php(/|$))
+RewriteRule ^(.*)$ public/$1 [L]
 
 # Redirect all urls to index.php if no exits files
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [L]

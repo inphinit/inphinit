@@ -1,48 +1,45 @@
 <?php
 namespace Controller;
 
-use Inphinit\Routing\Resource;
-
-class ResourceSample extends Resource
+class ResourceSample extends \Inphinit\Routing\Resource
 {
     public function __construct()
     {
-        $this->format = Resource::SLASH|Resource::NOSLASH;
-        $this->contentType = 'application/json; charset=UTF-8';
+        $this->format = self::SLASH|self::NOSLASH;
     }
 
-    public function index() {
-        return 'Index resource';
-    }
-
-    public function create() {
-        return 'Form/screen for create resource';
-    }
-
-    public function store() {
-        return 'Create resource';
-    }
-
-    public function edit($id) {
-        return 'Edit resource';
-    }
-
-    public function show($id) {
-        return 'Show resource';
-    }
-
-    public function update($id) {
-        return 'Update resource';
-    }
-
-    public function destroy($id) {
-        return 'Destroy resource';
-    }
-
-    protected static function output($output)
+    public function index() // ($params)
     {
-        return json_encode(array(
-            'body' => $output
-        ));
+        return 'index';
+    }
+
+    public function create() // ($params)
+    {
+        return 'create';
+    }
+
+    public function store() // ($params)
+    {
+        return 'store';
+    }
+
+    public function show() // ($params)
+    {
+        return 'show';
+    }
+
+    public function edit() // ($params)
+    {
+        return 'edit';
+    }
+
+    public function update() // ($params)
+    {
+        return 'update';
+    }
+
+    public function destroy() // ($params)
+    {
+        return 'destroy';
     }
 }

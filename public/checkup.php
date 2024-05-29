@@ -1,22 +1,13 @@
 <?php
-define('INPHINIT_ROOT', strtr(dirname(__DIR__), '\\', '/') . '/');
-define('INPHINIT_PATH', INPHINIT_ROOT . 'system/');
+if (!defined('INPHINIT_PATH')) {
+    define('INPHINIT_ROOT', str_replace('\\', '/', realpath(__DIR__ . '/..')) . '/');
+    define('INPHINIT_PATH', INPHINIT_ROOT . 'system/');
+    define('INPHINIT_COMPOSER', false);
+}
 
-$response = require INPHINIT_PATH . 'vendor/inphinit/framework/src/requirements.php';
+require_once INPHINIT_PATH . 'vendor/inphinit/framework/src/boot.php';
 
-if (PHP_SAPI === 'cli') {
-    if (empty($response->error) === false) {
-        echo ' - Fail: ' . implode(PHP_EOL . ' - Fail: ', $response->error), PHP_EOL;
-    }
-
-    if (empty($response->warn) === false) {
-        echo ' - Recommended: ' . implode(PHP_EOL . ' - Recommended: ', $response->warn), PHP_EOL;
-    }
-
-    if (empty($response->error) && empty($response->warn)) {
-        echo 'Your server is fine! ;]', PHP_EOL;
-    }
-} else {
+$check = new Inphinit\Checkup();
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -94,24 +85,25 @@ if (PHP_SAPI === 'cli') {
         <h1>Inphinit requirements</h1>
 
         <?php
-        if ($response->error) {
+        $errors = $check->getErrors();
+        $warnings = $check->getWarnings();
+
+        if ($errors) {
             echo '<ul class="fail"><li>Fail: ',
-                implode('</li><li>Fail: ', $response->error),
+                implode('</li><li>Fail: ', $errors),
                 '</li></ul>';
         }
 
-        if ($response->warn) {
+        if ($warnings) {
             echo '<ul class="warn"><li>Recommended: ',
-                implode('</li><li>Recommended: ', $response->warn),
+                implode('</li><li>Recommended: ', $warnings),
                 '</li></ul>';
         }
 
-        if (empty($response->error) && empty($response->warn)) {
+        if (empty($errors) && empty($warnings)) {
             echo '<div class="done">Your server is fine! 🖖👽</div>';
         }
         ?>
     </div>
 </body>
 </html>
-<?php
-}

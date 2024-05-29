@@ -1,22 +1,20 @@
 <?php
 namespace Controller;
 
-use Inphinit\Routing\Treaty;
-
-class TreatySample extends Treaty
+class TreatySample extends \Inphinit\Routing\Treaty
 {
     public function __construct()
     {
-        $this->format = Treaty::SLASH|Treaty::NOSLASH;
+        $this->format = self::SLASH|self::NOSLASH;
     }
 
-    public function anyIndex()
+    public function getIndex()
     {
-        return 'Hello, World! (from Controller)';
+        return 'getIndex';
     }
 
-    public function getAbout()
+    public function anyFooBarBaz()
     {
-        return 'About! (from Controller)';
+        return 'anyFooBarBaz';
     }
 }

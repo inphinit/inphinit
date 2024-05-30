@@ -4,7 +4,7 @@ use Inphinit\Viewing\View;
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Inphinit PHP framework</title>
+    <title><?=$status?> - <?=$title?></title>
     <?php View::render('header'); ?>
     <style type="text/css">
     h1 {

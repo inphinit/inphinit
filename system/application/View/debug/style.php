@@ -12,7 +12,7 @@
     margin: 15px 15px 25px 15px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.18), 0 1px 2px rgba(0,0,0,0.30);
 }
-.debug-inphinit h3, .debug-inphinit h4, .code-inphinit-header, .code-inphinit .error {
+.debug-inphinit h3, .debug-inphinit h4, .code-inphinit-header, .code-inphinit-error {
     font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif;
 }
 .debug-inphinit .debug-inphinit {
@@ -42,17 +42,23 @@
     padding: 10px;
     color: #fff;
 }
-.code-inphinit .error {
+.code-inphinit-header a {
+    color: inherit !important;
+    text-decoration: none !important;
+    border-bottom: thin currentColor dotted !important;
+    background-color: transparent !important;
+}
+.code-inphinit .code-inphinit-error {
     background-color: #fcfcfc;
     font-weight: bold;
     color: #282C35;
     padding: 10px;
     margin: 0;
 }
-.code-inphinit .error > a {
+.code-inphinit .code-inphinit-error > a {
     color: #5f5f8c;
     text-decoration: none;
-    border-bottom: 1px #3b4045 dotted;
+    border-bottom: thin #3b4045 dotted;
 }
 .code-inphinit pre {
     line-height: 24px;

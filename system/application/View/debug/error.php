@@ -2,9 +2,9 @@
 use Inphinit\Debug;
 ?>
 <div class="code-inphinit">
-<div class="code-inphinit-header"><?php echo $file; ?> on line <?php echo $line; ?></div>
-<div class="error">
-<?php echo nl2br(Debug::searcherror($message)); ?>
+<div class="code-inphinit-header"><?=$file?> on line <?=$line?></div>
+<div class="code-inphinit-error">
+<?=nl2br(Debug::searcherror($message))?>
 </div>
 
 <?php if ($source): ?>
@@ -23,15 +23,15 @@ $start = $start < 1 ? 0 : $start;
 $breakpoint--;
 ?>
 
-<pre style="counter-reset: line <?php echo $start; ?>"><?php
+<pre style="counter-reset: line <?=$start?>"><?php
 for ($i = 0; $i < $lines; $i++) {
     $current = trim($data[$i], "\r\n");
     $current = htmlspecialchars($current, ENT_QUOTES);
 
     if ($breakpoint === $i) {
-        echo '<span class="hl-line">', $current, '</span>', EOL;
+        echo "<span class=\"hl-line\">{$current}</span>\n";
     } else {
-        echo '<span>', $current, '</span>', EOL;
+        echo "<span>{$current}</span>\n";
     }
 }
 ?></pre>

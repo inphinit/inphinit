@@ -4,10 +4,10 @@
  */
 
 define('INPHINIT_ROOT', str_replace('\\', '/', realpath(__DIR__ . '/../..')) . '/');
-define('INPHINIT_PATH', INPHINIT_ROOT . 'system/');
+define('INPHINIT_SYSTEM', INPHINIT_ROOT . '/system/');
 define('INPHINIT_COMPOSER', false);
 
-require_once INPHINIT_PATH . 'vendor/inphinit/framework/src/Inphinit/Packages.php';
+require_once INPHINIT_ROOT . '/vendor/inphinit/framework/src/Inphinit/Packages.php';
 
 $packages = new Inphinit\Packages();
 
@@ -15,9 +15,9 @@ $packages->auto();
 
 $logs = $packages->logs();
 
-var_dump(INPHINIT_PATH . 'namespaces.php');
+var_dump(INPHINIT_ROOT . '/namespaces.php');
 
-$packages->save(INPHINIT_PATH . 'boot/namespaces.php');
+$packages->save(INPHINIT_ROOT . '/boot/namespaces.php');
 
 echo 'Importing packages:', PHP_EOL;
 

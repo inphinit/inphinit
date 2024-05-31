@@ -22,14 +22,14 @@ use Inphinit\Viewing\View;
         <article id="error">
             <header>
                 <h1>
-                    <strong><?php echo $status; ?></strong>
-                    <?php echo $title; ?>
+                    <strong><?=$status?></strong>
+                    <?=$title?>
                 </h1>
 
                 <p>
-                    Route <code><?php echo $route; ?></code>
+                    Route <code><?=$route?></code>
                     <?php if ($route !== $path): ?>
-                    (fullpath: <code><?php echo $path; ?></code>)
+                    (fullpath: <code><?=$path?></code>)
                     <?php endif; ?>
                 </p>
             </header>

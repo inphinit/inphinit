@@ -7,8 +7,8 @@ class Home
 {
     public function index()
     {
-        View::render('home', array(
+        View::render('home', [
             'intro' => 'Hello world!'
-        ));
+        ]);
     }
 }

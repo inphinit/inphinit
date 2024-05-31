@@ -25,9 +25,7 @@ Debug::view('error', 'debug.error');
 //Display memory usage (uncomment next line for check memory peak usage and time)
 # Debug::view('performance', 'debug.performance');
 
-Route::set('GET', '/info', function () {
-    phpinfo();
-});
+Route::set('GET', '/info', 'phpinfo');
 
 Route::set('GET', '/memory', function () {
     return 'memory peak usage: ' . round(memory_get_peak_usage() / 1024 / 1024, 3) . 'MB';
@@ -155,6 +153,8 @@ Group::create()->domain('localhost')->path('/samples/')->then(function () {
 
         if ($cache->cached()) return;
 
+        echo '<a href="">test</a><br>';
+
         return str_repeat('Hello, world! ', 1000);
     });
 
@@ -227,12 +227,6 @@ Group::create()->domain('localhost')->path('/samples/')->then(function () {
         Response::cache(30); // 30 sec
 
         Response::status(201);
-
-        Response::putHeader('X-Custom-Header-1', 'foo');
-        Response::putHeader('X-Custom-Header-2', 'bar');
-        Response::putHeader('Content-Type', 'text/html; charset=ISO-8859-1');
-
-        Response::removeHeader('X-Custom-Header-2');
     });
 
     // HTTP Response download page

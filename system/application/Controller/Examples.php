@@ -12,11 +12,11 @@ class Examples
 
     public function eventReady()
     {
-        $args = array(
+        $args = [
             'foo' => 'Foo',
             'bar' => 'bar',
             'baz' => 'baz'
-        );
+        ];
 
         App::on('ready', function () use ($args) {
             print_r($args);

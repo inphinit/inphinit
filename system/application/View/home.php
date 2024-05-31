@@ -13,7 +13,7 @@ use Inphinit\Viewing\View;
         <article id="intro">
             <header>
                 <h1>Inphinit</h1>
-                <h2><?php echo $intro; ?></h2>
+                <h2><?=$intro?></h2>
             </header>
         </article>
         <footer id="links">

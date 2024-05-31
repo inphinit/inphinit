@@ -7,8 +7,8 @@ class Profile
 {
     public function view($username)
     {
-        View::render('foo.bar', array(
+        View::render('foo.bar', [
             'name' => $username
-        ));
+        ]);
     }
 }

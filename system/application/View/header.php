@@ -77,13 +77,20 @@ main h2 {
     font-size: 1.5rem;
 }
 
-#intro, #error {
+#intro, #error, #examples {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
+}
+
+#intro, #error {
     height: calc(100vh - 66px);
+}
+
+#examples {
+    padding: 5rem 2rem 2rem 2rem;
 }
 
 #intro > header, #error > header {
@@ -91,7 +98,7 @@ main h2 {
     padding-bottom: 1rem;
 }
 
-#intro h1 {
+#intro h1, #examples h1 {
     font-size: 9.5rem;
     font-weight: bold;
     background: linear-gradient(135deg, #FD6E6A 10%, #FFC600 100%);
@@ -99,6 +106,10 @@ main h2 {
     text-fill-color: transparent;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+#examples h1 {
+    font-size: 4.2rem;
 }
 
 #error h1 {
@@ -140,6 +151,57 @@ main h2 {
     }
 }
 
+#items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+#items > dl {
+    flex: 1 0 28%;
+    display: block;
+    overflow: hidden;
+    border-radius: .4rem;
+    background: rgba(0,0,0,.1);
+    border: thin solid rgba(255,255,255,.2);
+}
+
+#items > dl:hover {
+    background-color: rgba(0,0,0,.24);
+    border-color: rgba(255,255,255,.4);
+}
+
+#items > dl > dt, #items > dl > dd {
+    list-style-type: none;
+    margin: 0;
+}
+
+#items > dl > dt {
+    padding: 1rem;
+    font-weight: bold;
+}
+
+#items > dl > dd {
+    border-top: thin solid rgba(255,255,255,.2);
+}
+
+#items > dl > dd > a {
+    color: inherit;
+    display: block;
+    padding: 1rem;
+    text-decoration: none;
+    transition: .3s all ease;
+}
+
+#items > dl > dd > a:hover,
+#items > dl > dd > a:active,
+#items > dl > dd > a:focus {
+    background: rgba(255,255,255,.1);
+}
+
 @media (max-width: 410px) {
     main > header {
         justify-content: center;
@@ -150,5 +212,9 @@ main h2 {
     html {
         font-size: 10px;
     }
+}
+
+.example-list {
+
 }
 </style>

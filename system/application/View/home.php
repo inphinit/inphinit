@@ -17,6 +17,7 @@ use Inphinit\Viewing\View;
             </header>
         </article>
         <footer id="links">
+            <a href="./examples/">Examples</a>
             <?php View::render('menu'); ?>
         </footer>
     </main>

@@ -31,6 +31,10 @@ Route::set('GET', '/memory', function () {
     return 'memory peak usage: ' . round(memory_get_peak_usage() / 1024 / 1024, 3) . 'MB';
 });
 
+Route::set('GET', '/examples/', function () {
+    View::render('examples');
+});
+
 Route::set('GET', '/error', function () {
     echo "Foo\n";
     echo $nonExistentVariable;
@@ -52,12 +56,12 @@ Group::create()->domain('localhost')->path('/maintenance/')->then(function () {
         return $_SERVER['REMOTE_ADDR'] === '127.0.0.1';
     });
 
-    Route::set('GET', '/on', function () {
+    Route::set('GET', '/up', function () {
         Maintenance::up();
         return 'Desativou o modo manutenção para as próximas requisições';
     });
 
-    Route::set('GET', '/off', function () {
+    Route::set('GET', '/down', function () {
         Maintenance::down();
         return 'Ativou o modo manutenção para as próximas requisições';
     });
@@ -153,8 +157,6 @@ Group::create()->domain('localhost')->path('/samples/')->then(function () {
 
         if ($cache->cached()) return;
 
-        echo '<a href="">test</a><br>';
-
         return str_repeat('Hello, world! ', 1000);
     });
 
@@ -237,36 +239,27 @@ Group::create()->domain('localhost')->path('/samples/')->then(function () {
     });
 
     // HTTP Response headers
-    Route::set('ANY', '/file/exists', function () {
+    Route::set('ANY', '/file', function () {
         echo '<pre>';
 
-        var_dump( File::exists(INPHINIT_ROOT . '/main.php') ); //Retorna true
-        var_dump( File::exists(INPHINIT_ROOT . '/MAIN.php') ); //Retorna false
-        var_dump( File::exists(INPHINIT_ROOT . '/Main.php') ); //Retorna false
-        var_dump( File::exists(INPHINIT_ROOT . '/main.PHP') ); //Retorna false
-        var_dump( File::exists(INPHINIT_ROOT . '/MAIN.PHP') ); //Retorna false
+        var_dump( File::exists(INPHINIT_SYSTEM . '/main.php') ); //Retorna true
+        var_dump( File::exists(INPHINIT_SYSTEM . '/MAIN.php') ); //Retorna false
+        var_dump( File::exists(INPHINIT_SYSTEM . '/Main.php') ); //Retorna false
+        var_dump( File::exists(INPHINIT_SYSTEM . '/main.PHP') ); //Retorna false
+        var_dump( File::exists(INPHINIT_SYSTEM . '/MAIN.PHP') ); //Retorna false
 
          // Retorna uma string no formato octal, exemplo: 0666
-        var_dump( File::permission(INPHINIT_ROOT . '/main.php') );
+        var_dump( File::permissions(INPHINIT_SYSTEM . '/main.php') );
 
         // Retorna formato simbolico, exemplo: -rw-rw-rw-
-        var_dump( File::permission(INPHINIT_ROOT . '/main.php', true) );
+        var_dump( File::permissions(INPHINIT_SYSTEM . '/main.php', true) );
 
         // Retorna formato simbolico, exemplo: text/x-php
-        var_dump( File::mime(INPHINIT_ROOT . '/main.php') );
+        var_dump( File::mime(INPHINIT_SYSTEM . '/main.php') );
 
         // Retorna formato simbolico, exemplo: us-ascii
-        var_dump( File::encoding(INPHINIT_ROOT . '/main.php') );
+        var_dump( File::encoding(INPHINIT_SYSTEM . '/main.php') );
 
         echo '</pre>';
-    });
-
-    //Navegue até http://localhost/[project_name]/maintenance-on para habilitar o modo de manutenção
-    Route::set('GET', '/maintenance-on', function () {
-
-        //Desabilita as Routes e o evento 'ready'
-        Maintenance::down();
-
-        return 'O modo de manutenção está ligado';
     });
 });

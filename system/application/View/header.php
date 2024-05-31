@@ -29,30 +29,35 @@ body > .skip:focus {
 }
 
 html, body {
-    height: 100%;
+    min-height: 100vh;
     padding: 0;
     margin: 0;
 }
 
-body {
-    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif;
-    color: #5F5656;
-    font-size: 16px;
-    background: #F7F6F6;
-    min-width: 300px;
+h1, h2, h3 {
+    font-weight: 600;
 }
 
-main {
-    display: -webkit-flex;
-    display: flex;
+html {
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif;
+    font-size: 16px;
+    color: #F7F6F6;
+    background: #262833;
+    background: linear-gradient( 135deg, #262833 10%, #101015 100%);
+}
 
-    -webkit-flex-direction: column;
-    flex-direction: column;
+body {
+    min-width: 300px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 800 800"><g fill="none" stroke="%23fff" stroke-width="1.5" stroke-opacity="0.1"><path d="M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63"/><path d="M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764"/><path d="M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880"/><path d="M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382"/><path d="M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269"/></g><g fill="%23fcfcfc" fill-opacity="0.2"><circle cx="769" cy="229" r="4"/><circle cx="539" cy="269" r="4"/><circle cx="603" cy="493" r="4"/><circle cx="731" cy="737" r="4"/><circle cx="520" cy="660" r="4"/><circle cx="309" cy="538" r="4"/><circle cx="295" cy="764" r="4"/><circle cx="40" cy="599" r="4"/><circle cx="102" cy="382" r="4"/><circle cx="127" cy="80" r="4"/><circle cx="370" cy="105" r="4"/><circle cx="578" cy="42" r="4"/><circle cx="237" cy="261" r="4"/><circle cx="390" cy="382" r="4"/></g></svg>');
+    background-size: 400px 400px;
+}
 
-    width: 100%;
-    height: 100%;
-
-    padding: 1rem;
+code {
+    border-radius: .4rem;
+    background: rgba(0, 0, 0, .5);
+    display: inline-block;
+    padding: .2rem .3rem;
+    color: #fff;
 }
 
 main h1, main h2 {
@@ -61,7 +66,7 @@ main h1, main h2 {
 }
 
 main h1 {
-    font-size: 3.5rem;
+    position: relative;
     font-weight: 100;
     padding: .4rem 0;
     margin: 0;
@@ -72,39 +77,57 @@ main h2 {
     font-size: 1.5rem;
 }
 
-main > article {
+#intro, #error {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: calc(100vh - 66px);
 }
 
-main > article > header {
+#intro > header, #error > header {
     text-align: center;
     padding-bottom: 1rem;
 }
 
-main > footer {
-    border-top: thin solid #F2EBEB;
-    padding-top: 1rem;
+#intro h1 {
+    font-size: 9.5rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #FD6E6A 10%, #FFC600 100%);
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#error h1 {
+    font-size: 3.5rem;
+}
+
+#links {
+    border-top: thin solid rgba(255,255,255,.1);
+    padding: 1rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
     gap: .2rem;
+    max-height: 66px;
 }
 
-main > footer > a {
+#links > a {
     transition: .2s all ease;
     text-decoration: none;
     display: block;
     padding: .4rem .8rem;
     color: inherit;
+    font-size: 1rem;
     border-radius: 1rem;
     background: transparent;
 }
 
-main > footer > a:hover {
-    background: #eae2e2;
+#links > a:hover, #links > a:active, #links > a:focus {
+    background: rgba(255,255,255,.1);
 }
 
 @media (max-width: 510px) {
@@ -112,14 +135,20 @@ main > footer > a:hover {
         font-size: 14px;
     }
 
-    main > footer {
+    main > header {
         justify-content: center;
     }
 }
 
 @media (max-width: 410px) {
-    main > footer {
+    main > header {
         justify-content: center;
+    }
+}
+
+@media (max-width: 890px) {
+    html {
+        font-size: 10px;
     }
 }
 </style>

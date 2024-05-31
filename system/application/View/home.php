@@ -10,13 +10,15 @@ use Inphinit\Viewing\View;
 <body>
     <a class="skip" href="#main">Skip to main content</a>
     <main>
-        <article id="main">
+        <article id="intro">
             <header>
-                <h1>Inphinit - PHP framework</h1>
+                <h1>Inphinit</h1>
                 <h2><?php echo $intro; ?></h2>
             </header>
         </article>
-        <?php View::render('footer'); ?>
+        <footer id="links">
+            <?php View::render('menu'); ?>
+        </footer>
     </main>
 </body>
 </html>

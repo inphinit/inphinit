@@ -19,7 +19,7 @@ use Inphinit\Viewing\View;
 <body>
     <a class="skip" href="#main">Skip to main content</a>
     <main>
-        <article id="main">
+        <article id="error">
             <header>
                 <h1>
                     <strong><?php echo $status; ?></strong>
@@ -34,7 +34,9 @@ use Inphinit\Viewing\View;
                 </p>
             </header>
         </article>
-        <?php View::render('footer'); ?>
+        <footer id="links">
+            <?php View::render('menu'); ?>
+        </footer>
     </main>
 </body>
 </html>

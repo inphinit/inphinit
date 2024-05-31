@@ -4,7 +4,7 @@ PHP framework, routes, controllers and views
 
 ## Requirements
 
-1. PHP 5.3.0+
+1. PHP 5.4+ (PHP 8.2 or higher is recommended, see https://www.php.net/supported-versions.php)
 1. Multibyte String (GD also) (optional, only used in `Inphinit\Helper::toAscii`)
 1. libiconv (optional, only used in `Inphinit\Helper::toAscii`)
 1. fileinfo (optional, only used in `Inphinit\File::mime`)

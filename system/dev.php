@@ -20,10 +20,10 @@ Debug::view('before', 'debug.style');
 Debug::view('error', 'debug.error');
 
 // Display declared classes, functions and constants (uncomment next line for check used classes)
-Debug::view('defined', 'debug.defined');
+# Debug::view('defined', 'debug.defined');
 
 //Display memory usage (uncomment next line for check memory peak usage and time)
-Debug::view('performance', 'debug.performance');
+# Debug::view('performance', 'debug.performance');
 
 Route::set('GET', '/info', function () {
     phpinfo();

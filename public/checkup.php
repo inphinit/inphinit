@@ -1,11 +1,11 @@
 <?php
 if (!defined('INPHINIT_SYSTEM')) {
-    define('INPHINIT_ROOT', str_replace('\\', '/', realpath(__DIR__ . '/..')) . '/');
-    define('INPHINIT_SYSTEM', INPHINIT_ROOT . 'system/');
+    define('INPHINIT_ROOT', str_replace('\\', '/', realpath(__DIR__ . '/..')));
+    define('INPHINIT_SYSTEM', INPHINIT_ROOT . '/system');
     define('INPHINIT_COMPOSER', false);
 }
 
-require_once INPHINIT_SYSTEM . 'vendor/inphinit/framework/src/boot.php';
+require_once INPHINIT_SYSTEM . '/vendor/inphinit/framework/src/boot.php';
 
 $check = new Inphinit\Checkup();
 ?><!DOCTYPE html>

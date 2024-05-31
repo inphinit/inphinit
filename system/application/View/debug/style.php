@@ -1,10 +1,8 @@
 <style type="text/css">
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,300');
-
 .debug-inphinit {
     text-align: left;
     padding: 10px;
-    background-color: #fcfcfc;
+    background-color: rgba(0,0,0,0.6);
     border-radius: 4px;
 }
 .debug-inphinit, .code-inphinit {

@@ -7,11 +7,11 @@ use Inphinit\Viewing\View;
 if ($status === 503) {
     echo 'This site is currently down for maintenance and should be back soon!';
 } else {
-    View::render('httpview', array(
+    View::render('httpview', [
         'method' => $_SERVER['REQUEST_METHOD'],
         'status' => $status,
         'route' => Request::path(true),
         'path' => Request::path(),
         'title' => Status::message($status, 'Unknown Error')
-    ));
+    ]);
 }

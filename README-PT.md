@@ -22,9 +22,9 @@ Todas as rotas e aplicação básica já estão estabelecidas, mas outras APIs i
 
 ## O que já alcançamos
 
-Sempre valorizei desempenho e simplicidade, parte do que foi implementado no _Inphinit 2.0_ já foi portado para _0.6", o que proporcionou uma grande melhoria nessas versões antes do lançamento de 2.0, e mesmo que a _versão 0.5_ seja muito eficiente, o salto no desempenho foi incrível da _versão 0.6_ em diante. Na _versão 2.0_ é um pouco melhor, então aqui vai um exemplo dos testes, com o modo de desenvolvimento desligado:
+Sempre valorizei desempenho e simplicidade, parte do que foi implementado no _Inphinit 2.0_ já foi portado para _0.6_, o que proporcionou uma grande melhoria nessas versões antes do lançamento de 2.0, e mesmo que a _versão 0.5_ seja muito eficiente, o salto no desempenho foi incrível da _versão 0.6_ em diante. Na _versão 2.0_ é um pouco melhor, então aqui vai um exemplo dos testes, com o modo de desenvolvimento desligado:
 
-Descrição                                                            | 0.5.19                        | 0.6.x                         | 2.0
+Descrição                                                            | v0.5.19                       | v0.6                          | v2.0
 ---                                                                  | ---                           | ---                           | --- 
 Tempo gasto para testes:                                             | 0.528 segundos                | 0.429 segundos                | 0.391 segundos
 Solicitações por segundo (média):                                    | 1892.46 [#/seg]               | 2330.74 [#/seg]               | 2557.07 [#/seg]
@@ -32,7 +32,7 @@ Tempo por solicitação (média):                                       | 5.284 
 Tempo por solicitação (média, em todas as solicitações simultâneas): | 0.528 [ms]                    | 0.429 [ms]                    | 0.391 [ms]
 Taxa de transferência:                                               | 373.32 [Kbytes/seg] recebidos | 459.77 [Kbytes/sec] recebidos | 504.42 [Kbytes/seg] recebidos
 
-Além da melhoria no tempo de execução, nota-se que a _versão 2.0_ conseguiu processar em média mais 220 solicitações por segundo do que a versão _0.6_, e comparativamente à _0.5.x_, conseguiu processar mais 600 requisições por segundo. solicitações por segundo.
+Além da melhoria no tempo de execução, nota-se que a _versão 2.0_ conseguiu processar em média mais 220 solicitações por segundo do que a versão _0.6_, e quando comparado à _0.5.x_, conseguiu processar 600 requisições a mais, por segundo.
 
 ## Sobre documentação
 
@@ -127,7 +127,7 @@ location / {
 └───system          # (pasta contendo seu aplicativo)
     ├───boot        # (contém configurações para inphinit_autoload, semelhante a compositor_autoload)
     ├───configs     # (contém arquivos de configuração variados, é recomendado que você não versione esta pasta)
-    │   └───app.php # (Não adicione, apenas altere os valores, se necessário)
+    │   └───app.php # (Não adicione novas chaves, apenas altere os valores da existentes, se necessário)
     ├───controllers # (deve conter as classes que serão os controladores utilizados nas rotas)
     ├───vendor      # (contém pacotes de terceiros e a estrutura)
     ├───views       # (deve conter suas opiniões)
@@ -136,7 +136,7 @@ location / {
     └───main.php    # (Este é o arquivo principal para rotas e eventos, estará disponível em modo de desenvolvimento e modo de produção)
 ```
 
-No modo de desenvolvimento, o script `system/dev.php` sempre será executado primeiro, somente depois que `system/main.php` for executado, e se ocorrer um erro 404 ou 405, o último script a ser executado será ` sistema/erros.php`
+No modo de desenvolvimento, o script `system/dev.php` sempre será executado primeiro, depois será executado `system/main.php`, e se ocorrer algum erro, como 404 ou 405, o último script a ser executado será ` sistema/erros.php`
 
 ## Criando rotas
 
@@ -181,9 +181,11 @@ $app->action('GET', '/class-method', 'Boo\Bar::baz');
 
 ## Agrupando rotas
 
-O sistema de agrupamento de rotas agora está muito mais simples, é baseado na URL completa, podendo utilizar o caracter curinga `*` e também os mesmos padrões disponíveis para rotas, exemplos:
+O sistema de agrupamento de rotas agora está muito mais simples, é baseado na URL completa, podendo utilizar o caractere `*` como curinga e também os mesmos padrões disponíveis para rotas, exemplos:
 
 ```php
+<?php
+
 /*
  * As rotas só serão adicionadas se o caminho começar com /blog/
  * 
@@ -237,12 +239,44 @@ Para mais exemplos, veja o arquivo `my-application/system/dev.php`
 
 ## Padrões de rotas e URL
 
-Type | Example | Description
+Tipo | Examplo | Descrição
 ---|---|---
-`alnum` | `$app->action('GET', '/baz/<video:alnum>', ...);` | Only accepts parameters with alpha-numeric format and `$params` returns `['video' => ...]`
-`alpha` | `$app->action('GET', '/foo/bar/<name:alpha>', ...);` | Only accepts parameters with alpha format and `$params` returns `['name' => ...]`
-`decimal` | `$app->action('GET', '/baz/<price:decimal>', ...);` | Only accepts parameters with decimal format and `$params` returns `['price' => ...]`
-`num` | `$app->action('GET', '/foo/<id:num>', ...);` | Only accepts parameters with integer format and `$params` returns `['id' => ...]`
-`nospace` | `$app->action('GET', '/foo/<nospace:nospace>', ...);` | Accepts any characters expcet spaces, like white-spaces (`%20`), tabs (`%0A`) and others (see about `\S` in regex)
-`uuid` | `$app->action('GET', '/bar/<barcode:alnum>', ...);` | Only accepts parameters with uuid format and `$params` returns `['barcode' => ...]`
-`version` | `$app->action('GET', '/baz/<api:version>', ...);` | Only accepts parameters with _Semantic Versioning 2.0.0 (semversion)_ format and `$params` returns `['api' => ...]`
+`alnum` | `$app->action('GET', '/baz/<video:alnum>', ...);`       | Aceita apenas parâmetros com formato alfanumérico e `$params` retorna `['video' => ...]`
+`alpha` | `$app->action('GET', '/foo/bar/<name:alpha>', ...);`    | Aceita apenas parâmetros com formato alfa e `$params` retorna `['name' => ...]`
+`decimal` | `$app->action('GET', '/baz/<price:decimal>', ...);`   | Aceita apenas parâmetros com formato decimal e `$params` retorna `['price' => ...]`
+`num` | `$app->action('GET', '/foo/<id:num>', ...);`              | Aceita apenas parâmetros com formato inteiro e `$params` retorna `['id' => ...]`
+`nospace` | `$app->action('GET', '/foo/<nospace:nospace>', ...);` | Aceita quaisquer caracteres exceto espaços, como espaços em branco (`%20`), tabulações (`%0A`) e outros (veja sobre `\S` em regex)
+`uuid` | `$app->action('GET', '/bar/<barcode:alnum>', ...);`      | Aceita apenas parâmetros com formato uuid e `$params` retorna `['barcode' => ...]`
+`version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Aceita apenas parâmetros com formato _Semantic Versioning 2.0.0 (semversion)_ e `$params` retorna `['api' => ...]`
+
+É possivel adicionar ou modificar os padrões existentes, usando o método `$app->setPattern(nome, regex)`. Criando um novo padrão:
+
+```php
+<?php
+use Inphinit\Viewing\View;
+
+$app->action('GET', '/about/<lang:locale>', function ($params) {
+    $lang = $params['lang'];
+    ...
+});
+
+$app->action('GET', '/product/<id:id>', function ($params) {
+    $lang = $params['id'];
+    ...
+});
+
+$app->setPattern('locale', '[a-z]{1,8}(\-[A-Z\d]{1,8})?'); // examples: en, en-US, en-GB, pt-BR, pt
+$app->setPattern('id', '[A-Z]\d+'); // examples: A0001, B002, J007
+```
+
+Modificando um padrão existente:
+
+```php
+<?php
+
+// Troca semversion por <major>.<minor>.<revision>.<build>
+$app->setPattern('version', '\d+\.\d+.\d+.\d+');
+
+// Troca semversion por <major>.<minor> (talvez seja interessante para APIs web)
+$app->setPattern('version', '\d+\.\d+');
+```

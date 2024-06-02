@@ -16,7 +16,7 @@ The objective of this framework has always been to be as efficient as possible, 
 - Change the way routes work, to make them faster and also be able to predict failures, when used in development
 - Some typing errors can make certain PHP features not respond in a timely manner, such as autoload, so developer mode will preload everything you need before any script disrupts the process, allowing debugging to locate and display exactly which line the error is on.
 
-All of these decisions are embedded in the framework, some of which have already been added to version 0.6, to make it easier to port the project to the future version of the framework.
+All of these decisions are embedded in the framework, some of which have already been added to _version 0.6_, to make it easier to port the project to the future version of the framework.
 
 All of the routes and basic application are already established, but other internal APIs, for other uses, are still under development, so we are entering this phase, and within 2 weeks at most the first beta will be released, where I will not include any more new functionality, it will be a series of corrections and regressions.
 
@@ -24,7 +24,7 @@ All of the routes and basic application are already established, but other inter
 
 I have always valued performance and simplicity, part of what was implemented in _Inphinit 2.0_ has already been ported to _0.6_, which provided a great improvement in these versions before the release of 2.0, and even though _version 0.5_ is very efficient, the leap in performance It was incredible from _version 0.6_ onwards. In _version 2.0_ it is a little better, so here is an example of the tests, with development mode turned off:
 
-Description                                              | 0.5.19                       | 0.6.x                        | 2.0
+Description                                              | v0.5.19                      | v0.6                         | v2.0
 ---                                                      | ---                          | ---                          | --- 
 Time taken for tests:                                    | 0.528 seconds                | 0.429 seconds                | 0.391 seconds
 Requests per second (mean):                              | 1892.46 [#/sec]              | 2330.74 [#/sec]              | 2557.07 [#/sec]
@@ -32,7 +32,7 @@ Time per request (mean):                                 | 5.284 [ms]           
 Time per request (mean, across all concurrent requests): | 0.528 [ms]                   | 0.429 [ms]                   | 0.391 [ms]
 Transfer rate:                                           | 373.32 [Kbytes/sec] received | 459.77 [Kbytes/sec] received | 504.42 [Kbytes/sec] received
 
-In addition to the improved execution time, it is noted that _version 2.0_ was able to process an average of 220 more requests per second than _0.6_ version, and compared to 0.5.x, it was able to process 600 more requests per second.
+In addition to the improved execution time, it is noted that _version 2.0_ was able to process an average of 220 more requests per second than _version 0.6_, and compared to _0.5.x_, it was able to process 600 more requests per second.
 
 ## About documentation
 
@@ -50,7 +50,7 @@ So I made the decision to migrate to another platform, or maybe create something
 
 Note that we are still in the development phase, and in 2 weeks we intend to launch the first beta, which will be available via composer, _version 2.0_ is not yet recommended for production, so prefer to use it only for testing or criticism that you wish to do during this step.
 
-To install it you must have at least PHP 5.4, but it is **recommended that you use PHP 8** due to PHP support issues, read:
+To install it you must have at least _PHP 5.4_, but it is **recommended that you use PHP 8** due to PHP support issues, read:
 
 > - https://www.php.net/supported-versions.php
 > - https://www.php.net/eol.php
@@ -127,7 +127,7 @@ location / {
 └───system          # (folder containing your application)
     ├───boot        # (contain settings for inphinit_autoload, similar to composer_autoload)
     ├───configs     # (contain varied configuration files, it is recommended that you do not version this folder)
-    │   └───app.php # (Don not add, just change the values, if necessary)
+    │   └───app.php # (Don't add new keys, just change the values of existing ones if necessary)
     ├───controllers # (must contain the classes that will be controllers used in the routes)
     ├───vendor      # (contain third-party packages and the framework)
     ├───views       # (should contain your views)
@@ -136,15 +136,17 @@ location / {
     └───main.php    # (This is the main file for routes and events, it will be available in development mode and production mode)
 ```
 
-In development mode, the `system/dev.php` script will always be executed first, only after `system/main.php` will be executed, and if an error 404 or 405 occurs, the last script to be executed will be `system/errors.php`
+In development mode, the `system/dev.php` script will always be executed first, then `system/main.php` will be executed, and if an error occurs, such as 404 or 405, the last script to be executed will be `system /erros.php`
 
 ## Creating routes
 
 To create a new route, edit the `my-application/system/main.php` file, if you want the route to only be available in development mode, then edit the `my-application/system/dev.php` file.
 
-The route system supports controllers, [callables](https://www.php.net/manual/en/language.types.callable.php) and [anonymous functions](https://www.php.net/manual/en/functions.anonymous.php), examples:
+The route system supports _controllers_, [_callables_](https://www.php.net/manual/en/language.types.callable.php) and [_anonymous functions_](https://www.php.net/manual/en/functions.anonymous.php), examples:
 
 ```php
+<?php
+
 // anonymous functions
 $app->action('GET', '/closure', function () {
     return 'Hello "closure"!';
@@ -182,6 +184,8 @@ $app->action('GET', '/class-method', 'Boo\Bar::baz');
 The route grouping system is now much simpler, it is based on the complete URL, and you can use the `*` wildcard character and also the same patterns available for routes, examples:
 
 ```php
+<?php
+
 /*
  * Routes will only be added if the path starts with /blog/
  * 
@@ -237,10 +241,42 @@ See more examples in the `my-application/system/dev.php` file
 
 Type | Example | Description
 ---|---|---
-`alnum` | `$app->action('GET', '/baz/<video:alnum>', ...);` | Only accepts parameters with alpha-numeric format and `$params` returns `['video' => ...]`
-`alpha` | `$app->action('GET', '/foo/bar/<name:alpha>', ...);` | Only accepts parameters with alpha format and `$params` returns `['name' => ...]`
-`decimal` | `$app->action('GET', '/baz/<price:decimal>', ...);` | Only accepts parameters with decimal format and `$params` returns `['price' => ...]`
-`num` | `$app->action('GET', '/foo/<id:num>', ...);` | Only accepts parameters with integer format and `$params` returns `['id' => ...]`
+`alnum` | `$app->action('GET', '/baz/<video:alnum>', ...);`       | Only accepts parameters with alpha-numeric format and `$params` returns `['video' => ...]`
+`alpha` | `$app->action('GET', '/foo/bar/<name:alpha>', ...);`    | Only accepts parameters with alpha format and `$params` returns `['name' => ...]`
+`decimal` | `$app->action('GET', '/baz/<price:decimal>', ...);`   | Only accepts parameters with decimal format and `$params` returns `['price' => ...]`
+`num` | `$app->action('GET', '/foo/<id:num>', ...);`              | Only accepts parameters with integer format and `$params` returns `['id' => ...]`
 `nospace` | `$app->action('GET', '/foo/<nospace:nospace>', ...);` | Accepts any characters expcet spaces, like white-spaces (`%20`), tabs (`%0A`) and others (see about `\S` in regex)
-`uuid` | `$app->action('GET', '/bar/<barcode:alnum>', ...);` | Only accepts parameters with uuid format and `$params` returns `['barcode' => ...]`
-`version` | `$app->action('GET', '/baz/<api:version>', ...);` | Only accepts parameters with _Semantic Versioning 2.0.0 (semversion)_ format and `$params` returns `['api' => ...]`
+`uuid` | `$app->action('GET', '/bar/<barcode:alnum>', ...);`      | Only accepts parameters with uuid format and `$params` returns `['barcode' => ...]`
+`version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Only accepts parameters with _Semantic Versioning 2.0.0 (semversion)_ format and `$params` returns `['api' => ...]`
+
+It is possible to add or modify existing patterns using the `$app->setPattern(name, regex)` method. Creating a new pattern:
+
+```php
+<?php
+use Inphinit\Viewing\View;
+
+$app->action('GET', '/about/<lang:locale>', function ($params) {
+    $lang = $params['lang'];
+    ...
+});
+
+$app->action('GET', '/product/<id:id>', function ($params) {
+    $lang = $params['id'];
+    ...
+});
+
+$app->setPattern('locale', '[a-z]{1,8}(\-[A-Z\d]{1,8})?'); // examples: en, en-US, en-GB, pt-BR, pt
+$app->setPattern('id', '[A-Z]\d+'); // examples: A0001, B002, J007
+```
+
+Modifying an existing pattern:
+
+```php
+<?php
+
+// Replace semversion by <major>.<minor>.<revision>.<build>
+$app->setPattern('version', '\d+\.\d+.\d+.\d+');
+
+// Replace semversion by <major>.<minor> (maybe it's interesting for web APIs)
+$app->setPattern('version', '\d+\.\d+');
+```

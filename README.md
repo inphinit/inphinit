@@ -118,22 +118,22 @@ location / {
 ## Folder structure
 
 ```bash
-├───.htaccess       # (Apache web server configuration)
-├───index.php       # (Only change the values of the constants, and only if necessary)
-├───server          # (shortcut to start the built-in web server on Linux and macOS)
-├───server.bat      # (shortcut to start the built-in web server on Windows)
-├───web.config      # (IIS web server configuration)
-├───public          # (In this folder you can place static files or PHP scripts that will be independent)
-└───system          # (folder containing your application)
-    ├───boot        # (contain settings for inphinit_autoload, similar to composer_autoload)
-    ├───configs     # (contain varied configuration files, it is recommended that you do not version this folder)
-    │   └───app.php # (Don't add new keys, just change the values of existing ones if necessary)
-    ├───controllers # (must contain the classes that will be controllers used in the routes)
-    ├───vendor      # (contain third-party packages and the framework)
-    ├───views       # (should contain your views)
-    ├───dev.php     # (It has the same purpose as the "main.php" script, but it will only work in development mode)
-    ├───errors.php  # (it should contain error page settings, such as when a 404 or 405 error occurs, you can call static files or use views)
-    └───main.php    # (This is the main file for routes and events, it will be available in development mode and production mode)
+├───.htaccess       # Apache web server configuration
+├───index.php       # Only change the values of the constants, and only if necessary
+├───server          # shortcut to start the built-in web server on Linux and macOS
+├───server.bat      # shortcut to start the built-in web server on Windows
+├───web.config      # IIS web server configuration
+├───public          # In this folder you can place static files or PHP scripts that will be independent
+└───system          # folder containing your application
+    ├───boot        # contain settings for inphinit_autoload, similar to composer_autoload
+    ├───configs     # contain varied configuration files, it is recommended that you do not version this folder
+    │   └───app.php # Don't add new keys, just change the values of existing ones if necessary
+    ├───controllers # must contain the classes that will be controllers used in the routes
+    ├───vendor      # contain third-party packages and the framework
+    ├───views       # should contain your views
+    ├───dev.php     # It has the same purpose as the "main.php" script, but it will only work in development mode
+    ├───errors.php  # it should contain error page settings, such as when a 404 or 405 error occurs, you can call static files or use views
+    └───main.php    # This is the main file for routes and events, it will be available in development mode and production mode
 ```
 
 In development mode, the `system/dev.php` script will always be executed first, then `system/main.php` will be executed, and if an error occurs, such as 404 or 405, the last script to be executed will be `system /erros.php`

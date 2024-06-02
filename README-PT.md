@@ -102,10 +102,10 @@ location / {
         fastcgi_index index.php;
         include fastcgi_params;
 
-        set $teeny_suffix _";
+        set $teeny_suffix "";
 
-        if ($uri != _/index.php") {
-            set $teeny_suffix _/public";
+        if ($uri != "/index.php") {
+            set $teeny_suffix "/public";
         }
 
         fastcgi_param SCRIPT_FILENAME $realpath_root$teeny_suffix$fastcgi_script_name;
@@ -118,22 +118,22 @@ location / {
 ## Estrutura das pastas
 
 ```bash
-├───.htaccess       # (Configuração do servidor web Apache)
-├───index.php       # (Altere apenas os valores das constantes e somente se necessário)
-├───server          # (atalho para iniciar o servidor web integrado no Linux e macOS)
-├───server.bat      # (atalho para iniciar o servidor web integrado no Windows)
-├───web.config      # (configuração do servidor web IIS)
-├───public          # (Nesta pasta você poderá colocar arquivos estáticos ou scripts PHP que serão independentes)
-└───system          # (pasta contendo seu aplicativo)
-    ├───boot        # (contém configurações para inphinit_autoload, semelhante a compositor_autoload)
-    ├───configs     # (contém arquivos de configuração variados, é recomendado que você não versione esta pasta)
-    │   └───app.php # (Não adicione novas chaves, apenas altere os valores da existentes, se necessário)
-    ├───controllers # (deve conter as classes que serão os controladores utilizados nas rotas)
-    ├───vendor      # (contém pacotes de terceiros e a estrutura)
-    ├───views       # (deve conter suas opiniões)
-    ├───dev.php     # (Tem a mesma finalidade do script _main.php", mas só funcionará em modo de desenvolvimento)
-    ├───errors.php  # (deve conter configurações de página de erro, como quando ocorre um erro 404 ou 405, você pode chamar arquivos estáticos ou use views)
-    └───main.php    # (Este é o arquivo principal para rotas e eventos, estará disponível em modo de desenvolvimento e modo de produção)
+├───.htaccess       # Configuração do servidor web Apache
+├───index.php       # Altere apenas os valores das constantes e somente se necessário
+├───server          # atalho para iniciar o servidor web integrado no Linux e macOS
+├───server.bat      # atalho para iniciar o servidor web integrado no Windows
+├───web.config      # configuração do servidor web IIS
+├───public          # Nesta pasta você poderá colocar arquivos estáticos ou scripts PHP que serão independentes
+└───system          # pasta contendo seu aplicativo
+    ├───boot        # contém configurações para inphinit_autoload, semelhante a compositor_autoload
+    ├───configs     # contém arquivos de configuração variados, é recomendado que você não versione esta pasta
+    │   └───app.php # Não adicione novas chaves, apenas altere os valores da existentes, se necessário
+    ├───controllers # deve conter as classes que serão os controladores utilizados nas rotas
+    ├───vendor      # contém pacotes de terceiros e a estrutura
+    ├───views       # deve conter suas opiniões
+    ├───dev.php     # Tem a mesma finalidade do script _main.php", mas só funcionará em modo de desenvolvimento
+    ├───errors.php  # deve conter configurações de página de erro, como quando ocorre um erro 404 ou 405, você pode chamar arquivos estáticos ou use views
+    └───main.php    # Este é o arquivo principal para rotas e eventos, estará disponível em modo de desenvolvimento e modo de produção
 ```
 
 No modo de desenvolvimento, o script `system/dev.php` sempre será executado primeiro, depois será executado `system/main.php`, e se ocorrer algum erro, como 404 ou 405, o último script a ser executado será ` sistema/erros.php`

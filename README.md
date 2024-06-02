@@ -1,11 +1,11 @@
 # Inphinit 2.0
 
-- [Installing](#Installing)
-- [Testing](#Testing)
-- [NGINX](#NGINX)
-- [Folder structure](#Folder_structure)
-- [Routing](#Routing)
-- [Grouping routes](#Grouping_routes)
+- [Installing](#installing)
+- [Testing](#testing)
+- [NGINX](#nginx)
+- [Folder structure](#folder-structure)
+- [Routing](#routing)
+- [Grouping routes](#grouping-routes)
 
 ## Decisions and what's next
 

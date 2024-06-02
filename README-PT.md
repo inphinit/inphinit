@@ -1,11 +1,11 @@
 # Inphinit 2.0
 
-- [Instalando](#Instalando)
-- [Testando](#Testando)
-- [NGINX](#NGINX)
-- [Estrutura das pastas](#Estrutura_das_pastas)
-- [Rotas](#Rotas)
-- [Agrupando rotas](#Agrupando_rotas)
+- [Instalando](#instalando)
+- [Testando](#testando)
+- [NGINX](#nginx)
+- [Estrutura das pastas](#estrutura-das-pastas)
+- [Rotas](#rotas)
+- [Agrupando rotas](#agrupando-rotas)
 
 ## Decisões e o que vem a seguir
 

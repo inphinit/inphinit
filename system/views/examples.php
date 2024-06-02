@@ -89,6 +89,13 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/file">/samples/file</a></dd>
             <dd><a href="../utilities/arrays">/utilities/arrays</a></dd>
             <dd><a href="../utilities/strings">/utilities/strings</a></dd>
+            <dd><a href="../invalid/function/">/invalid/function/</a></dd>
+
+            <dd><a href="../invalid/class-or-method/">/invalid/class-or-method/</a></dd>
+
+            <dd><a href="../invalid/function/">/invalid/function/</a></dd>
+            <dd><a href="../invalid/class-method/">/invalid/class-method/</a></dd>
+            <dd><a href="../invalid/static-method/">/invalid/static-method/</a></dd>
         </dl>
         </section>
     </main>

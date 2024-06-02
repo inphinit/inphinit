@@ -4,8 +4,9 @@
 - [Testing](#testing)
 - [NGINX](#nginx)
 - [Folder structure](#folder-structure)
-- [Routing](#routing)
+- [Creating routes](#creating-routes)
 - [Grouping routes](#grouping-routes)
+- [Route and URL patterns](#route-and-url-patterns)
 
 ## Decisions and what's next
 
@@ -41,7 +42,7 @@ Something I will change is the documentation, the Github Wiki worked for a while
 - Organizing the content was not as easy as I wanted, many things are manual, which took a lot of time to edit a few things
 - Github Desktop conflicts with wiki-type repositories, it's an [old bug](https://github.com/desktop/desktop/issues/3839#issue-290340050)
 
-The next step will be to create wizard-style pages, with a menu that makes navigation easier, and I intend to write in 3 different languages, so I will migrate all the content to a new open platform, which will make it much easier for the framework's users.
+So I made the decision to migrate to another platform, or maybe create something of your own, with the aim of being able to document quickly and at the same time provide a friendly interface to readers, thus saving time to focus on translating the documentation into at least 3 languages (en, es, pt). The documentation will be open-source, so any collaborator can send corrections or add something missing.
 
 ## Installing
 
@@ -80,9 +81,9 @@ location / {
     root /home/foo/bar/my-application;
 
     # Redirect page errors to route system
-    error_page 403 /index.php/RESERVED.TEENY-403.html;
-    error_page 500 /index.php/RESERVED.TEENY-500.html;
-    error_page 501 /index.php/RESERVED.TEENY-501.html;
+    error_page 403 /index.php/RESERVED.INPHINIT-403.html;
+    error_page 500 /index.php/RESERVED.INPHINIT-500.html;
+    error_page 501 /index.php/RESERVED.INPHINIT-501.html;
 
     try_files /public$uri /index.php?$query_string;
 
@@ -112,6 +113,8 @@ location / {
 }
 ```
 
+> **Note:** For FPM use `fastcgi_pass unix:/var/run/php/php<version>-fpm.sock` (replace `<version>` by PHP version in your server)
+
 ## Folder structure
 
 ```bash
@@ -135,7 +138,9 @@ location / {
 
 In development mode, the `system/dev.php` script will always be executed first, only after `system/main.php` will be executed, and if an error 404 or 405 occurs, the last script to be executed will be `system/errors.php`
 
-## Routing
+## Creating routes
+
+To create a new route, edit the `my-application/system/main.php` file, if you want the route to only be available in development mode, then edit the `my-application/system/dev.php` file.
 
 The route system supports controllers, [callables](https://www.php.net/manual/en/language.types.callable.php) and [anonymous functions](https://www.php.net/manual/en/functions.anonymous.php), examples:
 
@@ -227,3 +232,15 @@ $app->scope('*://*/users/<id:num>/<user>', function ($app, $params) {
 ```
 
 See more examples in the `my-application/system/dev.php` file
+
+## Route and URL patterns
+
+Type | Example | Description
+---|---|---
+`alnum` | `$app->action('GET', '/baz/<video:alnum>', ...);` | Only accepts parameters with alpha-numeric format and `$params` returns `['video' => ...]`
+`alpha` | `$app->action('GET', '/foo/bar/<name:alpha>', ...);` | Only accepts parameters with alpha format and `$params` returns `['name' => ...]`
+`decimal` | `$app->action('GET', '/baz/<price:decimal>', ...);` | Only accepts parameters with decimal format and `$params` returns `['price' => ...]`
+`num` | `$app->action('GET', '/foo/<id:num>', ...);` | Only accepts parameters with integer format and `$params` returns `['id' => ...]`
+`nospace` | `$app->action('GET', '/foo/<nospace:nospace>', ...);` | Accepts any characters expcet spaces, like white-spaces (`%20`), tabs (`%0A`) and others (see about `\S` in regex)
+`uuid` | `$app->action('GET', '/bar/<barcode:alnum>', ...);` | Only accepts parameters with uuid format and `$params` returns `['barcode' => ...]`
+`version` | `$app->action('GET', '/baz/<api:version>', ...);` | Only accepts parameters with _Semantic Versioning 2.0.0 (semversion)_ format and `$params` returns `['api' => ...]`

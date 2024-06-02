@@ -62,6 +62,23 @@ $app->action('GET', '/exception', function () {
     echo "Bar\n";
 });
 
+// In development mode it will predict unloaded controllers or callables exist
+$app->scope('*://*:*/invalid/function/', function ($app, $params) {
+    $app->action('ANY', '/', 'undefined_function');
+});
+
+$app->scope('*://*:*/invalid/class-method/', function ($app, $params) {
+    class Sample {}
+
+    $instance = new Sample;
+
+    $app->action('ANY', '/', [$instance, 'method']);
+});
+
+$app->scope('*://*:*/invalid/static-method/', function ($app, $params) {
+    $app->action('ANY', '/', ['NotExistClass', 'method']);
+});
+
 // Maintenance toggle
 $app->scope('*://localhost:*/maintenance/', function ($app, $params) {
     // If the request comes from "127.0.0.1" or is in development mode, it will bypass maintenance mode

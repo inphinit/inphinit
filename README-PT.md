@@ -4,8 +4,9 @@
 - [Testando](#testando)
 - [NGINX](#nginx)
 - [Estrutura das pastas](#estrutura-das-pastas)
-- [Rotas](#rotas)
+- [Criando rotas](#criando-rotas)
 - [Agrupando rotas](#agrupando-rotas)
+- [Padrões de rotas e URL](padrões-de-rotas-e-url)
 
 ## Decisões e o que vem a seguir
 
@@ -38,10 +39,10 @@ Além da melhoria no tempo de execução, nota-se que a _versão 2.0_ conseguiu 
 Algo que vou mudar é a documentação, o Github Wiki funcionou por um tempo mas notei alguns problemas:
 
 - O menu gerado no wiki do github não é tão intuitivo e notei que mesmo alguns programadores experientes não conseguiam navegar por lá
-- Organizar o conteúdo não foi tão fácil quanto eu queria, muitas coisas são manuais, o que levou muito tempo para editar algumas coisas
+- Organizar o conteúdo não foi tão fácil quanto eu precisava, muitas coisas são manuais, o que levou muito tempo para editar coisas simples
 - O Github Desktop entra em conflito com repositórios do tipo wiki, é um [bug antigo](https://github.com/desktop/desktop/issues/3839#issue-290340050)
 
-O próximo passo será criar páginas estilo Wizard, com um menu que proporcione maior facilidade em navegar, e pretendo escrever em 3 idiomas diferentes, então irei migrar todo o conteúdo para uma nova plataforma aberta, o que facilitará muito para os usuários do framework .
+Então tomei a decisão de migrar para outra plataforma, ou talvez criar algo próprio, com o objetivo de poder documentar rapidamente e ao mesmo tempo fornecer uma interface amigável aos leitores, podendo assim ganhar tempo para me focar em traduzir a documentação para 3 idiomas, pelo menos. A documentação será aberta, para qualquer colaborador poder enviar correções ou adicionar algo que falte.
 
 ## Instalando
 
@@ -112,6 +113,8 @@ location / {
 }
 ```
 
+> **NotA:** Para FPM use `fastcgi_pass unix:/var/run/php/php<version>-fpm.sock` (troque `<version>` pela versão do PHP em seu servidor)
+
 ## Estrutura das pastas
 
 ```bash
@@ -135,11 +138,15 @@ location / {
 
 No modo de desenvolvimento, o script `system/dev.php` sempre será executado primeiro, somente depois que `system/main.php` for executado, e se ocorrer um erro 404 ou 405, o último script a ser executado será ` sistema/erros.php`
 
-## Rotas
+## Criando rotas
 
-O sistema de rotas suporta _Controllers_, [_callables_](https://www.php.net/manual/en/language.types.callable.php) e [_funções anônimas_](https://www.php.net/manual/ en/functions.anonymous.php), exemplos:
+Para criar uma nova rota edite o arquivo `my-application/system/main.php`, se deseja que a rota fique só disponível no modo de desenvolvimento, então edite o arquivo `my-application/system/dev.php`.
+
+O sistema de rotas suporta _Controllers_, [_callables_](https://www.php.net/manual/en/language.types.callable.php) e [_funções anônimas_](https://www.php.net/manual/en/functions.anonymous.php), exemplos:
 
 ```php
+<?php
+
 // anonymous functions
 $app->action('GET', '/closure', function () {
     return 'Hello _closure"!';
@@ -227,3 +234,15 @@ $app->scope('*://*/users/<id:num>/<user>', function ($app, $params) {
 ```
 
 Para mais exemplos, veja o arquivo `my-application/system/dev.php`
+
+## Padrões de rotas e URL
+
+Type | Example | Description
+---|---|---
+`alnum` | `$app->action('GET', '/baz/<video:alnum>', ...);` | Only accepts parameters with alpha-numeric format and `$params` returns `['video' => ...]`
+`alpha` | `$app->action('GET', '/foo/bar/<name:alpha>', ...);` | Only accepts parameters with alpha format and `$params` returns `['name' => ...]`
+`decimal` | `$app->action('GET', '/baz/<price:decimal>', ...);` | Only accepts parameters with decimal format and `$params` returns `['price' => ...]`
+`num` | `$app->action('GET', '/foo/<id:num>', ...);` | Only accepts parameters with integer format and `$params` returns `['id' => ...]`
+`nospace` | `$app->action('GET', '/foo/<nospace:nospace>', ...);` | Accepts any characters expcet spaces, like white-spaces (`%20`), tabs (`%0A`) and others (see about `\S` in regex)
+`uuid` | `$app->action('GET', '/bar/<barcode:alnum>', ...);` | Only accepts parameters with uuid format and `$params` returns `['barcode' => ...]`
+`version` | `$app->action('GET', '/baz/<api:version>', ...);` | Only accepts parameters with _Semantic Versioning 2.0.0 (semversion)_ format and `$params` returns `['api' => ...]`

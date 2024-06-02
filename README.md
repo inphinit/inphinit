@@ -41,7 +41,7 @@ Something I will change is the documentation, the Github Wiki worked for a while
 - Organizing the content was not as easy as I wanted, many things are manual, which took a lot of time to edit a few things
 - Github Desktop conflicts with wiki-type repositories, it's an [old bug](https://github.com/desktop/desktop/issues/3839#issue-290340050)
 
-The next step will be to create wizard-style pages, with a nice menu, and I intend to write in 3 different languages, so I will migrate all the content to a new open platform, which will make it much easier for the framework's users.
+The next step will be to create wizard-style pages, with a menu that makes navigation easier, and I intend to write in 3 different languages, so I will migrate all the content to a new open platform, which will make it much easier for the framework's users.
 
 ## Installing
 

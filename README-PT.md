@@ -11,13 +11,13 @@
 
 O objetivo deste framework sempre foi ser o mais eficiente possível, porém algo que sempre me preocupou foram problemas de depuração, apesar de existirem diversas ferramentas, sempre busquei algo simples, mas claro mesmo quem está trabalhando pela primeira vez veja o erro. Então, no ano passado, tomei as seguintes decisões:
 
-- No modo de desenvolvimento a aplicação irá funcionar em modo estrito, verificando qualquer possivel falha
+- No modo de desenvolvimento a aplicação irá funcionar em modo estrito, verificando qualquer possível falha
 - Alterar a forma como as rotas funcionam, para torná-las mais rápidas e também poder prever falhas, quando utilizadas no desenvolvimento
 - Alguns erros de digitação podem fazer com que certos recursos do PHP não respondam em tempo hábil, como o carregamento automático, de modo que o modo de desenvolvedor pré-carregará tudo o que você precisa antes que qualquer script interrompa o processo, permitindo que a depuração localize e exiba exatamente em qual linha o erro está.
 
 Todas essas decisões já estão incorporadas no framework, algumas das quais já foram adicionadas à versão 0.6, para facilitar a portabilidade do projeto para a versão futura do framework.
 
-Todas as rotas e aplicação básica já estão estabelecidas, mas outras APIs internas, para outros usos, ainda estão em desenvolvimento, então estamos entrando nesta fase, e dentro de 2 semanas no máximo será lançado o primeiro beta, onde não irei incluir qualquer nova funcionalidade, será uma série de correções e possiveis regressões.
+Todas as rotas e aplicação básica já estão estabelecidas, mas outras APIs internas, para outros usos, ainda estão em desenvolvimento, então estamos entrando nesta fase, e dentro de 2 semanas no máximo será lançado o primeiro beta, onde não irei incluir qualquer nova funcionalidade, será uma série de correções e possíveis regressões.
 
 ## O que já alcançamos
 
@@ -41,7 +41,7 @@ Algo que vou mudar é a documentação, o Github Wiki funcionou por um tempo mas
 - Organizar o conteúdo não foi tão fácil quanto eu queria, muitas coisas são manuais, o que levou muito tempo para editar algumas coisas
 - O Github Desktop entra em conflito com repositórios do tipo wiki, é um [bug antigo](https://github.com/desktop/desktop/issues/3839#issue-290340050)
 
-O próximo passo será criar páginas estilo Wizard, com um menu bacana, e pretendo escrever em 3 idiomas diferentes, então irei migrar todo o conteúdo para uma nova plataforma aberta, o que facilitará muito para os usuários do framework .
+O próximo passo será criar páginas estilo Wizard, com um menu que proporcione maior facilidade em navegar, e pretendo escrever em 3 idiomas diferentes, então irei migrar todo o conteúdo para uma nova plataforma aberta, o que facilitará muito para os usuários do framework .
 
 ## Instalando
 

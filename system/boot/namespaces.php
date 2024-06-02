@@ -1,7 +1,7 @@
 <?php
 return array(
-    'Model\\' => 'application/Model',
+    'Controller\\' => 'controllers',
     'Inphinit\\Experimental\\' => 'vendor/inphinit/framework/src/Experimental',
     'Inphinit\\' => 'vendor/inphinit/framework/src/Inphinit',
-    'Controller\\' => 'application/Controller'
+    'Model\\' => 'models',
 );

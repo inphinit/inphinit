@@ -37,17 +37,17 @@ use Inphinit\Viewing\View;
             <dt>Resource controller</dt>
             <dd><a href="../resource/">/resource/</a></dd>
             <dd><a href="../resource/create">/resource/create</a></dd>
-            <dd><a href="../resource/100/edit">/resource/{:[^/]+:}/edit</a></dd>
-            <dd><a href="../resource/100">/resource/{:[^/]+:}</a></dd>
+            <dd><a href="../resource/100/edit">/resource/&lt;id&gt;/edit</a></dd>
+            <dd><a href="../resource/100">/resource/&lt;id&gt;</a></dd>
         </dl>
         <!--
         POST, /resource/
-        PUT, /resource/{:[^/]+:}
-        DELETE, /resource/{:[^/]+:}
+        PUT, /resource/<id>
+        DELETE, /resource/<id>
         -->
 
         <dl>
-            <dt>Implicity controller</dt>
+            <dt>Implicit controller</dt>
             <dd><a href="../treaty/">/treaty/</a></dd>
             <dd><a href="../treaty/foo-bar-baz">/treaty/foo-bar-baz</a></dd>
         </dl>
@@ -83,11 +83,12 @@ use Inphinit\Viewing\View;
 
         <dl>
             <dt>Others</dt>
-            <dd><a href="../samples/cache">/samples/cache</a></dd>
             <dd><a href="../samples/event">/samples/event</a></dd>
             <dd><a href="../samples/http/headers">/samples/http/headers</a></dd>
             <dd><a href="../samples/http/download">/samples/http/download</a></dd>
             <dd><a href="../samples/file">/samples/file</a></dd>
+            <dd><a href="../utilities/arrays">/utilities/arrays</a></dd>
+            <dd><a href="../utilities/strings">/utilities/strings</a></dd>
         </dl>
         </section>
     </main>

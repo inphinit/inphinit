@@ -25,7 +25,6 @@ use Inphinit\Viewing\View;
                     <strong><?=$status?></strong>
                     <?=$title?>
                 </h1>
-
                 <p>
                     Route <code><?=$route?></code>
                     <?php if ($route !== $path): ?>

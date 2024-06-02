@@ -10,7 +10,7 @@ if ($status === 503) {
     View::render('httpview', [
         'method' => $_SERVER['REQUEST_METHOD'],
         'status' => $status,
-        'route' => Request::path(true),
+        'route' => INPHINIT_PATH,
         'path' => Request::path(),
         'title' => Status::message($status, 'Unknown Error')
     ]);

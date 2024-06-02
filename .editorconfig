@@ -11,12 +11,11 @@ trim_trailing_whitespace = true
 [*.md]
 trim_trailing_whitespace = false
 
-[*.yml]
-indent_style = space
+[*.{yml,yaml}]
 indent_size = 2
-
-[*.{htm,html}]
-insert_final_newline = false
 
 [{*.bat,web.config}]
 end_of_line = crlf
+
+[*.{cjs,css,cts,ctsx,htm,html,js,jsm,less,mjs,mts,mtsx,pcss,sass,scss,svg,ts,tsx,vue,xml}]
+indent_size = 2

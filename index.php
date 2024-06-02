@@ -6,4 +6,4 @@ define('INPHINIT_COMPOSER', false);
 
 require_once INPHINIT_SYSTEM . '/vendor/inphinit/framework/src/boot.php';
 
-Inphinit\App::exec();
+return $app->exec();

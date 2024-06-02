@@ -1,265 +1,229 @@
-## About
+# Inphinit 2.0
 
-PHP framework, routes, controllers and views
+- [Installing](#Installing)
+- [Testing](#Testing)
+- [NGINX](#NGINX)
+- [Folder structure](#Folder_structure)
+- [Routing](#Routing)
+- [Grouping routes](#Grouping_routes)
 
-## Requirements
+## Decisions and what's next
 
-1. PHP 5.4+ (PHP 8.2 or higher is recommended, see https://www.php.net/supported-versions.php)
-1. Multibyte String (GD also) (optional, only used in `Inphinit\Helper::toAscii`)
-1. libiconv (optional, only used in `Inphinit\Helper::toAscii`)
-1. fileinfo (optional, only used in `Inphinit\File::mime`)
-1. Apache or Nginx or IIS for production
+The objective of this framework has always been to be as efficient as possible, however something that always worried me were debugging problems, despite there being several tools, I always aimed for something simple, but of course even those who are working for the first time see the error, So this past year I made the following decisions:
 
-For check requirements see [Check requirements](#check-requirements)
+- In development mode you should work strictly, checking any detail
+- Change the way routes work, to make them faster and also be able to predict failures, when used in development
+- Some typing errors can make certain PHP features not respond in a timely manner, such as autoload, so developer mode will preload everything you need before any script disrupts the process, allowing debugging to locate and display exactly which line the error is on.
 
-## Getting start
+All of these decisions are embedded in the framework, some of which have already been added to version 0.6, to make it easier to port the project to the future version of the framework.
 
-1. Have two method for install
-1. First method is using composers
-1. Download [Composer](http://getcomposer.org/doc/00-intro.md) and install
-1. For create an project in Windows:
-    ```bash
-    cd c:\wamp\www\
-    composer create-project inphinit/inphinit [project_name]
-    ```
-1. Or (if no using Wamp/Xampp/easyphp)
-    ```bash
-    cd c:\Users\[username]\Documents\
-    composer create-project inphinit/inphinit [project_name]
-    ```
-1. Install in Unix-like:
-    ```bash
-    cd /var/www/
-    php composer.phar create-project inphinit/inphinit [project_name]
-    ```
-1. Or (if no using Apache)
-    ```bash
-    cd /home/
-    php composer.phar create-project inphinit/inphinit [project_name]
-    ```
-1. Alternate is download Git repository and copy content from zip file to folder project (don't clone `master` for production use), clone last release example:
-    ```bash
-    git clone -b 0.6.1 --recurse-submodules https://github.com/inphinit/inphinit.git [project_name]
-    cd [project_name]
-    ```
+All of the routes and basic application are already established, but other internal APIs, for other uses, are still under development, so we are entering this phase, and within 2 weeks at most the first beta will be released, where I will not include any more new functionality, it will be a series of corrections and regressions.
 
-> **Note:** Don't use composer dev-master (eg. `create-project inphinit/inphinit:dev-master`), to collaborate, prefer to clone with GIT, example:
->
-> ```bash
-> git clone --recurse-submodules https://github.com/inphinit/inphinit.git inphinit
-> cd inphinit
-> ```
+## What we have already achieved
 
-## PHP built-in web server in Windows
+I have always valued performance and simplicity, part of what was implemented in _Inphinit 2.0_ has already been ported to _0.6_, which provided a great improvement in these versions before the release of 2.0, and even though _version 0.5_ is very efficient, the leap in performance It was incredible from _version 0.6_ onwards. In _version 2.0_ it is a little better, so here is an example of the tests, with development mode turned off:
 
-1. Navigate with `explorer.exe` to project folder
-1. Find and edit `server.bat`, change `PHP_BIN` and `PHP_INI`:
-    ```batch
-    rem Setup PHP and PORT
-    set PHP_BIN=C:\php\php.exe
-    set PHP_INI=C:\php\php.ini
-    ```
-1. Save the edition and run `server.bat`
-1. Open web-browser and navigate to `http://localhost:9000`
+Description                                              | 0.5.19                       | 0.6.x                        | 2.0
+---                                                      | ---                          | ---                          | --- 
+Time taken for tests:                                    | 0.528 seconds                | 0.429 seconds                | 0.391 seconds
+Requests per second (mean):                              | 1892.46 [#/sec]              | 2330.74 [#/sec]              | 2557.07 [#/sec]
+Time per request (mean):                                 | 5.284 [ms]                   | 4.290 [ms]                   | 3.911 [ms]
+Time per request (mean, across all concurrent requests): | 0.528 [ms]                   | 0.429 [ms]                   | 0.391 [ms]
+Transfer rate:                                           | 373.32 [Kbytes/sec] received | 459.77 [Kbytes/sec] received | 504.42 [Kbytes/sec] received
 
-## PHP built-in web server in Linux and macOS (or Unix-like)
+In addition to the improved execution time, it is noted that _version 2.0_ was able to process an average of 220 more requests per second than _0.6_ version, and compared to 0.5.x, it was able to process 600 more requests per second.
 
-1. Navigate to your project and find and edit `./server` file, change, change `PHP_BIN` and `PHP_INI`:
-    ```bash
-    #!/bin/bash
-    PHP_BIN="/usr/bin/php"
-    PHP_INI="/etc/php.ini"
-    HOST_PORT=9000
-    ```
-1. Save edition and run `./server`
-1. Open web-browser and navigate to `http://localhost:9000`
+## About documentation
 
-## Routing
+Something I will change is the documentation, the Github Wiki worked for a while but I noticed some issues:
 
-1. In folder `[project_name]/system/` find `main.php` and put something like this:
-    ```php
-    Route::set('GET', '/foo', 'MyController:action');
-    ```
-1. In `[project_name]/system/application/Controller/` folder create an file with this name `MyController.php` (case sensitive)
-1. Put this content:
-    ```php
-    <?php
-    namespace Controller;
+- The menu generated on the github wiki is not that intuitive and I noticed that even some experienced programmers were unable to navigate there
+- Organizing the content was not as easy as I wanted, many things are manual, which took a lot of time to edit a few things
+- Github Desktop conflicts with wiki-type repositories, it's an [old bug](https://github.com/desktop/desktop/issues/3839#issue-290340050)
 
-    use Inphinit\Viewing\View;
+The next step will be to create wizard-style pages, with a nice menu, and I intend to write in 3 different languages, so I will migrate all the content to a new open platform, which will make it much easier for the framework's users.
 
-    class MyController
-    {
-        public function action()
-        {
-            $data = array( 'foo' => 'Hello', 'Baz' => 'World!' );
-            View::render('myview', $data);
-        }
+## Installing
+
+> **Note:** To install _version 0.6_ go to: https://github.com/inphinit/inphinit/tree/1.x
+
+Note that we are still in the development phase, and in 2 weeks we intend to launch the first beta, which will be available via composer, _version 2.0_ is not yet recommended for production, so prefer to use it only for testing or criticism that you wish to do during this step.
+
+To install it you must have at least PHP 5.4, but it is **recommended that you use PHP 8** due to PHP support issues, read:
+
+> - https://www.php.net/supported-versions.php
+> - https://www.php.net/eol.php
+
+After install PHP, you need to have Git on your machine, so run the following commands:
+
+```bash
+git clone --recurse-submodules https://github.com/inphinit/inphinit.git my-application
+cd my-application
+```
+
+## Testing
+
+After navigating to the folder you must execute the following command, if you want to use [PHP built-in web server](https://www.php.net/manual/en/features.commandline.webserver.php):
+
+```bash
+php -S localhost:5000 -t public index.php
+```
+
+And access in your browser `http://localhost:5000/`
+
+## NGINX
+
+If you want to experiment with a web server such as NGINX, you can use the following example to configure your `nginx.conf`:
+
+```none
+location / {
+    root /home/foo/bar/my-application;
+
+    # Redirect page errors to route system
+    error_page 403 /index.php/RESERVED.TEENY-403.html;
+    error_page 500 /index.php/RESERVED.TEENY-500.html;
+    error_page 501 /index.php/RESERVED.TEENY-501.html;
+
+    try_files /public$uri /index.php?$query_string;
+
+    location = / {
+        try_files $uri /index.php?$query_string;
     }
-    ```
-1. In `[project_name]/system/application/View/` create file with this name `myview.php` (case sensitive) and put:
-    ```php
-    <p><?php echo $foo, ' ', $baz; ?></p>
-    ```
-1. Navigate to `http://localhost:9000/foo` or `http://localhost/[project_name]/foo`
 
-## Group routes
+    location ~ /\. {
+        try_files /index.php$uri /index.php?$query_string;
+    }
 
-In `main.php` put `use Inphinit\Routing\Group;` on top document, then you can use `Group` class. See examples:
+    location ~ \.php$ {
+        # Replace by your FPM or FastCGI
+        fastcgi_pass 127.0.0.1:9000;
 
-Group routes by domain:
+        fastcgi_index index.php;
+        include fastcgi_params;
 
-```php
-// The routes in the callback, called by the "then" method, will be executed when accessing the localhost domain
-Group::create()->domain('localhost')->then(function () {
-    Route::set(...);
-});
+        set $teeny_suffix "";
 
-// The routes in the callback, called by the "then" method, will be executed when accessing a subdomain from .site.com domain
-Group::create()->domain('{:\w+:}.site.com')->then(function ($domain) {
-    Route::set(...);
-});
-```
-
-```php
-// The routes in the callback, called by the "then" method, will be executed when accessing using HTTPS
-Group::create()->secure(Group::SECURE)->then(function () {
-    Route::set(...);
-});
-
-// The routes in the callback, called by the "then" method, will be executed when accessing using HTTP
-Group::create()->secure(Group::NONSECURE)->then(function () {
-    Route::set(...);
-});
-```
-
-Group routes by domain:
-
-```php
-// The routes in the callback, called by the "then" method, will be executed when accessing path urls starts with /foo/
-Group::create()->path('/foo/')->then(function () {
-    Route::set(...);
-});
-
-// The routes in the callback, called by the "then" method, will be executed when accessing path urls starts with /assets/<any word with A-Z0-9_ characters>
-Group::create()->path('/assets/{:\w+:}/')->then(function ($subPath) {
-    Route::set(...);
-});
-
-// The routes in the callback, called by the "then" method, will be executed when path and route matches with path and domain
-Group::create()->domain('localhost')->path('/foo/')->then(function () {
-    Route::set(...);
-});
-```
-
-Prefix controllers namespace on Group:
-
-```php
-Group::create()->prefixNS('Baz.Bar')->path('/foo/')->then(function () {
-    Route::set('GET', '/',         'Foo:index');
-    Route::set('GET', '/about',    'Foo:about');
-    Route::set('GET', '/contact',  'Foo:contact');
-    Route::set('GET', '/inphinit', 'Inphinit:index');
-});
-```
-
-Equivalent to:
-
-```php
-Route::set('GET', '/foo/',         'Baz.Bar.Foo:index');
-Route::set('GET', '/foo/about',    'Baz.Bar.Foo:about');
-Route::set('GET', '/foo/contact',  'Baz.Bar.Foo:contact');
-Route::set('GET', '/foo/inphinit', 'Baz.Bar.Inphinit:index');
-```
-
-## Check requirements
-
-For check requirements navigate with your web-browser to `http://localhost:9000/check.php` or `http://localhost/[project_name]/check.php`
-
-## Development vs production
-
-For setup access `[project_name]/system/application/Config/config.php` with your text editor and change `development` key to `true` or `false`:
-
-```php
-<?php
-return array(
-    'appdata_expires' => 86400,
-    'development'     => true,
-    'maintenance'     => false
-);
-```
-
-# Deploy for Apache server
-
-In `.htaccess`, adjust the path in the `ErrorDocument` according to the level at which your application is accessed at the URL, if it is at the root keep the `ErrorDocument`s as:
-
-```
-ErrorDocument 403 /index.php/RESERVED.INPHINIT-403.html
-ErrorDocument 500 /index.php/RESERVED.INPHINIT-500.html
-ErrorDocument 501 /index.php/RESERVED.INPHINIT-501.html
-```
-
-If the application is in a subfolder, for example `https://foo.com/application/`, then it should look like:
-
-```
-ErrorDocument 403 /application/index.php/RESERVED.INPHINIT-403.html
-ErrorDocument 500 /application/index.php/RESERVED.INPHINIT-500.html
-ErrorDocument 501 /application/index.php/RESERVED.INPHINIT-501.html
-```
-
-If you intend to use authorization, uncomment the following lines in `.htaccess`:
-
-```
-# RewriteCond %{HTTP:Authorization} .
-# RewriteRule . - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-```
-
-# Deploy for NGINX server
-
-Use the following configuration as a starting point for configuring your nginxconf (you will probably need specific adjustments for your server):
-
-```
-server {
-    listen 443;
-    listen [::]:443;
-    server_name foobar.com;
-    root /etc/www/sites/application;
-
-    index index.php;
-
-    charset utf-8;
-
-    location / {
-        # Redirect page errors to route system
-        error_page 403 /index.php/RESERVED.INPHINIT-403.html;
-        error_page 500 /index.php/RESERVED.INPHINIT-500.html;
-        error_page 501 /index.php/RESERVED.INPHINIT-501.html;
-
-        try_files /public$uri /index.php?$query_string;
-
-        location = / {
-            try_files $uri /index.php?$query_string;
+        if ($uri != "/index.php") {
+            set $teeny_suffix "/public";
         }
 
-        location ~ /\. {
-            try_files /index.php$uri /index.php?$query_string;
-        }
-
-        location ~ \.php$ {
-            # Replace by your FPM or FastCGI
-            fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
-
-            fastcgi_index index.php;
-            include fastcgi_params;
-
-            set $inphinit_suffix "";
-
-            if ($uri != "/index.php") {
-                set $inphinit_suffix "/public";
-            }
-
-            fastcgi_param SCRIPT_FILENAME $realpath_root$inphinit_suffix$fastcgi_script_name;
-        }
+        fastcgi_param SCRIPT_FILENAME $realpath_root$teeny_suffix$fastcgi_script_name;
     }
 }
 ```
+
+## Folder structure
+
+```bash
+├───.htaccess       # (Apache web server configuration)
+├───index.php       # (Only change the values of the constants, and only if necessary)
+├───server          # (shortcut to start the built-in web server on Linux and macOS)
+├───server.bat      # (shortcut to start the built-in web server on Windows)
+├───web.config      # (IIS web server configuration)
+├───public          # (In this folder you can place static files or PHP scripts that will be independent)
+└───system          # (folder containing your application)
+    ├───boot        # (contain settings for inphinit_autoload, similar to composer_autoload)
+    ├───configs     # (contain varied configuration files, it is recommended that you do not version this folder)
+    │   └───app.php # (Don not add, just change the values, if necessary)
+    ├───controllers # (must contain the classes that will be controllers used in the routes)
+    ├───vendor      # (contain third-party packages and the framework)
+    ├───views       # (should contain your views)
+    ├───dev.php     # (It has the same purpose as the "main.php" script, but it will only work in development mode)
+    ├───errors.php  # (it should contain error page settings, such as when a 404 or 405 error occurs, you can call static files or use views)
+    └───main.php    # (This is the main file for routes and events, it will be available in development mode and production mode)
+```
+
+In development mode, the `system/dev.php` script will always be executed first, only after `system/main.php` will be executed, and if an error 404 or 405 occurs, the last script to be executed will be `system/errors.php`
+
+## Routing
+
+The route system supports controllers, [callables](https://www.php.net/manual/en/language.types.callable.php) and [anonymous functions](https://www.php.net/manual/en/functions.anonymous.php), examples:
+
+```php
+// anonymous functions
+$app->action('GET', '/closure', function () {
+    return 'Hello "closure"!';
+});
+
+function foobar() {
+    return 'Hello "function"!';
+}
+
+// callable function
+$app->action('GET', '/function', 'foobar');
+
+// callable class method (Note: autoload will include the file)
+$app->action('GET', '/class-method', ['MyNameSpace\Foo\Bar', 'hello']);
+
+
+// do not add the Controller prefix, the framework itself will add
+$app->action('GET', '/class-method', 'Boo\Bar::baz');
+
+/* Controller from `./system/controllers/Boo/Bar.php`:
+ *
+ * <?php
+ * namespace Controller\Boo;
+ *
+ * class Bar {
+ *    public function hello() {
+ *        ...
+ *    }
+ * }
+ */
+```
+
+## Grouping routes
+
+The route grouping system is now much simpler, it is based on the complete URL, and you can use the `*` wildcard character and also the same patterns available for routes, examples:
+
+```php
+/*
+ * Routes will only be added if the path starts with /blog/
+ * 
+ * Samples:
+ * 
+ * http://localhost:5000/blog/
+ * http://localhost:5000/blog/post
+ * http://localhost:5000/blog/search
+ */
+$app->scope('*://*/blog/', function ($app, $params) {
+    $app->action('GET', '/', function () { ... });
+    $app->action('POST', '/post', function () { ... });
+    $app->action('GET', '/search', function () { ... });
+});
+
+// Routes will only be added if you are accessing via HTTPS
+$app->scope('https://*', function ($app, $params) {
+    ...
+});
+
+// Routes will only be added if you are accessing via HTTP
+$app->scope('http://*', function ($app, $params) {
+    ...
+});
+
+// Routes will only be added if you are accessing mysite2.org host
+$app->scope('*://mysite2.org/', function ($app, $params) {
+    ...
+});
+
+// Routes will only be added if you are accessing a subdomain from main.org, like: site1.main.org
+$app->scope('*://*.main.org/', function ($app, $params) {
+    ...
+});
+
+// Using pattern to get the subdomain:
+$app->scope('*://<subdomain>.main.org/', function ($app, $params) {
+    $subdomain = $params['subdomain'];
+    ...
+});
+
+// Using pattern to get path:
+$app->scope('*://*/users/<id:num>/<user>', function ($app, $params) {
+    $id = $params['id'];
+    $username = $params['user'];
+    ...
+});
+```
+
+See more examples in the `my-application/system/dev.php` file

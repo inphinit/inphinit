@@ -77,7 +77,7 @@ main h2 {
     font-size: 1.5rem;
 }
 
-#intro, #error, #examples {
+#intro, #error, #others, #examples {
     flex: 1;
     display: flex;
     align-items: center;
@@ -85,8 +85,17 @@ main h2 {
     width: 100%;
 }
 
-#intro, #error {
+#intro {
+    height: calc(100vh - 360px);
+    min-height: 400px;
+}
+
+#error {
     height: calc(100vh - 66px);
+}
+
+#others {
+    height: 100vh;
 }
 
 #examples {
@@ -98,7 +107,7 @@ main h2 {
     padding-bottom: 1rem;
 }
 
-#intro h1, #examples h1 {
+#intro h1, #others h1, #examples h1 {
     font-size: 9.5rem;
     font-weight: bold;
     background: linear-gradient(135deg, #FD6E6A 10%, #FFC600 100%);
@@ -112,7 +121,7 @@ main h2 {
     font-size: 4.2rem;
 }
 
-#error h1 {
+#error h1, #others h1 {
     font-size: 3.5rem;
 }
 
@@ -151,6 +160,12 @@ main h2 {
     }
 }
 
+@media (max-width: 410px) {
+    main > header {
+        justify-content: center;
+    }
+}
+
 #items {
     display: flex;
     flex-direction: row;
@@ -158,6 +173,28 @@ main h2 {
     justify-content: center;
     gap: 2rem;
     padding: 2rem;
+}
+
+#items > a {
+    flex: 1 0 28%;
+    display: block;
+    padding: 2rem;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    border-radius: .4rem;
+    background: rgba(0,0,0,.1);
+    border: thin solid rgba(255,255,255,.2);
+    transition: .3s all ease;
+}
+
+#items > a:hover, #items > a:active, #items > a:focus {
+    background-color: rgba(0,0,0,.24);
+    border-color: rgba(255,255,255,.4);
+}
+
+#items h3 {
+    margin: 0 0 1rem 0;
 }
 
 #items > dl {
@@ -202,9 +239,9 @@ main h2 {
     background: rgba(255,255,255,.1);
 }
 
-@media (max-width: 410px) {
-    main > header {
-        justify-content: center;
+@media (max-width: 1200px) {
+    #items > a {
+        flex: 1 0 48%;
     }
 }
 
@@ -212,9 +249,9 @@ main h2 {
     html {
         font-size: 10px;
     }
-}
 
-.example-list {
-
+    #items > a {
+        flex: 1 0 1;
+    }
 }
 </style>

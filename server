@@ -5,7 +5,7 @@ PHP_BIN=/usr/bin/php
 PHP_INI=/etc/php.ini
 
 HOST_HOST=localhost
-HOST_PORT=9000
+HOST_PORT=5000
 
 # Sets the project path so you can call the "./server" command from any location
 CURRENT_PATH=$(cd -- $(dirname ${BASH_SOURCE:-$0}) && pwd -P)
@@ -15,13 +15,13 @@ CURRENT_PATH=$(cd -- $(dirname ${BASH_SOURCE:-$0}) && pwd -P)
 DOCUMENT_ROOT=$CURRENT_PATH/public
 
 # Router path
-ROUTER=$CURRENT_PATH/system/boot/server.php
+ROUTER=$CURRENT_PATH/index.php
 
 if [ ! -f "$PHP_BIN" ]; then
-    echo ERROR: $PHP_BIN not found & pause
+    echo ERROR: $PHP_BIN not found
 elif [ ! -f "$PHP_INI" ]; then
-    echo ERROR: $PHP_INI not found & pause
+    echo ERROR: $PHP_INI not found
 else
     # Start built in server
-    "$PHP_BIN" -S $HOST_HOST:$HOST_PORT -c "$PHP_INI" -t "$DOCUMENT_ROOT" "$ROUTER" || pause
+    "$PHP_BIN" -S $HOST_HOST:$HOST_PORT -c "$PHP_INI" -t "$DOCUMENT_ROOT" "$ROUTER"
 fi

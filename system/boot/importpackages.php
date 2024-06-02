@@ -3,20 +3,15 @@
  * Usage with command line: php importpackages.php
  */
 
-define('INPHINIT_START', microtime(true));
-define('INPHINIT_ROOT', str_replace('\\', '/', realpath(__DIR__ . '/../..')));
-define('INPHINIT_SYSTEM', INPHINIT_ROOT . '/system');
-define('INPHINIT_COMPOSER', false);
+require_once '../../index.php';
 
-require_once INPHINIT_SYSTEM . '/vendor/inphinit/framework/src/Inphinit/Packages.php';
-
-$packages = new Inphinit\Packages();
+$packages = new Inphinit\Packages(INPHINIT_SYSTEM . '/vendor/composer');
 
 $packages->auto();
 
 $logs = $packages->logs();
 
-$packages->save(INPHINIT_SYSTEM . '/boot/namespaces.php');
+$packages->save(INPHINIT_SYSTEM . '/boot/[namespaces].php');
 
 echo 'Importing packages:', PHP_EOL;
 

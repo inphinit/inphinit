@@ -23,5 +23,5 @@ if not exist %PHP_BIN% (
     echo ERROR: %PHP_INI% not found & pause
 ) else (
     rem Start built in server
-    echo "%PHP_BIN%" -S %HOST_HOST%:%HOST_PORT% -c "%PHP_INI%" -t "%DOCUMENT_ROOT%" "%ROUTER%" --disable-short-tags || pause
+    "%PHP_BIN%" -S %HOST_HOST%:%HOST_PORT% -c "%PHP_INI%" -t "%DOCUMENT_ROOT%" "%ROUTER%" || pause
 )

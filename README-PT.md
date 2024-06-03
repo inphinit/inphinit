@@ -6,7 +6,7 @@
 - [Estrutura das pastas](#estrutura-das-pastas)
 - [Criando rotas](#criando-rotas)
 - [Agrupando rotas](#agrupando-rotas)
-- [Padrões de rotas e URL](padrões-de-rotas-e-url)
+- [Padrões de rotas e URL](#padrões-de-rotas-e-url)
 
 ## Decisões e o que vem a seguir
 
@@ -118,36 +118,36 @@ location / {
 ## Estrutura das pastas
 
 ```bash
-├───.htaccess       # Configuração do servidor web Apache
-├───index.php       # Altere apenas os valores das constantes e somente se necessário
-├───server          # atalho para iniciar o servidor web integrado no Linux e macOS
-├───server.bat      # atalho para iniciar o servidor web integrado no Windows
-├───web.config      # configuração do servidor web IIS
-├───public          # Nesta pasta você poderá colocar arquivos estáticos ou scripts PHP que serão independentes
-└───system          # pasta contendo seu aplicativo
-    ├───boot        # contém configurações para inphinit_autoload, semelhante a compositor_autoload
-    ├───configs     # contém arquivos de configuração variados, é recomendado que você não versione esta pasta
-    │   └───app.php # Não adicione novas chaves, apenas altere os valores da existentes, se necessário
-    ├───controllers # deve conter as classes que serão os controladores utilizados nas rotas
-    ├───vendor      # contém pacotes de terceiros e a estrutura
-    ├───views       # deve conter suas opiniões
-    ├───dev.php     # Tem a mesma finalidade do script _main.php", mas só funcionará em modo de desenvolvimento
-    ├───errors.php  # deve conter configurações de página de erro, como quando ocorre um erro 404 ou 405, você pode chamar arquivos estáticos ou use views
-    └───main.php    # Este é o arquivo principal para rotas e eventos, estará disponível em modo de desenvolvimento e modo de produção
+├───.htaccess        # Configuração do servidor web Apache
+├───index.php        # Altere apenas os valores das constantes e somente se necessário
+├───server           # atalho para iniciar o servidor web integrado no Linux e macOS
+├───server.bat       # atalho para iniciar o servidor web integrado no Windows
+├───web.config       # configuração do servidor web IIS
+├───public/          # Nesta pasta você poderá colocar arquivos estáticos ou scripts PHP que serão independentes
+└───system/          # pasta contendo seu aplicativo
+    ├───boot/        # contém configurações para inphinit_autoload, semelhante a compositor_autoload
+    ├───configs/     # contém arquivos de configuração variados, é recomendado que você não versione esta pasta
+    │   └───app.php  # Não adicione novas chaves, apenas altere os valores da existentes, se necessário
+    ├───controllers/ # deve conter as classes que serão os controladores utilizados nas rotas
+    ├───vendor/      # contém pacotes de terceiros e a estrutura
+    ├───views/       # deve conter suas opiniões
+    ├───dev.php      # Tem a mesma finalidade do script _main.php", mas só funcionará em modo de desenvolvimento
+    ├───errors.php   # deve conter configurações de página de erro, como quando ocorre um erro 404 ou 405, você pode chamar arquivos estáticos ou use views
+    └───main.php     # Este é o arquivo principal para rotas e eventos, estará disponível em modo de desenvolvimento e modo de produção
 ```
 
-No modo de desenvolvimento, o script `system/dev.php` sempre será executado primeiro, depois será executado `system/main.php`, e se ocorrer algum erro, como 404 ou 405, o último script a ser executado será ` sistema/erros.php`
+No modo de desenvolvimento, o script `system/dev.php` sempre será executado primeiro, depois será executado `system/main.php`, e se ocorrer algum erro, como 404 ou 405, o último script a ser executado será `system/erros.php`
 
 ## Criando rotas
 
-Para criar uma nova rota edite o arquivo `my-application/system/main.php`, se deseja que a rota fique só disponível no modo de desenvolvimento, então edite o arquivo `my-application/system/dev.php`.
+Para criar uma nova rota edite o arquivo `system/main.php`, se deseja que a rota fique só disponível no modo de desenvolvimento, então edite o arquivo `system/dev.php`.
 
 O sistema de rotas suporta _Controllers_, [_callables_](https://www.php.net/manual/en/language.types.callable.php) e [_funções anônimas_](https://www.php.net/manual/en/functions.anonymous.php), exemplos:
 
 ```php
 <?php
 
-// anonymous functions
+// função anônima
 $app->action('GET', '/closure', function () {
     return 'Hello _closure"!';
 });
@@ -156,23 +156,23 @@ function foobar() {
     return 'Hello _function"!';
 }
 
-// callable function
+// função "callable"
 $app->action('GET', '/function', 'foobar');
 
-// callable class method (Note: autoload will include the file)
+// Método de classe "callable" (Nota: o autoload irá incluir o arquivo)
 $app->action('GET', '/class-method', ['MyNameSpace\Foo\Bar', 'hello']);
 
 
-// do not add the Controller prefix, the framework itself will add
-$app->action('GET', '/class-method', 'Boo\Bar::baz');
+// Não adicione o prefixo Controller, o framework irá fazer isso
+$app->action('GET', '/class-method', 'Boo\Bar::xyz');
 
-/* Controller from `./system/controllers/Boo/Bar.php`:
+/* `./system/controllers/Boo/Bar.php`:
  *
  * <?php
  * namespace Controller\Boo;
  *
  * class Bar {
- *    public function hello() {
+ *    public function xyz() {
  *        ...
  *    }
  * }
@@ -235,7 +235,7 @@ $app->scope('*://*/users/<id:num>/<user>', function ($app, $params) {
 });
 ```
 
-Para mais exemplos, veja o arquivo `my-application/system/dev.php`
+Para mais exemplos, veja o arquivo `system/dev.php`
 
 ## Padrões de rotas e URL
 

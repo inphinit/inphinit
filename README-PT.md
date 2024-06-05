@@ -18,7 +18,7 @@ O objetivo deste framework sempre foi ser o mais eficiente possível, porém alg
 
 Todas essas decisões já estão incorporadas no framework, algumas das quais já foram adicionadas à versão 0.6, para facilitar a portabilidade do projeto para a versão futura do framework.
 
-Todas as rotas e aplicação básica já estão estabelecidas, mas outras APIs internas, para outros usos, ainda estão em desenvolvimento, então estamos entrando nesta fase, e dentro de 2 semanas no máximo será lançado o primeiro beta, onde não irei incluir qualquer nova funcionalidade, será uma série de correções e possíveis regressões.
+Todas as rotas e aplicação básica já estão estabelecidas, mas outras APIs internas, para outros usos, ainda estão em desenvolvimento, então estamos entrando nesta fase, e dentro de 4 semanas no máximo será lançado o primeiro beta, onde não irei incluir qualquer nova funcionalidade, será uma série de correções e possíveis regressões.
 
 ## O que já alcançamos
 
@@ -48,7 +48,7 @@ Então tomei a decisão de migrar para outra plataforma, ou talvez criar algo pr
 
 > **Nota:** Para instalar a _versão 0.6_ vá até: https://github.com/inphinit/inphinit/tree/1.x
 
-Observe que ainda estamos em fase de desenvolvimento, e em 2 semanas pretendemos lançar o primeiro beta, que estará disponível via compositor, a _versão 2.0_ ainda não é recomendada para produção, então prefira utilizá-la apenas para testes ou críticas que você deseja fazer durante esta etapa.
+Observe que ainda estamos em fase de desenvolvimento, e em 4 semanas pretendemos lançar o primeiro beta, que estará disponível via composer, a _versão 2.0_ ainda não é recomendada para produção, então prefira utilizá-la apenas para testes ou críticas que você deseja fazer durante esta etapa.
 
 Para instalá-lo você deve ter pelo menos o PHP 5.4, mas é **recomendado que você utilize o PHP 8** devido a problemas de suporte ao PHP, leia:
 
@@ -120,19 +120,19 @@ location / {
 ```bash
 ├───.htaccess        # Configuração do servidor web Apache
 ├───index.php        # Altere apenas os valores das constantes e somente se necessário
-├───server           # atalho para iniciar o servidor web integrado no Linux e macOS
-├───server.bat       # atalho para iniciar o servidor web integrado no Windows
-├───web.config       # configuração do servidor web IIS
+├───server           # Atalho para iniciar o servidor web integrado no Linux e macOS
+├───server.bat       # Atalho para iniciar o servidor web integrado no Windows
+├───web.config       # Configuração do servidor web IIS
 ├───public/          # Nesta pasta você poderá colocar arquivos estáticos ou scripts PHP que serão independentes
-└───system/          # pasta contendo seu aplicativo
-    ├───boot/        # contém configurações para inphinit_autoload, semelhante a compositor_autoload
-    ├───configs/     # contém arquivos de configuração variados, é recomendado que você não versione esta pasta
+└───system/          # Pasta contendo seu aplicativo
+    ├───boot/        # Contém configurações para inphinit_autoload, semelhante ao composer_autoload
+    ├───configs/     # Contém arquivos de configuração variados, é recomendado que você não versione esta pasta
     │   └───app.php  # Não adicione novas chaves, apenas altere os valores da existentes, se necessário
-    ├───controllers/ # deve conter as classes que serão os controladores utilizados nas rotas
-    ├───vendor/      # contém pacotes de terceiros e a estrutura
-    ├───views/       # deve conter suas opiniões
-    ├───dev.php      # Tem a mesma finalidade do script _main.php", mas só funcionará em modo de desenvolvimento
-    ├───errors.php   # deve conter configurações de página de erro, como quando ocorre um erro 404 ou 405, você pode chamar arquivos estáticos ou use views
+    ├───controllers/ # Deve conter as classes que serão os controladores utilizados nas rotas
+    ├───vendor/      # Contém pacotes de terceiros e a estrutura
+    ├───views/       # Deve conter suas opiniões
+    ├───dev.php      # Tem a mesma finalidade do script "main.php", mas só funcionará em modo de desenvolvimento
+    ├───errors.php   # Deve conter configurações de página de erro, como quando ocorre um erro 404 ou 405, você pode chamar arquivos estáticos ou use views
     └───main.php     # Este é o arquivo principal para rotas e eventos, estará disponível em modo de desenvolvimento e modo de produção
 ```
 
@@ -147,26 +147,31 @@ O sistema de rotas suporta _Controllers_, [_callables_](https://www.php.net/manu
 ```php
 <?php
 
-// função anônima
+//função anônima
 $app->action('GET', '/closure', function () {
-    return 'Hello _closure"!';
+    return 'Hello "closure"!';
 });
 
 function foobar() {
-    return 'Hello _function"!';
+    return 'Hello "function"!';
 }
 
-// função "callable"
+// função
 $app->action('GET', '/function', 'foobar');
 
-// Método de classe "callable" (Nota: o autoload irá incluir o arquivo)
-$app->action('GET', '/class-method', ['MyNameSpace\Foo\Bar', 'hello']);
+// método estático de uma classe (Nota: o autoload irá incluir o arquivo)
+$app->action('GET', '/class-static-method', ['MyNameSpace\Foo\Bar', 'hello']);
+
+// método de uma classe instanciada
+$foo = new Sample;
+$app->action('GET', '/class-method', [$foo, 'hello']);
 
 
-// Não adicione o prefixo Controller, o framework irá fazer isso
+// Não adicione o prefixo Controller, o próprio framework irá adiciona-lo
 $app->action('GET', '/class-method', 'Boo\Bar::xyz');
 
-/* `./system/controllers/Boo/Bar.php`:
+/**
+ * Controller deverá estar localizado em `./system/controllers/Boo/Bar.php`:
  *
  * <?php
  * namespace Controller\Boo;

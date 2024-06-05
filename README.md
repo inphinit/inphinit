@@ -18,7 +18,7 @@ The objective of this framework has always been to be as efficient as possible, 
 
 All of these decisions are embedded in the framework, some of which have already been added to _version 0.6_, to make it easier to port the project to the future version of the framework.
 
-All of the routes and basic application are already established, but other internal APIs, for other uses, are still under development, so we are entering this phase, and within 2 weeks at most the first beta will be released, where I will not include any more new functionality, it will be a series of corrections and regressions.
+All of the routes and basic application are already established, but other internal APIs, for other uses, are still under development, so we are entering this phase, and within 4 weeks at most the first beta will be released, where I will not include any more new functionality, it will be a series of corrections and regressions.
 
 ## What we have already achieved
 
@@ -120,19 +120,19 @@ location / {
 ```bash
 ├───.htaccess        # Apache web server configuration
 ├───index.php        # Only change the values of the constants, and only if necessary
-├───server           # shortcut to start the built-in web server on Linux and macOS
-├───server.bat       # shortcut to start the built-in web server on Windows
+├───server           # Shortcut to start the built-in web server on Linux and macOS
+├───server.bat       # Shortcut to start the built-in web server on Windows
 ├───web.config       # IIS web server configuration
 ├───public/          # In this folder you can place static files or PHP scripts that will be independent
-└───system/          # folder containing your application
-    ├───boot/        # contain settings for inphinit_autoload, similar to composer_autoload
-    ├───configs/     # contain varied configuration files, it is recommended that you do not version this folder
+└───system/          # Folder containing your application
+    ├───boot/        # Contain settings for inphinit_autoload, similar to composer_autoload
+    ├───configs/     # Contain varied configuration files, it is recommended that you do not version this folder
     │   └───app.php  # Don't add new keys, just change the values of existing ones if necessary
-    ├───controllers/ # must contain the classes that will be controllers used in the routes
-    ├───vendor/      # contain third-party packages and the framework
-    ├───views/       # should contain your views
+    ├───controllers/ # Must contain the classes that will be controllers used in the routes
+    ├───vendor/      # Contain third-party packages and the framework
+    ├───views/       # Should contain your views
     ├───dev.php      # It has the same purpose as the "main.php" script, but it will only work in development mode
-    ├───errors.php   # it should contain error page settings, such as when a 404 or 405 error occurs, you can call static files or use views
+    ├───errors.php   # It should contain error page settings, such as when a 404 or 405 error occurs, you can call static files or use views
     └───main.php     # This is the main file for routes and events, it will be available in development mode and production mode
 ```
 
@@ -159,14 +159,19 @@ function foobar() {
 // callable function
 $app->action('GET', '/function', 'foobar');
 
-// callable class method (Note: autoload will include the file)
-$app->action('GET', '/class-method', ['MyNameSpace\Foo\Bar', 'hello']);
+// callable class static method (Note: autoload will include the file)
+$app->action('GET', '/class-static-method', ['MyNameSpace\Foo\Bar', 'hello']);
+
+// callable class method
+$foo = new Sample;
+$app->action('GET', '/class-static-method', [$foo, 'hello']);
 
 
 // do not add the Controller prefix, the framework itself will add
 $app->action('GET', '/class-method', 'Boo\Bar::xyz');
 
-/* Controller from `./system/controllers/Boo/Bar.php`:
+/**
+ * Controller from `./system/controllers/Boo/Bar.php`:
  *
  * <?php
  * namespace Controller\Boo;

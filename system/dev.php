@@ -63,11 +63,11 @@ $app->action('GET', '/exception', function () {
 });
 
 // In development mode it will predict unloaded controllers or callables exist
-$app->scope('*://*:*/invalid/function/', function ($app, $params) {
+$app->scope('*://*/invalid/function/', function ($app, $params) {
     $app->action('ANY', '/', 'undefined_function');
 });
 
-$app->scope('*://*:*/invalid/class-method/', function ($app, $params) {
+$app->scope('*://*/invalid/class-method/', function ($app, $params) {
     class Sample {}
 
     $instance = new Sample;
@@ -75,7 +75,7 @@ $app->scope('*://*:*/invalid/class-method/', function ($app, $params) {
     $app->action('ANY', '/', [$instance, 'method']);
 });
 
-$app->scope('*://*:*/invalid/static-method/', function ($app, $params) {
+$app->scope('*://*/invalid/static-method/', function ($app, $params) {
     $app->action('ANY', '/', ['NotExistClass', 'method']);
 });
 
@@ -333,13 +333,14 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
         View::render('home', [ 'intro' => time() ]);
 
         Response::cache(30); // 30 sec
-
         Response::status(201);
     });
 
     // HTTP Response download page
     $app->action('ANY', '/http/download', function () {
-        View::render('home', [ 'intro' => time() ]);
+        View::render('home', [
+            'intro' => time()
+        ]);
 
         Response::download('page.html');
     });

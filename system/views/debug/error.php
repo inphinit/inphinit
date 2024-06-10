@@ -4,7 +4,7 @@ use Inphinit\Debugging\Debug;
 <div class="code-inphinit">
 <div class="code-inphinit-header"><?=Debug::editor($file, $line)?></div>
 <div class="code-inphinit-error">
-<?=nl2br(Debug::searcher($message))?>
+<?=nl2br(Debug::assistant($message))?>
 </div>
 
 <?php if ($source): ?>
@@ -25,8 +25,7 @@ $breakpoint--;
 
 <pre style="counter-reset: line <?=$start?>"><?php
 for ($i = 0; $i < $lines; $i++) {
-    $current = trim($data[$i], "\r\n");
-    $current = htmlspecialchars($current, ENT_COMPAT);
+    $current = $data[$i];
 
     if ($breakpoint === $i) {
         echo "<span class=\"hl-line\">{$current}</span>\n";

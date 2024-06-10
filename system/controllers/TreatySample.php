@@ -5,7 +5,7 @@ class TreatySample extends \Inphinit\Routing\Treaty
 {
     public function __construct()
     {
-        $this->format = self::SLASH|self::NOSLASH;
+        $this->format = self::SLASH | self::NOSLASH;
     }
 
     public function getIndex()

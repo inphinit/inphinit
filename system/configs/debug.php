@@ -1,5 +1,5 @@
 <?php
 return array(
-    'searcherror' => 'https://duckduckgo.com/?q="{error}"',
+    'assistant' => 'https://duckduckgo.com/?q={error}',
     'editor' => 'vscode'
 );

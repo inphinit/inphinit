@@ -5,7 +5,7 @@ class ResourceSample extends \Inphinit\Routing\Resource
 {
     public function __construct()
     {
-        $this->format = self::SLASH|self::NOSLASH;
+        $this->format = self::SLASH | self::NOSLASH;
     }
 
     public function index() // ($params)

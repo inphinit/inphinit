@@ -218,10 +218,15 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
 $app->scope('*://localhost:*/samples/', function ($app, $params) {
     // DOM CSS-selector
     $app->action('GET', '/dom/css-selector', function () {
-        $dom = new Document;
-        $dom->loadHTML('<html><head></head><body><div x=\'abc"def\'>Hello World!</div></body></html>');
-        $elements = $dom->query('body > div');
+        $content = '<html><head></head><body><div x=\'abc"def\'>Hello World!</div><div id=\'foo\'>bar</div></body></html>';
+
+        $dom = new Document($content, Document::HTML);
+
         echo '<pre>';
+        $elements = $dom->query('body > div');
+        var_dump($elements);
+
+        $elements = $dom->query('#foo');
         var_dump($elements);
         echo '</pre>';
     });
@@ -230,31 +235,46 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
     $app->action('ANY', '/dom/to-array', function () {
         echo '<pre>';
 
-        echo "Basic sample:\n";
-        $doc = new Document;
-        $doc->loadXML('<root><node>contents</node></root>');
-        print_r($doc->toArray());
+        $doc = new Document('<root xmlns:book="https://book.io"><node foo="bar" baz="foobar">contents</node><book:tag>baz</book:tag></root>', Document::XML);
+
+        print_r($doc->document());
 
         echo "\nCOMPLETE:\n";
-        $doc = new Document;
-        $doc->loadXML('<root xmlns:book="https://book.io"><node foo="bar" baz="foobar">contents</node><book:tag>baz</book:tag></root>');
-        print_r($doc->toArray(Document::COMPLETE));
+        print_r($doc->dump(Document::ARRAY_COMPLETE));
 
         echo "\nSimple:\n";
-        $doc = new Document;
-        $doc->loadXML('<root xmlns:book="https://book.io"><node foo="bar" baz="foobar">contents</node><book:tag>baz</book:tag></root>');
-        print_r($doc->toArray(Document::SIMPLE));
+        print_r($doc->dump(Document::ARRAY_SIMPLE));
 
         echo "\nMINIMAL:\n";
-        $doc = new Document;
-        $doc->loadXML('<root xmlns:book="https://book.io"><node foo="bar" baz="foobar">contents</node><book:tag>baz</book:tag></root>');
-        print_r($doc->toArray(Document::MINIMAL));
+        print_r($doc->dump(Document::ARRAY_MINIMAL));
 
         echo '</pre>';
     });
 
     // Array to XML
     $app->action('ANY', '/dom/from-array', function () {
+        $handle = new Document([
+            'root' => [
+                'node' => [
+                    '@attributes' => [
+                        'foo' => 'bar',
+                        'baz' => 'foobar'
+                    ],
+                    '@contents' => 'contents',
+                ],
+                'book:tag' => 'baz',
+                '@attributes' => [
+                    'class' => 'sample',
+                    'xmlns:book' => 'https://book.io'
+                ]
+            ]
+        ]);
+
+        echo '<pre>';
+        print_r($handle->document());
+        print_r($handle->first('.sample'));
+        print_r($handle->first('node[foo=bar]'));
+        echo '</pre>';
     });
 
     // Cache with 304 status code

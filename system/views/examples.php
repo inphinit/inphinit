@@ -26,6 +26,7 @@ use Inphinit\Viewing\View;
             <dd><a href="../memory">/memory</a></dd>
             <dd><a href="../error">/error</a></dd>
             <dd><a href="../exception">/exception</a></dd>
+            <dd><a href="../eval-error">/eval-error</a></dd>
             <dd><a href="../maintenance/up">/maintenance/up</a></dd>
             <dd><a href="../maintenance/down">/maintenance/down</a></dd>
 
@@ -89,9 +90,6 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/file">/samples/file</a></dd>
             <dd><a href="../utilities/arrays">/utilities/arrays</a></dd>
             <dd><a href="../utilities/strings">/utilities/strings</a></dd>
-            <dd><a href="../invalid/function/">/invalid/function/</a></dd>
-
-            <dd><a href="../invalid/class-or-method/">/invalid/class-or-method/</a></dd>
 
             <dd><a href="../invalid/function/">/invalid/function/</a></dd>
             <dd><a href="../invalid/class-method/">/invalid/class-method/</a></dd>

@@ -164,11 +164,11 @@ $app->action('GET', '/class-static-method', ['MyNameSpace\Foo\Bar', 'hello']);
 
 // callable class method
 $foo = new Sample;
-$app->action('GET', '/class-static-method', [$foo, 'hello']);
+$app->action('GET', '/class-method', [$foo, 'hello']);
 
 
 // do not add the Controller prefix, the framework itself will add
-$app->action('GET', '/class-method', 'Boo\Bar::xyz');
+$app->action('GET', '/controller', 'Boo\Bar::xyz');
 
 /**
  * Controller from `./system/controllers/Boo/Bar.php`:

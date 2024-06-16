@@ -168,7 +168,7 @@ $app->action('GET', '/class-method', [$foo, 'hello']);
 
 
 // Não adicione o prefixo Controller, o próprio framework irá adiciona-lo
-$app->action('GET', '/class-method', 'Boo\Bar::xyz');
+$app->action('GET', '/controller', 'Boo\Bar::xyz');
 
 /**
  * Controller deverá estar localizado em `./system/controllers/Boo/Bar.php`:

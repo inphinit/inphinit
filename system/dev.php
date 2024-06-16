@@ -62,6 +62,18 @@ $app->action('GET', '/exception', function () {
     echo "Bar\n";
 });
 
+$app->action('GET', '/eval-error', function () {
+    echo "Foo\n";
+
+    eval('echo $undefined_variable;');
+
+    echo "Bar\n";
+
+    eval('invalid sintax');
+
+    echo "Baz\n";
+});
+
 // In development mode it will predict unloaded controllers or callables exist
 $app->scope('*://*/invalid/function/', function ($app, $params) {
     $app->action('ANY', '/', 'undefined_function');
@@ -304,7 +316,7 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
         switch ($params['option']) {
             case 'charset':
                 $langs = $negotiation->acceptCharset($sortQFactor);
-                $priority = $negotiation->getCharset($sortQFactor);
+                $priority = $negotiation->getCharset();
                 break;
             case 'custom':
                 $langs = $negotiation->header('accept-foo', $sortQFactor);
@@ -312,19 +324,19 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
                 break;
             case 'encoding':
                 $langs = $negotiation->acceptEncoding($sortQFactor);
-                $priority = $negotiation->getEncoding($sortQFactor);
+                $priority = $negotiation->getEncoding();
                 break;
             case 'language':
                 $langs = $negotiation->acceptLanguage($sortQFactor);
-                $priority = $negotiation->getLanguage($sortQFactor);
+                $priority = $negotiation->getLanguage();
                 break;
             case 'charset':
                 $langs = $negotiation->acceptCharset($sortQFactor);
-                $priority = $negotiation->getCharset($sortQFactor);
+                $priority = $negotiation->getCharset();
                 break;
             default:
                 $langs = $negotiation->accept($sortQFactor);
-                $priority = $negotiation->getAccept($sortQFactor);
+                $priority = $negotiation->getAccept();
         }
 
         echo '<h2>Supporteds</h1>';
@@ -350,7 +362,7 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
 
     // HTTP Response headers
     $app->action('ANY', '/http/headers', function () {
-        View::render('home', [ 'intro' => time() ]);
+        View::render('home', ['intro' => time()]);
 
         Response::cache(30); // 30 sec
         Response::status(201);
@@ -397,6 +409,7 @@ $app->scope('*://localhost:*/utilities/', function ($app, $params) {
 
         $list = [0 => 'foo', 1 => 'bar'];
         $assoc = [0 => 'a', 1 => 'bar', 'foo' => 'bar'];
+
         $std = new stdClass;
 
         $multidimentional = [

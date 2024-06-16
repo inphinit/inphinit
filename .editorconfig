@@ -13,8 +13,11 @@ trim_trailing_whitespace = false
 [*.{yml,yaml}]
 indent_size = 2
 
-[{*.bat,web.config}]
+[{*.bat,*.ini,web.config}]
 end_of_line = crlf
 
 [*.{cjs,css,cts,ctsx,htm,html,js,jsm,less,mjs,mts,mtsx,pcss,sass,scss,svg,ts,tsx,vue,xml}]
 indent_size = 2
+
+[*.{cjs,css,cts,ctsx,htm,html,js,jsm,less,mjs,mts,mtsx,pcss,php,phtml,sass,scss,svg,ts,tsx,vue}]
+charset = utf-8

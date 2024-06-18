@@ -481,13 +481,13 @@ $app->scope('*://localhost:*/utilities/', function ($app, $params) {
 
         $version = new Version('1.0.0');
 
+        print_r($version);
+
         $version->major = '2';
         $version->minor = '4';
         $version->patch = '6';
         $version->prerelease = ['a', 'b', 'c'];
         $version->build = ['1', '2', '3'];
-
-        print_r($version);
 
         echo "{$version}\n\n";
 

@@ -12,7 +12,7 @@ class Profile
 
         View::render('foo.bar', [
             'id' => $id,
-            'user' => $username
+            'username' => $username
         ]);
     }
 }

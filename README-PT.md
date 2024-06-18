@@ -24,13 +24,13 @@ Todas as rotas e aplicação básica já estão estabelecidas, mas outras APIs i
 
 Sempre valorizei desempenho e simplicidade, parte do que foi implementado no _Inphinit 2.0_ já foi portado para _0.6_, o que proporcionou uma grande melhoria nessas versões antes do lançamento de 2.0, e mesmo que a _versão 0.5_ seja muito eficiente, o salto no desempenho foi incrível da _versão 0.6_ em diante. Na _versão 2.0_ é um pouco melhor, então aqui vai um exemplo dos testes, com o modo de desenvolvimento desligado:
 
-Descrição                                                            | v0.5.19                       | v0.6                          | v2.0
----                                                                  | ---                           | ---                           | --- 
-Tempo gasto para testes:                                             | 0.528 segundos                | 0.429 segundos                | 0.391 segundos
-Solicitações por segundo (média):                                    | 1892.46 [#/seg]               | 2330.74 [#/seg]               | 2557.07 [#/seg]
-Tempo por solicitação (média):                                       | 5.284 [ms]                    | 4.290 [ms]                    | 3.911 [ms]
-Tempo por solicitação (média, em todas as solicitações simultâneas): | 0.528 [ms]                    | 0.429 [ms]                    | 0.391 [ms]
-Taxa de transferência:                                               | 373.32 [Kbytes/seg] recebidos | 459.77 [Kbytes/sec] recebidos | 504.42 [Kbytes/seg] recebidos
+Descrição                                                           | v0.5.19                       | v0.6                          | v2.0
+---                                                                 | ---                           | ---                           | --- 
+Tempo gasto para testes                                             | 0.528 segundos                | 0.429 segundos                | 0.391 segundos
+Solicitações por segundo (média)                                    | 1892.46 [#/seg]               | 2330.74 [#/seg]               | 2557.07 [#/seg]
+Tempo por solicitação (média)                                       | 5.284 [ms]                    | 4.290 [ms]                    | 3.911 [ms]
+Tempo por solicitação (média, em todas as solicitações simultâneas) | 0.528 [ms]                    | 0.429 [ms]                    | 0.391 [ms]
+Taxa de transferência                                               | 373.32 [Kbytes/seg] recebidos | 459.77 [Kbytes/sec] recebidos | 504.42 [Kbytes/seg] recebidos
 
 Além da melhoria no tempo de execução, nota-se que a _versão 2.0_ conseguiu processar em média mais 220 solicitações por segundo do que a versão _0.6_, e quando comparado à _0.5.x_, conseguiu processar 600 requisições a mais, por segundo.
 

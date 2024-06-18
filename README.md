@@ -24,13 +24,13 @@ All of the routes and basic application are already established, but other inter
 
 I have always valued performance and simplicity, part of what was implemented in _Inphinit 2.0_ has already been ported to _0.6_, which provided a great improvement in these versions before the release of 2.0, and even though _version 0.5_ is very efficient, the leap in performance It was incredible from _version 0.6_ onwards. In _version 2.0_ it is a little better, so here is an example of the tests, with development mode turned off:
 
-Description                                              | v0.5.19                      | v0.6                         | v2.0
----                                                      | ---                          | ---                          | --- 
-Time taken for tests:                                    | 0.528 seconds                | 0.429 seconds                | 0.391 seconds
-Requests per second (mean):                              | 1892.46 [#/sec]              | 2330.74 [#/sec]              | 2557.07 [#/sec]
-Time per request (mean):                                 | 5.284 [ms]                   | 4.290 [ms]                   | 3.911 [ms]
-Time per request (mean, across all concurrent requests): | 0.528 [ms]                   | 0.429 [ms]                   | 0.391 [ms]
-Transfer rate:                                           | 373.32 [Kbytes/sec] received | 459.77 [Kbytes/sec] received | 504.42 [Kbytes/sec] received
+Description                                             | v0.5.19                      | v0.6                         | v2.0
+---                                                     | ---                          | ---                          | --- 
+Time taken for tests                                    | 0.528 seconds                | 0.429 seconds                | 0.391 seconds
+Requests per second (mean)                              | 1892.46 [#/sec]              | 2330.74 [#/sec]              | 2557.07 [#/sec]
+Time per request (mean)                                 | 5.284 [ms]                   | 4.290 [ms]                   | 3.911 [ms]
+Time per request (mean, across all concurrent requests) | 0.528 [ms]                   | 0.429 [ms]                   | 0.391 [ms]
+Transfer rate                                           | 373.32 [Kbytes/sec] received | 459.77 [Kbytes/sec] received | 504.42 [Kbytes/sec] received
 
 In addition to the improved execution time, it is noted that _version 2.0_ was able to process an average of 220 more requests per second than _version 0.6_, and compared to _0.5.x_, it was able to process 600 more requests per second.
 

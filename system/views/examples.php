@@ -55,38 +55,38 @@ use Inphinit\Viewing\View;
 
         <dl>
             <dt>DOM</dt>
-            <dd><a href="../samples/dom/css-selector">/samples/dom/css-selector</a></dd>
-            <dd><a href="../samples/dom/to-array">/samples/dom/to-array</a></dd>
-            <dd><a href="../samples/dom/from-array">/samples/dom/from-array</a></dd>
+            <dd><a href="../dom/css-selector">/dom/css-selector</a></dd>
+            <dd><a href="../dom/to-array">/dom/to-array</a></dd>
+            <dd><a href="../dom/from-array">/dom/from-array</a></dd>
         </dl>
 
         <dl>
             <dt>Negotiation</dt>
-            <dd><a href="../samples/negotiation/charset/all">/samples/negotiation/charset/all</a></dd>
-            <dd><a href="../samples/negotiation/charset/high">/samples/negotiation/charset/high</a></dd>
-            <dd><a href="../samples/negotiation/charset/low">/samples/negotiation/charset/low</a></dd>
-            <dd><a href="../samples/negotiation/custom/all">/samples/negotiation/custom/all</a></dd>
-            <dd><a href="../samples/negotiation/custom/high">/samples/negotiation/custom/high</a></dd>
-            <dd><a href="../samples/negotiation/custom/low">/samples/negotiation/custom/low</a></dd>
-            <dd><a href="../samples/negotiation/encoding/all">/samples/negotiation/encoding/all</a></dd>
-            <dd><a href="../samples/negotiation/encoding/high">/samples/negotiation/encoding/high</a></dd>
-            <dd><a href="../samples/negotiation/encoding/low">/samples/negotiation/encoding/low</a></dd>
-            <dd><a href="../samples/negotiation/language/all">/samples/negotiation/language/all</a></dd>
-            <dd><a href="../samples/negotiation/language/high">/samples/negotiation/language/high</a></dd>
-            <dd><a href="../samples/negotiation/language/low">/samples/negotiation/language/low</a></dd>
-            <dd><a href="../samples/negotiation/qfactor/all">/samples/negotiation/qfactor/all</a></dd>
-            <dd><a href="../samples/negotiation/qfactor/high">/samples/negotiation/qfactor/high</a></dd>
-            <dd><a href="../samples/negotiation/qfactor/low">/samples/negotiation/qfactor/low</a></dd>
-            <dd><a href="../samples/negotiation/type/all">/samples/negotiation/type/all</a></dd>
-            <dd><a href="../samples/negotiation/type/high">/samples/negotiation/type/high</a></dd>
-            <dd><a href="../samples/negotiation/type/low">/samples/negotiation/type/low</a></dd>
+            <dd><a href="../http/negotiation/charset/all">/http/negotiation/charset/all</a></dd>
+            <dd><a href="../http/negotiation/charset/high">/http/negotiation/charset/high</a></dd>
+            <dd><a href="../http/negotiation/charset/low">/http/negotiation/charset/low</a></dd>
+            <dd><a href="../http/negotiation/custom/all">/http/negotiation/custom/all</a></dd>
+            <dd><a href="../http/negotiation/custom/high">/http/negotiation/custom/high</a></dd>
+            <dd><a href="../http/negotiation/custom/low">/http/negotiation/custom/low</a></dd>
+            <dd><a href="../http/negotiation/encoding/all">/http/negotiation/encoding/all</a></dd>
+            <dd><a href="../http/negotiation/encoding/high">/http/negotiation/encoding/high</a></dd>
+            <dd><a href="../http/negotiation/encoding/low">/http/negotiation/encoding/low</a></dd>
+            <dd><a href="../http/negotiation/language/all">/http/negotiation/language/all</a></dd>
+            <dd><a href="../http/negotiation/language/high">/http/negotiation/language/high</a></dd>
+            <dd><a href="../http/negotiation/language/low">/http/negotiation/language/low</a></dd>
+            <dd><a href="../http/negotiation/qfactor/all">/http/negotiation/qfactor/all</a></dd>
+            <dd><a href="../http/negotiation/qfactor/high">/http/negotiation/qfactor/high</a></dd>
+            <dd><a href="../http/negotiation/qfactor/low">/http/negotiation/qfactor/low</a></dd>
+            <dd><a href="../http/negotiation/type/all">/http/negotiation/type/all</a></dd>
+            <dd><a href="../http/negotiation/type/high">/http/negotiation/type/high</a></dd>
+            <dd><a href="../http/negotiation/type/low">/http/negotiation/type/low</a></dd>
         </dl>
 
         <dl>
             <dt>Others</dt>
+            <dd><a href="../http/headers">/http/headers</a></dd>
+            <dd><a href="../http/download">/http/download</a></dd>
             <dd><a href="../samples/event">/samples/event</a></dd>
-            <dd><a href="../samples/http/headers">/samples/http/headers</a></dd>
-            <dd><a href="../samples/http/download">/samples/http/download</a></dd>
             <dd><a href="../samples/file">/samples/file</a></dd>
             <dd><a href="../utilities/arrays">/utilities/arrays</a></dd>
             <dd><a href="../utilities/strings">/utilities/strings</a></dd>

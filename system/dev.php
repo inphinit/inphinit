@@ -16,6 +16,8 @@ use Inphinit\Utility\Arrays;
 use Inphinit\Utility\Strings;
 use Inphinit\Utility\Version;
 
+use Inphinit\Experimental\Http\Method;
+
 // Inject CSS for debug if necessary
 Debug::view('before', 'debug.style');
 
@@ -82,7 +84,7 @@ $app->scope('*://*/invalid/function/', function ($app, $params) {
 $app->scope('*://*/invalid/class-method/', function ($app, $params) {
     class Sample {}
 
-    $instance = new Sample;
+    $instance = new Sample();
 
     $app->action('ANY', '/', [$instance, 'method']);
 });
@@ -94,7 +96,7 @@ $app->scope('*://*/invalid/static-method/', function ($app, $params) {
 // Maintenance toggle
 $app->scope('*://localhost:*/maintenance/', function ($app, $params) {
     // If the request comes from "127.0.0.1" or is in development mode, it will bypass maintenance mode
-    Maintenance::ignore(function () {
+    Maintenance::bypass(function () {
         return $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || App::config('development');
     });
 
@@ -201,7 +203,8 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
 
     $app->action('GET', '/version/<value:version>', 'testCallback');
 
-    function testCallback($params) {
+    function testCallback($params)
+    {
         echo '<h1>Results testCallback():</h1>';
         echo '<pre>';
         print_r($params);
@@ -226,10 +229,10 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
     $app->setPattern('example', '[A-Z]\d+');
 });
 
-// Samples
-$app->scope('*://localhost:*/samples/', function ($app, $params) {
+// DOM
+$app->scope('*://localhost:*/dom/', function ($app, $params) {
     // DOM CSS-selector
-    $app->action('GET', '/dom/css-selector', function () {
+    $app->action('GET', '/css-selector', function () {
         $content = '<html><head></head><body><div x=\'abc"def\'>Hello World!</div><div id=\'foo\'>bar</div></body></html>';
 
         $dom = new Document($content, Document::HTML);
@@ -244,7 +247,7 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
     });
 
     // XML to Array
-    $app->action('ANY', '/dom/to-array', function () {
+    $app->action('ANY', '/to-array', function () {
         echo '<pre>';
 
         $doc = new Document('<root xmlns:book="https://book.io"><node foo="bar" baz="foobar">contents</node><book:tag>baz</book:tag></root>', Document::XML);
@@ -264,7 +267,7 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
     });
 
     // Array to XML
-    $app->action('ANY', '/dom/from-array', function () {
+    $app->action('ANY', '/from-array', function () {
         $handle = new Document([
             'root' => [
                 'node' => [
@@ -288,68 +291,10 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
         print_r($handle->first('node[foo=bar]'));
         echo '</pre>';
     });
+});
 
-    // Cache with 304 status code
-    $app->action('ANY', '/cache', function () {
-        $cache = new Cache;
-
-        if ($cache->cached()) return;
-
-        return str_repeat('Hello, world! ', 1000);
-    });
-
-    // Accept headers
-    $app->action('GET', '/negotiation/<option>/<sort>', function ($params) {
-        $negotiation = new Negotiation;
-
-        switch ($params['sort']) {
-            case 'high':
-                $sortQFactor = Negotiation::HIGH;
-                break;
-            case 'low':
-                $sortQFactor = Negotiation::LOW;
-                break;
-            default:
-                $sortQFactor = Negotiation::ALL;
-        }
-
-        switch ($params['option']) {
-            case 'charset':
-                $langs = $negotiation->acceptCharset($sortQFactor);
-                $priority = $negotiation->getCharset();
-                break;
-            case 'custom':
-                $langs = $negotiation->header('accept-foo', $sortQFactor);
-                $priority = null;
-                break;
-            case 'encoding':
-                $langs = $negotiation->acceptEncoding($sortQFactor);
-                $priority = $negotiation->getEncoding();
-                break;
-            case 'language':
-                $langs = $negotiation->acceptLanguage($sortQFactor);
-                $priority = $negotiation->getLanguage();
-                break;
-            case 'charset':
-                $langs = $negotiation->acceptCharset($sortQFactor);
-                $priority = $negotiation->getCharset();
-                break;
-            default:
-                $langs = $negotiation->accept($sortQFactor);
-                $priority = $negotiation->getAccept();
-        }
-
-        echo '<h2>Supporteds</h1>';
-        echo '<pre>';
-        print_r($langs);
-        echo '</pre>';
-
-        echo '<h2>Priority</h2>';
-        echo '<pre>';
-        var_dump($priority);
-        echo '</pre>';
-    });
-
+// Samples
+$app->scope('*://localhost:*/samples/', function ($app, $params) {
     // Add event
     Event::on('foobar', function ($arg1, $arg2) {
         print_r([$arg1, $arg2]);
@@ -361,43 +306,26 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
     });
 
     // HTTP Response headers
-    $app->action('ANY', '/http/headers', function () {
-        View::render('home', ['intro' => time()]);
-
-        Response::cache(30); // 30 sec
-        Response::status(201);
-    });
-
-    // HTTP Response download page
-    $app->action('ANY', '/http/download', function () {
-        View::render('home', [
-            'intro' => time()
-        ]);
-
-        Response::download('page.html');
-    });
-
-    // HTTP Response headers
     $app->action('ANY', '/file', function () {
         echo '<pre>';
 
-        var_dump( File::exists(INPHINIT_SYSTEM . '/main.php') ); // Returns true
-        var_dump( File::exists(INPHINIT_SYSTEM . '/MAIN.php') ); // Returns false
-        var_dump( File::exists(INPHINIT_SYSTEM . '/Main.php') ); // Returns false
-        var_dump( File::exists(INPHINIT_SYSTEM . '/main.PHP') ); // Returns false
-        var_dump( File::exists(INPHINIT_SYSTEM . '/MAIN.PHP') ); // Returns false
+        var_dump(File::exists(INPHINIT_SYSTEM . '/main.php')); // Returns true
+        var_dump(File::exists(INPHINIT_SYSTEM . '/MAIN.php')); // Returns false
+        var_dump(File::exists(INPHINIT_SYSTEM . '/Main.php')); // Returns false
+        var_dump(File::exists(INPHINIT_SYSTEM . '/main.PHP')); // Returns false
+        var_dump(File::exists(INPHINIT_SYSTEM . '/MAIN.PHP')); // Returns false
 
-         // Returns uma string no formato octal, exemplo: 0666
-        var_dump( File::permissions(INPHINIT_SYSTEM . '/main.php') );
+        // Returns uma string no formato octal, exemplo: 0666
+        var_dump(File::permissions(INPHINIT_SYSTEM . '/main.php'));
 
         // Returns formato simbolico, exemplo: -rw-rw-rw-
-        var_dump( File::permissions(INPHINIT_SYSTEM . '/main.php', true) );
+        var_dump(File::permissions(INPHINIT_SYSTEM . '/main.php', true));
 
         // Returns formato simbolico, exemplo: text/x-php
-        var_dump( File::mime(INPHINIT_SYSTEM . '/main.php') );
+        var_dump(File::mime(INPHINIT_SYSTEM . '/main.php'));
 
         // Returns formato simbolico, exemplo: us-ascii
-        var_dump( File::encoding(INPHINIT_SYSTEM . '/main.php') );
+        var_dump(File::encoding(INPHINIT_SYSTEM . '/main.php'));
 
         echo '</pre>';
     });
@@ -410,7 +338,7 @@ $app->scope('*://localhost:*/utilities/', function ($app, $params) {
         $list = [0 => 'foo', 1 => 'bar'];
         $assoc = [0 => 'a', 1 => 'bar', 'foo' => 'bar'];
 
-        $std = new stdClass;
+        $std = new stdClass();
 
         $multidimentional = [
             'Foo' => 1,
@@ -498,5 +426,95 @@ $app->scope('*://localhost:*/utilities/', function ($app, $params) {
         echo "{$version}\n\n";
 
         echo '</pre>';
+    });
+});
+
+$app->scope('*://*/http/', function ($app, $params) {
+    Method::override();
+
+    $app->action(['DELETE', 'PATCH', 'PUT'], '/methods', function () {
+        $original = Method::original();
+        $current = $_SERVER['REQUEST_METHOD'];
+        return "Original: {$original} - Current: {$current}";
+    });
+
+    // Cache with 304 status code
+    $app->action('ANY', '/cache', function () {
+        $cache = new Cache();
+
+        if ($cache->cached()) {
+            return;
+        }
+
+        return str_repeat('Hello, world! ', 1000);
+    });
+
+    // Accept headers
+    $app->action('GET', '/negotiation/<option>/<sort>', function ($params) {
+        $negotiation = new Negotiation();
+
+        switch ($params['sort']) {
+            case 'high':
+                $sortQFactor = Negotiation::HIGH;
+                break;
+            case 'low':
+                $sortQFactor = Negotiation::LOW;
+                break;
+            default:
+                $sortQFactor = Negotiation::ALL;
+        }
+
+        switch ($params['option']) {
+            case 'charset':
+                $langs = $negotiation->acceptCharset($sortQFactor);
+                $priority = $negotiation->getCharset();
+                break;
+            case 'custom':
+                $langs = $negotiation->header('accept-foo', $sortQFactor);
+                $priority = null;
+                break;
+            case 'encoding':
+                $langs = $negotiation->acceptEncoding($sortQFactor);
+                $priority = $negotiation->getEncoding();
+                break;
+            case 'language':
+                $langs = $negotiation->acceptLanguage($sortQFactor);
+                $priority = $negotiation->getLanguage();
+                break;
+            case 'charset':
+                $langs = $negotiation->acceptCharset($sortQFactor);
+                $priority = $negotiation->getCharset();
+                break;
+            default:
+                $langs = $negotiation->accept($sortQFactor);
+                $priority = $negotiation->getAccept();
+        }
+
+        echo '<h2>Supporteds</h1>';
+        echo '<pre>';
+        print_r($langs);
+        echo '</pre>';
+
+        echo '<h2>Priority</h2>';
+        echo '<pre>';
+        var_dump($priority);
+        echo '</pre>';
+    });
+
+    // HTTP Response headers
+    $app->action('ANY', '/headers', function () {
+        View::render('home', ['intro' => time()]);
+
+        Response::cache(30); // 30 sec
+        Response::status(201);
+    });
+
+    // HTTP Response download page
+    $app->action('ANY', '/download', function () {
+        View::render('home', [
+            'intro' => time()
+        ]);
+
+        Response::download('page.html');
     });
 });

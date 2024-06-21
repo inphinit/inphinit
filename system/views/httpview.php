@@ -26,7 +26,7 @@ use Inphinit\Viewing\View;
                     <?=$title?>
                 </h1>
                 <p>
-                    Route <code><?=htmlentities($route)?></code>
+                    Route <code><?=htmlentities($method)?> <?=htmlentities($route)?></code>
                     <?php if ($route !== $path): ?>
                     (fullpath: <code><?=htmlentities($path)?></code>)
                     <?php endif; ?>

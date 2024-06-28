@@ -55,9 +55,11 @@ use Inphinit\Viewing\View;
 
         <dl>
             <dt>DOM</dt>
+            <dd><a href="../dom/array-to-html">/dom/array-to-html</a></dd>
+            <dd><a href="../dom/array-to-xml">/dom/array-to-xml</a></dd>
             <dd><a href="../dom/css-selector">/dom/css-selector</a></dd>
+            <dd><a href="../dom/file-error">/dom/file-error</a></dd>
             <dd><a href="../dom/to-array">/dom/to-array</a></dd>
-            <dd><a href="../dom/from-array">/dom/from-array</a></dd>
         </dl>
 
         <dl>

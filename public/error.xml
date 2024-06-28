@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contact>
+  <sample>test</sample>
+  <foo:name>Foo bar baz</foo:name>
+  <baz:phone>(000) 0000-xxxx</baz:phone>
+</contact>

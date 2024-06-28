@@ -114,14 +114,14 @@ $app->scope('*://localhost:*/maintenance/', function ($app, $params) {
 });
 
 // Group routes only HTTPS
-$app->scope('https://localhost:*/secure/', function ($app, $params) {
+$app->scope('https://*/secure/', function ($app, $params) {
     $app->action('GET', '/', function () {
         return '"Hello World" running on HTTPS';
     });
 });
 
 // Group routes only HTTP
-$app->scope('http://localhost:*/nonsecure/', function ($app, $params) {
+$app->scope('http://*/nonsecure/', function ($app, $params) {
     $app->action('GET', '/', function () {
         return '"Hello World" running on HTTP';
     });
@@ -233,16 +233,17 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
 $app->scope('*://localhost:*/dom/', function ($app, $params) {
     // DOM CSS-selector
     $app->action('GET', '/css-selector', function () {
-        $content = '<html><head></head><body><div x=\'abc"def\'>Hello World!</div><div id=\'foo\'>bar</div></body></html>';
+        $handle = new Document(Document::HTML);
 
-        $dom = new Document($content, Document::HTML);
+        $handle->load('<html><head></head><body><div x=\'abc"def\'>Hello World!</div><div id=\'foo\'>bar</div></body></html>');
 
         echo '<pre>';
-        $elements = $dom->query('body > div');
+        $elements = $handle->query('body > div');
         var_dump($elements);
 
-        $elements = $dom->query('#foo');
+        $elements = $handle->query('#foo');
         var_dump($elements);
+        var_dump(htmlentities($handle->dump()));
         echo '</pre>';
     });
 
@@ -250,45 +251,94 @@ $app->scope('*://localhost:*/dom/', function ($app, $params) {
     $app->action('ANY', '/to-array', function () {
         echo '<pre>';
 
-        $doc = new Document('<root xmlns:book="https://book.io"><node foo="bar" baz="foobar">contents</node><book:tag>baz</book:tag></root>', Document::XML);
+        $handle = new Document(Document::XML);
 
-        print_r($doc->document());
+        $handle->load('<root xmlns:book="https://book.io"><node foo="bar" baz="foobar">contents</node><book:tag>baz</book:tag></root>');
+
+        print_r($handle->document());
 
         echo "\nCOMPLETE:\n";
-        print_r($doc->dump(Document::ARRAY_COMPLETE));
+        print_r($handle->toArray(Document::ARRAY_COMPLETE));
 
         echo "\nSimple:\n";
-        print_r($doc->dump(Document::ARRAY_SIMPLE));
+        print_r($handle->toArray(Document::ARRAY_SIMPLE));
 
         echo "\nMINIMAL:\n";
-        print_r($doc->dump(Document::ARRAY_MINIMAL));
+        print_r($handle->toArray(Document::ARRAY_MINIMAL));
 
         echo '</pre>';
     });
 
     // Array to XML
-    $app->action('ANY', '/from-array', function () {
-        $handle = new Document([
-            'root' => [
-                'node' => [
-                    '@attributes' => [
-                        'foo' => 'bar',
-                        'baz' => 'foobar'
+    $app->action('ANY', '/array-to-<type>', function ($params) {
+        if ($params['type'] === 'html') {
+            $handle = new Document(Document::HTML);
+
+            $handle->fromArray([
+                'html' => [
+                    'head' => [
+                        '@contents' => 'contents <title>test</title>',
                     ],
-                    '@contents' => 'contents',
-                ],
-                'book:tag' => 'baz',
-                '@attributes' => [
-                    'class' => 'sample',
-                    'xmlns:book' => 'https://book.io'
+                    'body' => [
+                        'main' => [
+                            'p' => [
+                                '@contents' => 'contents <s>test</s>',
+                            ],
+                            'div' => [
+                                'foo',
+                                'bar',
+                                'baz'
+                            ]
+                        ],
+                        '@attributes' => [
+                            'data-foo' => 'bar',
+                            'data-baz' => 'foobar'
+                        ]
+                    ],
+                    '@attributes' => [
+                        'class' => 'sample',
+                        'id' => 'test'
+                    ]
                 ]
-            ]
-        ]);
+            ]);
+        } elseif ($params['type'] === 'xml') {
+            $handle = new Document(Document::XML);
+
+            $handle->fromArray([
+                'root' => [
+                    'node' => [
+                        '@attributes' => [
+                            'foo' => 'bar',
+                            'baz' => 'foobar'
+                        ],
+                        '@contents' => 'contents <s>test</s>',
+                    ],
+                    'book:tag' => 'baz',
+                    '@attributes' => [
+                        'class' => 'sample',
+                        'xmlns:book' => 'https://book.io'
+                    ]
+                ]
+            ]);
+        }
 
         echo '<pre>';
         print_r($handle->document());
         print_r($handle->first('.sample'));
         print_r($handle->first('node[foo=bar]'));
+        var_dump(htmlentities($handle->dump()));
+        echo '</pre>';
+    });
+
+    // XML error
+    $app->action('ANY', '/file-error', function () {
+        Document::setReporting(Document::ERROR | Document::FATAL | Document::WARNING);
+
+        $handle = new Document(Document::XML);
+        $handle->load('public/error.xml', true);
+
+        echo '<pre>';
+        var_dump(htmlentities($handle->dump()));
         echo '</pre>';
     });
 });

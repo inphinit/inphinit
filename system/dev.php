@@ -157,14 +157,14 @@ $app->scope('*://*/resource/', function ($app, $params) {
 // Route patterns
 $app->scope('*://localhost:*/routes/', function ($app, $params) {
 
-    $app->action('GET', '/foo/<foo>/<bar>', function ($params) {
+    $app->action('GET', '/foo/<foo>/<bar>', function ($app, $params) {
         echo 'response from /&lt;foo>/&lt;bar>';
         echo '<pre>';
         print_r($params);
         echo '</pre>';
     });
 
-    $app->action('GET', '/foo/<foo>-<bar>', function ($params) {
+    $app->action('GET', '/foo/<foo>-<bar>', function ($app, $params) {
         echo 'response from /&lt;foo>-&lt;bar>';
         echo '<pre>';
         print_r($params);
@@ -172,7 +172,7 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
     });
 
     // Example: http://localhost:8000/article/foo-1000
-    $app->action('GET', '/article/<name>/<id>', function ($params) use ($app) {
+    $app->action('GET', '/article/<name>/<id>', function ($app, $params) {
         if (ctype_digit($params['id'])) {
             echo 'Article ID: ', $params['id'], '<br>';
             echo 'Article name: ', $params['name'];
@@ -183,7 +183,7 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
     });
 
     // Example: http://localhost:8000/blog/foo-1000
-    $app->action('GET', '/blog/<name>-<id:num>', function ($params) {
+    $app->action('GET', '/blog/<name>-<id:num>', function ($app, $params) {
         echo 'Article ID: ', $params['id'], '<br>';
         echo 'Article name: ', $params['name'];
     });
@@ -211,7 +211,7 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
         echo '</pre>';
     }
 
-    $app->action('GET', '/nospace/<value:nospace>', function ($params) {
+    $app->action('GET', '/nospace/<value:nospace>', function ($app, $params) {
         echo '<h1>nospace</h1>';
         echo '<pre>';
         print_r($params);
@@ -219,7 +219,7 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
     });
 
     // custom pattern
-    $app->action('GET', '/custom/<myexample:example>', function ($params) use ($app) {
+    $app->action('GET', '/custom/<myexample:example>', function ($app, $params) {
         echo '<h1>custom pattern</h1>';
         echo '<pre>';
         print_r($params);
@@ -238,11 +238,13 @@ $app->scope('*://localhost:*/dom/', function ($app, $params) {
         $handle->load('<html><head></head><body><div x=\'abc"def\'>Hello World!</div><div id=\'foo\'>bar</div></body></html>');
 
         echo '<pre>';
-        $elements = $handle->query('body > div');
+
+        $elements = $handle->selector()->all('body > div');
         var_dump($elements);
 
-        $elements = $handle->query('#foo');
-        var_dump($elements);
+        $element = $handle->selector()->first('#foo');
+        var_dump($element);
+
         var_dump(htmlentities($handle->dump()));
         echo '</pre>';
     });
@@ -270,7 +272,7 @@ $app->scope('*://localhost:*/dom/', function ($app, $params) {
     });
 
     // Array to XML
-    $app->action('ANY', '/array-to-<type>', function ($params) {
+    $app->action('ANY', '/array-to-<type>', function ($app, $params) {
         if ($params['type'] === 'html') {
             $handle = new Document(Document::HTML);
 
@@ -283,6 +285,11 @@ $app->scope('*://localhost:*/dom/', function ($app, $params) {
                         'main' => [
                             'p' => [
                                 '@contents' => 'contents <s>test</s>',
+                                'span' => [
+                                    'foo',
+                                    'bar',
+                                    'baz'
+                                ]
                             ],
                             'div' => [
                                 'foo',
@@ -311,6 +318,10 @@ $app->scope('*://localhost:*/dom/', function ($app, $params) {
                             'foo' => 'bar',
                             'baz' => 'foobar'
                         ],
+                        'foo' => [
+                            'bar',
+                            'baz'
+                        ],
                         '@contents' => 'contents <s>test</s>',
                     ],
                     'book:tag' => 'baz',
@@ -324,15 +335,15 @@ $app->scope('*://localhost:*/dom/', function ($app, $params) {
 
         echo '<pre>';
         print_r($handle->document());
-        print_r($handle->first('.sample'));
-        print_r($handle->first('node[foo=bar]'));
+        print_r($handle->selector()->first('.sample'));
+        print_r($handle->selector()->first('node[foo=bar]'));
         var_dump(htmlentities($handle->dump()));
         echo '</pre>';
     });
 
     // XML error
     $app->action('ANY', '/file-error', function () {
-        Document::setReporting(Document::ERROR | Document::FATAL | Document::WARNING);
+        Document::setSeverityLevels(Document::ERROR | Document::FATAL | Document::WARNING);
 
         $handle = new Document(Document::XML);
         $handle->load('public/error.xml', true);
@@ -500,7 +511,7 @@ $app->scope('*://*/http/', function ($app, $params) {
     });
 
     // Accept headers
-    $app->action('GET', '/negotiation/<option>/<sort>', function ($params) {
+    $app->action('GET', '/negotiation/<option>/<sort>', function ($app, $params) {
         $negotiation = new Negotiation();
 
         switch ($params['sort']) {

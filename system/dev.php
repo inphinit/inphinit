@@ -28,7 +28,7 @@ Debug::view('error', 'debug.error');
 # Debug::view('defined', 'debug.defined');
 
 // Display memory usage (uncomment next line for check memory peak usage and time)
-# Debug::view('performance', 'debug.performance');
+Debug::view('performance', 'debug.performance');
 
 
 /**
@@ -245,7 +245,7 @@ $app->scope('*://localhost:*/dom/', function ($app, $params) {
         $element = $handle->selector()->first('#foo');
         var_dump($element);
 
-        var_dump(htmlentities($handle->dump()));
+        var_dump(htmlentities($handle->dump($handle->root())));
         echo '</pre>';
     });
 
@@ -259,14 +259,16 @@ $app->scope('*://localhost:*/dom/', function ($app, $params) {
 
         print_r($handle->document());
 
+        $root = $handle->root();
+
         echo "\nCOMPLETE:\n";
-        print_r($handle->toArray(Document::ARRAY_COMPLETE));
+        print_r($handle->toArray($root, Document::ARRAY_COMPLETE));
 
         echo "\nSimple:\n";
-        print_r($handle->toArray(Document::ARRAY_SIMPLE));
+        print_r($handle->toArray($root, Document::ARRAY_SIMPLE));
 
         echo "\nMINIMAL:\n";
-        print_r($handle->toArray(Document::ARRAY_MINIMAL));
+        print_r($handle->toArray($root, Document::ARRAY_MINIMAL));
 
         echo '</pre>';
     });
@@ -295,7 +297,8 @@ $app->scope('*://localhost:*/dom/', function ($app, $params) {
                                 'foo',
                                 'bar',
                                 'baz'
-                            ]
+                            ],
+                            '@comment' => 'test'
                         ],
                         '@attributes' => [
                             'data-foo' => 'bar',
@@ -328,7 +331,8 @@ $app->scope('*://localhost:*/dom/', function ($app, $params) {
                     '@attributes' => [
                         'class' => 'sample',
                         'xmlns:book' => 'https://book.io'
-                    ]
+                    ],
+                    '@comment' => 'foobar'
                 ]
             ]);
         }
@@ -337,7 +341,7 @@ $app->scope('*://localhost:*/dom/', function ($app, $params) {
         print_r($handle->document());
         print_r($handle->selector()->first('.sample'));
         print_r($handle->selector()->first('node[foo=bar]'));
-        var_dump(htmlentities($handle->dump()));
+        var_dump(htmlentities($handle->dump($handle->root())));
         echo '</pre>';
     });
 
@@ -376,16 +380,16 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
         var_dump(File::exists(INPHINIT_SYSTEM . '/main.PHP')); // Returns false
         var_dump(File::exists(INPHINIT_SYSTEM . '/MAIN.PHP')); // Returns false
 
-        // Returns uma string no formato octal, exemplo: 0666
+        // Returns a string in octal format, example: 0666
         var_dump(File::permissions(INPHINIT_SYSTEM . '/main.php'));
 
-        // Returns formato simbolico, exemplo: -rw-rw-rw-
+        // Returns symbolic format, example: -rw-rw-rw-
         var_dump(File::permissions(INPHINIT_SYSTEM . '/main.php', true));
 
-        // Returns formato simbolico, exemplo: text/x-php
+        // Returns mimetype: text/x-php
         var_dump(File::mime(INPHINIT_SYSTEM . '/main.php'));
 
-        // Returns formato simbolico, exemplo: us-ascii
+        // Returns enconding: us-ascii
         var_dump(File::encoding(INPHINIT_SYSTEM . '/main.php'));
 
         echo '</pre>';

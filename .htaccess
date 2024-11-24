@@ -7,7 +7,6 @@ IndexIgnore *
 # Redirect page errors to route system
 ErrorDocument 403 /index.php/RESERVED.INPHINIT-403.html
 ErrorDocument 500 /index.php/RESERVED.INPHINIT-500.html
-ErrorDocument 501 /index.php/RESERVED.INPHINIT-501.html
 
 RewriteEngine On
 

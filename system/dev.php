@@ -28,7 +28,7 @@ Debug::view('error', 'debug.error');
 # Debug::view('defined', 'debug.defined');
 
 // Display memory usage (uncomment next line for check memory peak usage and time)
-Debug::view('performance', 'debug.performance');
+# Debug::view('performance', 'debug.performance');
 
 
 /**
@@ -50,12 +50,18 @@ $app->action('GET', '/memory', function () {
     return 'memory peak usage: ' . round(memory_get_peak_usage() / 1024 / 1024, 3) . 'MB';
 });
 
-$app->action('GET', '/error', function () {
+$app->action('GET', '/warning', function () {
     echo "Foo\n";
     echo $nonExistentVariable;
     echo "Bar\n";
     echo $_SERVER['NON_EXISTENT_INDEX'];
     echo "Baz\n";
+});
+
+$app->action('GET', '/error', function () {
+    echo "Foo\n";
+    undefined_function();
+    echo "Bar\n";
 });
 
 $app->action('GET', '/exception', function () {

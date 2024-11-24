@@ -5,7 +5,7 @@ use Inphinit\Viewing\View;
 
 class Profile
 {
-    public function view($params)
+    public function view($app, $params)
     {
         $id = $params['id'];
         $username = $params['user'];

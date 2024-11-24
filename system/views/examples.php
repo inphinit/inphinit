@@ -24,6 +24,7 @@ use Inphinit\Viewing\View;
             <dd><a href="../">/</a></dd>
             <dd><a href="../info">/info</a></dd>
             <dd><a href="../memory">/memory</a></dd>
+            <dd><a href="../warning">/warning</a></dd>
             <dd><a href="../error">/error</a></dd>
             <dd><a href="../exception">/exception</a></dd>
             <dd><a href="../eval-error">/eval-error</a></dd>

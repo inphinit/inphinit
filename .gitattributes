@@ -13,6 +13,9 @@
 
 server   text eol=lf
 
+.htaccess  text eol=lf
+web.config text eol=crlf
+
 package-lock.json text eol=lf -diff
 pnpm-lock.yaml    text eol=lf -diff
 yarn.lock         text -diff

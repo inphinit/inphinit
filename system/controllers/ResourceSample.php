@@ -8,37 +8,37 @@ class ResourceSample extends \Inphinit\Routing\Resource
         $this->format = self::SLASH | self::NOSLASH;
     }
 
-    public function index() // ($params)
+    public function index()
     {
         return 'index';
     }
 
-    public function create() // ($params)
+    public function create()
     {
         return 'create';
     }
 
-    public function store() // ($params)
+    public function store()
     {
         return 'store';
     }
 
-    public function show() // ($params)
+    public function show()
     {
         return 'show';
     }
 
-    public function edit() // ($params)
+    public function edit()
     {
         return 'edit';
     }
 
-    public function update() // ($params)
+    public function update()
     {
         return 'update';
     }
 
-    public function destroy() // ($params)
+    public function destroy()
     {
         return 'destroy';
     }

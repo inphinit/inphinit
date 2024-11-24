@@ -1080,7 +1080,7 @@ body .markdown-body
 <p>PHP framework, routes, controllers and views</p>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link"></a></h2>
 <ol>
-<li>PHP 5.4+ (we recommend that you upgrade to PHP8.2 or higher as soon as possible, see <a href="https://www.php.net/supported-versions.php">https://www.php.net/supported-versions.php</a>)</li>
+<li>PHP &gt;=5.4 &lt;8.4</li>
 <li>Multibyte String (GD also) (optional, only used in <code>Inphinit\Helper::toAscii</code>)</li>
 <li>libiconv (optional, only used in <code>Inphinit\Helper::toAscii</code>)</li>
 <li>fileinfo (optional, only used in <code>Inphinit\File::mime</code>)</li>
@@ -1091,7 +1091,7 @@ body .markdown-body
 <ol>
 <li>Have two method for install</li>
 <li>First method is using composers</li>
-<li>Download <a href="http://getcomposer.org/doc/00-intro.md">Composer</a> and install</li>
+<li>Download <a href="https://getcomposer.org/doc/00-intro.md">Composer</a> and install</li>
 <li>For create an project in Windows:
     <div class="highlight"><pre><span class="nb">cd </span>c:<span class="se">\w</span>amp<span class="se">\w</span>ww<span class="se">\</span>
 composer create-project inphinit/inphinit <span class="o">[</span>project_name<span class="o">]</span>
@@ -1109,7 +1109,7 @@ php composer.phar create-project inphinit/inphinit <span class="o">[</span>proje
 php composer.phar create-project inphinit/inphinit <span class="o">[</span>project_name<span class="o">]</span>
 </pre></div></li>
 <li>Alternate is download Git repository and copy content from zip file to folder project (don&rsquo;t clone <code>master</code> for production use), clone last release example:
-    <div class="highlight"><pre>git clone -b 0.6.0 --recurse-submodules https://github.com/inphinit/inphinit.git <span class="o">[</span>project_name<span class="o">]</span>
+    <div class="highlight"><pre>git clone -b 1.0.0 --recurse-submodules https://github.com/inphinit/inphinit.git <span class="o">[</span>project_name<span class="o">]</span>
 <span class="nb">cd</span> <span class="o">[</span>project_name<span class="o">]</span>
 </pre></div></li>
 </ol>

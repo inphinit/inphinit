@@ -35,7 +35,7 @@ Route::set('GET', '/examples/', function () {
     View::render('examples');
 });
 
-Route::set('GET', '/error', function () {
+Route::set('GET', '/warning', function () {
     echo "Foo\n";
     echo $nonExistentVariable;
     echo "Bar\n";
@@ -43,10 +43,28 @@ Route::set('GET', '/error', function () {
     echo "Baz\n";
 });
 
+Route::set('GET', '/error', function () {
+    echo "Foo\n";
+    undefined_function();
+    echo "Bar\n";
+});
+
 Route::set('GET', '/exception', function () {
     echo "Foo\n";
     throw new \Exception('Exception sample');
     echo "Bar\n";
+});
+
+Route::set('GET', '/eval-error', function () {
+    echo "Foo\n";
+
+    eval('echo $undefined_variable;');
+
+    echo "Bar\n";
+
+    eval('invalid sintax');
+
+    echo "Baz\n";
 });
 
 // Maintenance

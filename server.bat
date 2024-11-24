@@ -1,8 +1,8 @@
 @echo off
 
 rem Setup PHP and PORT
-set PHP_BIN=C:\php\php.exe
-set PHP_INI=C:\php\php.ini
+set PHP_BIN=C:\DATA\PROGRAMS\php\8.3\php.exe
+set PHP_INI=C:\DATA\PROGRAMS\php\8.3\php.ini
 
 set HOST_HOST=localhost
 set HOST_PORT=9000

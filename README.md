@@ -4,7 +4,7 @@ PHP framework, routes, controllers and views
 
 ## Requirements
 
-1. PHP 5.4+ (PHP 8.2 or higher is recommended, see https://www.php.net/supported-versions.php)
+1. PHP >=5.4 <8.4
 1. Multibyte String (GD also) (optional, only used in `Inphinit\Helper::toAscii`)
 1. libiconv (optional, only used in `Inphinit\Helper::toAscii`)
 1. fileinfo (optional, only used in `Inphinit\File::mime`)
@@ -16,7 +16,7 @@ For check requirements see [Check requirements](#check-requirements)
 
 1. Have two method for install
 1. First method is using composers
-1. Download [Composer](http://getcomposer.org/doc/00-intro.md) and install
+1. Download [Composer](https://getcomposer.org/doc/00-intro.md) and install
 1. For create an project in Windows:
     ```bash
     cd c:\wamp\www\
@@ -39,7 +39,7 @@ For check requirements see [Check requirements](#check-requirements)
     ```
 1. Alternate is download Git repository and copy content from zip file to folder project (don't clone `master` for production use), clone last release example:
     ```bash
-    git clone -b 0.6.1 --recurse-submodules https://github.com/inphinit/inphinit.git [project_name]
+    git clone -b 1.0.0 --recurse-submodules https://github.com/inphinit/inphinit.git [project_name]
     cd [project_name]
     ```
 

@@ -16,15 +16,17 @@ The objective of this framework has always been to be as efficient as possible, 
 - Change the way routes work, to make them faster and also be able to predict failures, when used in development
 - Some typing errors can make certain PHP features not respond in a timely manner, such as autoload, so developer mode will preload everything you need before any script disrupts the process, allowing debugging to locate and display exactly which line the error is on.
 
-All of these decisions are embedded in the framework, some of which have already been added to _version 0.6_, to make it easier to port the project to the future version of the framework.
+All of these decisions are embedded in the framework, some of which have already been added to _version 1.x_, to make it easier to port the project to the future version of the framework.
 
-All of the routes and basic application are already established, but other internal APIs, for other uses, are still under development, so we are entering this phase, and within 4 weeks at most the first beta will be released, where I will not include any more new functionality, it will be a series of corrections and regressions.
+All core internal APIs are already supported by version 2.0, some have been completely rewritten, focusing on simplicity and performance, so if you are migrating from 1.0 it is likely that you will need to rewrite some things. Fortunately, most classes are much simpler to use.
 
 ## What we have already achieved
 
-I have always valued performance and simplicity, part of what was implemented in _Inphinit 2.0_ has already been ported to _0.6_, which provided a great improvement in these versions before the release of 2.0, and even though _version 0.5_ is very efficient, the leap in performance It was incredible from _version 0.6_ onwards. In _version 2.0_ it is a little better, so here is an example of the tests, with development mode turned off:
+If you are using _version 0.5_ and cannot yet migrate to _version 2.0_, it is highly recommended that you migrate to _version 1.0_.
 
-Description                                             | v0.5.19                      | v0.6                         | v2.0
+Version 0.5 already had excellent performance, but it was still possible to bring some performance features from version 2.0 to version 1.0. In _version 2.0_ it is a little better, so here is an example of the tests, with development mode turned off:
+
+Description                                             | v0.5.x                       | v1.x                         | v2.0
 ---                                                     | ---                          | ---                          | --- 
 Time taken for tests                                    | 0.528 seconds                | 0.429 seconds                | 0.391 seconds
 Requests per second (mean)                              | 1892.46 [#/sec]              | 2330.74 [#/sec]              | 2557.07 [#/sec]
@@ -32,7 +34,7 @@ Time per request (mean)                                 | 5.284 [ms]            
 Time per request (mean, across all concurrent requests) | 0.528 [ms]                   | 0.429 [ms]                   | 0.391 [ms]
 Transfer rate                                           | 373.32 [Kbytes/sec] received | 459.77 [Kbytes/sec] received | 504.42 [Kbytes/sec] received
 
-In addition to the improved execution time, it is noted that _version 2.0_ was able to process an average of 220 more requests per second than _version 0.6_, and compared to _0.5.x_, it was able to process 600 more requests per second.
+In addition to the improved execution time, it is noted that _version 2.0_ was able to process an average of 220 more requests per second than _version 1.x_, and compared to _0.5.x_, it was able to process 600 more requests per second.
 
 ## About documentation
 
@@ -42,20 +44,32 @@ Something I will change is the documentation, the Github Wiki worked for a while
 - Organizing the content was not as easy as I wanted, many things are manual, which took a lot of time to edit a few things
 - Github Desktop conflicts with wiki-type repositories, it's an [old bug](https://github.com/desktop/desktop/issues/3839#issue-290340050)
 
-So I made the decision to migrate to another platform, or maybe create something of your own, with the aim of being able to document quickly and at the same time provide a friendly interface to readers, thus saving time to focus on translating the documentation into at least 3 languages (en, es, pt). The documentation will be open-source, so any collaborator can send corrections or add something missing.
+The documentation will soon be available, initially in English and Portuguese.
 
 ## Installing
 
-> **Note:** To install _version 0.6_ go to: https://github.com/inphinit/inphinit/tree/1.x
+> **Note:** To install _version 1.0_ go to: https://github.com/inphinit/inphinit/tree/1.x
 
-Note that we are still in the development phase, and in 2 weeks we intend to launch the first beta, which will be available via composer, _version 2.0_ is not yet recommended for production, so prefer to use it only for testing or criticism that you wish to do during this step.
+It is highly recommended to migrate to version 2.0 to maintain support with future versions of PHP. To install it you must have at least _PHP 5.4_, but it is **recommended that you use PHP 8** due to PHP support issues, read:
 
-To install it you must have at least _PHP 5.4_, but it is **recommended that you use PHP 8** due to PHP support issues, read:
+- https://www.php.net/supported-versions.php
+- https://www.php.net/eol.php
 
-> - https://www.php.net/supported-versions.php
-> - https://www.php.net/eol.php
+After installing PHP, you can install Inphinit using Composer or using Git.
 
-After install PHP, you need to have Git on your machine, so run the following commands:
+If you use composer, run the command (more details in https://getcomposer.org/doc/03-cli.md):
+
+```bash
+php composer.phar create-project inphinit/inphinit my-application
+```
+
+If you use composer global, run the command:
+
+```bash
+composer create-project inphinit/inphinit my-application
+```
+
+Installing using Git:
 
 ```bash
 git clone --recurse-submodules https://github.com/inphinit/inphinit.git my-application
@@ -136,7 +150,7 @@ location / {
     └───main.php     # This is the main file for routes and events, it will be available in development mode and production mode
 ```
 
-In development mode, the `system/dev.php` script will always be executed first, then `system/main.php` will be executed, and if an error occurs, such as 404 or 405, the last script to be executed will be `system /erros.php`
+In development mode, the `system/dev.php` script will always be executed first, then `system/main.php` will be executed, and if an error occurs, such as 404 or 405, the last script to be executed will be `system/errors.php`
 
 ## Creating routes
 

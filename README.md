@@ -14,41 +14,37 @@ For check requirements see [Check requirements](#check-requirements)
 
 ## Getting start
 
-1. Have two method for install
-1. First method is using composers
+Install using composer:
+
 1. Download [Composer](https://getcomposer.org/doc/00-intro.md) and install
-1. For create an project in Windows:
+1. Create an project for Apache (may vary depending on the system):
+    ```bash
+    cd /var/www/
+    php composer.phar create-project inphinit/inphinit:^1.0 [project_name]
+    ```
+1. If you want to install in a different location, just change the `cd` command, as in the example:
+    ```bash
+    cd /home/
+    php composer.phar create-project inphinit/inphinit:^1.0 [project_name]
+    ```
+1. Create an project for Apache or Windows:
     ```bash
     cd c:\wamp\www\
-    composer create-project inphinit/inphinit [project_name]
+    composer create-project inphinit/inphinit:^1.0 [project_name]
     ```
 1. Or (if no using Wamp/Xampp/easyphp)
     ```bash
     cd c:\Users\[username]\Documents\
-    composer create-project inphinit/inphinit [project_name]
+    composer create-project inphinit/inphinit:^1.0 [project_name]
     ```
-1. Install in Unix-like:
-    ```bash
-    cd /var/www/
-    php composer.phar create-project inphinit/inphinit [project_name]
-    ```
-1. Or (if no using Apache)
-    ```bash
-    cd /home/
-    php composer.phar create-project inphinit/inphinit [project_name]
-    ```
-1. Alternate is download Git repository and copy content from zip file to folder project (don't clone `master` for production use), clone last release example:
-    ```bash
-    git clone -b 1.0.0 --recurse-submodules https://github.com/inphinit/inphinit.git [project_name]
-    cd [project_name]
-    ```
+Install using Git:
 
-> **Note:** Don't use composer dev-master (eg. `create-project inphinit/inphinit:dev-master`), to collaborate, prefer to clone with GIT, example:
->
-> ```bash
-> git clone --recurse-submodules https://github.com/inphinit/inphinit.git inphinit
-> cd inphinit
-> ```
+Alternate is download Git repository and copy content from zip file to folder project (don't clone `master` for production use), clone last release example:
+
+```bash
+git clone -b 1.0.1 --recurse-submodules https://github.com/inphinit/inphinit.git [project_name]
+cd [project_name]
+```
 
 ## PHP built-in web server in Windows
 
@@ -196,7 +192,6 @@ In `.htaccess`, adjust the path in the `ErrorDocument` according to the level at
 ```
 ErrorDocument 403 /index.php/RESERVED.INPHINIT-403.html
 ErrorDocument 500 /index.php/RESERVED.INPHINIT-500.html
-ErrorDocument 501 /index.php/RESERVED.INPHINIT-501.html
 ```
 
 If the application is in a subfolder, for example `https://foo.com/application/`, then it should look like:
@@ -204,7 +199,6 @@ If the application is in a subfolder, for example `https://foo.com/application/`
 ```
 ErrorDocument 403 /application/index.php/RESERVED.INPHINIT-403.html
 ErrorDocument 500 /application/index.php/RESERVED.INPHINIT-500.html
-ErrorDocument 501 /application/index.php/RESERVED.INPHINIT-501.html
 ```
 
 If you intend to use authorization, uncomment the following lines in `.htaccess`:

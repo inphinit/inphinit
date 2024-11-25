@@ -28,9 +28,6 @@
     "scripts": {
         "post-update-cmd": [
             "php system/boot/importpackages.php"
-        ],
-        "post-create-project-cmd": [
-            "php system/boot/createbuiltin.php"
         ]
     }
 }

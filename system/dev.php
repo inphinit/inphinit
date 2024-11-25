@@ -504,8 +504,12 @@ $app->scope('*://*/http/', function ($app, $params) {
     Method::override();
 
     $app->action(['DELETE', 'PATCH', 'PUT'], '/methods', function () {
-        $original = Method::original();
+        $original = $_SERVER['REQUEST_METHOD'];
+
+        Method::override();
+
         $current = $_SERVER['REQUEST_METHOD'];
+
         return "Original: {$original} - Current: {$current}";
     });
 

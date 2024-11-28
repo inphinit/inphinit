@@ -1,9 +1,11 @@
 ~*
 /.fleet
 /.idea
+/.nova
 /.phpintel
 /.phpunit.cache
 /.vscode
+/.zed
 /system/vendor/*
 /system/storage/*
 php_errors.log

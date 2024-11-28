@@ -19,16 +19,16 @@ use Inphinit\Utility\Version;
 use Inphinit\Experimental\Http\Method;
 
 // Inject CSS for debug if necessary
-Debug::view('before', 'debug.style');
+$debug->setBeforeView('debug.style');
 
 // Display errors
-Debug::view('error', 'debug.error');
+$debug->setErrorView('debug.error');
 
 // Display declared classes, functions and constants (uncomment next line for check used classes)
-# Debug::view('defined', 'debug.defined');
+# $debug->setDefinedView('debug.defined');
 
 // Display memory usage (uncomment next line for check memory peak usage and time)
-# Debug::view('performance', 'debug.performance');
+# $debug->setPerformanceView('debug.performance');
 
 
 /**

@@ -16,15 +16,15 @@ O objetivo deste framework sempre foi ser o mais eficiente possível, porém alg
 - Alterar a forma como as rotas funcionam, para torná-las mais rápidas e também poder prever falhas, quando utilizadas no desenvolvimento
 - Alguns erros de digitação podem fazer com que certos recursos do PHP não respondam em tempo hábil, como o carregamento automático, de modo que o modo de desenvolvedor pré-carregará tudo o que você precisa antes que qualquer script interrompa o processo, permitindo que a depuração localize e exiba exatamente em qual linha o erro está.
 
-Todas essas decisões já estão incorporadas no framework, algumas das quais já foram adicionadas à versão 0.6, para facilitar a portabilidade do projeto para a versão futura do framework.
+Todas essas decisões já estão incorporadas no framework, algumas das quais já foram adicionadas à versão 1.0, para facilitar a portabilidade do projeto para a versão futura do framework.
 
 Todas as rotas e aplicação básica já estão estabelecidas, mas outras APIs internas, para outros usos, ainda estão em desenvolvimento, então estamos entrando nesta fase, e dentro de 4 semanas no máximo será lançado o primeiro beta, onde não irei incluir qualquer nova funcionalidade, será uma série de correções e possíveis regressões.
 
 ## O que já alcançamos
 
-Sempre valorizei desempenho e simplicidade, parte do que foi implementado no _Inphinit 2.0_ já foi portado para _0.6_, o que proporcionou uma grande melhoria nessas versões antes do lançamento de 2.0, e mesmo que a _versão 0.5_ seja muito eficiente, o salto no desempenho foi incrível da _versão 0.6_ em diante. Na _versão 2.0_ é um pouco melhor, então aqui vai um exemplo dos testes, com o modo de desenvolvimento desligado:
+Sempre valorizei desempenho e simplicidade, parte do que foi implementado no _Inphinit 2.0_ já foi portado para _1.0_, o que proporcionou uma grande melhoria nessas versões antes do lançamento de 2.0, e mesmo que a _versão 0.5_ seja muito eficiente, o salto no desempenho foi incrível da _versão 1.0_ em diante. Na _versão 2.0_ é um pouco melhor, então aqui vai um exemplo dos testes, com o modo de desenvolvimento desligado:
 
-Descrição                                                           | v0.5.19                       | v0.6                          | v2.0
+Descrição                                                           | v0.5.19                       | v1.0                          | v2.0
 ---                                                                 | ---                           | ---                           | --- 
 Tempo gasto para testes                                             | 0.528 segundos                | 0.429 segundos                | 0.391 segundos
 Solicitações por segundo (média)                                    | 1892.46 [#/seg]               | 2330.74 [#/seg]               | 2557.07 [#/seg]
@@ -32,7 +32,7 @@ Tempo por solicitação (média)                                       | 5.284 [
 Tempo por solicitação (média, em todas as solicitações simultâneas) | 0.528 [ms]                    | 0.429 [ms]                    | 0.391 [ms]
 Taxa de transferência                                               | 373.32 [Kbytes/seg] recebidos | 459.77 [Kbytes/sec] recebidos | 504.42 [Kbytes/seg] recebidos
 
-Além da melhoria no tempo de execução, nota-se que a _versão 2.0_ conseguiu processar em média mais 220 solicitações por segundo do que a versão _0.6_, e quando comparado à _0.5.x_, conseguiu processar 600 requisições a mais, por segundo.
+Além da melhoria no tempo de execução, nota-se que a _versão 2.0_ conseguiu processar em média mais 220 solicitações por segundo do que a versão _1.0_, e quando comparado à _0.5.x_, conseguiu processar 600 requisições a mais, por segundo.
 
 ## Sobre documentação
 
@@ -46,7 +46,7 @@ Então tomei a decisão de migrar para outra plataforma, ou talvez criar algo pr
 
 ## Instalando
 
-> **Nota:** Para instalar a _versão 0.6_ vá até: https://github.com/inphinit/inphinit/tree/1.x
+> **Nota:** Para instalar a _versão 1.0_ vá até: https://github.com/inphinit/inphinit/tree/1.x
 
 Observe que ainda estamos em fase de desenvolvimento, e em 4 semanas pretendemos lançar o primeiro beta, que estará disponível via composer, a _versão 2.0_ ainda não é recomendada para produção, então prefira utilizá-la apenas para testes ou críticas que você deseja fazer durante esta etapa.
 

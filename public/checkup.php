@@ -23,7 +23,9 @@ $warnings = $check->getWarnings();
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Inphinit php framework</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>check up application</title>
     <?php View::render('header'); ?>
     <style>
     ul.fail, ul.warn {
@@ -62,20 +64,20 @@ $warnings = $check->getWarnings();
             <?php
             if ($errors) {
                 echo '<ul class="fail"><li>Fail: ',
-                    implode('</li><li>Fail: ', $errors),
-                    '</li></ul>';
+                implode('</li><li>Fail: ', $errors),
+                '</li></ul>';
             }
 
-            if ($warnings) {
-                echo '<ul class="warn"><li>Recommended: ',
-                    implode('</li><li>Recommended: ', $warnings),
-                    '</li></ul>';
-            }
+if ($warnings) {
+    echo '<ul class="warn"><li>Recommended: ',
+    implode('</li><li>Recommended: ', $warnings),
+    '</li></ul>';
+}
 
-            if (empty($errors) && empty($warnings)) {
-                echo '<div class="done">Your server is fine! 🖖👽</div>';
-            }
-            ?>
+if (empty($errors) && empty($warnings)) {
+    echo '<div class="done">Your server is fine! 🖖👽</div>';
+}
+?>
         </header>
     </article>
 </body>

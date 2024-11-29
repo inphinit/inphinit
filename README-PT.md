@@ -1,5 +1,3 @@
-# Inphinit 2.0
-
 - [Instalando](#instalando)
 - [Testando](#testando)
 - [NGINX](#nginx)
@@ -10,21 +8,23 @@
 
 ## Decisões e o que vem a seguir
 
-O objetivo deste framework sempre foi ser o mais eficiente possível, porém algo que sempre me preocupou foram problemas de depuração, apesar de existirem diversas ferramentas, sempre busquei algo simples, mas claro mesmo quem está trabalhando pela primeira vez veja o erro. Então, no ano passado, tomei as seguintes decisões:
+O objetivo deste framework sempre foi ser o mais eficiente possível, porém algo que sempre me preocupou foram os problemas de depuração, apesar de existirem diversas ferramentas, sempre busquei algo simples, mas claro que mesmo quem está trabalhando pela primeira vez vê o erro, então neste último ano tomei as seguintes decisões:
 
-- No modo de desenvolvimento a aplicação irá funcionar em modo estrito, verificando qualquer possível falha
-- Alterar a forma como as rotas funcionam, para torná-las mais rápidas e também poder prever falhas, quando utilizadas no desenvolvimento
-- Alguns erros de digitação podem fazer com que certos recursos do PHP não respondam em tempo hábil, como o carregamento automático, de modo que o modo de desenvolvedor pré-carregará tudo o que você precisa antes que qualquer script interrompa o processo, permitindo que a depuração localize e exiba exatamente em qual linha o erro está.
+- No modo de desenvolvimento você deve trabalhar rigorosamente, verificando qualquer possível falha
+- Alterar a forma como as rotas funcionam, para torná-las mais rápidas e também conseguir prever falhas, quando utilizadas no desenvolvimento
+- Alguns erros de digitação podem fazer com que certos recursos do PHP não respondam em tempo hábil, como o _autoload_, então o modo de desenvolvedor pré-carregará tudo o que você precisa antes que qualquer script interrompa o processo, permitindo que a depuração localize e exiba exatamente em qual linha o erro está.
 
-Todas essas decisões já estão incorporadas no framework, algumas das quais já foram adicionadas à versão 1.0, para facilitar a portabilidade do projeto para a versão futura do framework.
+Todas essas decisões estão embutidas no framework, algumas das quais já foram adicionadas à _versão 1.x_, para facilitar a portabilidade do projeto para a versão futura do framework.
 
-Todas as rotas e aplicação básica já estão estabelecidas, mas outras APIs internas, para outros usos, ainda estão em desenvolvimento, então estamos entrando nesta fase, e dentro de 4 semanas no máximo será lançado o primeiro beta, onde não irei incluir qualquer nova funcionalidade, será uma série de correções e possíveis regressões.
+Todas as APIs internas principais já são suportadas pela _versão 2.x_, algumas foram completamente reescritas, com foco em simplicidade e desempenho, então se você estiver migrando da _1.x_ é provável que precise reescrever algumas coisas. Felizmente, a maioria das classes é muito mais simples de usar.
 
 ## O que já alcançamos
 
-Sempre valorizei desempenho e simplicidade, parte do que foi implementado no _Inphinit 2.0_ já foi portado para _1.0_, o que proporcionou uma grande melhoria nessas versões antes do lançamento de 2.0, e mesmo que a _versão 0.5_ seja muito eficiente, o salto no desempenho foi incrível da _versão 1.0_ em diante. Na _versão 2.0_ é um pouco melhor, então aqui vai um exemplo dos testes, com o modo de desenvolvimento desligado:
+Se você estiver usando a _versão 0.5_ e ainda não puder migrar para a _versão 2.x_, é altamente recomendável que você migre para a _versão 1.x_.
 
-Descrição                                                           | v0.5.19                       | v1.0                          | v2.0
+A _versão 0.5_ já tinha um desempenho excelente, mas ainda era possível trazer alguns recursos de desempenho da versão _2.x_ para a versão 1.x_. Na _versão 2.x_ é um pouco melhor, então aqui está um exemplo dos testes, com o modo de desenvolvimento desativado:
+
+Descrição                                                           | v0.5.19                       | v1.x                          | v2.x
 ---                                                                 | ---                           | ---                           | --- 
 Tempo gasto para testes                                             | 0.528 segundos                | 0.429 segundos                | 0.391 segundos
 Solicitações por segundo (média)                                    | 1892.46 [#/seg]               | 2330.74 [#/seg]               | 2557.07 [#/seg]
@@ -32,7 +32,7 @@ Tempo por solicitação (média)                                       | 5.284 [
 Tempo por solicitação (média, em todas as solicitações simultâneas) | 0.528 [ms]                    | 0.429 [ms]                    | 0.391 [ms]
 Taxa de transferência                                               | 373.32 [Kbytes/seg] recebidos | 459.77 [Kbytes/sec] recebidos | 504.42 [Kbytes/seg] recebidos
 
-Além da melhoria no tempo de execução, nota-se que a _versão 2.0_ conseguiu processar em média mais 220 solicitações por segundo do que a versão _1.0_, e quando comparado à _0.5.x_, conseguiu processar 600 requisições a mais, por segundo.
+Além da melhoria no tempo de execução, nota-se que a _versão 2.x_ conseguiu processar em média mais 220 solicitações por segundo do que a versão _1.x_, e quando comparado à _0.5.x_, conseguiu processar 600 requisições a mais, por segundo.
 
 ## Sobre documentação
 
@@ -42,13 +42,13 @@ Algo que vou mudar é a documentação, o Github Wiki funcionou por um tempo mas
 - Organizar o conteúdo não foi tão fácil quanto eu precisava, muitas coisas são manuais, o que levou muito tempo para editar coisas simples
 - O Github Desktop entra em conflito com repositórios do tipo wiki, é um [bug antigo](https://github.com/desktop/desktop/issues/3839#issue-290340050)
 
-Então tomei a decisão de migrar para outra plataforma, ou talvez criar algo próprio, com o objetivo de poder documentar rapidamente e ao mesmo tempo fornecer uma interface amigável aos leitores, podendo assim ganhar tempo para me focar em traduzir a documentação para 3 idiomas, pelo menos. A documentação será aberta, para qualquer colaborador poder enviar correções ou adicionar algo que falte.
+A documentação estará disponível em breve, inicialmente em inglês e português.
 
 ## Instalando
 
-> **Nota:** Para instalar a _versão 1.0_ vá até: https://github.com/inphinit/inphinit/tree/1.x
+> **Nota:** Para instalar a _versão 1.x_ vá até: https://github.com/inphinit/inphinit/tree/1.x
 
-Observe que ainda estamos em fase de desenvolvimento, e em 4 semanas pretendemos lançar o primeiro beta, que estará disponível via composer, a _versão 2.0_ ainda não é recomendada para produção, então prefira utilizá-la apenas para testes ou críticas que você deseja fazer durante esta etapa.
+Observe que ainda estamos em fase de desenvolvimento, e em 4 semanas pretendemos lançar o primeiro beta, que estará disponível via composer, a _versão 2.x_ ainda não é recomendada para produção, então prefira utilizá-la apenas para testes ou críticas que você deseja fazer durante esta etapa.
 
 Para instalá-lo você deve ter pelo menos o PHP 5.4, mas é **recomendado que você utilize o PHP 8** devido a problemas de suporte ao PHP, leia:
 
@@ -83,7 +83,6 @@ location / {
     # Redirecionar erros de página para sistema de rotas
     error_page 403 /index.php/RESERVED.INPHINIT-403.html;
     error_page 500 /index.php/RESERVED.INPHINIT-500.html;
-    error_page 501 /index.php/RESERVED.INPHINIT-501.html;
 
     try_files /public$uri /index.php?$query_string;
 
@@ -252,7 +251,7 @@ Tipo | Examplo | Descrição
 `num` | `$app->action('GET', '/foo/<id:num>', ...);`              | Aceita apenas parâmetros com formato inteiro e `$params` retorna `['id' => ...]`
 `nospace` | `$app->action('GET', '/foo/<nospace:nospace>', ...);` | Aceita quaisquer caracteres exceto espaços, como espaços em branco (`%20`), tabulações (`%0A`) e outros (veja sobre `\S` em regex)
 `uuid` | `$app->action('GET', '/bar/<barcode:alnum>', ...);`      | Aceita apenas parâmetros com formato uuid e `$params` retorna `['barcode' => ...]`
-`version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Aceita apenas parâmetros com formato _Semantic Versioning 2.0.0 (semversion)_ e `$params` retorna `['api' => ...]`
+`version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Aceita apenas parâmetros com formato _Semantic Versioning 2.x.0 (semversion)_ e `$params` retorna `['api' => ...]`
 
 É possivel adicionar ou modificar os padrões existentes, usando o método `$app->setPattern(nome, regex)`. Criando um novo padrão:
 

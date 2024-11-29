@@ -1,5 +1,3 @@
-# Inphinit 2.0
-
 - [Installing](#installing)
 - [Testing](#testing)
 - [NGINX](#nginx)
@@ -18,15 +16,15 @@ The objective of this framework has always been to be as efficient as possible, 
 
 All of these decisions are embedded in the framework, some of which have already been added to _version 1.x_, to make it easier to port the project to the future version of the framework.
 
-All core internal APIs are already supported by version 2.0, some have been completely rewritten, focusing on simplicity and performance, so if you are migrating from 1.0 it is likely that you will need to rewrite some things. Fortunately, most classes are much simpler to use.
+All core internal APIs are already supported by version 2.x, some have been completely rewritten, focusing on simplicity and performance, so if you are migrating from _1.x_ it is likely that you will need to rewrite some things. Fortunately, most classes are much simpler to use.
 
 ## What we have already achieved
 
-If you are using _version 0.5_ and cannot yet migrate to _version 2.0_, it is highly recommended that you migrate to _version 1.0_.
+If you are using _version 0.5_ and cannot yet migrate to _version 2.x_, it is highly recommended that you migrate to _version 1.x_.
 
-Version 0.5 already had excellent performance, but it was still possible to bring some performance features from version 2.0 to version 1.0. In _version 2.0_ it is a little better, so here is an example of the tests, with development mode turned off:
+Version _0.5_ already had excellent performance, but it was still possible to bring some performance features from _version 2.x_ to version 1.x_. In _version 2.x_ it is a little better, so here is an example of the tests, with development mode turned off:
 
-Description                                             | v0.5.x                       | v1.x                         | v2.0
+Description                                             | v0.5.x                       | v1.x                         | v2.x
 ---                                                     | ---                          | ---                          | --- 
 Time taken for tests                                    | 0.528 seconds                | 0.429 seconds                | 0.391 seconds
 Requests per second (mean)                              | 1892.46 [#/sec]              | 2330.74 [#/sec]              | 2557.07 [#/sec]
@@ -34,7 +32,7 @@ Time per request (mean)                                 | 5.284 [ms]            
 Time per request (mean, across all concurrent requests) | 0.528 [ms]                   | 0.429 [ms]                   | 0.391 [ms]
 Transfer rate                                           | 373.32 [Kbytes/sec] received | 459.77 [Kbytes/sec] received | 504.42 [Kbytes/sec] received
 
-In addition to the improved execution time, it is noted that _version 2.0_ was able to process an average of 220 more requests per second than _version 1.x_, and compared to _0.5.x_, it was able to process 600 more requests per second.
+In addition to the improved execution time, it is noted that _version 2.x_ was able to process an average of 220 more requests per second than _version 1.x_, and compared to _0.5.x_, it was able to process 600 more requests per second.
 
 ## About documentation
 
@@ -48,9 +46,9 @@ The documentation will soon be available, initially in English and Portuguese.
 
 ## Installing
 
-> **Note:** To install _version 1.0_ go to: https://github.com/inphinit/inphinit/tree/1.x
+> **Note:** To install _version 1.x_ go to: https://github.com/inphinit/inphinit/tree/1.x
 
-It is highly recommended to migrate to version 2.0 to maintain support with future versions of PHP. To install it you must have at least _PHP 5.4_, but it is **recommended that you use PHP 8** due to PHP support issues, read:
+É altamente recomendado migrar para a _versão 2.x_ para manter o suporte com versões futuras do PHP. Para instalá-lo você deve ter pelo menos _PHP 5.4_, mas é _recomendado que você use PHP 8_ devido a qquestões de suporte ao PHP, leia:
 
 - https://www.php.net/supported-versions.php
 - https://www.php.net/eol.php
@@ -97,7 +95,6 @@ location / {
     # Redirect page errors to route system
     error_page 403 /index.php/RESERVED.INPHINIT-403.html;
     error_page 500 /index.php/RESERVED.INPHINIT-500.html;
-    error_page 501 /index.php/RESERVED.INPHINIT-501.html;
 
     try_files /public$uri /index.php?$query_string;
 
@@ -266,7 +263,7 @@ Type | Example | Description
 `num` | `$app->action('GET', '/foo/<id:num>', ...);`              | Only accepts parameters with integer format and `$params` returns `['id' => ...]`
 `nospace` | `$app->action('GET', '/foo/<nospace:nospace>', ...);` | Accepts any characters expcet spaces, like white-spaces (`%20`), tabs (`%0A`) and others (see about `\S` in regex)
 `uuid` | `$app->action('GET', '/bar/<barcode:alnum>', ...);`      | Only accepts parameters with uuid format and `$params` returns `['barcode' => ...]`
-`version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Only accepts parameters with _Semantic Versioning 2.0.0 (semversion)_ format and `$params` returns `['api' => ...]`
+`version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Only accepts parameters with _Semantic Versioning 2.x.0 (semversion)_ format and `$params` returns `['api' => ...]`
 
 It is possible to add or modify existing patterns using the `$app->setPattern(name, regex)` method. Creating a new pattern:
 

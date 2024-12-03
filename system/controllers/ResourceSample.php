@@ -3,11 +3,6 @@ namespace Controller;
 
 class ResourceSample extends \Inphinit\Routing\Resource
 {
-    public function __construct()
-    {
-        $this->format = self::SLASH | self::NOSLASH;
-    }
-
     public function index()
     {
         return 'index';

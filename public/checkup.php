@@ -15,7 +15,7 @@ require_once INPHINIT_SYSTEM . '/vendor/inphinit/framework/src/boot.php';
 
 View::forceRender();
 
-$check = new Inphinit\Checkup($app);
+$check = new Inphinit\Checkup();
 $errors = $check->getErrors();
 $warnings = $check->getWarnings();
 

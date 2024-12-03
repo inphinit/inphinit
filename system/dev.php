@@ -6,12 +6,19 @@ use Inphinit\App;
 use Inphinit\Viewing\View;
 
 use Inphinit\Cache;
+use Inphinit\Config;
 use Inphinit\Event;
 use Inphinit\Maintenance;
+
 use Inphinit\Dom\Document;
+
 use Inphinit\Filesystem\File;
+use Inphinit\Filesystem\Size;
+
 use Inphinit\Http\Negotiation;
+use Inphinit\Http\Request;
 use Inphinit\Http\Response;
+
 use Inphinit\Utility\Arrays;
 use Inphinit\Utility\Strings;
 use Inphinit\Utility\Version;
@@ -399,6 +406,33 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
         var_dump(File::encoding(INPHINIT_SYSTEM . '/main.php'));
 
         echo '</pre>';
+    });
+
+    $app->action('GET', '/filesize', function () {
+        $mode = Request::get('mode');
+
+        switch ($mode) {
+            case 'com':
+                $handle = new Size(Size::COM);
+                break;
+
+            case 'curl':
+                $handle = new Size(Size::CURL);
+                break;
+
+            case 'system':
+                $handle = new Size(Size::SYSTEM);
+                break;
+
+            default:
+                Response::status(400);
+                die('Invalid mode');
+        }
+
+        var_dump($handle->get('/foo/bar/file1.7z'));
+        var_dump($handle->get('/foo/bar/file2.rar'));
+        var_dump($handle->get('/foo/bar/file3.zip'));
+
     });
 });
 

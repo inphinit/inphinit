@@ -1,4 +1,4 @@
-<a href="https://github.com/inphinit/inphinit/wiki/"
+<a href="https://inphinit.github.io/en/docs/"
     target="_blank" rel="nofollow noopener noreferrer">Documentation</a>
 <a href="https://inphinit.github.io/api/"
     target="_blank" rel="nofollow noopener noreferrer">API</a>

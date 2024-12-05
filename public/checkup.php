@@ -19,13 +19,18 @@ $check = new Inphinit\Checkup();
 $errors = $check->getErrors();
 $warnings = $check->getWarnings();
 
+function code_tag($message) {
+    $message = preg_replace('#(^|\s)`([^`]+?)`([,.?!\s])#', '$1<code>$2</code>$3', $message);
+    $message = preg_replace('#(^|\s)\*([^*]+?)\*([,.?!\s])#', '$1<em>$2</em>$3', $message);
+    return $message;
+}
 ?><!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>check up application</title>
+    <title>Checkup application</title>
     <?php View::render('header'); ?>
     <style>
     ul.fail, ul.warn {
@@ -52,32 +57,42 @@ $warnings = $check->getWarnings();
         padding: 0.5px 0;
         text-align: center;
     }
+
+    code {
+        background: rgba(24,25,27,.72);
+        padding: .2rem .4rem;
+        margin: .05rem .2rem;
+        display: inline-block;
+        color: #fff;
+        border-radius: .2rem;
+        white-space: nowrap;
+    }
     </style>
 </head>
 <body>
     <article id="others">
         <header>
-            <h1>
-                Inphinit requirements
-            </h1>
+            <h1>Checkup application</h1>
 
-            <?php
-            if ($errors) {
-                echo '<ul class="fail"><li>Fail: ',
-                implode('</li><li>Fail: ', $errors),
-                '</li></ul>';
-            }
+            <?php if ($errors): ?>
+            <ul class="fail">
+                <?php foreach ($errors as $error): ?>
+                <li><strong>Fail:</strong> <?=code_tag($error)?></li>
+                <?php endforeach; ?>
+            </ul>
+            <?php endif; ?>
 
-if ($warnings) {
-    echo '<ul class="warn"><li>Recommended: ',
-    implode('</li><li>Recommended: ', $warnings),
-    '</li></ul>';
-}
+            <?php if ($warnings): ?>
+            <ul class="warn">
+                <?php foreach ($warnings as $warn): ?>
+                <li><strong>Recommended:</strong> <?=code_tag($warn)?></li>
+                <?php endforeach; ?>
+            </ul>
+            <?php endif; ?>
 
-if (empty($errors) && empty($warnings)) {
-    echo '<div class="done">Your server is fine! 🖖👽</div>';
-}
-?>
+            <?php if (empty($errors) && empty($warnings)): ?>
+            <div class="done">Your server is fine! 🖖👽</div>
+            <?php endif; ?>
         </header>
     </article>
 </body>

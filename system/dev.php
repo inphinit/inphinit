@@ -1,11 +1,8 @@
 <?php
 
-use Inphinit\Debugging\Debug;
-
 use Inphinit\App;
 use Inphinit\Viewing\View;
 
-use Inphinit\Cache;
 use Inphinit\Config;
 use Inphinit\Event;
 use Inphinit\Maintenance;
@@ -272,16 +269,14 @@ $app->scope('*://localhost:*/dom/', function ($app, $params) {
 
         print_r($handle->document());
 
-        $root = $handle->root();
-
         echo "\nCOMPLETE:\n";
-        print_r($handle->toArray($root, Document::ARRAY_COMPLETE));
+        print_r($handle->toArray(Document::ARRAY_COMPLETE));
 
         echo "\nSimple:\n";
-        print_r($handle->toArray($root, Document::ARRAY_SIMPLE));
+        print_r($handle->toArray(Document::ARRAY_SIMPLE));
 
         echo "\nMINIMAL:\n";
-        print_r($handle->toArray($root, Document::ARRAY_MINIMAL));
+        print_r($handle->toArray(Document::ARRAY_MINIMAL));
 
         echo '</pre>';
     });
@@ -383,6 +378,27 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
         Event::trigger('foobar', ['param1', microtime(true)]);
     });
 
+    // trigger event
+    $app->action('ANY', '/config', function () use ($app) {
+        $config = new Config('sample');
+
+        echo '<pre>';
+
+        var_dump('Before:', $config);
+
+        $config->float = 99.9;
+        $config->int = 100;
+        $config->octal = 0666;
+
+        unset($config->string); // Remove
+
+        var_dump('After:', $config);
+
+        echo '</pre>';
+
+        $config->commit(); // Save
+    });
+
     // HTTP Response headers
     $app->action('ANY', '/file', function () {
         echo '<pre>';
@@ -429,9 +445,9 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
                 die('Invalid mode');
         }
 
-        var_dump($handle->get('/foo/bar/file1.7z'));
-        var_dump($handle->get('/foo/bar/file2.rar'));
-        var_dump($handle->get('/foo/bar/file3.zip'));
+        var_dump($handle->get('/foo/bar/bigfile.zip'));
+        var_dump($handle->get('/foo/bar/bigfile.zip'));
+        var_dump($handle->get('/foo/bar/bigfile.zip'));
 
     });
 });
@@ -545,17 +561,6 @@ $app->scope('*://*/http/', function ($app, $params) {
         $current = $_SERVER['REQUEST_METHOD'];
 
         return "Original: {$original} - Current: {$current}";
-    });
-
-    // Cache with 304 status code
-    $app->action('ANY', '/cache', function () {
-        $cache = new Cache();
-
-        if ($cache->cached()) {
-            return;
-        }
-
-        return str_repeat('Hello, world! ', 1000);
     });
 
     // Accept headers

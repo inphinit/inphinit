@@ -4,7 +4,7 @@ rem Setup PHP and PORT
 set PHP_BIN=C:\php\php.exe
 set PHP_INI=C:\php\php.ini
 
-set HOST_HOST=localhost
+set HOST_ADDR=localhost
 set HOST_PORT=5000
 
 rem Sets the project path so you can call the "server" command from any location
@@ -23,5 +23,5 @@ if not exist %PHP_BIN% (
     echo ERROR: %PHP_INI% not found & pause
 ) else (
     rem Start built in server
-    "%PHP_BIN%" -S %HOST_HOST%:%HOST_PORT% -c "%PHP_INI%" -t "%DOCUMENT_ROOT%" "%ROUTER%" || pause
+    "%PHP_BIN%" -S %HOST_ADDR%:%HOST_PORT% -c "%PHP_INI%" -t "%DOCUMENT_ROOT%" "%ROUTER%" || pause
 )

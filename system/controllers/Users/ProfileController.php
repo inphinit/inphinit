@@ -3,7 +3,7 @@ namespace Controller\Users;
 
 use Inphinit\Viewing\View;
 
-class Profile
+class ProfileController
 {
     public function view($app, $params)
     {

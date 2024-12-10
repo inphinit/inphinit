@@ -1,7 +1,7 @@
 <?php
 namespace Controller;
 
-class TreatySample extends \Inphinit\Routing\Treaty
+class TreatyController extends \Inphinit\Routing\Treaty
 {
     public function __construct()
     {

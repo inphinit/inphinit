@@ -22,6 +22,9 @@ use Inphinit\Utility\Version;
 
 use Inphinit\Experimental\Http\Method;
 
+use Controller\TreatyController;
+use Controller\ResourceController;
+
 // Inject CSS for debug if necessary
 $debug->setBeforeView('debug.style');
 
@@ -138,29 +141,29 @@ $app->scope('http://*/nonsecure/', function ($app, $params) {
 });
 
 $app->scope('*://*/treaty/', function ($app, $params) {
-    \Controller\TreatySample::action($app);
+    TreatyController::action($app);
 
     /*
     Is equivant to:
 
-    $app->action('GET', '/', 'TreatySample:getIndex');
-    $app->action('ANY', '/foo-bar-baz', 'TreatySample:anyFooBarBaz');
+    $app->action('GET', '/', 'TreatyController:getIndex');
+    $app->action('ANY', '/foo-bar-baz', 'TreatyController:anyFooBarBaz');
     */
 });
 
 $app->scope('*://*/resource/', function ($app, $params) {
-    \Controller\ResourceSample::action($app);
+    ResourceController::action($app);
 
     /*
     Is equivant to:
 
-    $app->action('GET', '/', 'ResourceSample:index');
-    $app->action('GET', '/create', 'ResourceSample:create');
-    $app->action('POST', '/', 'ResourceSample:store');
-    $app->action('GET', '/{:[^/]+:}/edit', 'ResourceSample:edit');
-    $app->action('GET', '/{:[^/]+:}', 'ResourceSample:show');
-    $app->action('PUT', '/{:[^/]+:}', 'ResourceSample:update');
-    $app->action('DELETE', '/{:[^/]+:}', 'ResourceSample:destroy');
+    $app->action('GET', '/', 'ResourceController:index');
+    $app->action('GET', '/create', 'ResourceController:create');
+    $app->action('POST', '/', 'ResourceController:store');
+    $app->action('GET', '/{:[^/]+:}/edit', 'ResourceController:edit');
+    $app->action('GET', '/{:[^/]+:}', 'ResourceController:show');
+    $app->action('PUT', '/{:[^/]+:}', 'ResourceController:update');
+    $app->action('DELETE', '/{:[^/]+:}', 'ResourceController:destroy');
     */
 });
 
@@ -551,8 +554,6 @@ $app->scope('*://localhost:*/utilities/', function ($app, $params) {
 });
 
 $app->scope('*://*/http/', function ($app, $params) {
-    Method::override();
-
     $app->action(['DELETE', 'PATCH', 'PUT'], '/methods', function () {
         $original = $_SERVER['REQUEST_METHOD'];
 
@@ -617,7 +618,11 @@ $app->scope('*://*/http/', function ($app, $params) {
 
     // HTTP Response headers
     $app->action('ANY', '/headers', function () {
-        View::render('home', ['intro' => time()]);
+        View::render('home', [
+            'items' => [],
+            'version' => null,
+            'time' => date('h:i:s')
+        ]);
 
         Response::cache(30); // 30 sec
         Response::status(201);
@@ -626,7 +631,9 @@ $app->scope('*://*/http/', function ($app, $params) {
     // HTTP Response download page
     $app->action('ANY', '/download', function () {
         View::render('home', [
-            'intro' => time()
+            'items' => [],
+            'version' => null,
+            'time' => date('h:i:s')
         ]);
 
         Response::download('page.html');

@@ -1,7 +1,7 @@
 <?php
 namespace Controller;
 
-class ResourceSample extends \Inphinit\Routing\Resource
+class ResourceController extends \Inphinit\Routing\Resource
 {
     public function index()
     {

@@ -1,4 +1,4 @@
 <?php
 
-$app->action('ANY', '/', 'Home::index');
-$app->action('GET', '/users/<id:num>/<user:alnum>', 'Users\Profile::view');
+$app->action('ANY', '/', 'HomeController::index');
+$app->action('GET', '/users/<id:num>/<user:alnum>', 'Users\ProfileController::view');

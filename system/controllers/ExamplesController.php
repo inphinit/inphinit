@@ -3,7 +3,7 @@ namespace Controller;
 
 use Inphinit\App;
 
-class Examples
+class ExamplesController
 {
     public function method()
     {

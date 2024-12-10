@@ -19,10 +19,12 @@ use Inphinit\Viewing\View;
         </header>
         <section id="intro">
             <header>
-                <h1>
-                    Inphinit 2.0
-                </h1>
-                <h2><?=$intro?></h2>
+                <h1>Inphinit</h1>
+                <?php if ($version): ?>
+                <h2>Version <?=$version?></h2>
+                <?php elseif ($time): ?>
+                <h2><?=$time?></h2>
+                <?php endif; ?>
             </header>
         </section>
 

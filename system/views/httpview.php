@@ -4,7 +4,7 @@ use Inphinit\Viewing\View;
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?=$status?> - <?=$title?></title>
+    <title><?=$code?> - <?=$title?></title>
     <?php View::render('header'); ?>
     <style type="text/css">
     h1 {
@@ -22,7 +22,7 @@ use Inphinit\Viewing\View;
         <article id="error">
             <header>
                 <h1>
-                    <strong><?=$status?></strong>
+                    <strong><?=$code?></strong>
                     <?=$title?>
                 </h1>
                 <p>

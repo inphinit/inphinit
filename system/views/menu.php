@@ -1,6 +1,6 @@
 <a href="https://inphinit.github.io/en/docs/"
     target="_blank" rel="nofollow noopener noreferrer">Documentation</a>
-<a href="https://inphinit.github.io/api/"
+<a href="https://inphinit.github.io/api/2.1/"
     target="_blank" rel="nofollow noopener noreferrer">API</a>
 <a href="https://twitter.com/inphinitphp"
     target="_blank" rel="nofollow noopener noreferrer">Twitter</a>

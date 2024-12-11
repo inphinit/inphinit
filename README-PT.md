@@ -1,7 +1,7 @@
-- [Instalando](#instalando)
+- [Installing](#instalando)
 - [Testando](#testando)
 - [NGINX](#nginx)
-- [Estrutura das pastas](#estrutura-das-pastas)
+- [Estrutura de pastas](#estrutura-de-pastas)
 - [Criando rotas](#criando-rotas)
 - [Agrupando rotas](#agrupando-rotas)
 - [Padrões de rotas e URL](#padrões-de-rotas-e-url)
@@ -10,21 +10,21 @@
 
 O objetivo deste framework sempre foi ser o mais eficiente possível, porém algo que sempre me preocupou foram os problemas de depuração, apesar de existirem diversas ferramentas, sempre busquei algo simples, mas claro que mesmo quem está trabalhando pela primeira vez vê o erro, então neste último ano tomei as seguintes decisões:
 
-- No modo de desenvolvimento você deve trabalhar rigorosamente, verificando qualquer possível falha
-- Alterar a forma como as rotas funcionam, para torná-las mais rápidas e também conseguir prever falhas, quando utilizadas no desenvolvimento
-- Alguns erros de digitação podem fazer com que certos recursos do PHP não respondam em tempo hábil, como o _autoload_, então o modo de desenvolvedor pré-carregará tudo o que você precisa antes que qualquer script interrompa o processo, permitindo que a depuração localize e exiba exatamente em qual linha o erro está.
+- No modo de desenvolvimento você deve trabalhar rigorosamente, checando qualquer detalhe
+- Mudar a forma como as rotas funcionam, para torná-las mais rápidas e também conseguir prever falhas, quando usadas no desenvolvimento
+- Alguns erros de digitação podem fazer com que certos recursos do PHP não respondam em tempo hábil, como o autoload, então o modo de desenvolvedor pré-carregará tudo o que você precisa antes que qualquer script interrompa o processo, permitindo que a depuração localize e exiba exatamente em qual linha o erro está.
 
 Todas essas decisões estão embutidas no framework, algumas das quais já foram adicionadas à _versão 1.x_, para facilitar a portabilidade do projeto para a versão futura do framework.
 
-Todas as APIs internas principais já são suportadas pela _versão 2.x_, algumas foram completamente reescritas, com foco em simplicidade e desempenho, então se você estiver migrando da _1.x_ é provável que precise reescrever algumas coisas. Felizmente, a maioria das classes é muito mais simples de usar.
+Todas as APIs internas principais já são suportadas pela versão 2.x, algumas foram completamente reescritas, com foco em simplicidade e desempenho, então se você estiver migrando da _1.x_ é provável que precise reescrever algumas coisas. Felizmente, a maioria das classes é muito mais simples de usar.
 
 ## O que já alcançamos
 
-Se você estiver usando a _versão 0.5_ e ainda não puder migrar para a _versão 2.x_, é altamente recomendável que você migre para a _versão 1.x_.
+Se você estiver usando a "versão 0.5" e ainda não puder migrar para a "versão 2.x", é altamente recomendável que você migre para a "versão 1.x".
 
-A _versão 0.5_ já tinha um desempenho excelente, mas ainda era possível trazer alguns recursos de desempenho da versão _2.x_ para a versão 1.x_. Na _versão 2.x_ é um pouco melhor, então aqui está um exemplo dos testes, com o modo de desenvolvimento desativado:
+A versão "0.5" já tinha um desempenho excelente, mas ainda foi possível trazer alguns recursos de desempenho da "versão 2.x" para a versão 1.x". Na "versão 2.x" está um pouco melhor, então aqui está um exemplo dos testes, com o modo de desenvolvimento desativado:
 
-Descrição                                                           | v0.5.19                       | v1.x                          | v2.x
+Descrição                                                           | v0.5.x                        | v1.x                          | v2.x
 ---                                                                 | ---                           | ---                           | --- 
 Tempo gasto para testes                                             | 0.528 segundos                | 0.429 segundos                | 0.391 segundos
 Solicitações por segundo (média)                                    | 1892.46 [#/seg]               | 2330.74 [#/seg]               | 2557.07 [#/seg]
@@ -32,30 +32,42 @@ Tempo por solicitação (média)                                       | 5.284 [
 Tempo por solicitação (média, em todas as solicitações simultâneas) | 0.528 [ms]                    | 0.429 [ms]                    | 0.391 [ms]
 Taxa de transferência                                               | 373.32 [Kbytes/seg] recebidos | 459.77 [Kbytes/sec] recebidos | 504.42 [Kbytes/seg] recebidos
 
-Além da melhoria no tempo de execução, nota-se que a _versão 2.x_ conseguiu processar em média mais 220 solicitações por segundo do que a versão _1.x_, e quando comparado à _0.5.x_, conseguiu processar 600 requisições a mais, por segundo.
+Além do tempo de execução melhorado, nota-se que a "versão 2.x" conseguiu processar em média 220 requisições a mais por segundo do que a "versão 1.x", e comparado à "0.5.x", conseguiu processar 600 requisições a mais por segundo.
 
-## Sobre documentação
+## Sobre a documentação
 
-Algo que vou mudar é a documentação, o Github Wiki funcionou por um tempo mas notei alguns problemas:
+Algo que vou mudar é a documentação, o Github Wiki funcionou por um tempo, mas notei alguns problemas:
 
-- O menu gerado no wiki do github não é tão intuitivo e notei que mesmo alguns programadores experientes não conseguiam navegar por lá
-- Organizar o conteúdo não foi tão fácil quanto eu precisava, muitas coisas são manuais, o que levou muito tempo para editar coisas simples
+- O menu gerado no github wiki não é tão intuitivo e notei que até mesmo alguns programadores experientes não conseguiam navegar por lá
+- Organizar o conteúdo não foi tão fácil quanto eu queria, muitas coisas são manuais, o que levou muito tempo para editar algumas coisas
 - O Github Desktop entra em conflito com repositórios do tipo wiki, é um [bug antigo](https://github.com/desktop/desktop/issues/3839#issue-290340050)
 
 A documentação estará disponível em breve, inicialmente em inglês e português.
 
 ## Instalando
 
-> **Nota:** Para instalar a _versão 1.x_ vá até: https://github.com/inphinit/inphinit/tree/1.x
+> **Nota:** Para instalar a "versão 1.x" acesse: https://github.com/inphinit/inphinit/tree/1.x
 
-Observe que ainda estamos em fase de desenvolvimento, e em 4 semanas pretendemos lançar o primeiro beta, que estará disponível via composer, a _versão 2.x_ ainda não é recomendada para produção, então prefira utilizá-la apenas para testes ou críticas que você deseja fazer durante esta etapa.
+É altamente recomendado migrar para a "versão 2.x" para manter o suporte para versões futuras do PHP. Para instalá-lo você deve ter pelo menos o "PHP 5.4", mas é recomendado que você use o "PHP 8" devido a problemas de suporte ao PHP, leia:
 
-Para instalá-lo você deve ter pelo menos o PHP 5.4, mas é **recomendado que você utilize o PHP 8** devido a problemas de suporte ao PHP, leia:
+- https://www.php.net/supported-versions.php
+- https://www.php.net/eol.php
 
-> - https://www.php.net/supported-versions.php
-> - https://www.php.net/eol.php
+Após instalar o PHP, você pode instalar o Inphinit usando o Composer ou usando o Git.
 
-Após instalar o PHP, você precisa ter o Git em sua máquina, então execute os seguintes comandos:
+Se você usa o composer, execute o comando (mais detalhes em https://getcomposer.org/doc/03-cli.md):
+
+```bash
+php composer.phar create-project inphinit/inphinit my-application
+```
+
+Se você usar composer global, execute o comando:
+
+```bash
+composer create-project inphinit/inphinit my-application
+```
+
+Instalando usando Git:
 
 ```bash
 git clone --recurse-submodules https://github.com/inphinit/inphinit.git my-application
@@ -64,23 +76,23 @@ cd my-application
 
 ## Testando
 
-Após navegar até a pasta você deve executar o seguinte comando, caso queira usar o [PHP built-in web server](https://www.php.net/manual/en/features.commandline.webserver.php):
+After navigating to the folder you must execute the following command, if you want to use [PHP built-in web server](https://www.php.net/manual/en/features.commandline.webserver.php):
 
 ```bash
 php -S localhost:5000 -t public index.php
 ```
 
-Então acesso `http://localhost:5000/` no seu navegador
+E acesse no seu navegador `http://localhost:5000/`
 
 ## NGINX
 
-Se quiser experimentar um servidor web como o NGINX, você pode usar o exemplo a seguir para configurar seu `nginx.conf`:
+Se você quiser experimentar um servidor web como o NGINX, você pode usar o seguinte exemplo para configurar seu `nginx.conf`:
 
 ```none
 location / {
     root /home/foo/bar/my-application;
 
-    # Redirecionar erros de página para sistema de rotas
+    # Redirect page errors to route system
     error_page 403 /index.php/RESERVED.INPHINIT-403.html;
     error_page 500 /index.php/RESERVED.INPHINIT-500.html;
 
@@ -95,7 +107,7 @@ location / {
     }
 
     location ~ \.php$ {
-        # Substitua pelo seu FPM ou FastCGI
+        # Replace by your FPM or FastCGI
         fastcgi_pass 127.0.0.1:9000;
 
         fastcgi_index index.php;
@@ -112,9 +124,9 @@ location / {
 }
 ```
 
-> **NotA:** Para FPM use `fastcgi_pass unix:/var/run/php/php<version>-fpm.sock` (troque `<version>` pela versão do PHP em seu servidor)
+> **Note:** Para FPM use `fastcgi_pass unix:/var/run/php/php<version>-fpm.sock` (troque `<version>` pela versão do PHP version no seu servidor)
 
-## Estrutura das pastas
+## Estrutura de pastas
 
 ```bash
 ├───.htaccess        # Configuração do servidor web Apache
@@ -135,13 +147,13 @@ location / {
     └───main.php     # Este é o arquivo principal para rotas e eventos, estará disponível em modo de desenvolvimento e modo de produção
 ```
 
-No modo de desenvolvimento, o script `system/dev.php` sempre será executado primeiro, depois será executado `system/main.php`, e se ocorrer algum erro, como 404 ou 405, o último script a ser executado será `system/erros.php`
+No modo de desenvolvimento, o script `system/dev.php` sempre será executado primeiro, depois `system/main.php` será executado, e se ocorrer um erro, como 404 ou 405, o último script a ser executado será `system/errors.php`
 
 ## Criando rotas
 
-Para criar uma nova rota edite o arquivo `system/main.php`, se deseja que a rota fique só disponível no modo de desenvolvimento, então edite o arquivo `system/dev.php`.
+Para criar uma nova rota, edite o arquivo `system/main.php`, se quiser que a rota fique disponível apenas no modo de desenvolvimento, edite o arquivo `system/dev.php`.
 
-O sistema de rotas suporta _Controllers_, [_callables_](https://www.php.net/manual/en/language.types.callable.php) e [_funções anônimas_](https://www.php.net/manual/en/functions.anonymous.php), exemplos:
+O sistema de rotas suporta _controllers_, [_callables_](https://www.php.net/manual/en/language.types.callable.php) e [_anonymous functions_](https://www.php.net/manual/en/functions.anonymous.php), exemplos:
 
 ```php
 <?php
@@ -185,7 +197,7 @@ $app->action('GET', '/controller', 'Boo\Bar::xyz');
 
 ## Agrupando rotas
 
-O sistema de agrupamento de rotas agora está muito mais simples, é baseado na URL completa, podendo utilizar o caractere `*` como curinga e também os mesmos padrões disponíveis para rotas, exemplos:
+O sistema de agrupamento de rotas agora é muito mais simples, ele é baseado na URL completa, e você pode usar o caractere curinga `*` e também os mesmos padrões disponíveis para rotas, exemplos:
 
 ```php
 <?php
@@ -253,7 +265,7 @@ Tipo | Examplo | Descrição
 `uuid` | `$app->action('GET', '/bar/<barcode:alnum>', ...);`      | Aceita apenas parâmetros com formato uuid e `$params` retorna `['barcode' => ...]`
 `version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Aceita apenas parâmetros com formato _Semantic Versioning 2.x.0 (semversion)_ e `$params` retorna `['api' => ...]`
 
-É possivel adicionar ou modificar os padrões existentes, usando o método `$app->setPattern(nome, regex)`. Criando um novo padrão:
+It is possible to add or modify existing patterns using the `$app->setPattern(name, regex)` method. Creating a new pattern:
 
 ```php
 <?php
@@ -269,11 +281,11 @@ $app->action('GET', '/product/<id:id>', function ($params) {
     ...
 });
 
-$app->setPattern('locale', '[a-z]{1,8}(\-[A-Z\d]{1,8})?'); // examples: en, en-US, en-GB, pt-BR, pt
-$app->setPattern('id', '[A-Z]\d+'); // examples: A0001, B002, J007
+$app->setPattern('locale', '[a-z]{1,8}(\-[A-Z\d]{1,8})?'); // examplos: en, en-US, en-GB, pt-BR, pt
+$app->setPattern('id', '[A-Z]\d+'); // examplos: A0001, B002, J007
 ```
 
-Modificando um padrão existente:
+Modifying an existing pattern:
 
 ```php
 <?php

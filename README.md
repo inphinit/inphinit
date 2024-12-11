@@ -48,7 +48,7 @@ The documentation will soon be available, initially in English and Portuguese.
 
 > **Note:** To install _version 1.x_ go to: https://github.com/inphinit/inphinit/tree/1.x
 
-É altamente recomendado migrar para a _versão 2.x_ para manter o suporte com versões futuras do PHP. Para instalá-lo você deve ter pelo menos _PHP 5.4_, mas é _recomendado que você use PHP 8_ devido a qquestões de suporte ao PHP, leia:
+It is highly recommended to migrate to _version 2.x_ to maintain support for future versions of PHP. To install it you must have at least _PHP 5.4_, but it is recommended that you use _PHP 8_ due to PHP support issues, read:
 
 - https://www.php.net/supported-versions.php
 - https://www.php.net/eol.php

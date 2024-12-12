@@ -16,13 +16,13 @@ O objetivo deste framework sempre foi ser o mais eficiente possível, porém alg
 
 Todas essas decisões estão embutidas no framework, algumas das quais já foram adicionadas à _versão 1.x_, para facilitar a portabilidade do projeto para a versão futura do framework.
 
-Todas as APIs internas principais já são suportadas pela versão 2.x, algumas foram completamente reescritas, com foco em simplicidade e desempenho, então se você estiver migrando da _1.x_ é provável que precise reescrever algumas coisas. Felizmente, a maioria das classes é muito mais simples de usar.
+Todas as APIs internas principais já são suportadas pela _versão 2.x_, algumas foram completamente reescritas, com foco em simplicidade e desempenho, então se você estiver migrando da _1.x_ é provável que precise reescrever algumas coisas. Felizmente, a maioria das classes é muito mais simples de usar.
 
 ## O que já alcançamos
 
-Se você estiver usando a "versão 0.5" e ainda não puder migrar para a "versão 2.x", é altamente recomendável que você migre para a "versão 1.x".
+Se você estiver usando a _versão 0.5_ e ainda não puder migrar para a _versão 2.x_, é altamente recomendável que você migre para a _versão 1.x_.
 
-A versão "0.5" já tinha um desempenho excelente, mas ainda foi possível trazer alguns recursos de desempenho da "versão 2.x" para a versão 1.x". Na "versão 2.x" está um pouco melhor, então aqui está um exemplo dos testes, com o modo de desenvolvimento desativado:
+A _versão 0.5_ já tinha um desempenho excelente, mas ainda foi possível trazer alguns recursos de desempenho da _versão 2.x_ para a _versão 1.x_. Na _versão 2.x_ está um pouco melhor, então aqui está um exemplo dos testes, com o modo de desenvolvimento desativado:
 
 Descrição                                                           | v0.5.x                        | v1.x                          | v2.x
 ---                                                                 | ---                           | ---                           | --- 
@@ -32,7 +32,7 @@ Tempo por solicitação (média)                                       | 5.284 [
 Tempo por solicitação (média, em todas as solicitações simultâneas) | 0.528 [ms]                    | 0.429 [ms]                    | 0.391 [ms]
 Taxa de transferência                                               | 373.32 [Kbytes/seg] recebidos | 459.77 [Kbytes/sec] recebidos | 504.42 [Kbytes/seg] recebidos
 
-Além do tempo de execução melhorado, nota-se que a "versão 2.x" conseguiu processar em média 220 requisições a mais por segundo do que a "versão 1.x", e comparado à "0.5.x", conseguiu processar 600 requisições a mais por segundo.
+Além do tempo de execução melhorado, nota-se que a _versão 2.x_ conseguiu processar em média 220 requisições a mais por segundo do que a _versão 1.x_, e comparado à _0.5.x_, conseguiu processar 600 requisições a mais por segundo.
 
 ## Sobre a documentação
 
@@ -46,9 +46,9 @@ A documentação estará disponível em breve, inicialmente em inglês e portugu
 
 ## Instalando
 
-> **Nota:** Para instalar a "versão 1.x" acesse: https://github.com/inphinit/inphinit/tree/1.x
+> **Nota:** Para instalar a _versão 1.x_ acesse: https://github.com/inphinit/inphinit/tree/1.x
 
-É altamente recomendado migrar para a "versão 2.x" para manter o suporte para versões futuras do PHP. Para instalá-lo você deve ter pelo menos o "PHP 5.4", mas é recomendado que você use o "PHP 8" devido a problemas de suporte ao PHP, leia:
+É altamente recomendado migrar para a _versão 2.x_ para manter o suporte para versões futuras do PHP. Para instalá-lo você deve ter pelo menos o _PHP 5.4_, mas é recomendado que você use o _PHP 8_ devido a problemas de suporte ao PHP, leia:
 
 - https://www.php.net/supported-versions.php
 - https://www.php.net/eol.php
@@ -263,7 +263,7 @@ Tipo | Examplo | Descrição
 `num` | `$app->action('GET', '/foo/<id:num>', ...);`              | Aceita apenas parâmetros com formato inteiro e `$params` retorna `['id' => ...]`
 `nospace` | `$app->action('GET', '/foo/<nospace:nospace>', ...);` | Aceita quaisquer caracteres exceto espaços, como espaços em branco (`%20`), tabulações (`%0A`) e outros (veja sobre `\S` em regex)
 `uuid` | `$app->action('GET', '/bar/<barcode:alnum>', ...);`      | Aceita apenas parâmetros com formato uuid e `$params` retorna `['barcode' => ...]`
-`version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Aceita apenas parâmetros com formato _Semantic Versioning 2.x.0 (semversion)_ e `$params` retorna `['api' => ...]`
+`version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Aceita apenas parâmetros com formato _Semantic Versioning 2.0.0 (semversion)_ e `$params` retorna `['api' => ...]`
 
 It is possible to add or modify existing patterns using the `$app->setPattern(name, regex)` method. Creating a new pattern:
 

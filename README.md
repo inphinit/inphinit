@@ -16,13 +16,15 @@ The objective of this framework has always been to be as efficient as possible, 
 
 All of these decisions are embedded in the framework, some of which have already been added to _version 1.x_, to make it easier to port the project to the future version of the framework.
 
-All core internal APIs are already supported by version 2.x, some have been completely rewritten, focusing on simplicity and performance, so if you are migrating from _1.x_ it is likely that you will need to rewrite some things. Fortunately, most classes are much simpler to use.
+All core internal APIs are already supported by _version 2.x_, some have been completely rewritten, focusing on simplicity and performance, so if you are migrating from _1.x_ it is likely that you will need to rewrite some things. Fortunately, most classes are much simpler to use.
 
 ## What we have already achieved
 
 If you are using _version 0.5_ and cannot yet migrate to _version 2.x_, it is highly recommended that you migrate to _version 1.x_.
 
-Version _0.5_ already had excellent performance, but it was still possible to bring some performance features from _version 2.x_ to version 1.x_. In _version 2.x_ it is a little better, so here is an example of the tests, with development mode turned off:
+Version _0.5_ already had excellent performance, but it was still possible to bring some performance features from _version 2.x_ to _version 1.x_. In _version 2.x_ it is a little better, so here is an example of the tests, with development mode turned off:
+
+Version _0.5_ already had excellent performance, but it was still possible to bring some performance features from _version 2.x_ to _version 1.x_. In _version 2.x_ it is a bit better, so here is an example of the tests, with development mode disabled:
 
 Description                                             | v0.5.x                       | v1.x                         | v2.x
 ---                                                     | ---                          | ---                          | --- 
@@ -263,7 +265,7 @@ Type | Example | Description
 `num` | `$app->action('GET', '/foo/<id:num>', ...);`              | Only accepts parameters with integer format and `$params` returns `['id' => ...]`
 `nospace` | `$app->action('GET', '/foo/<nospace:nospace>', ...);` | Accepts any characters expcet spaces, like white-spaces (`%20`), tabs (`%0A`) and others (see about `\S` in regex)
 `uuid` | `$app->action('GET', '/bar/<barcode:alnum>', ...);`      | Only accepts parameters with uuid format and `$params` returns `['barcode' => ...]`
-`version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Only accepts parameters with _Semantic Versioning 2.x.0 (semversion)_ format and `$params` returns `['api' => ...]`
+`version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Only accepts parameters with _Semantic Versioning 2.0.0 (semversion)_ format and `$params` returns `['api' => ...]`
 
 It is possible to add or modify existing patterns using the `$app->setPattern(name, regex)` method. Creating a new pattern:
 

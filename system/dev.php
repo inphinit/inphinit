@@ -195,33 +195,31 @@ Group::create()->domain('localhost')->path('/samples/')->then(function () {
 
         switch ($option) {
             case 'charset':
-                $langs = $negotiation->acceptCharset($sortQFactor);
-                $priority = $negotiation->getCharset($sortQFactor);
+                $items = $negotiation->acceptCharset($sortQFactor);
+                $priority = $negotiation->getCharset();
                 break;
             case 'custom':
-                $langs = $negotiation->header('accept-foo', $sortQFactor);
+                $items = $negotiation->header('accept-foo', $sortQFactor);
                 $priority = null;
                 break;
             case 'encoding':
-                $langs = $negotiation->acceptEncoding($sortQFactor);
-                $priority = $negotiation->getEncoding($sortQFactor);
+                $items = $negotiation->acceptEncoding($sortQFactor);
+                $priority = $negotiation->getEncoding();
                 break;
             case 'language':
-                $langs = $negotiation->acceptLanguage($sortQFactor);
-                $priority = $negotiation->getLanguage($sortQFactor);
-                break;
-            case 'charset':
-                $langs = $negotiation->acceptCharset($sortQFactor);
-                $priority = $negotiation->getCharset($sortQFactor);
+                $items = $negotiation->acceptLanguage($sortQFactor);
+                $priority = $negotiation->getLanguage();
                 break;
             default:
-                $langs = $negotiation->accept($sortQFactor);
+                $items = $negotiation->accept($sortQFactor);
                 $priority = $negotiation->getAccept($sortQFactor);
         }
 
+        echo '<h1>Negotiation: ', $option, '</h1>';
+
         echo '<h2>Supporteds</h1>';
         echo '<pre>';
-        print_r($langs);
+        print_r($items);
         echo '</pre>';
 
         echo '<h2>Priority</h2>';

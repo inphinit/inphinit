@@ -6,7 +6,7 @@ if (
     strpos($path, '.') !== 0 &&
     strpos($path, '/.') === false &&
     PHP_SAPI === 'cli-server' &&
-    is_file($publicPath . $path)
+    is_file($_SERVER['DOCUMENT_ROOT'] . $path)
 ) {
     return false;
 }

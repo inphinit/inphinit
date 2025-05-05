@@ -431,12 +431,12 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
         $mode = Request::get('mode');
 
         switch ($mode) {
-            case 'com':
-                $handle = new Size(Size::COM);
-                break;
-
             case 'curl':
                 $handle = new Size(Size::CURL);
+                break;
+
+            case 'com':
+                $handle = new Size(Size::COM);
                 break;
 
             case 'system':
@@ -448,9 +448,9 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
                 die('Invalid mode');
         }
 
-        var_dump($handle->get('/foo/bar/bigfile.zip'));
-        var_dump($handle->get('/foo/bar/bigfile.zip'));
-        var_dump($handle->get('/foo/bar/bigfile.zip'));
+        var_dump($handle->get('/foo/bar/bigfile1.zip'));
+        var_dump($handle->get('/foo/bar/bigfile2.zip'));
+        var_dump($handle->get('/foo/bar/bigfile3.zip'));
 
     });
 });
@@ -596,14 +596,12 @@ $app->scope('*://*/http/', function ($app, $params) {
                 $langs = $negotiation->acceptLanguage($sortQFactor);
                 $priority = $negotiation->getLanguage();
                 break;
-            case 'charset':
-                $langs = $negotiation->acceptCharset($sortQFactor);
-                $priority = $negotiation->getCharset();
-                break;
             default:
                 $langs = $negotiation->accept($sortQFactor);
                 $priority = $negotiation->getAccept();
         }
+
+        echo '<h1>Negotiation: ', $option, '</h1>';
 
         echo '<h2>Supporteds</h1>';
         echo '<pre>';

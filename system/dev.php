@@ -175,7 +175,9 @@ Group::create()->domain('localhost')->path('/samples/')->then(function () {
 
         if ($cache->cached()) return;
 
-        return str_repeat('Hello, world! ', 1000);
+        header('Custom-Foo: bar');
+
+        return str_repeat('Hello, world! ', 1000) . '<hr>Final!';
     });
 
     // Accept headers

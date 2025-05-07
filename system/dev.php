@@ -6,6 +6,7 @@ use Inphinit\Viewing\View;
 use Inphinit\Config;
 use Inphinit\Event;
 use Inphinit\Maintenance;
+use Inphinit\Session;
 
 use Inphinit\Dom\Document;
 
@@ -44,6 +45,10 @@ $debug->setErrorView('debug.error');
  * - Below are examples of using the common features of the framework, you can remove everything below
  * - The codes in this document will only work in developer mode
  */
+
+$app->action('GET', '/xyzz', function () {
+    View::render('testa');
+});
 
 $app->action('GET', '/info', function () {
     phpinfo();
@@ -381,7 +386,6 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
         Event::trigger('foobar', ['param1', microtime(true)]);
     });
 
-    // trigger event
     $app->action('ANY', '/config', function () use ($app) {
         $config = new Config('sample');
 
@@ -406,52 +410,66 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
     $app->action('ANY', '/file', function () {
         echo '<pre>';
 
-        var_dump(File::exists(INPHINIT_SYSTEM . '/main.php')); // Returns true
-        var_dump(File::exists(INPHINIT_SYSTEM . '/MAIN.php')); // Returns false
-        var_dump(File::exists(INPHINIT_SYSTEM . '/Main.php')); // Returns false
-        var_dump(File::exists(INPHINIT_SYSTEM . '/main.PHP')); // Returns false
-        var_dump(File::exists(INPHINIT_SYSTEM . '/MAIN.PHP')); // Returns false
+        $files = [
+            'MAIN.PHP',
+            'main.php',
+            'MAIN.php',
+            'Main.php',
+            'main.PHP'
+        ];
+
+        echo "Check file exists with file_exists():\n";
+
+        foreach ($files as $file) {
+            $file = INPHINIT_SYSTEM . '/' . $file;
+            echo "{$file}: ";
+            var_dump(file_exists($file));
+        }
+
+        echo "Check file exists (case-sensitive any systems) with File::exists():\n";
+
+        foreach ($files as $file) {
+            $file = INPHINIT_SYSTEM . '/' . $file;
+            echo "{$file}: ";
+            var_dump(File::exists($file));
+        }
 
         // Returns a string in octal format, example: 0666
+        echo 'Permissions: ';
         var_dump(File::permissions(INPHINIT_SYSTEM . '/main.php'));
 
         // Returns symbolic format, example: -rw-rw-rw-
+        echo 'Permissions: ';
         var_dump(File::permissions(INPHINIT_SYSTEM . '/main.php', true));
-
-        // Returns mimetype: text/x-php
-        var_dump(File::mime(INPHINIT_SYSTEM . '/main.php'));
-
-        // Returns enconding: us-ascii
-        var_dump(File::encoding(INPHINIT_SYSTEM . '/main.php'));
 
         echo '</pre>';
     });
 
     $app->action('GET', '/filesize', function () {
-        $mode = Request::get('mode');
+        $handleCurl = new Size(Size::CURL);
+        $handleCom = new Size(Size::COM);
+        $handleSystem = new Size(Size::SYSTEM);
 
-        switch ($mode) {
-            case 'curl':
-                $handle = new Size(Size::CURL);
-                break;
+        var_dump($handleCurl->get(__DIR__ . '/main.php'));
+        var_dump($handleCom->get(__DIR__ . '/main.php'));
+        var_dump($handleSystem->get(__DIR__ . '/main.php'));
 
-            case 'com':
-                $handle = new Size(Size::COM);
-                break;
+    });
 
-            case 'system':
-                $handle = new Size(Size::SYSTEM);
-                break;
+    $app->action('ANY', '/session', function () use ($app) {
+        echo 's';
 
-            default:
-                Response::status(400);
-                die('Invalid mode');
-        }
+        $config = new Session('sample');
 
-        var_dump($handle->get('/foo/bar/bigfile1.zip'));
-        var_dump($handle->get('/foo/bar/bigfile2.zip'));
-        var_dump($handle->get('/foo/bar/bigfile3.zip'));
+        var_dump($config->float);
+        var_dump($config->int);
+        var_dump($config->octal);
 
+        $config->float = 99.9;
+        $config->int = 100;
+        $config->octal = 0666;
+
+        $config->commit(); // Save
     });
 });
 
@@ -601,7 +619,7 @@ $app->scope('*://*/http/', function ($app, $params) {
                 $priority = $negotiation->getAccept();
         }
 
-        echo '<h1>Negotiation: ', $option, '</h1>';
+        echo '<h1>Negotiation: ', $params['option'], '</h1>';
 
         echo '<h2>Supporteds</h1>';
         echo '<pre>';

@@ -5,57 +5,18 @@
 - [Creating routes](#creating-routes)
 - [Grouping routes](#grouping-routes)
 - [Route and URL patterns](#route-and-url-patterns)
-
-## Decisions and what's next
-
-The objective of this framework has always been to be as efficient as possible, however something that always worried me were debugging problems, despite there being several tools, I always aimed for something simple, but of course even those who are working for the first time see the error, So this past year I made the following decisions:
-
-- In development mode you should work strictly, checking any detail
-- Change the way routes work, to make them faster and also be able to predict failures, when used in development
-- Some typing errors can make certain PHP features not respond in a timely manner, such as autoload, so developer mode will preload everything you need before any script disrupts the process, allowing debugging to locate and display exactly which line the error is on.
-
-All of these decisions are embedded in the framework, some of which have already been added to _version 1.x_, to make it easier to port the project to the future version of the framework.
-
-All core internal APIs are already supported by _version 2.x_, some have been completely rewritten, focusing on simplicity and performance, so if you are migrating from _1.x_ it is likely that you will need to rewrite some things. Fortunately, most classes are much simpler to use.
-
-## What we have already achieved
-
-If you are using _version 0.5_ and cannot yet migrate to _version 2.x_, it is highly recommended that you migrate to _version 1.x_.
-
-Version _0.5_ already had excellent performance, but it was still possible to bring some performance features from _version 2.x_ to _version 1.x_. In _version 2.x_ it is a little better, so here is an example of the tests, with development mode turned off:
-
-Version _0.5_ already had excellent performance, but it was still possible to bring some performance features from _version 2.x_ to _version 1.x_. In _version 2.x_ it is a bit better, so here is an example of the tests, with development mode disabled:
-
-Description                                             | v0.5.x                       | v1.x                         | v2.x
----                                                     | ---                          | ---                          | --- 
-Time taken for tests                                    | 0.528 seconds                | 0.429 seconds                | 0.391 seconds
-Requests per second (mean)                              | 1892.46 [#/sec]              | 2330.74 [#/sec]              | 2557.07 [#/sec]
-Time per request (mean)                                 | 5.284 [ms]                   | 4.290 [ms]                   | 3.911 [ms]
-Time per request (mean, across all concurrent requests) | 0.528 [ms]                   | 0.429 [ms]                   | 0.391 [ms]
-Transfer rate                                           | 373.32 [Kbytes/sec] received | 459.77 [Kbytes/sec] received | 504.42 [Kbytes/sec] received
-
-In addition to the improved execution time, it is noted that _version 2.x_ was able to process an average of 220 more requests per second than _version 1.x_, and compared to _0.5.x_, it was able to process 600 more requests per second.
-
-## About documentation
-
-Something I will change is the documentation, the Github Wiki worked for a while but I noticed some issues:
-
-- The menu generated on the github wiki is not that intuitive and I noticed that even some experienced programmers were unable to navigate there
-- Organizing the content was not as easy as I wanted, many things are manual, which took a lot of time to edit a few things
-- Github Desktop conflicts with wiki-type repositories, it's an [old bug](https://github.com/desktop/desktop/issues/3839#issue-290340050)
-
-The documentation will soon be available, initially in English and Portuguese.
+- [Documentation](#Documentation)
 
 ## Installing
 
-> **Note:** To install _version 1.x_ go to: https://github.com/inphinit/inphinit/tree/1.x
+1. PHP supported version https://www.php.net/supported-versions.php
+    * While we recommend upgrading PHP for the best experience, backward compatibility is maintained for PHP 5.4 and above for users with upgrade limitations
+    * If you need a full-featured server for Windows or macOS, try: Wamp, Xampp, Laragon, EasyPHP, AMPPS, etc.
+1. Multibyte String (GD also) (optional, only used in `Inphinit\Utility\Strings` class)
+1. libiconv (optional, only used in `Inphinit\Utility\Strings` class)
+1. COM or cURL (optional, only used in `Inphinit\Filesystem\Size`)
 
-It is highly recommended to migrate to _version 2.x_ to maintain support for future versions of PHP. To install it you must have at least _PHP 5.4_, but it is recommended that you use _PHP 8_ due to PHP support issues, read:
-
-- https://www.php.net/supported-versions.php
-- https://www.php.net/eol.php
-
-After installing PHP, you can install Inphinit using Composer or using Git.
+After installing PHP, you can install Inphinit using Composer or Git.
 
 If you use composer, run the command (more details in https://getcomposer.org/doc/03-cli.md):
 
@@ -131,22 +92,27 @@ location / {
 ## Folder structure
 
 ```bash
-├───.htaccess        # Apache web server configuration
-├───index.php        # Only change the values of the constants, and only if necessary
-├───server           # Shortcut to start the built-in web server on Linux and macOS
-├───server.bat       # Shortcut to start the built-in web server on Windows
-├───web.config       # IIS web server configuration
-├───public/          # In this folder you can place static files or PHP scripts that will be independent
-└───system/          # Folder containing your application
-    ├───boot/        # Contain settings for inphinit_autoload, similar to composer_autoload
-    ├───configs/     # Contain varied configuration files, it is recommended that you do not version this folder
-    │   └───app.php  # Don't add new keys, just change the values of existing ones if necessary
-    ├───controllers/ # Must contain the classes that will be controllers used in the routes
-    ├───vendor/      # Contain third-party packages and the framework
-    ├───views/       # Should contain your views
-    ├───dev.php      # It has the same purpose as the "main.php" script, but it will only work in development mode
-    ├───errors.php   # It should contain error page settings, such as when a 404 or 405 error occurs, you can call static files or use views
-    └───main.php     # This is the main file for routes and events, it will be available in development mode and production mode
+├───.htaccess                  # Apache web server configuration for the application
+├───index.php                  # Only modify the values of existing constants, and only if necessary
+├───server                     # Shortcut to start the built-in web server on Linux and macOS
+├───server.bat                 # Shortcut to start the built-in web server on Windows
+├───web.config                 # IIS web server configuration for the application
+├───public/                    # This folder can hold static files or PHP scripts that run independently of the main application
+│   └───.htaccess              # Apache web server configuration for additional PHP scripts and static files
+└───system/                    # Folder containing your application code
+    ├───dev.php                # Similar to main.php, but only used in development mode
+    ├───errors.php             # Should define error page behavior (e.g., 404 or 405 errors), allowing static files or views to be served
+    ├───main.php               # The main file for defining routes and events, available in both development and production modes
+    ├───boot/                  # Contains settings for inphinit_autoload, similar to composer_autoload
+    │   ├───importpackages.php #
+    │   └───namespaces.php     #
+    ├───configs/               # Contain varied configuration files, it is recommended that you do not version this folder
+    │   ├───app.php            # Don't add new keys, just change the values of existing ones if necessary
+    │   └───debug.php          # Don't add new keys, just change the values of existing ones if necessary
+    ├───controllers/           # Must contain the classes that will be controllers used in the routes
+    ├───storage/               #
+    ├───vendor/                # Contain third-party packages and the framework
+    └───views/                 # Should contain your views
 ```
 
 In development mode, the `system/dev.php` script will always be executed first, then `system/main.php` will be executed, and if an error occurs, such as 404 or 405, the last script to be executed will be `system/errors.php`
@@ -278,13 +244,13 @@ $app->action('GET', '/about/<lang:locale>', function ($params) {
     ...
 });
 
-$app->action('GET', '/product/<id:id>', function ($params) {
+$app->action('GET', '/product/<id:customid>', function ($params) {
     $lang = $params['id'];
     ...
 });
 
 $app->setPattern('locale', '[a-z]{1,8}(\-[A-Z\d]{1,8})?'); // examples: en, en-US, en-GB, pt-BR, pt
-$app->setPattern('id', '[A-Z]\d+'); // examples: A0001, B002, J007
+$app->setPattern('customid', '[A-Z]\d+'); // examples: A0001, B002, J007
 ```
 
 Modifying an existing pattern:
@@ -298,3 +264,11 @@ $app->setPattern('version', '\d+\.\d+.\d+.\d+');
 // Replace semversion by <major>.<minor> (maybe it's interesting for web APIs)
 $app->setPattern('version', '\d+\.\d+');
 ```
+
+## Documentation
+
+* English: https://inphinit.github.io/en/docs/
+* Português: (em breve)
+* API: https://inphinit.github.io/api/
+
+The documentation is maintained in its own [GitHub repository](https://github.com/inphinit/inphinit.github.io).

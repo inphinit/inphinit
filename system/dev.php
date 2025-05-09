@@ -23,8 +23,8 @@ use Inphinit\Utility\Version;
 
 use Inphinit\Experimental\Http\Method;
 
-use Controller\TreatyController;
-use Controller\ResourceController;
+use Controllers\TreatyController;
+use Controllers\ResourceController;
 
 // Inject CSS for debug if necessary
 $debug->setBeforeView('debug.style');

@@ -1,8 +1,8 @@
 <?php
-namespace Controller;
+namespace Controllers;
 
-use Inphinit\Viewing\View;
 use Inphinit\Packages;
+use Inphinit\Viewing\View;
 
 class HomeController
 {

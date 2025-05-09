@@ -1,5 +1,5 @@
 <?php
-namespace Controller;
+namespace Controllers;
 
 class ResourceController extends \Inphinit\Routing\Resource
 {

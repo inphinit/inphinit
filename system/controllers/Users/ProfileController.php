@@ -1,5 +1,5 @@
 <?php
-namespace Controller\Users;
+namespace Controllers\Users;
 
 use Inphinit\Viewing\View;
 

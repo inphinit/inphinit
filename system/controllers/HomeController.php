@@ -18,7 +18,7 @@ class HomeController
             ], [
                 'link' => 'https://inphinit.github.io/en/docs/controllers.html',
                 'title' => 'Controllers',
-                'content' => 'Controllers are a means of organizing logic, separating by namespaces and classes, they must be stored in the <code>system/controllers/</code> folder.'
+                'content' => 'Controllers are a means of organizing logic, separating by namespaces and classes, they must be stored in the <code>system/Controllers/</code> folder.'
             ], [
                 'link' => 'https://inphinit.github.io/en/docs/routing/resource.html',
                 'title' => 'Resource routes',

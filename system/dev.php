@@ -457,8 +457,6 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
     });
 
     $app->action('ANY', '/session', function () use ($app) {
-        echo 's';
-
         $config = new Session('sample');
 
         var_dump($config->float);

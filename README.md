@@ -109,7 +109,7 @@ location / {
     ├───configs/               # Contain varied configuration files, it is recommended that you do not version this folder
     │   ├───app.php            # Don't add new keys, just change the values of existing ones if necessary
     │   └───debug.php          # Don't add new keys, just change the values of existing ones if necessary
-    ├───controllers/           # Must contain the classes that will be controllers used in the routes
+    ├───Controllers/           # Must contain the classes that will be controllers used in the routes
     ├───storage/               #
     ├───vendor/                # Contain third-party packages and the framework
     └───views/                 # Should contain your views
@@ -146,14 +146,14 @@ $foo = new Sample;
 $app->action('GET', '/class-method', [$foo, 'hello']);
 
 
-// do not add the Controller prefix, the framework itself will add
+// do not add the Controllers prefix, the framework itself will add
 $app->action('GET', '/controller', 'Boo\Bar::xyz');
 
 /**
- * Controller from `./system/controllers/Boo/Bar.php`:
+ * Controller from `./system/Controllers/Boo/Bar.php`:
  *
  * <?php
- * namespace Controller\Boo;
+ * namespace Controllers\Boo;
  *
  * class Bar {
  *    public function xyz() {

@@ -2,7 +2,7 @@
 use Inphinit\Viewing\View;
 
 /*
- * Navigate to: http://[your website]/generate-htaccess.php
+ * Navigate to: http://[your website]/checkup.php
  */
 
 if (!defined('INPHINIT_ROOT')) {

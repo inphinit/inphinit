@@ -42,7 +42,7 @@ $debug->setErrorView('debug.error');
 /**
  * PLEASE NOTE:
  *
- * - Below are examples of using the common features of the framework, you can remove everything below
+ * - Below are samples of using the common features of the framework, you can remove everything below
  * - The codes in this document will only work in developer mode
  */
 
@@ -54,8 +54,8 @@ $app->action('GET', '/info', function () {
     phpinfo();
 });
 
-$app->action('GET', '/examples/', function () {
-    View::render('examples');
+$app->action('GET', '/samples/', function () {
+    View::render('samples');
 });
 
 $app->action('GET', '/memory', function () {
@@ -450,9 +450,14 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
         $handleCom = new Size(Size::COM);
         $handleSystem = new Size(Size::SYSTEM);
 
-        var_dump($handleCurl->get(__DIR__ . '/main.php'));
-        var_dump($handleCom->get(__DIR__ . '/main.php'));
-        var_dump($handleSystem->get(__DIR__ . '/main.php'));
+        $file = __DIR__ . '/main.php';
+        $folder = __DIR__;
+
+        echo "{$file} file size:<pre>";
+        var_dump($handleCom->get($file));
+        var_dump($handleCurl->get($file));
+        var_dump($handleSystem->get($file));
+        echo '</pre>';
 
     });
 

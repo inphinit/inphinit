@@ -9,12 +9,13 @@
 
 ## Installing
 
-1. PHP supported version https://www.php.net/supported-versions.php
-    * While we recommend upgrading PHP for the best experience, backward compatibility is maintained for PHP 5.4 and above for users with upgrade limitations
+Requirements:
+
+1. Currently supported PHP version: https://www.php.net/supported-versions.php.
+    * Minimal _PHP 5.4_ (backward compatibility is maintained for users with upgrade limitations).
     * If you need a full-featured server for Windows or macOS, try: Wamp, Xampp, Laragon, EasyPHP, AMPPS, etc.
-1. Multibyte String (GD also) (optional, only used in `Inphinit\Utility\Strings` class)
-1. libiconv (optional, only used in `Inphinit\Utility\Strings` class)
-1. COM or cURL (optional, only used in `Inphinit\Filesystem\Size`)
+1. (Optional) Intl PHP extension to use `Inphinit\Utility\Strings` class.
+1. (Optional) COM PHP extension or cURL PHP extension to use `Inphinit\Filesystem\Size` class.
 
 After installing PHP, you can install Inphinit using Composer or Git.
 

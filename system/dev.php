@@ -536,11 +536,27 @@ $app->scope('*://localhost:*/utilities/', function ($app, $params) {
     });
 
     $app->action('GET', '/strings', function () {
+        echo '<h2>String to ASCII</h2>';
+
+        $items = [
+            'a e á é í ó ú â ê ô ã õ ÿ ? #',
+            '冒険エレキテ島',
+            '재벌집 막내아들',
+            '中山狼傳',
+            'Grüß Gott',
+            'Αλφαβητικός Κατάλογος',
+            'жар-пти́ца',
+            'هزار و یک شب'
+        ];
+
+        foreach ($items as $str) {
+            echo 'Original: ', $str, '<br>';
+            echo 'ASCII: ', Strings::toAscii($str), '<hr>';
+        }
+
+        echo '<h2>Capitalize</h2>';
+
         echo '<pre>';
-        var_dump(Strings::toAscii('a e á é í ? #'));
-
-        var_dump(Strings::toAscii('안녕! 세계!'));
-
         var_dump(Strings::capitalize('foo-bar-baz'));
 
         var_dump(Strings::capitalize('foo bar baz', ' '));

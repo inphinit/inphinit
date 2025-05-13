@@ -237,14 +237,14 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
     });
 
     // custom pattern
-    $app->action('GET', '/custom/<myexample:example>', function ($app, $params) {
+    $app->action('GET', '/custom/<codeparam:customcode>', function ($app, $params) {
         echo '<h1>custom pattern</h1>';
         echo '<pre>';
         print_r($params);
         echo '</pre>';
     });
 
-    $app->setPattern('example', '[A-Z]\d+');
+    $app->setPattern('customcode', '[A-Z]\d+');
 });
 
 // DOM
@@ -366,7 +366,8 @@ $app->scope('*://localhost:*/dom/', function ($app, $params) {
         Document::setSeverityLevels(Document::ERROR | Document::FATAL | Document::WARNING);
 
         $handle = new Document(Document::XML);
-        $handle->load('public/error.xml', true);
+        $handle->load('C:\DATA\projects\inphinit\public\error.xml', true);
+        //$handle->load('file:////DATA/projects/inphinit/public/error.xml', true);
 
         echo '<pre>';
         var_dump(htmlentities($handle->dump()));
@@ -503,35 +504,82 @@ $app->scope('*://localhost:*/utilities/', function ($app, $params) {
             ]
         ];
 
+        echo '<h2>List</h2>';
+
+        echo '<code>Arrays::associative($list)</code>: ';
+        var_dump(Arrays::associative($list));
+        echo '<br>';
+
+        echo '<code>Arrays::indexed($list)</code>: ';
+        var_dump(Arrays::indexed($list));
+        echo '<br>';
+
+        echo '<code>Arrays::iterable($list)</code>: ';
+        var_dump(Arrays::iterable($list));
+        echo '<br>';
+
+        echo '<pre>$list = ';
+        var_export($list);
+        echo '</pre><hr>';
+
+        echo '<h2>Associative</h2>';
+
+        echo '<code>Arrays::associative($assoc)</code>: ';
+        var_dump(Arrays::associative($assoc));
+        echo '<br>';
+
+        echo '<code>Arrays::indexed($assoc)</code>: ';
+        var_dump(Arrays::indexed($assoc));
+        echo '<br>';
+
+        echo '<code>Arrays::iterable($assoc)</code>: ';
+        var_dump(Arrays::iterable($assoc));
+        echo '<br>';
+
+        echo '<pre>$assoc = ';
+        var_export($assoc);
+        echo '</pre><hr>';
+
+        echo '<h2>stdClass</h2>';
+
+        echo '<code>Arrays::iterable($std)</code>: ';
+        var_dump(Arrays::iterable($std));
+        echo '<br>';
+
+        echo '<pre>$std = ';
+        var_export($std);
+        echo '</pre><hr>';
+
+        echo '<h2>Sort multidimentional array</h2>';
+
+        echo 'Original:<br>';
+
         echo '<pre>';
-
-        var_dump(Arrays::iterable($list)); // Returns true
-        var_dump(Arrays::iterable($std)); // Returns false
-
-        var_dump(Arrays::indexed($list)); // Returns true
-        var_dump(Arrays::associative($list)); // Returns false
-
-        var_dump(Arrays::indexed($assoc)); // Returns false
-        var_dump(Arrays::associative($assoc)); // Returns true
-
-        Arrays::ksort($multidimentional); // same SORT_REGULAR
         print_r($multidimentional);
 
+        echo '<br>Arrays::ksort($multidimentional, SORT_REGULAR):<br>';
+        Arrays::ksort($multidimentional);
+        print_r($multidimentional);
+
+        echo '<br>Arrays::ksort($multidimentional, SORT_NUMERIC):<br>';
         Arrays::ksort($multidimentional, SORT_NUMERIC);
         print_r($multidimentional);
 
+        echo '<br>Arrays::ksort($multidimentional, SORT_STRING):<br>';
         Arrays::ksort($multidimentional, SORT_STRING);
         print_r($multidimentional);
 
+        echo '<br>Arrays::ksort($multidimentional, SORT_LOCALE_STRING):<br>';
         Arrays::ksort($multidimentional, SORT_LOCALE_STRING);
         print_r($multidimentional);
 
+        echo '<br>Arrays::ksort($multidimentional, SORT_NATURAL):<br>';
         Arrays::ksort($multidimentional, SORT_NATURAL);
         print_r($multidimentional);
 
+        echo '<br>Arrays::ksort($multidimentional, SORT_FLAG_CASE):<br>';
         Arrays::ksort($multidimentional, SORT_FLAG_CASE);
         print_r($multidimentional);
-
         echo '</pre>';
     });
 
@@ -578,12 +626,14 @@ $app->scope('*://localhost:*/utilities/', function ($app, $params) {
         $version->prerelease = ['a', 'b', 'c'];
         $version->build = ['1', '2', '3'];
 
+        // __toString
         echo "{$version}\n\n";
 
         $version = new Version('1.0.0+test');
 
         print_r($version);
 
+        // __toString
         echo "{$version}\n\n";
 
         echo '</pre>';

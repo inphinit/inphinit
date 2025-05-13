@@ -29,6 +29,7 @@ body > .skip:focus {
 }
 
 html, body {
+    background: #262833;
     min-height: 100vh;
     padding: 0;
     margin: 0;
@@ -42,7 +43,6 @@ html {
     font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif;
     font-size: 16px;
     color: #F7F6F6;
-    background: #262833;
     background: linear-gradient( 135deg, #262833 10%, #101015 100%);
 }
 
@@ -77,7 +77,7 @@ main h2 {
     font-size: 1.5rem;
 }
 
-#intro, #error, #others, #examples {
+#intro, #error, #others, #samples {
     flex: 1;
     display: flex;
     align-items: center;
@@ -98,7 +98,7 @@ main h2 {
     height: 100vh;
 }
 
-#examples {
+#samples {
     padding: 5rem 2rem 2rem 2rem;
 }
 
@@ -107,7 +107,7 @@ main h2 {
     padding-bottom: 1rem;
 }
 
-#intro h1, #others h1, #examples h1 {
+#intro h1, #others h1, #samples h1 {
     font-size: 9.5rem;
     font-weight: bold;
     background: linear-gradient(135deg, #FD6E6A 10%, #FFC600 100%);
@@ -117,7 +117,7 @@ main h2 {
     -webkit-text-fill-color: transparent;
 }
 
-#examples h1 {
+#samples h1 {
     font-size: 4.2rem;
 }
 
@@ -239,8 +239,8 @@ main h2 {
     background: rgba(255,255,255,.1);
 }
 
-@media (max-width: 1200px) {
-    #items > a {
+@media (max-width: 1000px) {
+    #items > dl {
         flex: 1 0 48%;
     }
 }
@@ -250,7 +250,7 @@ main h2 {
         font-size: 10px;
     }
 
-    #items > a {
+    #items > dl {
         flex: 1 0 1;
     }
 }

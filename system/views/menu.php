@@ -1,3 +1,9 @@
+<?php if (INPHINIT_PATH === '/'): ?>
+<a href="./samples/">Samples</a>
+<?php else: ?>
+<a href="../">Home</a>
+<?php endif; ?>
+
 <a href="https://inphinit.github.io/en/docs/"
     target="_blank" rel="nofollow noopener noreferrer">Documentation</a>
 <a href="https://inphinit.github.io/api/2.1/"

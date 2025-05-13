@@ -4,7 +4,7 @@ use Inphinit\Viewing\View;
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Inphinit PHP framework</title>
+    <title>Samples - Inphinit PHP framework</title>
     <?php View::render('header'); ?>
 </head>
 <body>
@@ -14,14 +14,13 @@ use Inphinit\Viewing\View;
             <?php View::render('menu'); ?>
         </nav>
 
-        <header id="examples">
-            <h1>Examples</h1>
+        <header id="samples">
+            <h1>Samples</h1>
         </header>
 
         <section id="items">
         <dl>
             <dt>Basic</dt>
-            <dd><a href="../">/</a></dd>
             <dd><a href="../info">/info</a></dd>
             <dd><a href="../memory">/memory</a></dd>
             <dd><a href="../warning">/warning</a></dd>

@@ -11,10 +11,6 @@ use Inphinit\Viewing\View;
     <a class="skip" href="#main">Skip to main content</a>
     <main>
         <header id="links">
-            <?php if (INPHINIT_PATH === '/'): ?>
-            <a href="./examples/">Examples</a>
-            <?php endif; ?>
-
             <?php View::render('menu'); ?>
         </header>
         <section id="intro">

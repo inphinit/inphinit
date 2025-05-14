@@ -8,12 +8,14 @@ define('INPHINIT_ROOT', str_replace('\\', '/', dirname(dirname(__DIR__))));
 define('INPHINIT_SYSTEM', INPHINIT_ROOT . '/system');
 define('INPHINIT_COMPOSER', false);
 
-require_once INPHINIT_SYSTEM . '/vendor/inphinit/framework/src/Inphinit/Packages.php';
+require_once INPHINIT_SYSTEM . '/vendor/inphinit/framework/src/boot.php';
 
-$packages = new Inphinit\Packages(INPHINIT_SYSTEM . '/vendor/composer');
+$packages = new Inphinit\Packages();
 
 $packages->setItem('Inphinit\\Experimental\\', 'vendor/inphinit/framework/src/Experimental');
 $packages->setItem('Inphinit\\', 'vendor/inphinit/framework/src/Inphinit');
+$packages->setItem('Controllers\\', 'Controllers');
+$packages->setItem('Models\\', 'Models');
 
 $packages->auto();
 

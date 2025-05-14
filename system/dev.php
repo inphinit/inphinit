@@ -206,6 +206,14 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
         echo 'Article name: ', $params['name'];
     });
 
+    function testCallback($params)
+    {
+        echo '<h1>Results testCallback():</h1>';
+        echo '<pre>';
+        print_r($params);
+        echo '</pre>';
+    }
+
     // Example: http://localhost:8000/test/foo-1000
     $app->action('GET', '/test/<id:num>', 'testCallback');
 
@@ -221,20 +229,14 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
 
     $app->action('GET', '/version/<value:version>', 'testCallback');
 
-    function testCallback($params)
-    {
-        echo '<h1>Results testCallback():</h1>';
-        echo '<pre>';
-        print_r($params);
-        echo '</pre>';
-    }
-
     $app->action('GET', '/nospace/<value:nospace>', function ($app, $params) {
         echo '<h1>nospace</h1>';
         echo '<pre>';
         print_r($params);
         echo '</pre>';
     });
+
+    $app->setPattern('customcode', '[A-Z]\d+');
 
     // custom pattern
     $app->action('GET', '/custom/<codeparam:customcode>', function ($app, $params) {
@@ -243,8 +245,6 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
         print_r($params);
         echo '</pre>';
     });
-
-    $app->setPattern('customcode', '[A-Z]\d+');
 });
 
 // DOM
@@ -641,10 +641,11 @@ $app->scope('*://localhost:*/utilities/', function ($app, $params) {
 });
 
 $app->scope('*://*/http/', function ($app, $params) {
+    // It can be used in any scope
+    Method::override();
+
     $app->action(['DELETE', 'PATCH', 'PUT'], '/methods', function () {
         $original = $_SERVER['REQUEST_METHOD'];
-
-        Method::override();
 
         $current = $_SERVER['REQUEST_METHOD'];
 

@@ -1,7 +1,8 @@
 <?php
+// Namespaces with more separators stay at the top.
 return array(
-    'Controllers\\' => 'Controllers',
-    'Inphinit\\' => 'vendor/inphinit/framework/src/Inphinit',
     'Inphinit\\Experimental\\' => 'vendor/inphinit/framework/src/Experimental',
+    'Inphinit\\' => 'vendor/inphinit/framework/src/Inphinit',
+    'Controllers\\' => 'Controllers',
     'Models\\' => 'Models',
 );

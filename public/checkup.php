@@ -50,6 +50,7 @@ function code_tag($message) {
     }
     ul.warn li {
         background-color: #e69e1b;
+        color: #000;
     }
 
     .done {

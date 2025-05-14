@@ -62,44 +62,47 @@ $app->action('GET', '/memory', function () {
     return 'memory peak usage: ' . round(memory_get_peak_usage() / 1024 / 1024, 3) . 'MB';
 });
 
-$app->action('GET', '/warning', function () {
-    echo "Foo\n";
-    echo $nonExistentVariable;
-    echo "Bar\n";
-    echo $_SERVER['NON_EXISTENT_INDEX'];
-    echo "Baz\n";
-});
+// Debug samples
+$app->scope('*://*/debug/', function ($app, $params) {
+    $app->action('GET', '/warning', function () {
+        echo "Foo\n";
+        echo $nonExistentVariable;
+        echo "Bar\n";
+        echo $_SERVER['NON_EXISTENT_INDEX'];
+        echo "Baz\n";
+    });
 
-$app->action('GET', '/error', function () {
-    echo "Foo\n";
-    undefined_function();
-    echo "Bar\n";
-});
+    $app->action('GET', '/error', function () {
+        echo "Foo\n";
+        undefined_function();
+        echo "Bar\n";
+    });
 
-$app->action('GET', '/exception', function () {
-    echo "Foo\n";
-    throw new \Exception('Exception sample');
-    echo "Bar\n";
-});
+    $app->action('GET', '/exception', function () {
+        echo "Foo\n";
+        throw new \Exception('Exception sample');
+        echo "Bar\n";
+    });
 
-$app->action('GET', '/eval-error', function () {
-    echo "Foo\n";
+    $app->action('GET', '/eval-error', function () {
+        echo "Foo\n";
 
-    eval('echo $undefined_variable;');
+        eval('echo $undefined_variable;');
 
-    echo "Bar\n";
+        echo "Bar\n";
 
-    eval('invalid sintax');
+        eval('invalid sintax');
 
-    echo "Baz\n";
+        echo "Baz\n";
+    });
 });
 
 // In development mode it will predict unloaded controllers or callables exist
-$app->scope('*://*/invalid/function/', function ($app, $params) {
+$app->scope('*://*/debug/invalid/function/', function ($app, $params) {
     $app->action('ANY', '/', 'undefined_function');
 });
 
-$app->scope('*://*/invalid/class-method/', function ($app, $params) {
+$app->scope('*://*/debug/invalid/class-method/', function ($app, $params) {
     class Sample {}
 
     $instance = new Sample();
@@ -107,7 +110,7 @@ $app->scope('*://*/invalid/class-method/', function ($app, $params) {
     $app->action('ANY', '/', [$instance, 'method']);
 });
 
-$app->scope('*://*/invalid/static-method/', function ($app, $params) {
+$app->scope('*://*/debug/invalid/static-method/', function ($app, $params) {
     $app->action('ANY', '/', ['NotExistClass', 'method']);
 });
 
@@ -131,20 +134,6 @@ $app->scope('*://localhost:*/maintenance/', function ($app, $params) {
     });
 });
 
-// Group routes only HTTPS
-$app->scope('https://*/secure/', function ($app, $params) {
-    $app->action('GET', '/', function () {
-        return '"Hello World" running on HTTPS';
-    });
-});
-
-// Group routes only HTTP
-$app->scope('http://*/nonsecure/', function ($app, $params) {
-    $app->action('GET', '/', function () {
-        return '"Hello World" running on HTTP';
-    });
-});
-
 $app->scope('*://*/treaty/', function ($app, $params) {
     TreatyController::action($app);
 
@@ -165,11 +154,25 @@ $app->scope('*://*/resource/', function ($app, $params) {
     $app->action('GET', '/', 'ResourceController:index');
     $app->action('GET', '/create', 'ResourceController:create');
     $app->action('POST', '/', 'ResourceController:store');
-    $app->action('GET', '/{:[^/]+:}/edit', 'ResourceController:edit');
-    $app->action('GET', '/{:[^/]+:}', 'ResourceController:show');
-    $app->action('PUT', '/{:[^/]+:}', 'ResourceController:update');
-    $app->action('DELETE', '/{:[^/]+:}', 'ResourceController:destroy');
+    $app->action('GET', '/<id>/edit', 'ResourceController:edit');
+    $app->action('GET', '/<id>', 'ResourceController:show');
+    $app->action('PUT', '/<id>', 'ResourceController:update');
+    $app->action('DELETE', '/<id>', 'ResourceController:destroy');
     */
+});
+
+// Group routes only HTTPS
+$app->scope('https://*/routes/secure/', function ($app, $params) {
+    $app->action('GET', '/', function () {
+        return '"Hello World" running on HTTPS';
+    });
+});
+
+// Group routes only HTTP
+$app->scope('http://*/routes/nonsecure/', function ($app, $params) {
+    $app->action('GET', '/', function () {
+        return '"Hello World" running on HTTP';
+    });
 });
 
 // Route patterns

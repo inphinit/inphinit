@@ -720,7 +720,7 @@ $app->scope('*://localhost:*/samples/utilities/', function ($app, $params) {
     });
 
     $app->action('GET', '/url', function () {
-        $str = 'https://inphinit.github.io/foo/../bar/./á é í/user@localhost/Á É Í Ó/Αλφαβητικός/재벌집';
+        $str = 'https://inphinit.github.io/foo/../bar/./á é í/user@localhost/Á É Í Ó/Αλφαβητικός/섭지코지?Z=1&B=2&C=3&Y=4#fragment';
 
         echo 'Original: ', $str, '<hr>';
 

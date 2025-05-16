@@ -46,24 +46,20 @@ $debug->setErrorView('debug.error');
  * - The codes in this document will only work in developer mode
  */
 
-$app->action('GET', '/xyzz', function () {
-    View::render('testa');
+$app->action('GET', '/samples/info', function () {
+    phpinfo();
 });
 
-$app->action('GET', '/info', function () {
-    phpinfo();
+$app->action('GET', '/samples/memory', function () {
+    return 'memory peak usage: ' . round(memory_get_peak_usage() / 1024 / 1024, 3) . 'MB';
 });
 
 $app->action('GET', '/samples/', function () {
     View::render('samples');
 });
 
-$app->action('GET', '/memory', function () {
-    return 'memory peak usage: ' . round(memory_get_peak_usage() / 1024 / 1024, 3) . 'MB';
-});
-
 // Debug samples
-$app->scope('*://*/debug/', function ($app, $params) {
+$app->scope('*://*/samples/debug/', function ($app, $params) {
     $app->action('GET', '/warning', function () {
         echo "Foo\n";
         echo $nonExistentVariable;
@@ -98,11 +94,11 @@ $app->scope('*://*/debug/', function ($app, $params) {
 });
 
 // In development mode it will predict unloaded controllers or callables exist
-$app->scope('*://*/debug/invalid/function/', function ($app, $params) {
+$app->scope('*://*/samples/debug/invalid/function/', function ($app, $params) {
     $app->action('ANY', '/', 'undefined_function');
 });
 
-$app->scope('*://*/debug/invalid/class-method/', function ($app, $params) {
+$app->scope('*://*/samples/debug/invalid/class-method/', function ($app, $params) {
     class Sample {}
 
     $instance = new Sample();
@@ -110,12 +106,12 @@ $app->scope('*://*/debug/invalid/class-method/', function ($app, $params) {
     $app->action('ANY', '/', [$instance, 'method']);
 });
 
-$app->scope('*://*/debug/invalid/static-method/', function ($app, $params) {
+$app->scope('*://*/samples/debug/invalid/static-method/', function ($app, $params) {
     $app->action('ANY', '/', ['NotExistClass', 'method']);
 });
 
 // Maintenance toggle
-$app->scope('*://localhost:*/maintenance/', function ($app, $params) {
+$app->scope('*://localhost:*/samples/maintenance/', function ($app, $params) {
     // If the request comes from "127.0.0.1" or is in development mode, it will bypass maintenance mode
     Maintenance::bypass(function () {
         return $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || App::config('development');
@@ -134,7 +130,7 @@ $app->scope('*://localhost:*/maintenance/', function ($app, $params) {
     });
 });
 
-$app->scope('*://*/treaty/', function ($app, $params) {
+$app->scope('*://*/samples/treaty/', function ($app, $params) {
     TreatyController::action($app);
 
     /*
@@ -145,7 +141,7 @@ $app->scope('*://*/treaty/', function ($app, $params) {
     */
 });
 
-$app->scope('*://*/resource/', function ($app, $params) {
+$app->scope('*://*/samples/resource/', function ($app, $params) {
     ResourceController::action($app);
 
     /*
@@ -162,28 +158,21 @@ $app->scope('*://*/resource/', function ($app, $params) {
 });
 
 // Group routes only HTTPS
-$app->scope('https://*/routes/secure/', function ($app, $params) {
+$app->scope('https://*/samples/routes/samples/secure/', function ($app, $params) {
     $app->action('GET', '/', function () {
         return '"Hello World" running on HTTPS';
     });
 });
 
 // Group routes only HTTP
-$app->scope('http://*/routes/nonsecure/', function ($app, $params) {
+$app->scope('http://*/samples/routes/nonsecure/', function ($app, $params) {
     $app->action('GET', '/', function () {
         return '"Hello World" running on HTTP';
     });
 });
 
 // Route patterns
-$app->scope('*://localhost:*/routes/', function ($app, $params) {
-
-    $app->action('GET', '/foo/<foo>/<bar>', function ($app, $params) {
-        echo 'response from /&lt;foo>/&lt;bar>';
-        echo '<pre>';
-        print_r($params);
-        echo '</pre>';
-    });
+$app->scope('*://localhost:*/samples/routes/', function ($app, $params) {
 
     $app->action('GET', '/foo/<foo>-<bar>', function ($app, $params) {
         echo 'response from /&lt;foo>-&lt;bar>';
@@ -198,7 +187,7 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
             echo 'Article ID: ', $params['id'], '<br>';
             echo 'Article name: ', $params['name'];
         } else {
-            $app->status(400);
+            Response::status(400);
             echo 'Invalid URL';
         }
     });
@@ -209,7 +198,7 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
         echo 'Article name: ', $params['name'];
     });
 
-    function testCallback($params)
+    function testCallback($app, $params)
     {
         echo '<h1>Results testCallback():</h1>';
         echo '<pre>';
@@ -251,7 +240,7 @@ $app->scope('*://localhost:*/routes/', function ($app, $params) {
 });
 
 // DOM
-$app->scope('*://localhost:*/dom/', function ($app, $params) {
+$app->scope('*://localhost:*/samples/dom/', function ($app, $params) {
     // DOM CSS-selector
     $app->action('GET', '/css-selector', function () {
         $handle = new Document(Document::HTML);
@@ -390,7 +379,7 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
         Event::trigger('foobar', ['param1', microtime(true)]);
     });
 
-    $app->action('ANY', '/config', function () use ($app) {
+    $app->action('ANY', '/config', function ($app) {
         $config = new Config('sample');
 
         echo '<pre>';
@@ -410,7 +399,6 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
         $config->commit(); // Save
     });
 
-    // HTTP Response headers
     $app->action('ANY', '/file', function () {
         echo '<pre>';
 
@@ -450,38 +438,126 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
     });
 
     $app->action('GET', '/filesize', function () {
-        $handleCurl = new Size(Size::CURL);
+        $handleFallback = new Size(); // Same new Size(Size::COM|Size::CURL|Size::SYSTEM)
         $handleCom = new Size(Size::COM);
+        $handleCurl = new Size(Size::CURL);
         $handleSystem = new Size(Size::SYSTEM);
 
         $file = __DIR__ . '/main.php';
         $folder = __DIR__;
 
         echo "{$file} file size:<pre>";
-        var_dump($handleCom->get($file));
-        var_dump($handleCurl->get($file));
-        var_dump($handleSystem->get($file));
+
+        echo 'With fallback: Size::COM|Size::CURL|Size::SYSTEM: ';
+
+        try {
+            var_dump($handleFallback->get($file));
+        } catch (Exception $ee) {
+            echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
+        }
+
+        echo '<br>With Size::COM: ';
+
+        try {
+            var_dump($handleCom->get($file));
+        } catch (Exception $ee) {
+            echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
+        }
+
+        echo '<br>With Size::CURL: ';
+
+        try {
+            var_dump($handleCurl->get($file));
+        } catch (Exception $ee) {
+            echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
+        }
+
+        echo '<br>With Size::SYSTEM: ';
+
+        try {
+            var_dump($handleSystem->get($file));
+        } catch (Exception $ee) {
+            echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
+        }
+        echo '</pre><hr>';
+
+        $file = 'invalid.txt';
+
+        echo "{$file} file size:<pre>";
+
+        echo 'Size::COM: ';
+
+        try {
+            var_dump($handleCom->get($file));
+        } catch (Exception $ee) {
+            echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
+        }
+
+        echo '<br>Size::CURL: ';
+
+        try {
+            var_dump($handleCurl->get($file));
+        } catch (Exception $ee) {
+            echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
+        }
+
+        echo '<br>{Size::SYSTEM}: ';
+
+        try {
+            var_dump($handleSystem->get($file));
+        } catch (Exception $ee) {
+            echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
+        }
         echo '</pre>';
 
     });
 
-    $app->action('ANY', '/session', function () use ($app) {
-        $config = new Session('sample');
+    $app->action('ANY', '/session', function ($app) {
+        $session = new Session('sample');
 
-        var_dump($config->float);
-        var_dump($config->int);
-        var_dump($config->octal);
+        echo 'Session ID: ', $session->getId(), '<br>';
 
-        $config->float = 99.9;
-        $config->int = 100;
-        $config->octal = 0666;
+        var_dump($session->float);
+        var_dump($session->int);
+        var_dump($session->octal);
 
-        $config->commit(); // Save
+        $session->float = 99.9;
+        $session->int = 100;
+        $session->octal = 0666;
+
+        $session->commit(); // Save
+    });
+
+    $app->action('ANY', '/session/reset', function ($app) {
+        $session = new Session('sample');
+
+        echo 'Session ID: ', $session->getId(), '<br>';
+
+        $session->float = null;
+        $session->int = null;
+        $session->octal = null;
+
+        $session->commit(); // Save
+
+        echo 'Reset session';
+    });
+
+    $app->action('ANY', '/session/regenerate', function ($app) {
+        $session = new Session('sample');
+
+        echo 'Previous Session ID: ', $session->getId(), '<br>';
+
+        $session->regenerate();
+
+        echo 'Current Session ID: ', $session->getId(), '<br>';
+
+        // saves data that may not have been added yet
+        $session->commit();
     });
 });
 
 // Utilities
-$app->scope('*://localhost:*/utilities/', function ($app, $params) {
+$app->scope('*://localhost:*/samples/utilities/', function ($app, $params) {
     $app->action('GET', '/arrays', function () {
 
         $list = [0 => 'foo', 1 => 'bar'];
@@ -643,70 +719,18 @@ $app->scope('*://localhost:*/utilities/', function ($app, $params) {
     });
 });
 
-$app->scope('*://*/http/', function ($app, $params) {
-    // It can be used in any scope
+$app->scope('*://*/samples/http/', function ($app, $params) {
     Method::override();
 
     $app->action(['DELETE', 'PATCH', 'PUT'], '/methods', function () {
-        $original = $_SERVER['REQUEST_METHOD'];
-
+        $original = Method::original();
         $current = $_SERVER['REQUEST_METHOD'];
 
-        return "Original: {$original} - Current: {$current}";
+        echo 'Original method: ', $original, '<br>';
+        echo 'Current method: ', $current, '<br>';
     });
 
-    // Accept headers
-    $app->action('GET', '/negotiation/<option>/<sort>', function ($app, $params) {
-        $negotiation = new Negotiation();
-
-        switch ($params['sort']) {
-            case 'high':
-                $sortQFactor = Negotiation::HIGH;
-                break;
-            case 'low':
-                $sortQFactor = Negotiation::LOW;
-                break;
-            default:
-                $sortQFactor = Negotiation::ALL;
-        }
-
-        switch ($params['option']) {
-            case 'charset':
-                $langs = $negotiation->acceptCharset($sortQFactor);
-                $priority = $negotiation->getCharset();
-                break;
-            case 'custom':
-                $langs = $negotiation->header('accept-foo', $sortQFactor);
-                $priority = null;
-                break;
-            case 'encoding':
-                $langs = $negotiation->acceptEncoding($sortQFactor);
-                $priority = $negotiation->getEncoding();
-                break;
-            case 'language':
-                $langs = $negotiation->acceptLanguage($sortQFactor);
-                $priority = $negotiation->getLanguage();
-                break;
-            default:
-                $langs = $negotiation->accept($sortQFactor);
-                $priority = $negotiation->getAccept();
-        }
-
-        echo '<h1>Negotiation: ', $params['option'], '</h1>';
-
-        echo '<h2>Supporteds</h1>';
-        echo '<pre>';
-        print_r($langs);
-        echo '</pre>';
-
-        echo '<h2>Priority</h2>';
-        echo '<pre>';
-        var_dump($priority);
-        echo '</pre>';
-    });
-
-    // HTTP Response headers
-    $app->action('ANY', '/headers', function () {
+    $app->action('ANY', '/cache', function () {
         View::render('home', [
             'items' => [],
             'version' => null,
@@ -726,5 +750,204 @@ $app->scope('*://*/http/', function ($app, $params) {
         ]);
 
         Response::download('page.html');
+    });
+
+    // Accept headers
+    $app->action('GET', '/negotiation', function ($app, $params) {
+        $negotiation = new Negotiation();
+
+
+        // accept: header
+        echo '<h2>accept: (content-type)</h2>';
+
+        $priority = $negotiation->getAccept();
+
+        echo '<p>Priority: ';
+        var_dump($priority);
+        echo '</p>';
+
+        $list = $negotiation->accept(Negotiation::HIGH);
+
+        echo '<p>Types sorted with Negotiation::HIGH</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+
+        $list = $negotiation->accept(Negotiation::LOW);
+
+        echo '<p>Types sorted with Negotiation::LOW</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+
+        $list = $negotiation->accept(Negotiation::ALL);
+
+        echo '<p>All types (Negotiation::ALL)</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+
+
+        // accept-charset: header
+        echo '<hr><h2>accept-charset:</h2>';
+
+        $priority = $negotiation->getCharset();
+
+        echo '<p>Priority: ';
+        var_dump($priority);
+        echo '</p>';
+
+        $list = $negotiation->acceptCharset(Negotiation::HIGH);
+
+        echo '<p>Charsets sorted with Negotiation::HIGH</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+
+        $list = $negotiation->acceptCharset(Negotiation::LOW);
+
+        echo '<p>Charsets sorted with Negotiation::LOW</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+
+        $list = $negotiation->acceptCharset(Negotiation::ALL);
+
+        echo '<p>All charsets (Negotiation::ALL)</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+
+
+        // accept-encoding: header
+        echo '<hr><h2>accept-encoding:</h2>';
+
+        $priority = $negotiation->getEncoding();
+
+        echo '<p>Priority: ';
+        var_dump($priority);
+        echo '</p>';
+
+        $list = $negotiation->acceptEncoding(Negotiation::HIGH);
+
+        echo '<p>Encodings sorted with Negotiation::HIGH</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+
+        $list = $negotiation->acceptEncoding(Negotiation::LOW);
+
+        echo '<p>Encodings sorted with Negotiation::LOW</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+
+        $list = $negotiation->acceptEncoding(Negotiation::ALL);
+
+        echo '<p>All encodings (Negotiation::ALL)</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+
+
+        // accept-language: header
+        echo '<hr><h2>accept-language:</h2>';
+
+        $priority = $negotiation->getLanguage();
+
+        echo '<p>Priority: ';
+        var_dump($priority);
+        echo '</p>';
+
+        $list = $negotiation->acceptLanguage(Negotiation::HIGH);
+
+        echo '<p>Languages sorted with Negotiation::HIGH</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+
+        $list = $negotiation->acceptLanguage(Negotiation::LOW);
+
+        echo '<p>Languages sorted with Negotiation::LOW</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+
+        $list = $negotiation->acceptLanguage(Negotiation::ALL);
+
+        echo '<p>All languages (Negotiation::ALL)</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+
+
+        // Custom header
+        echo '<hr><h2>Custom header:</h2>';
+
+        $list = $negotiation->header('accept-foo', Negotiation::HIGH);
+
+        echo '<p>Accept-Foo: sorted with Negotiation::HIGH</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+
+        $list = $negotiation->header('accept-foo', Negotiation::LOW);
+
+        echo '<p>Accept-foo: sorted with Negotiation::LOW</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+
+        $list = $negotiation->header('accept-foo', Negotiation::ALL);
+
+        echo '<p>All accept-foo: (Negotiation::ALL)</p>';
+        echo '<pre>';
+        var_dump($list);
+        echo '</pre>';
+    });
+
+    $app->action('GET', '/negotiation/string', function ($app, $params) {
+        $str = <<<EOT
+Foo-header: FOO; q=0.1, BAR; q=0.9, BAZ, BOO; q = 0.3
+Accept: application/xml; q=0.5, application/json; q=0.9
+EOT;
+
+        $negotiation = Negotiation::fromString($str);
+
+        // accept: header
+        echo '<h2>Negotiation::fromString()</h2>';
+
+        echo '<p>String:</p><pre>', $str,'</pre><hr>';
+
+        $priority = $negotiation->getAccept();
+
+        echo '<p>Priority accept: header: ';
+        var_dump($priority);
+        echo '</p><hr>';
+
+        $fooHeaders = $negotiation->accept(Negotiation::HIGH);
+
+        echo '<p>Accept:</p>';
+        echo '<pre>';
+        var_dump($fooHeaders);
+        echo '</pre>';
+
+        $fooHeaders = $negotiation->header('FOO-HEADER', Negotiation::HIGH);
+
+        echo '<p>Foo-Header:</p>';
+        echo '<pre>';
+        var_dump($fooHeaders);
+        echo '</pre>';
+    });
+
+    $app->action('GET', '/negotiation/qfactor', function ($app, $params) {
+        $entry = 'object3d/ball;q=0.2,object3d/square;q=0.9,object3d/capsule;q=0.5';
+
+        $customEntry = Negotiation::qFactor($entry, Negotiation::HIGH);
+
+        echo '<p>Parse: <code>', $entry, '</code></p>';
+        echo '<pre>';
+        var_dump($customEntry);
+        echo '</pre>';
     });
 });

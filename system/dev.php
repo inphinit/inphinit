@@ -726,7 +726,7 @@ $app->scope('*://localhost:*/samples/utilities/', function ($app, $params) {
 
         $url = new Url($str);
         $url->normalize();
-        echo '<h2>Canon path:</h2>', $url, '<hr>';
+        echo '<h2>Canon URL path:</h2>', $url, '<hr>';
 
         $url = new Url($str);
         $url->normalize(Url::PATH_ASCII);
@@ -750,7 +750,11 @@ $app->scope('*://localhost:*/samples/utilities/', function ($app, $params) {
 
         $url = new Url($str);
         $url->normalize(Url::PATH_ASCII|Url::PATH_SLUG|Url::SORT_QUERY);
-        echo '<h2>PATH_ASCII+PATH_SLUG+SORT_QUERY:</h2>', $url;
+        echo '<h2>PATH_ASCII+PATH_SLUG+SORT_QUERY:</h2>', $url, '<hr>';
+
+        $url = new Url('/foo/../bar/./á é í/user@localhost/Á É Í Ó/Αλφαβητικός');
+        $url->normalize(Url::PATH_ASCII|Url::PATH_SLUG);
+        echo '<h2>Only path (PATH_ASCII+PATH_SLUG):</h2>', $url;
     });
 });
 

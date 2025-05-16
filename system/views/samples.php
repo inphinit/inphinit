@@ -94,6 +94,8 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/filesize">/samples/filesize</a></dd>
             <dd><a href="../samples/utilities/arrays">/utilities/arrays</a></dd>
             <dd><a href="../samples/utilities/strings">/utilities/strings</a></dd>
+            <dd><a href="../samples/utilities/version">/utilities/version</a></dd>
+            <dd><a href="../samples/utilities/url">/utilities/url</a></dd>
             <dd><a href="../samples/session">/samples/session</a></dd>
             <dd><a href="../samples/session/reset">/samples/session/reset</a></dd>
             <dd><a href="../samples/session/regenerate">/samples/session/regenerate</a></dd>

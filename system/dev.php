@@ -20,6 +20,7 @@ use Inphinit\Http\Response;
 use Inphinit\Utility\Arrays;
 use Inphinit\Utility\Strings;
 use Inphinit\Utility\Version;
+use Inphinit\Utility\Url;
 
 use Inphinit\Experimental\Http\Method;
 
@@ -706,7 +707,7 @@ $app->scope('*://localhost:*/samples/utilities/', function ($app, $params) {
         $version->build = ['1', '2', '3'];
 
         // __toString
-        echo "{$version}\n\n";
+        echo "After: {$version}\n\n";
 
         $version = new Version('1.0.0+test');
 
@@ -716,6 +717,40 @@ $app->scope('*://localhost:*/samples/utilities/', function ($app, $params) {
         echo "{$version}\n\n";
 
         echo '</pre>';
+    });
+
+    $app->action('GET', '/url', function () {
+        $str = 'https://inphinit.github.io/foo/../bar/./á é í/user@localhost/Á É Í Ó/Αλφαβητικός/재벌집';
+
+        echo 'Original: ', $str, '<hr>';
+
+        $url = new Url($str);
+        $url->normalize();
+        echo '<h2>Canon path:</h2>', $url, '<hr>';
+
+        $url = new Url($str);
+        $url->normalize(Url::PATH_ASCII);
+        echo '<h2>PATH_ASCII:</h2>', $url, '<hr>';
+
+        $url = new Url($str);
+        $url->normalize(Url::PATH_UNICODE);
+        echo '<h2>PATH_UNICODE:</h2>', $url, '<hr>';
+
+        $url = new Url($str);
+        $url->normalize(Url::PATH_SLUG);
+        echo '<h2>PATH_SLUG:</h2>', $url, '<hr>';
+
+        $url = new Url($str);
+        $url->normalize(Url::SORT_QUERY);
+        echo '<h2>SORT_QUERY:</h2>', $url, '<hr>';
+
+        $url = new Url($str);
+        $url->normalize(Url::PATH_UNICODE|Url::PATH_SLUG|Url::SORT_QUERY);
+        echo '<h2>PATH_UNICODE+PATH_SLUG+SORT_QUERY:</h2>', $url, '<hr>';
+
+        $url = new Url($str);
+        $url->normalize(Url::PATH_ASCII|Url::PATH_SLUG|Url::SORT_QUERY);
+        echo '<h2>PATH_ASCII+PATH_SLUG+SORT_QUERY:</h2>', $url;
     });
 });
 

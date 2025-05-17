@@ -83,22 +83,22 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/http/negotiation">/http/negotiation</a></dd>
             <dd><a href="../samples/http/negotiation/string">/http/negotiation/string</a></dd>
             <dd><a href="../samples/http/negotiation/qfactor">/http/negotiation/qfactor</a></dd>
-            <dd><a href="../samples/http/methods?_method=DELETE">/http/methods?_method=DELETE</a></dd>
-            <dd><a href="../samples/http/methods?_HttpMethod=patch">/http/methods?_HttpMethod=patch</a></dd>
+            <dd><a href="../samples/http/methods?_method=DELETE">/http/methods?_method=DELETE (Experimental)</a></dd>
+            <dd><a href="../samples/http/methods?_HttpMethod=patch">/http/methods?_HttpMethod=patch (Experimental)</a></dd>
         </dl>
 
         <dl>
             <dt>Others</dt>
-            <dd><a href="../samples/event">/samples/event</a></dd>
-            <dd><a href="../samples/file">/samples/file</a></dd>
-            <dd><a href="../samples/filesize">/samples/filesize</a></dd>
+            <dd><a href="../samples/event">/event</a></dd>
+            <dd><a href="../samples/file">/file</a></dd>
+            <dd><a href="../samples/filesize">/filesize</a></dd>
             <dd><a href="../samples/utilities/arrays">/utilities/arrays</a></dd>
             <dd><a href="../samples/utilities/strings">/utilities/strings</a></dd>
             <dd><a href="../samples/utilities/version">/utilities/version</a></dd>
             <dd><a href="../samples/utilities/url">/utilities/url</a></dd>
-            <dd><a href="../samples/session">/samples/session</a></dd>
-            <dd><a href="../samples/session/reset">/samples/session/reset</a></dd>
-            <dd><a href="../samples/session/regenerate">/samples/session/regenerate</a></dd>
+            <dd><a href="../samples/session">/session</a></dd>
+            <dd><a href="../samples/session/reset">/session/reset</a></dd>
+            <dd><a href="../samples/session/regenerate">/session/regenerate</a></dd>
         </dl>
 
         <dl>

@@ -359,8 +359,7 @@ $app->scope('*://localhost:*/samples/dom/', function ($app, $params) {
         Document::setSeverityLevels(Document::ERROR | Document::FATAL | Document::WARNING);
 
         $handle = new Document(Document::XML);
-        $handle->load('C:\DATA\projects\inphinit\public\error.xml', true);
-        //$handle->load('file:////DATA/projects/inphinit/public/error.xml', true);
+        $handle->load('public/error.xml', true);
 
         echo '<pre>';
         var_dump(htmlentities($handle->dump()));
@@ -720,7 +719,7 @@ $app->scope('*://localhost:*/samples/utilities/', function ($app, $params) {
     });
 
     $app->action('GET', '/url', function () {
-        $str = 'https://inphinit.github.io/foo/../bar/./á é í/user@localhost/Á É Í Ó/Αλφαβητικός/섭지코지?Z=1&B=2&C=3&Y=4#fragment';
+        $str = "https://sample.io/foo/../--x--/./ã é ô ü/user@local/Ã É Ô Ü/Αλφαβητικός/섭지코지/\r\ntest\t /?Z=1&B=2&C=3&Y=4#fragment";
 
         echo 'Original: ', $str, '<hr>';
 
@@ -752,9 +751,25 @@ $app->scope('*://localhost:*/samples/utilities/', function ($app, $params) {
         $url->normalize(Url::PATH_ASCII|Url::PATH_SLUG|Url::SORT_QUERY);
         echo '<h2>PATH_ASCII+PATH_SLUG+SORT_QUERY:</h2>', $url, '<hr>';
 
-        $url = new Url('/foo/../bar/./á é í/user@localhost/Á É Í Ó/Αλφαβητικός');
+        $url = new Url('/foo/../bar/./á é í/user@localhost/Á É Í Ó/Αλφαβητικός/');
         $url->normalize(Url::PATH_ASCII|Url::PATH_SLUG);
-        echo '<h2>Only path (PATH_ASCII+PATH_SLUG):</h2>', $url;
+        echo '<h2>Only path (PATH_ASCII+PATH_SLUG):</h2>', $url, '<hr>';
+
+        $path = '/home/foo/../bar/./test.txt';
+
+        echo '<h2>Canon path:</h2>';
+        echo '<p>Before: ', $path,'</p>';
+
+        $path = Url::canonpath($path);
+        echo '<p>After: ', $path,'</p><hr>';
+
+        $path = 'C:\\home\\foo\\..\\bar\\.\\test.txt';
+
+        echo '<h2>Canon path:</h2>';
+        echo '<p>Before: ', $path,'</p>';
+
+        $path = Url::canonpath($path);
+        echo '<p>After: ', $path,'</p>';
     });
 });
 
@@ -980,7 +995,7 @@ EOT;
     });
 
     $app->action('GET', '/negotiation/qfactor', function ($app, $params) {
-        $entry = 'object3d/ball;q=0.2,object3d/square;q=0.9,object3d/capsule;q=0.5';
+        $entry = 'mesh/capsule;q=0.2,mesh/cube;q=0.9,mesh/cylinder;q=0.5,mesh/plane;q=0.4,mesh/quad;q=0.3,mesh/sphere;q=0.8';
 
         $customEntry = Negotiation::qFactor($entry, Negotiation::HIGH);
 

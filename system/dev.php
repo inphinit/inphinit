@@ -39,7 +39,6 @@ $debug->setErrorView('debug.error');
 // Display memory usage (uncomment next line for check memory peak usage and time)
 # $debug->setPerformanceView('debug.performance');
 
-
 /**
  * PLEASE NOTE:
  *
@@ -60,7 +59,7 @@ $app->action('GET', '/samples/', function () {
 });
 
 // Debug samples
-$app->scope('*://*/samples/debug/', function ($app, $params) {
+$app->scope('*://**/samples/debug/', function ($app, $params) {
     $app->action('GET', '/warning', function () {
         echo "Foo\n";
         echo $nonExistentVariable;
@@ -95,11 +94,11 @@ $app->scope('*://*/samples/debug/', function ($app, $params) {
 });
 
 // In development mode it will predict unloaded controllers or callables exist
-$app->scope('*://*/samples/debug/invalid/function/', function ($app, $params) {
+$app->scope('*://**/samples/debug/invalid/function/', function ($app, $params) {
     $app->action('ANY', '/', 'undefined_function');
 });
 
-$app->scope('*://*/samples/debug/invalid/class-method/', function ($app, $params) {
+$app->scope('*://**/samples/debug/invalid/class-method/', function ($app, $params) {
     class Sample {}
 
     $instance = new Sample();
@@ -107,12 +106,12 @@ $app->scope('*://*/samples/debug/invalid/class-method/', function ($app, $params
     $app->action('ANY', '/', [$instance, 'method']);
 });
 
-$app->scope('*://*/samples/debug/invalid/static-method/', function ($app, $params) {
+$app->scope('*://**/samples/debug/invalid/static-method/', function ($app, $params) {
     $app->action('ANY', '/', ['NotExistClass', 'method']);
 });
 
 // Maintenance toggle
-$app->scope('*://localhost:*/samples/maintenance/', function ($app, $params) {
+$app->scope('*://localhost:**/samples/maintenance/', function ($app, $params) {
     // If the request comes from "127.0.0.1" or is in development mode, it will bypass maintenance mode
     Maintenance::bypass(function () {
         return $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || App::config('development');
@@ -131,7 +130,7 @@ $app->scope('*://localhost:*/samples/maintenance/', function ($app, $params) {
     });
 });
 
-$app->scope('*://*/samples/treaty/', function ($app, $params) {
+$app->scope('*://**/samples/treaty/', function ($app, $params) {
     TreatyController::action($app);
 
     /*
@@ -142,7 +141,7 @@ $app->scope('*://*/samples/treaty/', function ($app, $params) {
     */
 });
 
-$app->scope('*://*/samples/resource/', function ($app, $params) {
+$app->scope('*://**/samples/resource/', function ($app, $params) {
     ResourceController::action($app);
 
     /*
@@ -159,21 +158,21 @@ $app->scope('*://*/samples/resource/', function ($app, $params) {
 });
 
 // Group routes only HTTPS
-$app->scope('https://*/samples/routes/samples/secure/', function ($app, $params) {
+$app->scope('https://**/samples/routes/samples/secure/', function ($app, $params) {
     $app->action('GET', '/', function () {
         return '"Hello World" running on HTTPS';
     });
 });
 
 // Group routes only HTTP
-$app->scope('http://*/samples/routes/nonsecure/', function ($app, $params) {
+$app->scope('http://**/samples/routes/nonsecure/', function ($app, $params) {
     $app->action('GET', '/', function () {
         return '"Hello World" running on HTTP';
     });
 });
 
 // Route patterns
-$app->scope('*://localhost:*/samples/routes/', function ($app, $params) {
+$app->scope('*://localhost:**/samples/routes/', function ($app, $params) {
 
     $app->action('GET', '/foo/<foo>-<bar>', function ($app, $params) {
         echo 'response from /&lt;foo>-&lt;bar>';
@@ -241,7 +240,7 @@ $app->scope('*://localhost:*/samples/routes/', function ($app, $params) {
 });
 
 // DOM
-$app->scope('*://localhost:*/samples/dom/', function ($app, $params) {
+$app->scope('*://localhost:**/samples/dom/', function ($app, $params) {
     // DOM CSS-selector
     $app->action('GET', '/css-selector', function () {
         $handle = new Document(Document::HTML);
@@ -368,7 +367,7 @@ $app->scope('*://localhost:*/samples/dom/', function ($app, $params) {
 });
 
 // Samples
-$app->scope('*://localhost:*/samples/', function ($app, $params) {
+$app->scope('*://localhost:**/samples/', function ($app, $params) {
     // Add event
     Event::on('foobar', function ($arg1, $arg2) {
         print_r([$arg1, $arg2]);
@@ -501,7 +500,7 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
             echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
         }
 
-        echo '<br>{Size::SYSTEM}: ';
+        echo '<br>Size::SYSTEM: ';
 
         try {
             var_dump($handleSystem->get($file));
@@ -557,7 +556,7 @@ $app->scope('*://localhost:*/samples/', function ($app, $params) {
 });
 
 // Utilities
-$app->scope('*://localhost:*/samples/utilities/', function ($app, $params) {
+$app->scope('*://localhost:**/samples/utilities/', function ($app, $params) {
     $app->action('GET', '/arrays', function () {
 
         $list = [0 => 'foo', 1 => 'bar'];
@@ -773,7 +772,7 @@ $app->scope('*://localhost:*/samples/utilities/', function ($app, $params) {
     });
 });
 
-$app->scope('*://*/samples/http/', function ($app, $params) {
+$app->scope('*://**/samples/http/', function ($app, $params) {
     Method::override();
 
     $app->action(['DELETE', 'PATCH', 'PUT'], '/methods', function () {

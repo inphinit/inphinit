@@ -712,47 +712,128 @@ $app->scope('*://localhost:**/samples/utilities/', function ($app, $params) {
         print_r($version);
 
         // __toString
-        echo "{$version}\n\n";
+        echo "{$version}<br>";
+
+        try {
+            $version->major = 'a';
+        } catch (\Exception $e) {
+            echo '$version->major: ', $e->getMessage(), '<br>';
+        }
+
+        try {
+            $version->minor = false;
+        } catch (\Exception $e) {
+            echo '$version->minor: ', $e->getMessage(), '<br>';
+        }
+
+        try {
+            $version->patch = [];
+        } catch (\Exception $e) {
+            echo '$version->patch: ', $e->getMessage(), '<br>';
+        }
+
+        try {
+            $version->prerelease = 'test';
+        } catch (\Exception $e) {
+            echo '$version->prerelease: ', $e->getMessage(), '<br>';
+        }
+
+        try {
+            $version->build = 'test';
+        } catch (\Exception $e) {
+            echo '$version->build: ', $e->getMessage(), '<br>';
+        }
+
+        // __toString
+        echo "{$version}";
 
         echo '</pre>';
     });
 
     $app->action('GET', '/url', function () {
-        $str = "https://sample.io/foo/../--x--/./ã é ô ü/user@local/Ã É Ô Ü/Αλφαβητικός/섭지코지/\r\ntest\t /?Z=1&B=2&C=3&Y=4#fragment";
+        $str = "https://usêr:pãss@sample.io/foo/../--x--/--/./ã é ô ü/user@local/Ã É Ô Ü/Αλφαβητικός/섭지코지/\r\ntest\t /?Z=1&B=2&C=3&Y=4#fragment";
 
         echo 'Original: ', $str, '<hr>';
 
         $url = new Url($str);
         $url->normalize();
-        echo '<h2>Canon URL path:</h2>', $url, '<hr>';
+        echo '<h2>Canon URL path:</h2>', $url;
+
+        echo '<pre>';
+        var_dump($url);
+        echo '</pre><hr>';
 
         $url = new Url($str);
         $url->normalize(Url::PATH_ASCII);
-        echo '<h2>PATH_ASCII:</h2>', $url, '<hr>';
+        echo '<h2>PATH_ASCII:</h2>', $url;
+
+        echo '<pre>';
+        var_dump($url);
+        echo '</pre><hr>';
 
         $url = new Url($str);
         $url->normalize(Url::PATH_UNICODE);
-        echo '<h2>PATH_UNICODE:</h2>', $url, '<hr>';
+        echo '<h2>PATH_UNICODE:</h2>', $url;
+
+        echo '<pre>';
+        var_dump($url);
+        echo '</pre><hr>';
 
         $url = new Url($str);
         $url->normalize(Url::PATH_SLUG);
-        echo '<h2>PATH_SLUG:</h2>', $url, '<hr>';
+        echo '<h2>PATH_SLUG:</h2>', $url;
+
+        echo '<pre>';
+        var_dump($url);
+        echo '</pre><hr>';
 
         $url = new Url($str);
         $url->normalize(Url::SORT_QUERY);
-        echo '<h2>SORT_QUERY:</h2>', $url, '<hr>';
+        echo '<h2>SORT_QUERY:</h2>', $url;
+
+        echo '<pre>';
+        var_dump($url);
+        echo '</pre><hr>';
 
         $url = new Url($str);
         $url->normalize(Url::PATH_UNICODE|Url::PATH_SLUG|Url::SORT_QUERY);
-        echo '<h2>PATH_UNICODE+PATH_SLUG+SORT_QUERY:</h2>', $url, '<hr>';
+        echo '<h2>PATH_UNICODE+PATH_SLUG+SORT_QUERY:</h2>', $url;
+
+        echo '<pre>';
+        var_dump($url);
+        echo '</pre><hr>';
 
         $url = new Url($str);
         $url->normalize(Url::PATH_ASCII|Url::PATH_SLUG|Url::SORT_QUERY);
-        echo '<h2>PATH_ASCII+PATH_SLUG+SORT_QUERY:</h2>', $url, '<hr>';
+        echo '<h2>PATH_ASCII+PATH_SLUG+SORT_QUERY:</h2>', $url;
+
+        echo '<pre>';
+        var_dump($url);
+        echo '</pre><hr>';
 
         $url = new Url('/foo/../bar/./á é í/user@localhost/Á É Í Ó/Αλφαβητικός/');
         $url->normalize(Url::PATH_ASCII|Url::PATH_SLUG);
-        echo '<h2>Only path (PATH_ASCII+PATH_SLUG):</h2>', $url, '<hr>';
+        echo '<h2>Only path (PATH_ASCII+PATH_SLUG):</h2>', $url;
+
+        echo '<pre>';
+        var_dump($url);
+        echo '</pre><hr>';
+
+        $url = new Url('C:\\foo\\..\bar\\.\á é í\\userlocalhost\\Á É Í Ó\\Αλφαβητικός\\');
+        $url->normalize();
+        echo '<h2>Windows path:</h2>', $url;
+
+        echo '<pre>';
+        var_dump($url);
+        echo '</pre><hr>';
+
+        $url = new Url('mailto:섭지코지@Αλφαβητικός.io?subject=This%20is%20the%20subject&cc=someone_else@example.com&body=This%20is%20the%20body');
+        $url->normalize();
+        echo '<h2>Using mailto:</h2>', $url;
+
+        echo '<pre>';
+        var_dump($url);
+        echo '</pre><hr>';
 
         $path = '/home/foo/../bar/./test.txt';
 
@@ -1001,6 +1082,38 @@ EOT;
         echo '<p>Parse: <code>', $entry, '</code></p>';
         echo '<pre>';
         var_dump($customEntry);
+        echo '</pre>';
+    });
+
+    $app->action('GET', '/get', function () {
+        $contents = Request::get('foo');
+        echo '<h2>Request::get(foo):</h2>';
+        echo '<pre>';
+        var_dump($contents);
+        echo '</pre>';
+
+        $contents = Request::get('foo.bar');
+        echo '<h2>Request::get(foo.bar):</h2>';
+        echo '<pre>';
+        var_dump($contents);
+        echo '</pre>';
+
+        $contents = Request::get('foo.bar.baz');
+        echo '<h2>Request::get(foo.bar.baz):</h2>';
+        var_dump($contents);
+        echo '</pre>';
+
+        $contents1 = Request::get('foo.list.0');
+        $contents2 = Request::get('foo.list.1');
+        echo '<h2>Request::get(foo.list.0) and Request::get(foo.list.1):</h2>';
+        echo '<pre>';
+        var_dump($contents1, $contents2);
+        echo '</pre>';
+
+        $contents = Request::get('foo.bar.other');
+        echo '<h2>Request::get(foo.bar.other):</h2>';
+        echo '<pre>';
+        var_dump($contents);
         echo '</pre>';
     });
 });

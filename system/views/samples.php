@@ -83,6 +83,7 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/http/negotiation">/http/negotiation</a></dd>
             <dd><a href="../samples/http/negotiation/string">/http/negotiation/string</a></dd>
             <dd><a href="../samples/http/negotiation/qfactor">/http/negotiation/qfactor</a></dd>
+            <dd><a href="../samples/http/get?foo[bar][baz]=hi!&amp;foo[list][0]=hello&amp;foo[list][1]=world">/http/get</a></dd>
             <dd><a href="../samples/http/methods?_method=DELETE">/http/methods?_method=DELETE (Experimental)</a></dd>
             <dd><a href="../samples/http/methods?_HttpMethod=patch">/http/methods?_HttpMethod=patch (Experimental)</a></dd>
         </dl>

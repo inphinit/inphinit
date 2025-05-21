@@ -553,6 +553,16 @@ $app->scope('*://localhost:**/samples/', function ($app, $params) {
         // saves data that may not have been added yet
         $session->commit();
     });
+
+    $app->action('GET', '/sendfile', function () {
+        $dir = __DIR__;
+
+        // headers to download response
+        Response::download('sample.txt');
+
+        // Internal redirect to private file (supported by Built-in web server on Inphinit)
+        header("X-Accel-Redirect: {$dir}/storage/private/sample.txt");
+    });
 });
 
 // Utilities

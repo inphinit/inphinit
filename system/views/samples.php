@@ -100,6 +100,7 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/session">/session</a></dd>
             <dd><a href="../samples/session/reset">/session/reset</a></dd>
             <dd><a href="../samples/session/regenerate">/session/regenerate</a></dd>
+            <dd><a href="../samples/sendfile">/samples/sendfile</a></dd>
         </dl>
 
         <dl>

@@ -451,32 +451,32 @@ $app->scope('*://localhost:**/samples/', function ($app, $params) {
 
         try {
             var_dump($handleFallback->get($file));
-        } catch (Exception $ee) {
-            echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo '(' . $e->getCode() . ') ' . $e->getMessage() . "\r\n";
         }
 
         echo '<br>With Size::COM: ';
 
         try {
             var_dump($handleCom->get($file));
-        } catch (Exception $ee) {
-            echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo '(' . $e->getCode() . ') ' . $e->getMessage() . "\r\n";
         }
 
         echo '<br>With Size::CURL: ';
 
         try {
             var_dump($handleCurl->get($file));
-        } catch (Exception $ee) {
-            echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo '(' . $e->getCode() . ') ' . $e->getMessage() . "\r\n";
         }
 
         echo '<br>With Size::SYSTEM: ';
 
         try {
             var_dump($handleSystem->get($file));
-        } catch (Exception $ee) {
-            echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo '(' . $e->getCode() . ') ' . $e->getMessage() . "\r\n";
         }
         echo '</pre><hr>';
 
@@ -488,24 +488,24 @@ $app->scope('*://localhost:**/samples/', function ($app, $params) {
 
         try {
             var_dump($handleCom->get($file));
-        } catch (Exception $ee) {
-            echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo '(' . $e->getCode() . ') ' . $e->getMessage() . "\r\n";
         }
 
         echo '<br>Size::CURL: ';
 
         try {
             var_dump($handleCurl->get($file));
-        } catch (Exception $ee) {
-            echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo '(' . $e->getCode() . ') ' . $e->getMessage() . "\r\n";
         }
 
         echo '<br>Size::SYSTEM: ';
 
         try {
             var_dump($handleSystem->get($file));
-        } catch (Exception $ee) {
-            echo '(' . $ee->getCode() . ') ' . $ee->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo '(' . $e->getCode() . ') ' . $e->getMessage() . "\r\n";
         }
         echo '</pre>';
 
@@ -584,10 +584,6 @@ $app->scope('*://localhost:**/samples/utilities/', function ($app, $params) {
 
         echo '<h2>List</h2>';
 
-        echo '<code>Arrays::associative($list)</code>: ';
-        var_dump(Arrays::associative($list));
-        echo '<br>';
-
         echo '<code>Arrays::indexed($list)</code>: ';
         var_dump(Arrays::indexed($list));
         echo '<br>';
@@ -601,10 +597,6 @@ $app->scope('*://localhost:**/samples/utilities/', function ($app, $params) {
         echo '</pre><hr>';
 
         echo '<h2>Associative</h2>';
-
-        echo '<code>Arrays::associative($assoc)</code>: ';
-        var_dump(Arrays::associative($assoc));
-        echo '<br>';
 
         echo '<code>Arrays::indexed($assoc)</code>: ';
         var_dump(Arrays::indexed($assoc));
@@ -871,8 +863,7 @@ $app->scope('*://**/samples/http/', function ($app, $params) {
             'time' => date('h:i:s')
         ]);
 
-        Response::cache(30); // 30 sec
-        Response::status(201);
+        Response::cache(30);
     });
 
     // HTTP Response download page

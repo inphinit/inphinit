@@ -1,5 +1,5 @@
 <?php
-namespace Controllers;
+namespace Controllers\Samples;
 
 class TreatyController extends \Inphinit\Routing\Treaty
 {

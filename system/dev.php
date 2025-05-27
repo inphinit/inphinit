@@ -24,8 +24,8 @@ use Inphinit\Utility\Url;
 
 use Inphinit\Experimental\Http\Method;
 
-use Controllers\TreatyController;
-use Controllers\ResourceController;
+use Controllers\Samples\TreatyController;
+use Controllers\Samples\ResourceController;
 
 // Inject CSS for debug if necessary
 $debug->setBeforeView('debug.style');
@@ -46,7 +46,10 @@ $debug->setErrorView('debug.error');
  * - The codes in this document will only work in developer mode
  */
 
-$app->action('GET', '/samples/info', function () {
+$app->setNamespace('Samples');
+
+$app->action('GET', '/samples/info', function ($app) {
+    var_dump($app->namespacePrefix);
     phpinfo();
 });
 
@@ -237,6 +240,30 @@ $app->scope('*://localhost:**/samples/routes/', function ($app, $params) {
         print_r($params);
         echo '</pre>';
     });
+});
+
+$app->scope('http://**/samples/routes/error/http-method/', function ($app) {
+    $app->action('PURGE', '/foo', function () {});
+});
+
+$app->scope('http://**/samples/routes/error/duplicate-methods/', function ($app) {
+    $app->action(['GET', 'GET', 'POST'], '/foo', function () {});
+});
+
+$app->scope('http://**/samples/routes/error/invalid-controller/', function ($app) {
+    $app->action('GET', '/foo', 'Foo::barz');
+});
+
+$app->scope('http://**/samples/routes/error/__construct/', function ($app) {
+    $app->action('GET', '/foo', 'TreatyController::__construct');
+});
+
+$app->scope('http://**/samples/routes/error/set-namespace/', function ($app) {
+    $app->setNamespace('Invalid\\\\Namespace');
+});
+
+$app->scope('http://**/samples/routes/error/set-pattern/', function ($app) {
+    $app->setPattern('abc', 'abc[de{fg');
 });
 
 // DOM
@@ -1118,3 +1145,49 @@ EOT;
         echo '</pre>';
     });
 });
+
+// Login for dashboard + dashboard samples
+$app->scope('*://**/samples/dashboard/', function ($app, $params) {
+    $auth = new Inphinit\Experimental\Authentication\Auth();
+    $app->auth = $auth;
+
+    // Formulário do login
+    $app->action('GET', '/auth/', 'Dashboard\AuthController::login');
+
+    // Validate login and password, if valid create a session
+    $app->action('POST', '/auth/login', 'Dashboard\AuthController::check');
+
+    // Form for create a new user
+    $app->action('GET', '/auth/register', 'Dashboard\AuthController::register');
+
+    // Create a new user account
+    $app->action('POST', '/auth/singup', 'Dashboard\AuthController::singup');
+
+    // Logout
+    $app->action('GET', '/auth/logout', 'Dashboard\AuthController::logout');
+
+    $app->action('GET', '/', 'Dashboard\DashboardController::home');
+    $app->action('GET', '/exit', 'Dashboard\DashboardController::confirmExit');
+});
+
+// Login for API + API samples
+$app->scope('*://**/samples/api/', function ($app, $params) {
+    $auth = new Inphinit\Experimental\Authentication\Auth();
+    $app->auth = $auth;
+
+    // Validate login and password, if valid return a TOKEN
+    $app->action('POST', '/auth/login', 'Api\AuthController::check');
+
+    // Create a new user account
+    $app->action('POST', '/auth/singup', 'Api\AuthController::singup');
+
+    // Logout
+    $app->action('GET', '/auth/logout', 'Api\AuthController::logout');
+
+    // Samples
+    $app->action('GET', '/products/', 'Api\ProductsController::list');
+    $app->action('GET', '/products/<id>', 'Api\ProductsController::show');
+});
+
+// Reset namespace prefix to avoid affecting main.php
+$app->setNamespace('');

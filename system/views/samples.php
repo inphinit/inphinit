@@ -65,6 +65,12 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/debug/invalid/function/">/debug/invalid/function/</a></dd>
             <dd><a href="../samples/debug/invalid/class-method/">/debug/invalid/class-method/</a></dd>
             <dd><a href="../samples/debug/invalid/static-method/">/debug/invalid/static-method/</a></dd>
+            <dd><a href="../samples/routes/error/http-method/">/routes/error/http-method/</a></dd>
+            <dd><a href="../samples/routes/error/duplicate-methods/">/routes/error/duplicate-methods/</a></dd>
+            <dd><a href="../samples/routes/error/invalid-controller/">/routes/error/invalid-controller/</a></dd>
+            <dd><a href="../samples/routes/error/__construct/">/routes/error/__construct/</a></dd>
+            <dd><a href="../samples/routes/error/set-namespace/">/routes/error/set-namespace/</a></dd>
+            <dd><a href="../samples/routes/error/set-pattern/">/routes/error/set-pattern/</a></dd>
         </dl>
 
         <dl>

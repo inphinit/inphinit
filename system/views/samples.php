@@ -62,6 +62,7 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/debug/error">/debug/error</a></dd>
             <dd><a href="../samples/debug/exception">/debug/exception</a></dd>
             <dd><a href="../samples/debug/eval-error">/debug/eval-error</a></dd>
+            <dd><a href="../samples/debug/trigger-error">/debug/trigger-error</a></dd>
             <dd><a href="../samples/debug/invalid/function/">/debug/invalid/function/</a></dd>
             <dd><a href="../samples/debug/invalid/class-method/">/debug/invalid/class-method/</a></dd>
             <dd><a href="../samples/debug/invalid/static-method/">/debug/invalid/static-method/</a></dd>

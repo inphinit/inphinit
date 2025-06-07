@@ -25,11 +25,10 @@ use Inphinit\Viewing\View;
                     <strong><?=$status?></strong>
                     <?=$title?>
                 </h1>
-
                 <p>
-                    Route <code><?=$route?></code>
+                    Route <code><?=htmlentities($method)?> <?=htmlentities($route)?></code>
                     <?php if ($route !== $path): ?>
-                    (fullpath: <code><?=$path?></code>)
+                    (fullpath: <code><?=htmlentities($path)?></code>)
                     <?php endif; ?>
                 </p>
             </header>

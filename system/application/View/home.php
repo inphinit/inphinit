@@ -10,16 +10,30 @@ use Inphinit\Viewing\View;
 <body>
     <a class="skip" href="#main">Skip to main content</a>
     <main>
-        <article id="intro">
+        <header id="links">
+            <?php View::render('menu'); ?>
+        </header>
+        <section id="intro">
             <header>
                 <h1>Inphinit</h1>
-                <h2><?=$intro?></h2>
+                <?php if ($version): ?>
+                <h2>Version <?=$version?></h2>
+                <?php elseif ($time): ?>
+                <h2><?=$time?></h2>
+                <?php endif; ?>
             </header>
-        </article>
-        <footer id="links">
-            <a href="./examples/">Examples</a>
-            <?php View::render('menu'); ?>
-        </footer>
+        </section>
+
+        <?php if (isset($items[0])): ?>
+        <section id="items">
+            <?php foreach($items as $item): ?>
+            <a rel="nofollow noopener noreferrer" target="_blank" href="<?=$item['link']?>">
+                <h3><?=$item['title']?></h3>
+                <p><?=$item['content']?></p>
+            </a>
+            <?php endforeach; ?>
+        </section>
+        <?php endif; ?>
     </main>
 </body>
 </html>

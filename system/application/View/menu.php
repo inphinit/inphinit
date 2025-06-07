@@ -1,7 +1,11 @@
-<a href="https://github.com/inphinit/inphinit/wiki/"
+<?php if (INPHINIT_PATH === '/'): ?>
+<a href="./samples/">Samples</a>
+<?php else: ?>
+<a href="../">Home</a>
+<?php endif; ?>
+
+<a href="https://inphinit.github.io/en/docs/"
     target="_blank" rel="nofollow noopener noreferrer">Documentation</a>
-<a href="https://inphinit.github.io/api/"
-    target="_blank" rel="nofollow noopener noreferrer">API</a>
 <a href="https://twitter.com/inphinitphp"
     target="_blank" rel="nofollow noopener noreferrer">Twitter</a>
 <a href="https://victory-css.github.io/"

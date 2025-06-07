@@ -1,3 +1,3 @@
 <p>
-    Hello <strong><?=$name?></strong>!
+    Hello <strong><?=$username?></strong> (ID: <?=$id?>)!
 </p>

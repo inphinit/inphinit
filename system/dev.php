@@ -179,7 +179,7 @@ Group::create()->path('/samples/routes/')->then(function () {
     });
 
     // Example: http://localhost:8000/blog/foo-1000
-    Route::set('GET', '/blog/{:[^/]+:}-{:\d+:}', function ($id, $name) {
+    Route::set('GET', '/blog/{:[^/]+:}-{:\d+:}', function ($name, $id) {
         echo 'Article ID: ', $id, '<br>';
         echo 'Article name: ', $name;
     });

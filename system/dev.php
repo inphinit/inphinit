@@ -168,7 +168,7 @@ Group::create()->path('/samples/routes/')->then(function () {
     });
 
     // Example: http://localhost:8000/article/foo-1000
-    Route::set('GET', '/article/{:[^/]+:}/{:\d+:}', function ($id, $name) {
+    Route::set('GET', '/article/{:[^/]+:}/{:\d+:}', function ($name, $id) {
         if (ctype_digit($id)) {
             echo 'Article ID: ', $id, '<br>';
             echo 'Article name: ', $name;

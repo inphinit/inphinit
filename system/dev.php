@@ -214,19 +214,19 @@ Group::create()->prefixNS('Samples')->path('/samples/routes/dynamic-scope-{:[a-z
 Group::create()->path('/samples/dom/')->then(function () {
     // DOM CSS-selector
     Route::set('GET', '/css-selector', function () {
-        $handle = new Document(Document::HTML);
+        $handle = new Document();
 
-        $handle->load('<html><head></head><body><div x=\'abc"def\'>Hello World!</div><div id=\'foo\'>bar</div></body></html>');
+        $handle->loadHTML('<html><head></head><body><div x=\'abc"def\'>Hello World!</div><div id=\'foo\'>bar</div></body></html>');
 
         echo '<pre>';
 
-        $elements = $handle->selector()->all('body > div');
+        $elements = $handle->query('body > div');
         var_dump($elements);
 
-        $element = $handle->selector()->first('#foo');
+        $element = $handle->first('#foo');
         var_dump($element);
 
-        var_dump(htmlentities($handle->dump($handle->root())));
+        var_dump(htmlentities((string) $handle));
         echo '</pre>';
     });
 
@@ -234,20 +234,18 @@ Group::create()->path('/samples/dom/')->then(function () {
     Route::set('ANY', '/to-array', function () {
         echo '<pre>';
 
-        $handle = new Document(Document::XML);
+        $handle = new Document();
 
-        $handle->load('<root xmlns:book="https://book.io"><node foo="bar" baz="foobar">contents</node><book:tag>baz</book:tag></root>');
-
-        print_r($handle->document());
+        $handle->loadXML('<root xmlns:book="https://book.io"><node foo="bar" baz="foobar">contents</node><book:tag>baz</book:tag></root>');
 
         echo "\nCOMPLETE:\n";
-        print_r($handle->toArray(Document::ARRAY_COMPLETE));
+        print_r($handle->toArray(Document::COMPLETE));
 
         echo "\nSimple:\n";
-        print_r($handle->toArray(Document::ARRAY_SIMPLE));
+        print_r($handle->toArray(Document::SIMPLE));
 
         echo "\nMINIMAL:\n";
-        print_r($handle->toArray(Document::ARRAY_MINIMAL));
+        print_r($handle->toArray(Document::MINIMAL));
 
         echo '</pre>';
     });
@@ -255,7 +253,7 @@ Group::create()->path('/samples/dom/')->then(function () {
     // Array to XML
     Route::set('ANY', '/array-to-{:[^/]+:}', function ($type) {
         if ($type === 'html') {
-            $handle = new Document(Document::HTML);
+            $handle = new Document();
 
             $handle->fromArray([
                 'html' => [
@@ -291,7 +289,7 @@ Group::create()->path('/samples/dom/')->then(function () {
                 ]
             ]);
         } elseif ($type === 'xml') {
-            $handle = new Document(Document::XML);
+            $handle = new Document();
 
             $handle->fromArray([
                 'root' => [
@@ -317,17 +315,18 @@ Group::create()->path('/samples/dom/')->then(function () {
         }
 
         echo '<pre>';
+
         print_r($handle->query('.sample'));
         print_r($handle->query('node[foo=bar]'));
+
         var_dump(htmlentities((string) $handle));
+
         echo '</pre>';
     });
 
     // XML error
     Route::set('ANY', '/file-error', function () {
-        Document::setSeverityLevels(Document::ERROR | Document::FATAL | Document::WARNING);
-
-        $handle = new Document(Document::XML);
+        $handle = new Document();
         $handle->load('public/error.xml', true);
 
         echo '<pre>';

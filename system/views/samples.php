@@ -23,20 +23,21 @@ use Inphinit\Viewing\View;
             <dt>Basic</dt>
             <dd><a href="../samples/info">/info</a></dd>
             <dd><a href="../samples/memory">/memory</a></dd>
+            <dd><a href="../samples/routes">/routes/routes (list routes)</a></dd>
         </dl>
 
         <dl>
             <dt>Resource controller</dt>
-            <dd><a href="../samples/resource/">/resource/</a></dd>
-            <dd><a href="../samples/resource/create">/resource/create</a></dd>
-            <dd><a href="../samples/resource/100/edit">/resource/&lt;id&gt;/edit</a></dd>
-            <dd><a href="../samples/resource/100">/resource/&lt;id&gt;</a></dd>
+            <dd><a href="../samples/routes/resource/">/routes/resource/</a></dd>
+            <dd><a href="../samples/routes/resource/create">/routes/resource/create</a></dd>
+            <dd><a href="../samples/routes/resource/100/edit">/routes/resource/&lt;id&gt;/edit</a></dd>
+            <dd><a href="../samples/routes/resource/100">/routes/resource/&lt;id&gt;</a></dd>
         </dl>
 
         <dl>
             <dt>Implicit controller</dt>
-            <dd><a href="../samples/treaty/">/treaty/</a></dd>
-            <dd><a href="../samples/treaty/foo-bar-baz">/treaty/foo-bar-baz</a></dd>
+            <dd><a href="../samples/routes/treaty/">/routes/treaty/</a></dd>
+            <dd><a href="../samples/routes/treaty/foo-bar-baz">/routes/treaty/foo-bar-baz</a></dd>
         </dl>
 
         <dl>
@@ -54,6 +55,7 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/routes/version/1.0.1-beta5">/routes/version/&lt;value:version&gt;</a></dd>
             <dd><a href="../samples/routes/nospace/AnythingFooBarBaz">/routes/nospace/&lt;value:nospace&gt;</a></dd>
             <dd><a href="../samples/routes/custom/A0001">/routes/custom/&lt;codeparam:customcode&gt;</a></dd>
+            <dd><a href="../samples/routes/dynamic-scope-foobar/route">/routes/dynamic-scope-&lt;name:alpha&gt;/route</a></dd>
         </dl>
 
         <dl>

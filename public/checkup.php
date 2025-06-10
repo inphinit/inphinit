@@ -1,4 +1,5 @@
 <?php
+use Inphinit\Debugging\Checkup;
 use Inphinit\Viewing\View;
 
 /*
@@ -15,7 +16,7 @@ require_once INPHINIT_SYSTEM . '/vendor/inphinit/framework/src/boot.php';
 
 View::forceRender();
 
-$check = new Inphinit\Checkup();
+$check = new Checkup();
 $errors = $check->getErrors();
 $warnings = $check->getWarnings();
 

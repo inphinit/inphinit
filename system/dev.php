@@ -89,7 +89,7 @@ $app->scope('/samples/debug/', function ($app, $params) {
 
         echo "Bar\n";
 
-        eval('invalid sintax');
+        eval('!invalid syntax');
 
         echo "Baz\n";
     });
@@ -138,7 +138,13 @@ $app->scope('/samples/maintenance/', function ($app, $params) {
     });
 });
 
-$app->scope('/samples/treaty/', function ($app, $params) {
+$app->action('GET', '/samples/routes', function ($app) {
+    echo '<pre>';
+    echo htmlentities(print_r($app->routes(), true));
+    echo '</pre>';
+});
+
+$app->scope('/samples/routes/treaty/', function ($app, $params) {
     TreatyController::action($app);
 
     /*
@@ -149,7 +155,7 @@ $app->scope('/samples/treaty/', function ($app, $params) {
     */
 });
 
-$app->scope('/samples/resource/', function ($app, $params) {
+$app->scope('/samples/routes/resource/', function ($app, $params) {
     ResourceController::action($app);
 
     /*
@@ -166,14 +172,14 @@ $app->scope('/samples/resource/', function ($app, $params) {
 });
 
 // Group routes only HTTPS
-$app->scope('https://**/samples/routes/samples/secure/', function ($app, $params) {
+$app->scope('https://**/samples/routes/secure/', function ($app, $params) {
     $app->action('GET', '/', function () {
         return '"Hello World" running on HTTPS';
     });
 });
 
 // Group routes only HTTP
-$app->scope('/samples/routes/nonsecure/', function ($app, $params) {
+$app->scope('http://**/samples/routes/nonsecure/', function ($app, $params) {
     $app->action('GET', '/', function () {
         return '"Hello World" running on HTTP';
     });
@@ -181,7 +187,6 @@ $app->scope('/samples/routes/nonsecure/', function ($app, $params) {
 
 // Route patterns
 $app->scope('/samples/routes/', function ($app, $params) {
-
     $app->action('GET', '/foo/<foo>-<bar>', function ($app, $params) {
         echo 'response from /&lt;foo>-&lt;bar>';
         echo '<pre>';
@@ -240,6 +245,17 @@ $app->scope('/samples/routes/', function ($app, $params) {
         echo '<h1>custom pattern</h1>';
         echo '<pre>';
         print_r($params);
+        echo '</pre>';
+    });
+});
+
+$app->scope('/samples/routes/dynamic-scope-<name:alpha>/', function ($app, $scopeParams) {
+    $app->action('GET', '/route', function ($app, $params) use ($scopeParams) {
+        echo '<pre>';
+        echo '(from ->scope()) $scopeParams =&gt; ';
+        var_dump($scopeParams);
+        echo '<br>(from ->action()) $params =&gt; ';
+        var_dump($params);
         echo '</pre>';
     });
 });
@@ -390,7 +406,7 @@ $app->scope('/samples/dom/', function ($app, $params) {
         $handle->load('public/error.xml', true);
 
         echo '<pre>';
-        var_dump(htmlentities($handle->dump()));
+        var_dump(htmlentities($handle->dump($handle->document())));
         echo '</pre>';
     });
 });
@@ -749,6 +765,9 @@ $app->scope('/samples/utilities/', function ($app, $params) {
 
         $version = new Version('1.0.0');
 
+        // __toString
+        echo "Before: {$version}\n\n";
+
         print_r($version);
 
         $version->major = '2';
@@ -760,12 +779,12 @@ $app->scope('/samples/utilities/', function ($app, $params) {
         // __toString
         echo "After: {$version}\n\n";
 
-        $version = new Version('1.0.0+test');
-
-        print_r($version);
+        $version = new Version('1.0.0-alpha-a.b-c-somethinglong+build.1-aef.1-its-okay');
 
         // __toString
-        echo "{$version}<br>";
+        echo "Before: {$version}\n\n";
+
+        print_r($version);
 
         try {
             $version->major = 'a';
@@ -798,13 +817,13 @@ $app->scope('/samples/utilities/', function ($app, $params) {
         }
 
         // __toString
-        echo "{$version}";
+        echo "After: {$version}\n\n";
 
         echo '</pre>';
     });
 
     $app->action('GET', '/url', function () {
-        $str = "https://usêr:pãss@sample.io/foo/../--x--/--/./ã é ô ü/user@local/Ã É Ô Ü/Αλφαβητικός/섭지코지/\r\ntest\t /?Z=1&B=2&C=3&Y=4#fragment";
+        $str = "http://usêr:pãss@sample.io:443/foo/../--x--/--/./ã é ô ü/user@local/Ã É Ô Ü/Αλφαβητικός/섭지코지/\r\ntest\t /?Z=1&B=2&C=3&Y=4#fragment";
 
         echo 'Original: ', $str, '<hr>';
 
@@ -880,7 +899,7 @@ $app->scope('/samples/utilities/', function ($app, $params) {
         var_dump($url);
         echo '</pre><hr>';
 
-        $url = new Url('mailto:섭지코지@Αλφαβητικός.io?subject=This%20is%20the%20subject&cc=someone_else@example.com&body=This%20is%20the%20body');
+        $url = new Url('mailto:섭지코지@Αλφαβητικός.io?subject=This is the+subject&cc=someone_else@example.com&body=This is the+body http://example.io/2000/svg');
         $url->normalize();
         echo '<h2>Using mailto:</h2>', $url;
 
@@ -1212,6 +1231,3 @@ $app->scope('/samples/api/', function ($app, $params) {
     $app->action('GET', '/products/', 'Api\ProductsController::list');
     $app->action('GET', '/products/<id>', 'Api\ProductsController::show');
 });
-
-// Reset namespace prefix to avoid affecting main.php
-$app->setNamespace('');

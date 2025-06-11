@@ -21,7 +21,11 @@ $packages->auto();
 
 $logs = $packages->logs();
 
+// Save mapped classes
 $packages->save(INPHINIT_SYSTEM . '/boot/namespaces.php');
+
+// Save autoload file scripts
+$packages->saveFiles(INPHINIT_SYSTEM . '/boot/files.php', true);
 
 echo 'Importing packages:', PHP_EOL;
 

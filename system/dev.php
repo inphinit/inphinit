@@ -437,7 +437,7 @@ $app->scope('/samples/', function ($app, $params) {
     });
 
     Event::on('foobar', function ($arg1, $arg2) {
-        echo "6th function: {$arg1}, {$arg2} (will not be executed due to propagation stopping at the 5th event)<br>";
+        echo "6th function: {$arg1}, {$arg2} (will not be executed due to propagation stopping at the previous event)<br>";
     }, Event::LOW_PRIORITY);
 
     // trigger event

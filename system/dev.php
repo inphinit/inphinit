@@ -27,6 +27,9 @@ use Inphinit\Experimental\Http\Method;
 use Controllers\Samples\TreatyController;
 use Controllers\Samples\ResourceController;
 
+use Inphinit\Experimental\Structured\Csv;
+use Inphinit\Experimental\Structured\Tsv;
+
 // Inject CSS for debug if necessary
 $debug->setBeforeView('debug.style');
 
@@ -58,6 +61,34 @@ $app->action('GET', '/samples/memory', function () {
 
 $app->action('GET', '/samples/', function () {
     View::render('samples');
+});
+
+$app->action('ANY', '/samples/views', function () {
+    View::data('other', '& " \' <b>bold</b> < >');
+
+    View::render('header');
+
+    View::render('samples.variables', [
+        'title'     => 'Safe',
+        'less'      => '&lt;',
+        'greater'   => '&gt;',
+        'copyright' => '&copy;',
+        'euro'      => '&euro;',
+        'trademark' => '&trademark;',
+        'yen'       => '&yen;',
+        'html'      => '<a href="javascript:console.log(\'Hi!\');" onclick="console.warn(\'Bye!\');">Test</a>',
+    ]);
+
+    View::render('samples.variables', [
+        'title'     => 'Unsafe',
+        'less'      => '&lt;',
+        'greater'   => '&gt;',
+        'copyright' => '&copy;',
+        'euro'      => '&euro;',
+        'trademark' => '&trademark;',
+        'yen'       => '&yen;',
+        'html'      => '<a href="javascript:console.log(\'Hi!\');" onclick="console.warn(\'Bye!\');">Test</a>',
+    ], View::UNSAFE);
 });
 
 // Debug samples
@@ -140,7 +171,7 @@ $app->scope('/samples/maintenance/', function ($app, $params) {
 
 $app->action('GET', '/samples/routes', function ($app) {
     echo '<pre>';
-    echo htmlentities(print_r($app->routes(), true));
+    echo htmlspecialchars(print_r($app->routes(), true));
     echo '</pre>';
 });
 
@@ -300,7 +331,7 @@ $app->scope('/samples/dom/', function ($app, $params) {
         $element = $handle->selector()->first('#foo');
         var_dump($element);
 
-        var_dump(htmlentities($handle->dump($handle->root())));
+        var_dump(htmlspecialchars($handle->dump($handle->root())));
         echo '</pre>';
     });
 
@@ -394,7 +425,7 @@ $app->scope('/samples/dom/', function ($app, $params) {
         print_r($handle->document());
         print_r($handle->selector()->first('.sample'));
         print_r($handle->selector()->first('node[foo=bar]'));
-        var_dump(htmlentities($handle->dump($handle->root())));
+        var_dump(htmlspecialchars($handle->dump($handle->root())));
         echo '</pre>';
     });
 
@@ -406,7 +437,7 @@ $app->scope('/samples/dom/', function ($app, $params) {
         $handle->load('public/error.xml', true);
 
         echo '<pre>';
-        var_dump(htmlentities($handle->dump($handle->document())));
+        var_dump(htmlspecialchars($handle->dump($handle->document())));
         echo '</pre>';
     });
 });
@@ -734,14 +765,22 @@ $app->scope('/samples/utilities/', function ($app, $params) {
         echo '<h2>String to ASCII</h2>';
 
         $items = [
-            'a e á é í ó ú â ê ô ã õ ÿ ? #',
+            'a e á é í ó ú â ê ô ã õ ÿ',
             '冒険エレキテ島',
             '재벌집 막내아들',
             '中山狼傳',
             'Grüß Gott',
             'Αλφαβητικός Κατάλογος',
             'жар-пти́ца',
-            'هزار و یک شب'
+            'هزار و یک شب',
+            'Y̶o̶u̶r̶ ̶N̶a̶m̶e̶',
+            'Y͓̽o͓̽u͓̽r͓̽ ͓̽N͓̽a͓̽m͓̽e͓̽',
+            '😀',
+            '🫏',
+            '㉈ ㉉ ㉊ ㉋ ㉌ ㉍ ㉎ ㉏',
+            '⁽ ⁾ ¹ ₍ ₎ ₁',
+            '⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼',
+            '⅟ ½ ⅓ ⅕ ⅙ ⅛ ⅔ ⅖ ⅚ ⅜ ¾ ⅗ ⅝ ⅞ ⅘ ¼ ⅐ ⅑ ⅒ ↉ % ℅ ‰ ‱',
         ];
 
         foreach ($items as $str) {
@@ -819,11 +858,26 @@ $app->scope('/samples/utilities/', function ($app, $params) {
         // __toString
         echo "After: {$version}\n\n";
 
+        $beta2 = new Version('1.0.0-beta2');
+        $dev1 = new Version('1.0.0-dev1');
+        $release = new Version('1.0.0');
+
+        echo '$beta2 compare to $beta2: ', $beta2->compare($beta2), '<br>';
+
+        echo '$beta2 compare to $dev1: ', $beta2->compare($dev1), '<br>';
+        echo '$beta2 compare to $release: ', $beta2->compare($release), '<br>';
+
+        echo '$dev1 compare to $beta2: ', $dev1->compare($beta2), '<br>';
+        echo '$dev1 compare to $release: ', $dev1->compare($release), '<br>';
+
+        echo '$release compare to $beta2: ', $release->compare($beta2), '<br>';
+        echo '$release compare to $dev1: ', $release->compare($dev1), '<br>';
+
         echo '</pre>';
     });
 
     $app->action('GET', '/url', function () {
-        $str = "http://usêr:pãss@sample.io:443/foo/../--x--/--/./ã é ô ü/user@local/Ã É Ô Ü/Αλφαβητικός/섭지코지/\r\ntest\t /?Z=1&B=2&C=3&Y=4#fragment";
+        $str = "http://usêr:pãss@sample.io:443/foo/../--x--/--/./ã é ô ü/user@local/Ã É Ô Ü/[½] [‱]/①Ⓐ➊❶⓫⓿⑴/Αλφαβητικός/섭지코지/\r\ntest\t /?Z=1&B=2&C=3&Y=4#fragment";
 
         echo 'Original: ', $str, '<hr>';
 
@@ -1230,4 +1284,130 @@ $app->scope('/samples/api/', function ($app, $params) {
     // Samples
     $app->action('GET', '/products/', 'Api\ProductsController::list');
     $app->action('GET', '/products/<id>', 'Api\ProductsController::show');
+});
+
+$app->scope('/samples/csv/', function ($app) {
+    $storage = INPHINIT_SYSTEM . '/storage/samples/csv';
+
+    $app->action('GET', '/', function () use ($storage) {
+        $handle = new Csv($storage . '/source.csv');
+        $handle->enableDecoding(true);
+
+        echo '<h2>Headers:</h2>';
+        echo '<pre>';
+        var_dump($handle->getHeaders());
+        echo '</pre>';
+
+        echo '<h2>Contents:</h2>';
+        echo '<pre>';
+
+        while ($line = $handle->fetch(Csv::MODE_INDEX)) {
+            var_dump($line);
+        }
+
+        echo '</pre>';
+
+        echo '<h2>Contents (columns):</h2>';
+        echo '<pre>';
+
+        $handle->rewind();
+
+        while ($line = $handle->fetch(Csv::MODE_COLUMN)) {
+            var_dump($line);
+        }
+
+        echo '</pre>';
+    });
+
+    $app->action('GET', '/convert', function () use ($storage) {
+        $handle = new Csv($storage . '/source.csv');
+        $handle->save($storage . '/output[index].json', Csv::JSON_INDEX);
+        $handle->save($storage . '/output[pairs].json', Csv::JSON_PAIRS);
+        $handle->save($storage . '/output.tsv', Csv::TSV);
+        $handle->saveCsv($storage . '/output.csv');
+    });
+
+    $app->action('GET', '/index.json', function () use ($storage) {
+        Response::type('application/json');
+        header('X-Accel-Redirect: ' . $storage . '/output[index].json');
+    });
+
+    $app->action('GET', '/pairs.json', function () use ($storage) {
+        Response::type('application/json');
+        header('X-Accel-Redirect: ' . $storage . '/output[pairs].json');
+    });
+
+    $app->action('GET', '/output', function () use ($storage) {
+        Response::type('text/csv');
+        header('X-Accel-Redirect: ' . $storage . '/output.csv');
+    });
+
+    $app->action('GET', '/tsv', function () use ($storage) {
+        // text/tab-separated-values
+        Response::type('text/plain');
+        header('X-Accel-Redirect: ' . $storage . '/output.tsv');
+    });
+});
+
+$app->scope('/samples/tsv/', function ($app) {
+    $storage = INPHINIT_SYSTEM . '/storage/samples/tsv';
+
+    $app->action('GET', '/', function () use ($storage) {
+        $handle = new Tsv($storage . '/source.tsv');
+        $handle->enableDecoding(true);
+
+        echo '<h2>Headers:</h2>';
+        echo '<pre>';
+        var_dump($handle->getHeaders());
+        echo '</pre>';
+
+        echo '<h2>Contents:</h2>';
+        echo '<pre>';
+
+        while ($line = $handle->fetch(Csv::MODE_INDEX)) {
+            var_dump($line);
+        }
+
+        echo '</pre>';
+
+        echo '<h2>Contents (columns):</h2>';
+        echo '<pre>';
+
+        $handle->rewind();
+
+        while ($line = $handle->fetch(Csv::MODE_COLUMN)) {
+            var_dump($line);
+        }
+
+        echo '</pre>';
+    });
+
+    $app->action('GET', '/convert', function () use ($storage) {
+        $handle = new Csv($storage . '/source.csv');
+        $handle->save($storage . '/output[index].json', Csv::JSON_INDEX);
+        $handle->save($storage . '/output[pairs].json', Csv::JSON_PAIRS);
+        $handle->save($storage . '/output.tsv', Csv::TSV);
+        $handle->saveCsv($storage . '/output.csv');
+    });
+
+    $app->action('GET', '/index.json', function () use ($storage) {
+        Response::type('application/json');
+        header('X-Accel-Redirect: ' . $storage . '/output[index].json');
+    });
+
+    $app->action('GET', '/pairs.json', function () use ($storage) {
+        Response::type('application/json');
+        header('X-Accel-Redirect: ' . $storage . '/output[pairs].json');
+    });
+
+    $app->action('GET', '/output', function () use ($storage) {
+        // text/tab-separated-values
+        Response::type('text/plain');
+        header('X-Accel-Redirect: ' . $storage . '/output.tsv');
+    });
+
+    $app->action('GET', '/csv', function () use ($storage) {
+        Response::type('text/csv');
+        header('X-Accel-Redirect: ' . $storage . '/output.csv');
+    });
 });

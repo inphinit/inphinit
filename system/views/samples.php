@@ -24,6 +24,7 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/info">/info</a></dd>
             <dd><a href="../samples/memory">/memory</a></dd>
             <dd><a href="../samples/routes">/routes/routes (list routes)</a></dd>
+            <dd><a href="../samples/views">/views</a></dd>
         </dl>
 
         <dl>
@@ -52,7 +53,7 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/routes/test/bar/f0f0f0">/routes/test/bar/&lt;barcode:alnum&gt;</a></dd>
             <dd><a href="../samples/routes/decimal/0.9">/routes/decimal/&lt;value:decimal&gt;</a></dd>
             <dd><a href="../samples/routes/uuid/425e08ec-8e18-4d2c-b667-10b0306679c2">/routes/uuid/&lt;value:uuid&gt;</a></dd>
-            <dd><a href="../samples/routes/version/1.0.1-beta5">/routes/version/&lt;value:version&gt;</a></dd>
+            <dd><a href="../samples/routes/version/1.0.1">/routes/version/&lt;value:version&gt;</a></dd>
             <dd><a href="../samples/routes/nospace/AnythingFooBarBaz">/routes/nospace/&lt;value:nospace&gt;</a></dd>
             <dd><a href="../samples/routes/custom/A0001">/routes/custom/&lt;codeparam:customcode&gt;</a></dd>
             <dd><a href="../samples/routes/dynamic-scope-foobar/route">/routes/dynamic-scope-&lt;name:alpha&gt;/route</a></dd>
@@ -98,6 +99,13 @@ use Inphinit\Viewing\View;
         </dl>
 
         <dl>
+            <dt>Session</dt>
+            <dd><a href="../samples/session">/session</a></dd>
+            <dd><a href="../samples/session/reset">/session/reset</a></dd>
+            <dd><a href="../samples/session/regenerate">/session/regenerate</a></dd>
+        </dl>
+
+        <dl>
             <dt>Others</dt>
             <dd><a href="../samples/event">/event</a></dd>
             <dd><a href="../samples/file">/file</a></dd>
@@ -106,10 +114,25 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/utilities/strings">/utilities/strings</a></dd>
             <dd><a href="../samples/utilities/version">/utilities/version</a></dd>
             <dd><a href="../samples/utilities/url">/utilities/url</a></dd>
-            <dd><a href="../samples/session">/session</a></dd>
-            <dd><a href="../samples/session/reset">/session/reset</a></dd>
-            <dd><a href="../samples/session/regenerate">/session/regenerate</a></dd>
             <dd><a href="../samples/sendfile">/samples/sendfile</a></dd>
+        </dl>
+
+        <dl>
+            <dt>CSV (Experimental)</dt>
+            <dd><a href="../samples/csv/">/samples/csv/</a></dd>
+            <dd><a href="../samples/csv/convert">/samples/csv/convert</a></dd>
+            <dd><a href="../samples/csv/index.json">/samples/csv/index.json</a></dd>
+            <dd><a href="../samples/csv/pairs.json">/samples/csv/pairs.json</a></dd>
+            <dd><a href="../samples/csv/output">/samples/csv/output</a></dd>
+            <dd><a href="../samples/csv/tsv">/samples/csv/tsv</a></dd>
+
+            <dt>TSV (Experimental)</dt>
+            <dd><a href="../samples/tsv/">/samples/tsv/</a></dd>
+            <dd><a href="../samples/tsv/convert">/samples/tsv/convert</a></dd>
+            <dd><a href="../samples/tsv/index.json">/samples/tsv/index.json</a></dd>
+            <dd><a href="../samples/tsv/pairs.json">/samples/tsv/pairs.json</a></dd>
+            <dd><a href="../samples/tsv/output">/samples/tsv/output</a></dd>
+            <dd><a href="../samples/tsv/csv">/samples/tsv/csv</a></dd>
         </dl>
 
         <dl>

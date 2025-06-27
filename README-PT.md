@@ -1,61 +1,62 @@
 * [Instalação](#Instalação)
-* [Testes](#Testes)
+* [Testes](#testes)
 * [NGINX](#NGINX)
 * [Estrutura de pastas](#Estrutura-de-pastas)
 * [Criando rotas](#Criando-rotas)
 * [Agrupando rotas](#Agrupando-rotas)
-* [Padrões de Rotas e URLs](#Padrões-de-Rotas-e-URLs)
+* [Padrões de rota e URLs](#Padrões-de-rota-e-URLs)
 * [Documentação](#Documentação)
 
 ## Instalação
 
-1. Versão do PHP com suporte: [https://www.php.net/supported-versions.php](https://www.php.net/supported-versions.php)
-    * Embora recomendemos atualizar o PHP para a melhor experiência, a compatibilidade retroativa é mantida até PHP 5.4, para usuários com limitações de atualização.
-    * Para um servidor completo para Windows ou macOS, experimente: Wamp, Xampp, Laragon, EasyPHP, AMPPS, etc.   
-2. Multibyte String (também GD) (opcional, usado apenas na classe `Inphinit\Utility\Strings`)
-3. libiconv (opcional, usado apenas na classe `Inphinit\Utility\Strings`)
-4. COM ou cURL (opcional, usado apenas na classe `Inphinit\Filesystem\Size`)
+Requisitos:
+
+1. Versão PHP atualmente suportada: https://www.php.net/supported-versions.php.
+   * Mínimo _PHP 5.4_ (compatibilidade retroativa é mantida para usuários com limitações de atualização).
+   * Se você precisa de um servidor completo para Windows ou macOS, tente: Wamp, Xampp, Laragon, EasyPHP, AMPPS, etc.
+1. (Opcional) Extensão PHP Intl para usar a classe `Inphinit\Utility\Strings`.
+1. (Opcional) Extensão PHP COM ou extensão PHP cURL para usar a classe `Inphinit\Filesystem\Size`.
 
 Após instalar o PHP, você pode instalar o Inphinit usando Composer ou Git.
 
-Se usar o composer, execute o comando (mais detalhes em [https://getcomposer.org/doc/03-cli.md](https://getcomposer.org/doc/03-cli.md)):
+Se você usa o Composer, execute o comando (mais detalhes em https://getcomposer.org/doc/03-cli.md):
 
 ```bash
-php composer.phar create-project inphinit/inphinit minha-aplicacao
+php composer.phar create-project inphinit/inphinit meu-aplicativo
+````
+
+Se você usa o Composer globalmente, execute o comando:
+
+```bash
+composer create-project inphinit/inphinit meu-aplicativo
 ```
 
-Se usar o composer global, execute:
+Instalando usando Git:
 
 ```bash
-composer create-project inphinit/inphinit minha-aplicacao
-```
-
-Instalando com Git:
-
-```bash
-git clone --recurse-submodules https://github.com/inphinit/inphinit.git minha-aplicacao
-cd minha-aplicacao
+git clone --recurse-submodules https://github.com/inphinit/inphinit.git meu-aplicativo
+cd meu-aplicativo
 ```
 
 ## Testes
 
-Após navegar até a pasta, você deve executar o seguinte comando, se quiser usar o [servidor web embutido do PHP](https://www.php.net/manual/en/features.commandline.webserver.php):
+Após navegar para a pasta, você deve executar o seguinte comando, se quiser usar o [servidor web embutido do PHP](https://www.php.net/manual/en/features.commandline.webserver.php):
 
 ```bash
 php -S localhost:5000 -t public index.php
 ```
 
-E acesse no seu navegador `http://localhost:5000/`
+E acesse em seu navegador `http://localhost:5000/`
 
 ## NGINX
 
-Se quiser experimentar com um servidor web como o NGINX, você pode usar o exemplo abaixo para configurar seu `nginx.conf`:
+Se você quiser experimentar com um servidor web como o NGINX, você pode usar o seguinte exemplo para configurar seu `nginx.conf`:
 
-```nginx
+```none
 location / {
-    root /home/foo/bar/my-application;
+    root /home/foo/bar/meu-aplicativo;
 
-    # Redirect page errors to route system
+    # Redirecionar erros de página para o sistema de rotas
     error_page 403 /index.php/RESERVED.INPHINIT-403.html;
     error_page 500 /index.php/RESERVED.INPHINIT-500.html;
 
@@ -70,7 +71,7 @@ location / {
     }
 
     location ~ \.php$ {
-        # Replace by your FPM or FastCGI
+        # Substitua pelo seu FPM ou FastCGI
         fastcgi_pass 127.0.0.1:9000;
 
         fastcgi_index index.php;
@@ -87,46 +88,46 @@ location / {
 }
 ```
 
-> **Nota:** Para FPM use `fastcgi_pass unix:/var/run/php/php<versao>-fpm.sock` (substitua `<versao>` pela versão do PHP no seu servidor)
+> **Nota:** Para FPM, use `fastcgi_pass unix:/var/run/php/php<version>-fpm.sock` (substitua `<version>` pela versão do PHP em seu servidor)
 
 ## Estrutura de pastas
 
 ```bash
-├───.htaccess                  # Configuração do Apache para a aplicação
-├───index.php                  # Modifique apenas os valores das constantes existentes, e só se necessário
+├───.htaccess                  # Configuração do servidor web Apache para a aplicação
+├───index.php                  # Modifique apenas os valores das constantes existentes, e somente se necessário
 ├───server                     # Atalho para iniciar o servidor web embutido no Linux e macOS
 ├───server.bat                 # Atalho para iniciar o servidor web embutido no Windows
-├───web.config                 # Configuração do IIS para a aplicação
-├───public/                    # Pode conter arquivos estáticos ou scripts PHP independentes da aplicação principal
-│   └───.htaccess              # Configuração do Apache para scripts e arquivos adicionais
-└───system/                    # Contém o código da aplicação    
+├───web.config                 # Configuração do servidor web IIS para a aplicação
+├───public/                    # Esta pasta pode conter arquivos estáticos ou scripts PHP que rodam independentemente da aplicação principal
+│   └───.htaccess              # Configuração do servidor web Apache para scripts PHP adicionais e arquivos estáticos
+└───system/                    # Pasta contendo o código da sua aplicação
     ├───dev.php                # Semelhante ao main.php, mas usado apenas em modo de desenvolvimento
-    ├───errors.php             # Define comportamento de páginas de erro (ex.: 404 ou 405), permitindo exibir arquivos estáticos ou views
-    ├───main.php               # Arquivo principal para definir rotas e eventos, usado em desenvolvimento e produção
-    ├───boot/                  # Configurações para o inphinit_autoload, semelhante ao composer_autoload
+    ├───errors.php             # Deve definir o comportamento da página de erro (ex: erros 404 ou 405), permitindo que arquivos estáticos ou views sejam servidos
+    ├───main.php               # O arquivo principal para definir rotas e eventos, disponível tanto em modo de desenvolvimento quanto de produção
+    ├───boot/                  # Contém configurações para inphinit_autoload, similar ao composer_autoload
     │   ├───importpackages.php #
     │   └───namespaces.php     #
-    ├───configs/               # Contém arquivos de configuração variados, recomenda-se não versionar essa pasta
-    │   ├───app.php            # Não adicione novas chaves, apenas altere os valores existentes se necessário
-    │   └───debug.php          # Não adicione novas chaves, apenas altere os valores existentes se necessário
-    ├───Controllers/           # Deve conter as classes de controladores usadas nas rotas    
+    ├───configs/               # Contém arquivos de configuração variados, é recomendado que você não version esta pasta
+    │   ├───app.php            # Não adicione novas chaves, apenas altere os valores das existentes se necessário
+    │   └───debug.php          # Não adicione novas chaves, apenas altere os valores das existentes se necessário
+    ├───Controllers/           # Deve conter as classes que serão controladores usados nas rotas
     ├───storage/               #
     ├───vendor/                # Contém pacotes de terceiros e o framework
     └───views/                 # Deve conter suas views
 ```
 
-Em modo de desenvolvimento, o script `system/dev.php` será executado primeiro, seguido de `system/main.php`, e em caso de erro (como 404 ou 405), o último será `system/errors.php`.
+No modo de desenvolvimento, o script `system/dev.php` será sempre executado primeiro, então `system/main.php` será executado, e se ocorrer um erro, como 404 ou 405, o último script a ser executado será `system/errors.php`
 
 ## Criando rotas
 
-Para criar uma nova rota, edite o arquivo `system/main.php`. Se quiser que a rota só esteja disponível em modo de desenvolvimento, edite `system/dev.php`.
+Para criar uma nova rota, edite o arquivo `system/main.php`. Se você quiser que a rota esteja disponível apenas no modo de desenvolvimento, edite o arquivo `system/dev.php`.
 
-O sistema de rotas suporta _controllers_, [_callables_](https://www.php.net/manual/pt_BR/language.types.callable.php) e [_funções anônimas_](https://www.php.net/manual/pt_BR/functions.anonymous.php), por exemplo:
+O sistema de rotas suporta *controladores*, [*callables*](https://www.php.net/manual/en/language.types.callable.php) e [*funções anônimas*](https://www.php.net/manual/en/functions.anonymous.php), exemplos:
 
 ```php
 <?php
 
-// Usando função anonima
+// funções anônimas
 $app->action('GET', '/closure', function () {
     return 'Hello "closure"!';
 });
@@ -135,23 +136,22 @@ function foobar() {
     return 'Hello "function"!';
 }
 
-// Usando função
+// função callable
 $app->action('GET', '/function', 'foobar');
 
-// Usando método de uma classe (Nota: o autoload irá incluir o arquivo, não é necessário usar `include` ou `require`)
+// método estático de classe callable (Nota: autoload incluirá o arquivo)
 $app->action('GET', '/class-static-method', ['MyNameSpace\Foo\Bar', 'hello']);
 
-// Método de uma classe instanciada
+// método de classe callable
 $foo = new Sample;
 $app->action('GET', '/class-method', [$foo, 'hello']);
 
 
-// Usando método de um controller.
-// Nota: Não adicione o prefixo Controllers\, o próprio framework irá se encarregar disso
+// não adicione o prefixo Controllers, o próprio framework o adicionará
 $app->action('GET', '/controller', 'Boo\Bar::xyz');
 
 /**
- * Controller de `./system/Controllers/Boo/Bar.php`:
+ * Controlador de `./system/Controllers/Boo/Bar.php`:
  *
  * <?php
  * namespace Controllers\Boo;
@@ -166,21 +166,19 @@ $app->action('GET', '/controller', 'Boo\Bar::xyz');
 
 ## Agrupando rotas
 
-O agrupamento de rotas agora é baseado na URL completa. Você pode usar o caractere curinga `*` e os mesmos padrões disponíveis para rotas, por exemplo:
+O sistema de agrupamento de rotas agora é muito mais simples, é baseado na URL completa ou no caminho, e você pode usar o caractere curinga `*` e também os mesmos padrões disponíveis para rotas, exemplos:
 
 ```php
 <?php
 
 /*
- * Rotas acessíveis apenas se o caminho começar com /blog/
- * 
- * Exemplos:
- * 
- * http://localhost:5000/blog/
+ * As rotas só serão adicionadas se o caminho começar com /blog/
+ * * Exemplos:
+ * * http://localhost:5000/blog/
  * http://localhost:5000/blog/post
  * http://localhost:5000/blog/search
  */
-$app->scope('*://*/blog/', function ($app, $params) {
+$app->scope('/blog/', function ($app, $params) {
     $app->action('GET', '/', function () { ... });
     $app->action('POST', '/post', function () { ... });
     $app->action('GET', '/search', function () { ... });
@@ -206,13 +204,13 @@ $app->scope('*://*.main.org/', function ($app, $params) {
     ...
 });
 
-// Usando o padrão para obter o subdomínio:
+// Usando padrão para obter o subdomínio:
 $app->scope('*://<subdomain>.main.org/', function ($app, $params) {
     $subdomain = $params['subdomain'];
     ...
 });
 
-// Usando o padrão para obter o caminho:
+// Usando padrão para obter o caminho:
 $app->scope('*://*/users/<id:num>/<user>', function ($app, $params) {
     $id = $params['id'];
     $username = $params['user'];
@@ -220,21 +218,21 @@ $app->scope('*://*/users/<id:num>/<user>', function ($app, $params) {
 });
 ```
 
-Veja mais exemplos no arquivo `system/dev.php`.
+Veja mais exemplos no arquivo `system/dev.php`
 
-## Padrões de Rotas e URLs
+## Padrões de rota e URLs
 
 Tipo | Exemplo | Descrição
 ---|---|---
 `alnum` | `$app->action('GET', '/baz/<video:alnum>', ...);`       | Aceita apenas parâmetros com formato alfanumérico e `$params` retorna `['video' => ...]`
-`alpha` | `$app->action('GET', '/foo/bar/<name:alpha>', ...);`    | Aceita apenas parâmetros com formato alfanumérico e `$params` retorna `['name' => ...]`
+`alpha` | `$app->action('GET', '/foo/bar/<name:alpha>', ...);`    | Aceita apenas parâmetros com formato alfabético e `$params` retorna `['name' => ...]`
 `decimal` | `$app->action('GET', '/baz/<price:decimal>', ...);`   | Aceita apenas parâmetros com formato decimal e `$params` retorna `['price' => ...]`
 `num` | `$app->action('GET', '/foo/<id:num>', ...);`              | Aceita apenas parâmetros com formato inteiro e `$params` retorna `['id' => ...]`
-`nospace` | `$app->action('GET', '/foo/<nospace:nospace>', ...);` | Aceita qualquer caractere, exceto espaços, como espaços em branco (`%20`), tabulações (`%0A`) e outros (consulte `\S` em expressões regulares)
-`uuid` | `$app->action('GET', '/bar/<barcode:alnum>', ...);`      | Aceita apenas parâmetros com formato uuid e `$params` retorna `['barcode' => ...]`
-`version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Aceita apenas parâmetros com formato _Semantic Versioning 2.0.0 (semversion)_ e `$params` retorna `['api' => ...]`
+`nospace` | `$app->action('GET', '/foo/<nospace:nospace>', ...);` | Aceita quaisquer caracteres, exceto espaços, como espaços em branco (`%20`), tabulações (`%0A`) e outros (veja sobre `\S` em regex)
+`uuid` | `$app->action('GET', '/bar/<barcode:alnum>', ...);`      | Aceita apenas parâmetros com formato UUID e `$params` retorna `['barcode' => ...]`
+`version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Aceita apenas parâmetros com formato *Semantic Versioning 2.0.0 (semversion)* e `$params` retorna `['api' => ...]`
 
-Você pode criar ou alterar padrões com `$app->setPattern(nome, regex)`, exemplo:
+É possível adicionar ou modificar padrões existentes usando o método `$app->setPattern(nome, regex)`. Criando um novo padrão:
 
 ```php
 <?php
@@ -250,25 +248,26 @@ $app->action('GET', '/product/<id:customid>', function ($params) {
     ...
 });
 
-$app->setPattern('locale', '[a-z]{1,8}(\-[A-Z\d]{1,8})?'); // examplos: en, en-US, en-GB, pt-BR, pt
-$app->setPattern('customid', '[A-Z]\d+'); // examplos: A0001, B002, J007
+$app->setPattern('locale', '[a-z]{1,8}(\-[A-Z\d]{1,8})?'); // exemplos: en, en-US, en-GB, pt-BR, pt
+$app->setPattern('customid', '[A-Z]\d+'); // exemplos: A0001, B002, J007
 ```
 
-Alterando um padrão existente:
+Modificando um padrão existente:
 
 ```php
 <?php
 
-// Replace semversion by <major>.<minor>.<revision>.<build>
+// Substitui semversion por <major>.<minor>.<revision>.<build>
 $app->setPattern('version', '\d+\.\d+.\d+.\d+');
 
-// Replace semversion by <major>.<minor> (maybe it's interesting for web APIs)
+// Substitui semversion por <major>.<minor> (talvez seja interessante para APIs web)
 $app->setPattern('version', '\d+\.\d+');
 ```
 
 ## Documentação
 
+* Inglês: https://inphinit.github.io/en/docs/
 * Português: (em breve)
-* API: [https://inphinit.github.io/api/](https://inphinit.github.io/api/)
+* API: https://inphinit.github.io/api/
 
-A documentação é mantida neste [repositório no GitHub](https://github.com/inphinit/inphinit.github.io).
+A documentação é mantida em seu próprio [repositório GitHub](https://github.com/inphinit/inphinit.github.io).

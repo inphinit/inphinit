@@ -1,0 +1,40 @@
+<table>
+    <thead>
+        <th>Variable</th>
+        <td><?=$title?> values</td>
+    </thead>
+    <tbody>
+        <tr>
+           <th><code>$less:</code></th>
+           <td><?=$less?></td>
+        </tr>
+        <tr>
+           <th><code>$greater:</code></th>
+           <td><?=$greater?></td>
+        </tr>
+        <tr>
+           <th><code>$copyright:</code></th>
+           <td><?=$copyright?></td>
+        </tr>
+        <tr>
+           <th><code>$euro:</code></th>
+           <td><?=$euro?></td>
+        </tr>
+        <tr>
+           <th><code>$trademark:</code></th>
+           <td><?=$trademark?></td>
+        </tr>
+        <tr>
+           <th><code>$yen:</code></th>
+           <td><?=$yen?></td>
+        </tr>
+        <tr>
+           <th><code>$html:</code></th>
+           <td><?=$html?></td>
+        </tr>
+        <tr>
+           <th><code>$other:</code></th>
+           <td><?=$other?></td>
+        </tr>
+    </tbody>
+</table>

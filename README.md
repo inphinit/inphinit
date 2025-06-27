@@ -166,7 +166,7 @@ $app->action('GET', '/controller', 'Boo\Bar::xyz');
 
 ## Grouping routes
 
-The route grouping system is now much simpler, it is based on the complete URL, and you can use the `*` wildcard character and also the same patterns available for routes, examples:
+The route grouping system is now much simpler, it is based on the complete URL or path, and you can use the `*` wildcard character and also the same patterns available for routes, examples:
 
 ```php
 <?php
@@ -180,7 +180,7 @@ The route grouping system is now much simpler, it is based on the complete URL, 
  * http://localhost:5000/blog/post
  * http://localhost:5000/blog/search
  */
-$app->scope('*://*/blog/', function ($app, $params) {
+$app->scope('/blog/', function ($app, $params) {
     $app->action('GET', '/', function () { ... });
     $app->action('POST', '/post', function () { ... });
     $app->action('GET', '/search', function () { ... });

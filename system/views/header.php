@@ -220,7 +220,7 @@ main h2 {
     font-weight: bold;
 }
 
-#items > dl > dd {
+#items > dl > dd, #items > dl > dd + dt {
     border-top: thin solid rgba(255,255,255,.2);
 }
 
@@ -252,5 +252,34 @@ main h2 {
     #items > dl {
         flex: 1 0 1;
     }
+}
+
+table {
+    border-collapse: collapse;
+    border: thin solid #000;
+    margin: 1%;
+    width: 98%;
+    background: rgba(255, 255, 255, .1);
+}
+
+td, th {
+    padding: 1rem;
+    border: thin solid #000;
+}
+
+thead {
+    background: #6807f9;
+}
+
+th:first-child {
+    width: 10%;
+}
+
+tbody > td, tbody > th {
+    bottom: thin solid #f8f9fd;
+}
+
+tbody > tr > :nth-child(odd) {
+    background: rgba(255, 255, 255, .2);
 }
 </style>

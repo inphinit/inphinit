@@ -775,12 +775,6 @@ $app->scope('/samples/utilities/', function ($app, $params) {
             'هزار و یک شب',
             'Y̶o̶u̶r̶ ̶N̶a̶m̶e̶',
             'Y͓̽o͓̽u͓̽r͓̽ ͓̽N͓̽a͓̽m͓̽e͓̽',
-            '😀',
-            '🫏',
-            '㉈ ㉉ ㉊ ㉋ ㉌ ㉍ ㉎ ㉏',
-            '⁽ ⁾ ¹ ₍ ₎ ₁',
-            '⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼',
-            '⅟ ½ ⅓ ⅕ ⅙ ⅛ ⅔ ⅖ ⅚ ⅜ ¾ ⅗ ⅝ ⅞ ⅘ ¼ ⅐ ⅑ ⅒ ↉ % ℅ ‰ ‱',
         ];
 
         foreach ($items as $str) {

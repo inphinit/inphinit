@@ -5,19 +5,19 @@
 - [Creating routes](#creating-routes)
 - [Grouping routes](#grouping-routes)
 - [Route and URL patterns](#route-and-url-patterns)
-- [Documentation](#Documentation)
+- [Documentation](#documentation)
 
 ## Installing
 
 Requirements:
 
-1. Currently supported PHP version: https://www.php.net/supported-versions.php.
+1. See currently supported PHP versions: https://www.php.net/supported-versions.php.
     * Minimal _PHP 5.4_ (backward compatibility is maintained for users with upgrade limitations).
-    * If you need a full-featured server for Windows or macOS, try: Wamp, Xampp, Laragon, EasyPHP, AMPPS, etc.
+    * If you need a full-featured server for Windows or macOS, you can try WampServer, XAMPP, Laragon, EasyPHP, or AMPPS.
 1. (Optional) Intl PHP extension to use `Inphinit\Utility\Strings` class.
 1. (Optional) COM PHP extension or cURL PHP extension to use `Inphinit\Filesystem\Size` class.
 
-After installing PHP, you can install Inphinit using Composer or Git.
+After installing PHP, install Inphinit via Composer or Git.
 
 If you use composer, run the command (more details in https://getcomposer.org/doc/03-cli.md):
 
@@ -31,7 +31,7 @@ If you use composer global, run the command:
 composer create-project inphinit/inphinit my-application
 ```
 
-Installing using Git:
+Installing via Git:
 
 ```bash
 git clone --recurse-submodules https://github.com/inphinit/inphinit.git my-application
@@ -40,7 +40,7 @@ cd my-application
 
 ## Testing
 
-After navigating to the folder you must execute the following command, if you want to use [PHP built-in web server](https://www.php.net/manual/en/features.commandline.webserver.php):
+After navigating to your project directory, run the following command, if you want to use [PHP built-in web server](https://www.php.net/manual/en/features.commandline.webserver.php):
 
 ```bash
 php -S localhost:5000 -t public index.php
@@ -88,32 +88,32 @@ location / {
 }
 ```
 
-> **Note:** For FPM use `fastcgi_pass unix:/var/run/php/php<version>-fpm.sock` (replace `<version>` by PHP version in your server)
+> **Note:** For PHP-FPM (FastCGI Process Manager) use `fastcgi_pass unix:/var/run/php/php<version>-fpm.sock` (replace `<version>` by PHP version in your server)
 
 ## Folder structure
 
 ```bash
-├───.htaccess                  # Apache web server configuration for the application
-├───index.php                  # Only modify the values of existing constants, and only if necessary
-├───server                     # Shortcut to start the built-in web server on Linux and macOS
-├───server.bat                 # Shortcut to start the built-in web server on Windows
-├───web.config                 # IIS web server configuration for the application
-├───public/                    # This folder can hold static files or PHP scripts that run independently of the main application
-│   └───.htaccess              # Apache web server configuration for additional PHP scripts and static files
-└───system/                    # Folder containing your application code
-    ├───dev.php                # Similar to main.php, but only used in development mode
-    ├───errors.php             # Should define error page behavior (e.g., 404 or 405 errors), allowing static files or views to be served
-    ├───main.php               # The main file for defining routes and events, available in both development and production modes
-    ├───boot/                  # Contains settings for inphinit_autoload, similar to composer_autoload
-    │   ├───importpackages.php #
-    │   └───namespaces.php     #
-    ├───configs/               # Contain varied configuration files, it is recommended that you do not version this folder
-    │   ├───app.php            # Don't add new keys, just change the values of existing ones if necessary
-    │   └───debug.php          # Don't add new keys, just change the values of existing ones if necessary
-    ├───Controllers/           # Must contain the classes that will be controllers used in the routes
-    ├───storage/               #
-    ├───vendor/                # Contain third-party packages and the framework
-    └───views/                 # Should contain your views
+├───.htaccess                  # Apache configuration file for handling requests and routing
+├───index.php                  # Main entry point; modify only constant values if necessary
+├───server                     # Shortcut to start the built-in PHP web server on Linux or macOS
+├───server.bat                 # Shortcut to start the built-in PHP web server on Windows
+├───web.config                 # IIS configuration file for URL rewriting and routing
+├───public/                    # Contains static assets and standalone PHP scripts outside the main app flow
+│   └───.htaccess              # Apache configuration for serving static files or standalone scripts
+└───system/                    # Contains all application source code and configuration
+    ├───dev.php                # Entry point for development mode; runs before main.php
+    ├───errors.php             # Handles error pages (e.g., 404, 405) and can render static files or views
+    ├───main.php               # Main routing and event definition file for all environments
+    ├───boot/                  # Autoload and initialization settings (similar to Composer’s autoload)
+    │   ├───importpackages.php # Defines additional package imports for the autoloader
+    │   └───namespaces.php     # Maps namespaces to directories for class autoloading
+    ├───configs/               # Contains configuration files; Avoid committing sensitive configuration files to version control
+    │   ├───app.php            # Application configuration; Only modify the existing configuration values as needed
+    │   └───debug.php          # Debug configuration; Only modify the existing configuration values as needed
+    ├───Controllers/           # Contains controller classes referenced in route definitions
+    ├───storage/               # Used for temporary files, logs, or cache data
+    ├───vendor/                # Third-party dependencies and the framework core
+    └───views/                 # Contains templates and view files
 ```
 
 In development mode, the `system/dev.php` script will always be executed first, then `system/main.php` will be executed, and if an error occurs, such as 404 or 405, the last script to be executed will be `system/errors.php`
@@ -127,7 +127,7 @@ The route system supports _controllers_, [_callables_](https://www.php.net/manua
 ```php
 <?php
 
-// anonymous functions
+// Anonymous functions
 $app->action('GET', '/closure', function () {
     return 'Hello "closure"!';
 });
@@ -136,18 +136,18 @@ function foobar() {
     return 'Hello "function"!';
 }
 
-// callable function
+// Callable function
 $app->action('GET', '/function', 'foobar');
 
-// callable class static method (Note: autoload will include the file)
+// Callable class static method — The autoloader automatically includes the class file
 $app->action('GET', '/class-static-method', ['MyNameSpace\Foo\Bar', 'hello']);
 
-// callable class method
+// Callable class method
 $foo = new Sample;
 $app->action('GET', '/class-method', [$foo, 'hello']);
 
 
-// do not add the Controllers prefix, the framework itself will add
+// Don't include the Controllers namespace prefix — the framework automatically prepends it
 $app->action('GET', '/controller', 'Boo\Bar::xyz');
 
 /**
@@ -166,7 +166,7 @@ $app->action('GET', '/controller', 'Boo\Bar::xyz');
 
 ## Grouping routes
 
-The route grouping system is now much simpler, it is based on the complete URL or path, and you can use the `*` wildcard character and also the same patterns available for routes, examples:
+The route grouping system is now much simpler, it's based on the complete URL or path, and you can use the `*` wildcard character and also the same patterns available for routes, examples:
 
 ```php
 <?php
@@ -196,7 +196,7 @@ $app->scope('http://*', function ($app, $params) {
     ...
 });
 
-// Routes will only be added if you are accessing mysite2.org host
+// Routes will only be added when the request host is mysite2.org
 $app->scope('*://mysite2.org/', function ($app, $params) {
     ...
 });
@@ -230,9 +230,9 @@ Type | Example | Description
 `alpha` | `$app->action('GET', '/foo/bar/<name:alpha>', ...);`    | Only accepts parameters with alpha format and `$params` returns `['name' => ...]`
 `decimal` | `$app->action('GET', '/baz/<price:decimal>', ...);`   | Only accepts parameters with decimal format and `$params` returns `['price' => ...]`
 `num` | `$app->action('GET', '/foo/<id:num>', ...);`              | Only accepts parameters with integer format and `$params` returns `['id' => ...]`
-`nospace` | `$app->action('GET', '/foo/<nospace:nospace>', ...);` | Accepts any characters expcet spaces, like white-spaces (`%20`), tabs (`%0A`) and others (see about `\S` in regex)
-`uuid` | `$app->action('GET', '/bar/<barcode:alnum>', ...);`      | Only accepts parameters with uuid format and `$params` returns `['barcode' => ...]`
-`version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Only accepts parameters with _Semantic Versioning 2.0.0 (semversion)_ format and `$params` returns `['api' => ...]`
+`nospace` | `$app->action('GET', '/foo/<nospace:nospace>', ...);` | Accepts any characters except spaces, like white-spaces (`%20`), tabs (`%0A`) and others (see about `\S` in regex)
+`uuid` | `$app->action('GET', '/bar/<barcode:uuid>', ...);`      | Only accepts parameters with uuid format and `$params` returns `['barcode' => ...]`
+`version` | `$app->action('GET', '/baz/<api:version>', ...);`     | Only accepts parameters with _Semantic Versioning 2.0.0 (SemVer)_ format and `$params` returns `['api' => ...]`
 
 It is possible to add or modify existing patterns using the `$app->setPattern(name, regex)` method. Creating a new pattern:
 
@@ -246,7 +246,7 @@ $app->action('GET', '/about/<lang:locale>', function ($params) {
 });
 
 $app->action('GET', '/product/<id:customid>', function ($params) {
-    $lang = $params['id'];
+    $id = $params['id'];
     ...
 });
 
@@ -259,17 +259,17 @@ Modifying an existing pattern:
 ```php
 <?php
 
-// Replace semversion by <major>.<minor>.<revision>.<build>
-$app->setPattern('version', '\d+\.\d+.\d+.\d+');
+// Replace SemVer by <major>.<minor>.<revision>.<build>
+$app->setPattern('version', '\d+\.\d+\.\d+\.\d+');
 
-// Replace semversion by <major>.<minor> (maybe it's interesting for web APIs)
+// Replace SemVer by <major>.<minor> (maybe it's interesting for web APIs)
 $app->setPattern('version', '\d+\.\d+');
 ```
 
 ## Documentation
 
 * English: https://inphinit.github.io/en/docs/
-* Português: (em breve)
+* Português: (Em breve)
 * API: https://inphinit.github.io/api/
 
 The documentation is maintained in its own [GitHub repository](https://github.com/inphinit/inphinit.github.io).

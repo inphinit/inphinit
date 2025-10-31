@@ -1,11 +1,11 @@
-* [Instalação](#instalacao)
+* [Instalação](#instalação)
 * [Testes](#testes)
 * [NGINX](#nginx)
 * [Estrutura de pastas](#estrutura-de-pastas)
 * [Criando rotas](#criando-rotas)
 * [Agrupando rotas](#agrupando-rotas)
-* [Padrões de rotas e URLs](#padroes-de-rotas-e-urls)
-* [Documentação](#documentacao)
+* [Padrões de rotas e URLs](#padrões-de-rotas-e-urls)
+* [Documentação](#documentação)
 
 ## Instalação
 

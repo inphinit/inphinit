@@ -2,8 +2,8 @@
 return array (
   'data_lifetime' => 86400,
   'development' => true,
-  'fowarded_proto' => NULL,
-  'fowarded_host' => NULL,
-  'fowarded_port' => NULL,
+  'forwarded_proto' => NULL,
+  'forwarded_host' => NULL,
+  'forwarded_port' => NULL,
   'maintenance' => false,
 );

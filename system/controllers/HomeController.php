@@ -30,7 +30,7 @@ class HomeController
             ], [
                 'link' => 'https://inphinit.github.io/en/docs/http/request.html',
                 'title' => 'HTTP',
-                'content' => 'Some helper functions are provided to work with HTTP requests and responses, including a mechanism for work with content negotiation (eg.: Accept, Accept-Encoding, TE headers)'
+                'content' => 'Some helper functions are provided to work with HTTP requests and responses, including a mechanism for work with content negotiation (e.g., Accept, Accept-Encoding, TE headers)'
             ], [
                 'link' => 'https://inphinit.github.io/en/docs/dom/',
                 'title' => 'DOM',

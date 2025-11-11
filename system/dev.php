@@ -149,13 +149,16 @@ $app->scope('/samples/debug/invalid/static-method/', function ($app, $params) {
     $app->action('ANY', '/', ['NotExistClass', 'method']);
 });
 
+// If the request comes from "127.0.0.1" or is in development mode, it will bypass maintenance mode
+Event::on('maintenance', function () {
+    if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || App::config('development')) {
+        // Stop propagation and disable maintenance at runtime
+        return false;
+    }
+});
+
 // Maintenance toggle
 $app->scope('/samples/maintenance/', function ($app, $params) {
-    // If the request comes from "127.0.0.1" or is in development mode, it will bypass maintenance mode
-    Maintenance::bypass(function () {
-        return $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || App::config('development');
-    });
-
     $app->action('GET', '/down', function () {
         Maintenance::down();
 
@@ -1377,7 +1380,7 @@ $app->scope('/samples/tsv/', function ($app) {
     });
 
     $app->action('GET', '/convert', function () use ($storage) {
-        $handle = new Csv($storage . '/source.csv');
+        $handle = new Tsv($storage . '/source.tsv');
         $handle->save($storage . '/output[index].json', Csv::JSON_INDEX);
         $handle->save($storage . '/output[pairs].json', Csv::JSON_PAIRS);
         $handle->save($storage . '/output.tsv', Csv::TSV);

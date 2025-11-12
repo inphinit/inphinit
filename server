@@ -10,7 +10,6 @@ HOST_PORT=5000
 # Sets the project path so you can call the "./server" command from any location
 CURRENT_PATH=$(cd -- $(dirname ${BASH_SOURCE:-$0}) && pwd -P)
 
-
 # Sets document root for application
 DOCUMENT_ROOT=$CURRENT_PATH/public
 

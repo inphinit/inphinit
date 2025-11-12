@@ -32,3 +32,5 @@ echo 'Importing packages:', PHP_EOL;
 if (count($logs) > 0) {
     echo PHP_EOL, ' - ', implode(PHP_EOL . ' - ', $logs), PHP_EOL, PHP_EOL;
 }
+
+$packages->refreshMetadata();

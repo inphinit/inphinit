@@ -1,4 +1,4 @@
-<?php if (INPHINIT_PATH === '/'): ?>
+<?php if (INPHINIT_PATH === '/' && $environment === 'development'): ?>
 <a href="./samples/">Samples</a>
 <?php else: ?>
 <a href="../">Home</a>

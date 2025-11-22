@@ -76,6 +76,21 @@ main h2 {
     font-size: 1.5rem;
 }
 
+.badge {
+    background: #d71503;
+    border-radius: 1rem;
+    padding: .4rem 1rem;
+
+    color: #fff;
+    font-size: 0.92rem;
+    font-weight: bolder;
+    text-transform: uppercase;
+
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+
 #intro, #error, #others, #samples {
     flex: 1;
     display: flex;

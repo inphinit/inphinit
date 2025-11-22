@@ -11,7 +11,7 @@ use Inphinit\Viewing\View;
     <a class="skip" href="#main">Skip to main content</a>
     <main>
         <header id="links">
-            <?php View::render('menu'); ?>
+            <?php View::render('menu', ['environment' => $environment]); ?>
         </header>
         <section id="intro">
             <header>
@@ -33,6 +33,10 @@ use Inphinit\Viewing\View;
             </a>
             <?php endforeach; ?>
         </section>
+        <?php endif; ?>
+
+        <?php if ($environment === 'development'): ?>
+            <div class="badge">Development Mode</div>
         <?php endif; ?>
     </main>
 </body>

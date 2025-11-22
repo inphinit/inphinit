@@ -1,6 +1,7 @@
 <?php
 namespace Controllers;
 
+use Inphinit\App;
 use Inphinit\Packages;
 use Inphinit\Viewing\View;
 
@@ -51,9 +52,10 @@ class HomeController
         ];
 
         View::render('home', [
+            'environment' => App::config('environment'),
             'items' => $items,
-            'version' => $version ? $version : '',
-            'time' => null
+            'time' => null,
+            'version' => $version ? $version : ''
         ]);
     }
 }

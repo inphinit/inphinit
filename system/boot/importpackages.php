@@ -14,6 +14,7 @@ $packages = new Inphinit\Packages();
 
 $packages->setItem('Inphinit\\Experimental\\', 'vendor/inphinit/framework/src/Experimental');
 $packages->setItem('Inphinit\\', 'vendor/inphinit/framework/src/Inphinit');
+$packages->setItem('Commands\\', 'Commands');
 $packages->setItem('Controllers\\', 'Controllers');
 $packages->setItem('Models\\', 'Models');
 
@@ -33,4 +34,8 @@ if (count($logs) > 0) {
     echo PHP_EOL, ' - ', implode(PHP_EOL . ' - ', $logs), PHP_EOL, PHP_EOL;
 }
 
-$packages->refreshMetadata();
+try {
+    $packages->refreshMetadata();
+} catch (\Exception $ee) {
+    echo 'Warning: ', $ee->getMessage();
+}

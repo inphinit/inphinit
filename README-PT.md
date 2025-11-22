@@ -118,7 +118,7 @@ location / {
 
 No modo de desenvolvimento, o script `system/dev.php` é sempre executado primeiro, seguido por `system/main.php`. Se ocorrer um erro (ex: 404 ou 405), o último script a ser executado será `system/errors.php`.
 
-## Criação de Rotas
+## Criando Rotas
 
 Para criar uma nova rota, edite o arquivo `system/main.php`. Se você quiser que a rota esteja disponível apenas no modo de desenvolvimento, edite o arquivo `system/dev.php`.
 
@@ -163,7 +163,7 @@ $app->action('GET', '/controller', 'Boo\Bar::xyz');
  */
 ```
 
-## Agrupamento de Rotas
+## Agrupando rotas
 
 O sistema de agrupamento de rotas é simples e flexível. Ele é baseado na URL ou caminho completo e suporta o *wildcard* `*`, bem como os mesmos padrões disponíveis para rotas.
 

@@ -1,4 +1,10 @@
+# Temporary
 ~*
+
+# Logs
+php_errors.log
+
+# IDEs and tools
 /.fleet
 /.idea
 /.nova
@@ -6,6 +12,17 @@
 /.phpunit.cache
 /.vscode
 /.zed
-/system/vendor/*
+
+# Inphinit
+/system/boot/env.php
+/system/boot/metadata/*
 /system/storage/*
-php_errors.log
+/system/vendor/*
+
+# Folders
+!/system/boot/metadata/.keep
+!/system/storage/session/.keep
+!/system/storage/tmp/.keep
+
+# Others
+.env

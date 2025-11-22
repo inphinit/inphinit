@@ -8,7 +8,7 @@ class HomeController
 {
     public function index()
     {
-        $version = Packages::version('inphinit/framework');
+        $version = Packages::info('inphinit/framework', Packages::INFO_VERSION);
 
         $items = [
             [
@@ -18,7 +18,7 @@ class HomeController
             ], [
                 'link' => 'https://inphinit.github.io/en/docs/controllers.html',
                 'title' => 'Controllers',
-                'content' => 'Controllers are a means of organizing logic, separating by namespaces and classes, they must be stored in the <code>system/Controllers/</code> folder.'
+                'content' => 'Controllers are a means of organizing logic, separating by namespaces and classes, they must be stored in the `system/Controllers/` folder.'
             ], [
                 'link' => 'https://inphinit.github.io/en/docs/routing/resource.html',
                 'title' => 'Resource routes',

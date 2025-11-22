@@ -21,11 +21,15 @@
     },
     "autoload": {
         "psr-4": {
+            "Commands\\": "system/Commands",
             "Controllers\\": "system/Controllers",
-            "Models\\": "system/Models"
+            "Models\\": "system/Models",
         }
     },
     "scripts": {
+        "setup": [
+            "php -r \"file_exists('.env') || copy('.env.sample', '.env');\""
+        ],
         "post-update-cmd": [
             "php system/boot/importpackages.php"
         ]

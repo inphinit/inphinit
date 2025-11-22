@@ -7,6 +7,7 @@ use Inphinit\Config;
 use Inphinit\Event;
 use Inphinit\Maintenance;
 use Inphinit\Session;
+use Inphinit\Packages;
 
 use Inphinit\Dom\Document;
 
@@ -49,7 +50,7 @@ $debug->setErrorView('debug.error');
  * - The codes in this document will only work in developer mode
  */
 
-$app->setNamespace('Samples');
+$app->setNamespace('Controllers\\Samples');
 
 $app->action('GET', '/samples/info', function ($app) {
     phpinfo();
@@ -447,36 +448,48 @@ $app->scope('/samples/dom/', function ($app, $params) {
 
 // Samples
 $app->scope('/samples/', function ($app, $params) {
+    // No priority specified (priority = 0)
     Event::on('foobar', function ($arg1, $arg2) {
-        echo "1st function: {$arg1}, {$arg2}<br>";
+        echo "1° function: {$arg1}, {$arg2} (priority = 0)<br>";
     });
 
+    // No priority specified (priority = 0)
     Event::on('foobar', function ($arg1, $arg2) {
-        echo "2nd function: {$arg1}, {$arg2}<br>";
+        echo "2° function: {$arg1}, {$arg2} (priority = 0)<br>";
     });
 
+    // Low priority (priority = -1)
     Event::on('foobar', function ($arg1, $arg2) {
-        echo "3rd function: {$arg1}, {$arg2}<br>";
+        echo "3° function: {$arg1}, {$arg2} (priority = -20)<br>";
 
         // Stop propagation
         return false;
-    }, Event::LOW_PRIORITY);
+    }, -20);
 
+    // (priority = -300)
+    // Note: It will not be executed because a higher-priority event stopped the propagation
     Event::on('foobar', function ($arg1, $arg2) {
-        echo "4th function: {$arg1}, {$arg2}<br>";
+        echo "4° function: {$arg1}, {$arg2} (priority = -300)<br>";
+    }, -300);
+
+    // High priority (priority = 1)
+    Event::on('foobar', function ($arg1, $arg2) {
+        echo "5° function: {$arg1}, {$arg2} (priority = HIGH_PRIORITY)<br>";
     }, Event::HIGH_PRIORITY);
 
+    // (priority = 600)
     Event::on('foobar', function ($arg1, $arg2) {
-        echo "5th function: {$arg1}, {$arg2}<br>";
-    });
+        echo "6° function: {$arg1}, {$arg2} (priority = 600)<br>";
+    }, 600);
 
+    // Low priority (priority = -1)
     Event::on('foobar', function ($arg1, $arg2) {
-        echo "6th function: {$arg1}, {$arg2} (will not be executed due to propagation stopping at the previous event)<br>";
+        echo "7° function: {$arg1}, {$arg2} (priority = LOW_PRIORITY)<br>";
     }, Event::LOW_PRIORITY);
 
     // trigger event
     $app->action('ANY', '/event', function () {
-        Event::trigger('foobar', ['param1', microtime(true)]);
+        Event::trigger('foobar', ['foo', 'bar']);
     });
 
     $app->action('ANY', '/config', function ($app) {
@@ -663,6 +676,25 @@ $app->scope('/samples/', function ($app, $params) {
 
         // Internal redirect to private file (supported by Built-in web server on Inphinit)
         header("X-Accel-Redirect: {$dir}/storage/private/sample.txt");
+    });
+
+    // Packages
+    $app->action('GET', '/packages', function () {
+        // The information is not available when the installation is done via Git (or manually).
+        $packages = [
+            'inphinit/framework',
+            'phpstan/phpstan',
+        ];
+
+        foreach ($packages as $package) {
+            echo "{$package} version: ", Packages::info($package, Packages::INFO_VERSION);
+            echo "<br>{$package} type: ", Packages::info($package, Packages::INFO_TYPE);
+            echo "<br>{$package} source: ", Packages::info($package, Packages::INFO_SOURCE);
+            echo "<br>{$package} time: ", Packages::info($package, Packages::INFO_TIME);
+            echo "<br>{$package} url: ", Packages::info($package, Packages::INFO_URL);
+            echo "<br>{$package} description: ", Packages::info($package, Packages::INFO_DESCRIPTION);
+            echo '<hr>';
+        }
     });
 });
 
@@ -1245,7 +1277,7 @@ $app->scope('/samples/dashboard/', function ($app, $params) {
     $auth = new Inphinit\Experimental\Authentication\Auth();
     $app->auth = $auth;
 
-    // Formulário do login
+    // Login form
     $app->action('GET', '/auth/', 'Dashboard\AuthController::login');
 
     // Validate login and password, if valid create a session

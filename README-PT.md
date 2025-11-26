@@ -11,11 +11,11 @@
 
 Requisitos:
 
-1.  Recomendado: *PHP 8* (consulte as versões atualmente suportadas em https://www.php.net/supported-versions.php)
-    - Mínimo: *PHP 5.4* (a compatibilidade retroativa é mantida para ambientes com limitações de upgrade)
-    - Se precisar de um servidor completo no Windows ou macOS, considere usar WampServer, XAMPP, Laragon, EasyPHP ou AMPPS.
-2.  (Opcional) Extensão PHP Intl, necessária para utilizar a classe `Inphinit\Utility\Strings`.
-3.  (Opcional) Extensão PHP COM ou cURL, necessárias para utilizar a classe `Inphinit\Filesystem\Size`.
+1. Recomendado: *PHP 8* (consulte as versões atualmente suportadas em https://www.php.net/supported-versions.php)
+   - Mínimo: *PHP 5.4* (a compatibilidade retroativa é mantida para ambientes com limitações de upgrade)
+   - Se precisar de um servidor completo no Windows ou macOS, considere usar WampServer, XAMPP, Laragon, EasyPHP ou AMPPS.
+2. (Opcional) Extensão PHP Intl, necessária para utilizar a classe `Inphinit\Utility\Strings`.
+3. (Opcional) Extensão PHP COM ou cURL, necessárias para utilizar a classe `Inphinit\Filesystem\Size`.
 
 Após instalar o PHP, você pode instalar o Inphinit via Composer ou Git.
 

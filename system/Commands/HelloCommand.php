@@ -1,8 +1,8 @@
 <?php
 namespace Commands;
 
-use Inphinit\Packages;
 use Inphinit\Viewing\View;
+use Inphinit\Experimental\Cli\Command;
 
 class HelloCommand
 {
@@ -13,7 +13,7 @@ class HelloCommand
      * @param array $params
      * @param array $residual
      */
-    public function index($command, $params, $residual)
+    public function index(Command $command, array $params, array $residual)
     {
         $name = $command->getName();
 

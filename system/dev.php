@@ -1021,6 +1021,7 @@ $app->scope('/samples/http/', function ($app, $params) {
 
     $app->action('ANY', '/cache', function () {
         View::render('home', [
+            'environment' => App::config('environment'),
             'items' => [],
             'version' => null,
             'time' => date('h:i:s')
@@ -1032,6 +1033,7 @@ $app->scope('/samples/http/', function ($app, $params) {
     // HTTP Response download page
     $app->action('ANY', '/download', function () {
         View::render('home', [
+            'environment' => App::config('environment'),
             'items' => [],
             'version' => null,
             'time' => date('h:i:s')

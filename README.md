@@ -18,8 +18,8 @@
 Requirements:
 
 1. Recommended: *PHP 8* (see the currently supported versions at https://www.php.net/supported-versions.php)
-    - Minimum: *PHP 5.4* (backward compatibility is preserved for environments with upgrade limitations)
-    - If you need a full-featured server on Windows or macOS, consider using WampServer, XAMPP, Laragon, EasyPHP, or AMPPS.
+   - Minimum: *PHP 5.4* (backward compatibility is preserved for environments with upgrade limitations)
+   - If you need a full-featured server on Windows or macOS, consider using WampServer, XAMPP, Laragon, EasyPHP, or AMPPS.
 1. (Optional) The Intl PHP extension, required for the `Inphinit\Utility\Strings` class.
 1. (Optional) The COM or cURL PHP extension, required for the `Inphinit\Filesystem\Size` class.
 

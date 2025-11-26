@@ -1,5 +1,5 @@
 <?php
-use Inphinit\Debugging\Debug;
+use Inphinit\Diagnostics\Debug;
 ?>
 <div class="code-inphinit">
 <div class="code-inphinit-header"><?=Debug::editor($file, $line)?></div>

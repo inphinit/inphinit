@@ -1,5 +1,12 @@
 <?php
-// A sample for PostgreSQL (adjust as desired and edit the environment variables or the .env file).
+/*
+A sample for PostgreSQL, adjust as desired and edit the environment variables or the .env file:
+
+DB_HOST=host
+DB_USER=user
+DB_PASS=password
+DB_DATABASE=database
+*/
 
 use Inphinit\Experimental\Environment\Env;
 

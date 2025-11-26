@@ -1,5 +1,5 @@
 <?php
-use Inphinit\Debugging\Checkup;
+use Inphinit\Diagnostics\Checkup;
 use Inphinit\Viewing\View;
 
 /*

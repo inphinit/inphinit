@@ -152,7 +152,7 @@ $app->scope('/samples/debug/invalid/static-method/', function ($app, $params) {
 
 // If the request comes from "127.0.0.1" or is in development mode, it will bypass maintenance mode
 Event::on('maintenance', function () {
-    if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || App::config('development')) {
+    if (App::config('environment') === 'development' || in_array($_SERVER['REMOTE_ADDR'], ['::1', '127.0.0.1'])) {
         // Stop propagation and disable maintenance at runtime
         return false;
     }

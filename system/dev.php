@@ -1346,8 +1346,10 @@ $app->scope('/samples/csv/', function ($app) {
 
         $handle->setMode(Csv::MODE_COLUMN|Csv::MODE_SKIP_HEADER);
 
-        $handle->setSanitize(function ($line, $index) {
-            return stripcslashes($line);
+        $handle->setFilter(function (array $fields, $index) {
+            foreach ($fields as &$field) {
+                $field = stripcslashes($field);
+            }
         });
 
         // Rewind and refresh headers
@@ -1379,7 +1381,7 @@ $app->scope('/samples/csv/', function ($app) {
         $converter = new Converter($handle);
 
         // Output like: [["header 1","header 2","header 3"],["foo","bar","baz"]]
-        $converter->json($storage . '/output[index].json');
+        $converter->json($storage . '/output[index].json', false);
 
         // Output like: [{"header 1":"foo","header 2":"bar","header 3":"baz"}]
         $handle->converter()->json($storage . '/output[pairs].json', true, JSON_PRETTY_PRINT);

@@ -11,8 +11,6 @@
 *.md     text diff=markdown
 *.php    text diff=php
 
-server   text eol=lf
-
 .htaccess  text eol=lf
 web.config text eol=crlf
 

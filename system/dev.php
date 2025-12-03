@@ -28,8 +28,9 @@ use Inphinit\Experimental\Http\Method;
 use Controllers\Samples\TreatyController;
 use Controllers\Samples\ResourceController;
 
-use Inphinit\Experimental\Structured\Csv;
-use Inphinit\Experimental\Structured\Tsv;
+use Inphinit\Experimental\Delimited\Converter;
+use Inphinit\Experimental\Delimited\Csv;
+use Inphinit\Experimental\Delimited\Tsv;
 
 // Inject CSS for debug if necessary
 $debug->setBeforeView('debug.style');
@@ -658,11 +659,14 @@ $app->scope('/samples/', function ($app, $params) {
     $app->action('ANY', '/session/regenerate', function ($app) {
         $session = new Session('sample');
 
-        echo 'Previous Session ID: ', $session->getId(), '<br>';
+        $previous = $session->getId();
 
         $session->regenerate();
 
-        echo 'Current Session ID: ', $session->getId(), '<br>';
+        $current = $session->getId();
+
+        echo 'Previous Session ID: ', $previous, '<br>';
+        echo 'Current Session ID: ', $current, '<br>';
 
         // saves data that may not have been added yet
         $session->commit();
@@ -1322,7 +1326,6 @@ $app->scope('/samples/csv/', function ($app) {
 
     $app->action('GET', '/', function () use ($storage) {
         $handle = new Csv($storage . '/source.csv');
-        $handle->enableDecoding(true);
 
         echo '<h2>Headers:</h2>';
         echo '<pre>';
@@ -1332,7 +1335,7 @@ $app->scope('/samples/csv/', function ($app) {
         echo '<h2>Contents:</h2>';
         echo '<pre>';
 
-        while ($line = $handle->fetch(Csv::MODE_INDEX)) {
+        while ($line = $handle->fetch()) {
             var_dump($line);
         }
 
@@ -1341,9 +1344,29 @@ $app->scope('/samples/csv/', function ($app) {
         echo '<h2>Contents (columns):</h2>';
         echo '<pre>';
 
-        $handle->rewind();
+        $handle->setMode(Csv::MODE_COLUMN|Csv::MODE_SKIP_HEADER);
 
-        while ($line = $handle->fetch(Csv::MODE_COLUMN)) {
+        $handle->setSanitize(function ($line, $index) {
+            return stripcslashes($line);
+        });
+
+        // Rewind and refresh headers
+        $handle->refresh();
+
+        while ($line = $handle->fetch()) {
+            var_dump($line);
+        }
+
+        echo '</pre>';
+        echo '<h2>Contents (DTO):</h2>';
+        echo '<pre>';
+
+        $handle->setDataTransferObject('stdClass');
+
+        // Rewind and refresh headers
+        $handle->refresh();
+
+        while ($line = $handle->fetch()) {
             var_dump($line);
         }
 
@@ -1352,10 +1375,18 @@ $app->scope('/samples/csv/', function ($app) {
 
     $app->action('GET', '/convert', function () use ($storage) {
         $handle = new Csv($storage . '/source.csv');
-        $handle->save($storage . '/output[index].json', Csv::JSON_INDEX);
-        $handle->save($storage . '/output[pairs].json', Csv::JSON_PAIRS);
-        $handle->save($storage . '/output.tsv', Csv::TSV);
-        $handle->saveCsv($storage . '/output.csv');
+
+        $converter = new Converter($handle);
+
+        // Output like: [["header 1","header 2","header 3"],["foo","bar","baz"]]
+        $converter->json($storage . '/output[index].json');
+
+        // Output like: [{"header 1":"foo","header 2":"bar","header 3":"baz"}]
+        $handle->converter()->json($storage . '/output[pairs].json', true, JSON_PRETTY_PRINT);
+
+        $handle->converter()->csv($storage . '/output.csv', ';', '"', "\r\n");
+
+        $handle->converter()->tsv($storage . '/output.tsv');
     });
 
     $app->action('GET', '/index.json', function () use ($storage) {
@@ -1385,7 +1416,6 @@ $app->scope('/samples/tsv/', function ($app) {
 
     $app->action('GET', '/', function () use ($storage) {
         $handle = new Tsv($storage . '/source.tsv');
-        $handle->enableDecoding(true);
 
         echo '<h2>Headers:</h2>';
         echo '<pre>';
@@ -1395,18 +1425,33 @@ $app->scope('/samples/tsv/', function ($app) {
         echo '<h2>Contents:</h2>';
         echo '<pre>';
 
-        while ($line = $handle->fetch(Csv::MODE_INDEX)) {
+        while ($line = $handle->fetch()) {
             var_dump($line);
         }
 
         echo '</pre>';
-
         echo '<h2>Contents (columns):</h2>';
         echo '<pre>';
 
-        $handle->rewind();
+        $handle->setMode(Csv::MODE_COLUMN|Csv::MODE_SKIP_HEADER);
 
-        while ($line = $handle->fetch(Csv::MODE_COLUMN)) {
+        // Rewind and refresh headers
+        $handle->refresh();
+
+        while ($line = $handle->fetch()) {
+            var_dump($line);
+        }
+
+        echo '</pre>';
+        echo '<h2>Contents (DTO):</h2>';
+        echo '<pre>';
+
+        $handle->setDataTransferObject('stdClass');
+
+        // Rewind and refresh headers
+        $handle->refresh();
+
+        while ($line = $handle->fetch()) {
             var_dump($line);
         }
 
@@ -1415,10 +1460,14 @@ $app->scope('/samples/tsv/', function ($app) {
 
     $app->action('GET', '/convert', function () use ($storage) {
         $handle = new Tsv($storage . '/source.tsv');
-        $handle->save($storage . '/output[index].json', Csv::JSON_INDEX);
-        $handle->save($storage . '/output[pairs].json', Csv::JSON_PAIRS);
-        $handle->save($storage . '/output.tsv', Csv::TSV);
-        $handle->saveCsv($storage . '/output.csv');
+
+        $handle->converter()->json(
+            $storage . '/output[index].json', false, JSON_PRETTY_PRINT
+        )->json(
+            $storage . '/output[pairs].json', true
+        )->csv(
+            $storage . '/output.csv', ';'
+        );
     });
 
     $app->action('GET', '/index.json', function () use ($storage) {

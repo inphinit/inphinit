@@ -90,6 +90,7 @@ use Inphinit\Viewing\View;
             <dt>HTTP</dt>
             <dd><a href="../samples/http/cache">/http/cache</a></dd>
             <dd><a href="../samples/http/download">/http/download</a></dd>
+            <dd><a href="../samples/http/is">/http/is</a></dd>
             <dd><a href="../samples/http/negotiation">/http/negotiation</a></dd>
             <dd><a href="../samples/http/negotiation/string">/http/negotiation/string</a></dd>
             <dd><a href="../samples/http/negotiation/qfactor">/http/negotiation/qfactor</a></dd>
@@ -114,8 +115,16 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/utilities/strings">/utilities/strings</a></dd>
             <dd><a href="../samples/utilities/version">/utilities/version</a></dd>
             <dd><a href="../samples/utilities/url">/utilities/url</a></dd>
-            <dd><a href="../samples/sendfile">/samples/sendfile</a></dd>
             <dd><a href="../samples/packages">/samples/packages</a></dd>
+        </dl>
+
+        <dl>
+            <dt>Sendfile</dt>
+            <dd><a href="../samples/sendfile/header">/samples/sendfile/header</a></dd>
+            <dd><a href="../samples/sendfile/x-accel-redirect">/samples/sendfile/&lt;mode&gt; (X-Accel-Redirect)</a></dd>
+            <dd><a href="../samples/sendfile/x-sendfile">/samples/sendfile/&lt;mode&gt; (X-Sendfile)</a></dd>
+            <dd><a href="../samples/sendfile/fallback">/samples/sendfile/&lt;mode&gt; (fallback)</a></dd>
+            <dd><a href="../samples/sendfile/alternate">/samples/sendfile/&lt;mode&gt; (X-Accel-Redirect or X-Sendfile)</a></dd>
         </dl>
 
         <dl>
@@ -137,9 +146,12 @@ use Inphinit\Viewing\View;
         </dl>
 
         <dl>
-            <dt>Extras</dt>
-            <dd><a href="../samples/maintenance/up">/maintenance/up</a></dd>
-            <dd><a href="../samples/maintenance/down">/maintenance/down</a></dd>
+            <dt>Maintenance</dt>
+            <dd><a href="../samples/maintenance/on">/maintenance/on</a></dd>
+            <dd><a href="../samples/maintenance/off">/maintenance/off</a></dd>
+            <dt>Commands</dt>
+            <dd><a href="../samples/commands/run">/commands/run (equiv. <code>run hello --name &lt;name&gt;</code>)</a></dd>
+            <dd><a href="../samples/commands/unknown">/commands/unknown (equiv. <code>run unknown</code>)</a></dd>
         </dl>
         </section>
     </main>

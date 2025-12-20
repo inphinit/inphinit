@@ -11,7 +11,7 @@ use Inphinit\Viewing\View;
     <a class="skip" href="#main">Skip to main content</a>
     <main>
         <header id="links">
-            <?php View::render('menu', ['environment' => $environment]); ?>
+            <?php View::render('menu'); ?>
         </header>
         <section id="intro">
             <header>
@@ -30,6 +30,10 @@ use Inphinit\Viewing\View;
             <a rel="nofollow noopener noreferrer" target="_blank" href="<?=$item['link']?>">
                 <h3><?=$item['title']?></h3>
                 <p><?=$item['content']?></p>
+
+                <?php if (empty($item['experimental']) === false): ?>
+                    <div class="badge">Experimental</div>
+                <?php endif; ?>
             </a>
             <?php endforeach; ?>
         </section>

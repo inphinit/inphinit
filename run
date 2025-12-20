@@ -1,14 +1,23 @@
 #!/usr/bin/env php
 <?php
+if (PHP_SAPI !== 'cli') {
+    throw new RuntimeException(
+        sprintf(
+            'This script can only be executed from the command-line interface (CLI), "%s" given',
+            PHP_SAPI
+        )
+    );
+}
+
 define('INPHINIT_START', microtime(true));
 define('INPHINIT_ROOT', str_replace('\\', '/', __DIR__));
 define('INPHINIT_SYSTEM', INPHINIT_ROOT . '/system');
 
-require_once INPHINIT_SYSTEM . '/vendor/inphinit/framework/src/commands.php';
+require_once INPHINIT_SYSTEM . '/vendor/inphinit/framework/src/boot_console.php';
 
 try {
-    $console->exec($argv);
+    exit($console->exec($argv));
 } catch (\Exception $ee) {
-    echo $ee->getMessage();
-    exit(1);
+    fwrite(STDERR, $ee->getMessage());
+    exit(-1);
 }

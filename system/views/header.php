@@ -1,8 +1,6 @@
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
-<link href="https://fonts.googleapis.com/css?family=Roboto:100,300" rel="stylesheet" type="text/css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover">
+<link rel="icon" href="<?=INPHINIT_URL?>/favicon.ico">
 <style type="text/css">
 *, ::before, ::after {
     box-sizing: border-box;
@@ -39,7 +37,7 @@ h1, h2, h3 {
 }
 
 html {
-    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     font-size: 16px;
     color: #F7F6F6;
     background: linear-gradient( 135deg, #262833 10%, #101015 100%);
@@ -89,6 +87,18 @@ main h2 {
     position: fixed;
     bottom: 1rem;
     right: 1rem;
+
+    pointer-events: none;
+}
+
+section .badge {
+    background: #d7a203;
+    color: #000;
+    font-size: 0.72rem;
+    position: absolute;
+    bottom: auto;
+    top: 0.5rem;
+    right: 0.5rem;
 }
 
 #intro, #error, #others, #samples {
@@ -100,7 +110,6 @@ main h2 {
 }
 
 #intro {
-    height: calc(100vh - 360px);
     min-height: 400px;
 }
 
@@ -150,7 +159,6 @@ main h2 {
 }
 
 #links > a {
-    transition: .2s all ease;
     text-decoration: none;
     display: block;
     padding: .4rem .8rem;
@@ -180,6 +188,10 @@ main h2 {
     }
 }
 
+body * {
+    transition: .3s all ease;
+}
+
 #items {
     display: flex;
     flex-direction: row;
@@ -190,16 +202,16 @@ main h2 {
 }
 
 #items > a {
+    position: relative;
     flex: 1 0 28%;
     display: block;
-    padding: 2rem;
+    padding: 1.5rem;
     overflow: hidden;
     color: inherit;
     text-decoration: none;
     border-radius: .4rem;
     background: rgba(0,0,0,.1);
     border: thin solid rgba(255,255,255,.2);
-    transition: .3s all ease;
 }
 
 #items > a:hover, #items > a:active, #items > a:focus {
@@ -209,6 +221,8 @@ main h2 {
 
 #items h3 {
     margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    font-size: 0.92rem;
 }
 
 #items > dl {
@@ -231,8 +245,11 @@ main h2 {
 }
 
 #items > dl > dt {
+    background: rgba(0,0,0,.3);
     padding: 1rem;
     font-weight: bold;
+    font-size: 80%;
+    text-transform: uppercase;
 }
 
 #items > dl > dd, #items > dl > dd + dt {
@@ -244,7 +261,6 @@ main h2 {
     display: block;
     padding: 1rem;
     text-decoration: none;
-    transition: .3s all ease;
 }
 
 #items > dl > dd > a:hover,
@@ -254,7 +270,7 @@ main h2 {
 }
 
 @media (max-width: 1000px) {
-    #items > dl {
+    #items > a, #items > dl {
         flex: 1 0 48%;
     }
 }
@@ -264,7 +280,7 @@ main h2 {
         font-size: 10px;
     }
 
-    #items > dl {
+    #items > a, #items > dl {
         flex: 1 0 1;
     }
 }
@@ -288,10 +304,6 @@ thead {
 
 th:first-child {
     width: 10%;
-}
-
-tbody > td, tbody > th {
-    bottom: thin solid #f8f9fd;
 }
 
 tbody > tr > :nth-child(odd) {

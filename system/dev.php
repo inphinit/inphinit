@@ -5,7 +5,6 @@ use Inphinit\Viewing\View;
 
 use Inphinit\Config;
 use Inphinit\Event;
-use Inphinit\Maintenance;
 use Inphinit\Session;
 use Inphinit\Packages;
 
@@ -32,6 +31,10 @@ use Inphinit\Experimental\Delimited\Converter;
 use Inphinit\Experimental\Delimited\Csv;
 use Inphinit\Experimental\Delimited\Tsv;
 
+use Inphinit\Experimental\Cli\Console;
+
+use Inphinit\Experimental\Http\FileResponse;
+
 // Inject CSS for debug if necessary
 $debug->setBeforeView('debug.style');
 
@@ -45,8 +48,7 @@ $debug->setErrorView('debug.error');
 # $debug->setPerformanceView('debug.performance');
 
 /**
- * PLEASE NOTE:
- *
+ * NOTE:
  * - Below are samples of using the common features of the framework, you can remove everything below
  * - The codes in this document will only work in developer mode
  */
@@ -62,6 +64,7 @@ $app->action('GET', '/samples/memory', function () {
 });
 
 $app->action('GET', '/samples/', function () {
+    View::data('environment', App::config('environment'));
     View::render('samples');
 });
 
@@ -153,7 +156,7 @@ $app->scope('/samples/debug/invalid/static-method/', function ($app, $params) {
 
 // If the request comes from "127.0.0.1" or is in development mode, it will bypass maintenance mode
 Event::on('maintenance', function () {
-    if (App::config('environment') === 'development' || in_array($_SERVER['REMOTE_ADDR'], ['::1', '127.0.0.1'])) {
+    if (in_array($_SERVER['REMOTE_ADDR'], ['::1', '127.0.0.1'])) {
         // Stop propagation and disable maintenance at runtime
         return false;
     }
@@ -161,16 +164,47 @@ Event::on('maintenance', function () {
 
 // Maintenance toggle
 $app->scope('/samples/maintenance/', function ($app, $params) {
-    $app->action('GET', '/down', function () {
-        Maintenance::down();
-
+    $app->action('GET', '/on', function () {
+        App::down();
         return 'Activated maintenance mode for the next requests';
     });
 
-    $app->action('GET', '/up', function () {
-        Maintenance::up();
-
+    $app->action('GET', '/off', function () {
+        App::up();
         return 'Disabled maintenance mode for the next requests';
+    });
+});
+
+// Excute commands in web interface
+$app->scope('/samples/commands/', function ($app, $params) {
+    $app->action('GET', '/run', function () {
+        // Equivalent to the `run hello --name Mary` command
+        $output = Console::run('hello', [
+            'name' => 'Mary'
+        ], $status);
+
+        echo '<pre>';
+
+        var_dump([
+            'output' => $output,
+            'status' => $status
+        ]);
+
+        echo '</pre>';
+    });
+
+    $app->action('GET', '/unknown', function () {
+        // Equivalent to the `run unknown` command
+        $output = Console::run('unknown', [], $status);
+
+        echo '<pre>';
+
+        var_dump([
+            'output' => $output,
+            'status' => $status
+        ]);
+
+        echo '</pre>';
     });
 });
 
@@ -328,6 +362,12 @@ $app->scope('/samples/dom/', function ($app, $params) {
 
         $handle->load('<html><head></head><body><div x=\'abc"def\'>Hello World!</div><div id=\'foo\'>bar</div></body></html>');
 
+        $size = $handle->selector()->count('body div');
+
+        echo '"body div": ';
+
+        var_dump($size);
+
         echo '<pre>';
 
         $elements = $handle->selector()->all('body > div');
@@ -436,7 +476,7 @@ $app->scope('/samples/dom/', function ($app, $params) {
 
     // XML error
     $app->action('ANY', '/file-error', function () {
-        Document::setSeverityLevels(Document::ERROR | Document::FATAL | Document::WARNING);
+        Document::setSeverityLevels(Document::ERROR|Document::FATAL|Document::WARNING);
 
         $handle = new Document(Document::XML);
         $handle->load('public/error.xml', true);
@@ -631,13 +671,23 @@ $app->scope('/samples/', function ($app, $params) {
 
         echo 'Session ID: ', $session->getId(), '<br>';
 
+        echo '<h2>Before:</h2>';
+        echo '<pre>';
         var_dump($session->float);
         var_dump($session->int);
         var_dump($session->octal);
+        echo '</pre>';
 
-        $session->float = 99.9;
-        $session->int = 100;
+        $session->float = microtime(true);
+        $session->int = time();
         $session->octal = 0666;
+
+        echo '<h2>After:</h2>';
+        echo '<pre>';
+        var_dump($session->float);
+        var_dump($session->int);
+        var_dump($session->octal);
+        echo '</pre>';
 
         $session->commit(); // Save
     });
@@ -651,7 +701,8 @@ $app->scope('/samples/', function ($app, $params) {
         $session->int = null;
         $session->octal = null;
 
-        $session->commit(); // Save
+        // saves data that may not have been added yet
+        $session->commit();
 
         echo 'Reset session';
     });
@@ -672,7 +723,7 @@ $app->scope('/samples/', function ($app, $params) {
         $session->commit();
     });
 
-    $app->action('GET', '/sendfile', function () {
+    $app->action('GET', '/sendfile/header', function () {
         $dir = __DIR__;
 
         // headers to download response
@@ -680,6 +731,34 @@ $app->scope('/samples/', function ($app, $params) {
 
         // Internal redirect to private file (supported by Built-in web server on Inphinit)
         header("X-Accel-Redirect: {$dir}/storage/private/sample.txt");
+    });
+
+    $app->action('GET', '/sendfile/<mode>', function ($app, $params) {
+        $dir = __DIR__;
+        $path = "{$dir}/storage/private/sample.txt";
+
+        $handle = new FileResponse($path, 'output.txt');
+
+        switch ($params['mode']) {
+            case 'x-accel-redirect':
+                $handle->send(FileResponse::ACCEL);
+                break;
+
+            case 'x-sendfile':
+                $handle->send(FileResponse::SENDFILE);
+                break;
+
+            case 'fallback':
+                $handle->send(FileResponse::FALLBACK);
+                break;
+
+            case 'alternate':
+                $handle->send(FileResponse::ACCEL|FileResponse::SENDFILE);
+                break;
+
+            default:
+                die('Invalid mode');
+        }
     });
 
     // Packages
@@ -1034,6 +1113,30 @@ $app->scope('/samples/http/', function ($app, $params) {
         Response::cache(30);
     });
 
+    $app->action('GET', '/is', function () {
+        echo '<pre>';
+
+        // Returns true if sent Sec-GPC: 1 header in request, otherwise returns false.
+        var_dump('gpc:', Request::is('gpc'));
+
+        // Returns true if sent X-Pjax header in request, otherwise returns false.
+        var_dump('pjax:', Request::is('pjax'));
+
+        // Returns true if sent prefetch header (e.g., Sec-Purpose, x-purpose, purpose, x-moz) in request, otherwise returns false.
+        var_dump('prefetch:', Request::is('prefetch'));
+
+        // Returns true if sent Save-Data: on header in request, otherwise returns false.
+        var_dump('save:', Request::is('save'));
+
+        // Returns true if using HTTPS, otherwise returns false.
+        var_dump('secure:', Request::is('secure'));
+
+        // Returns true if sent X-Requested-With: XMLHttpRequest header in request, otherwise returns false.
+        var_dump('xhr:', Request::is('xhr'));
+
+        echo '</pre>';
+    });
+
     // HTTP Response download page
     $app->action('ANY', '/download', function () {
         View::render('home', [
@@ -1327,6 +1430,8 @@ $app->scope('/samples/csv/', function ($app) {
     $app->action('GET', '/', function () use ($storage) {
         $handle = new Csv($storage . '/source.csv');
 
+        $handle->setEndOfLine("\n");
+
         echo '<h2>Headers:</h2>';
         echo '<pre>';
         var_dump($handle->getHeaders());
@@ -1344,9 +1449,9 @@ $app->scope('/samples/csv/', function ($app) {
         echo '<h2>Contents (columns):</h2>';
         echo '<pre>';
 
-        $handle->setMode(Csv::MODE_COLUMN|Csv::MODE_SKIP_HEADER);
+        $handle->setFlags(Csv::MODE_COLUMN|Csv::SKIP_EMPTY|Csv::SKIP_HEADER);
 
-        $handle->setFilter(function (array $fields, $index) {
+        $handle->setFilter(function (array &$fields, $index) {
             foreach ($fields as &$field) {
                 $field = stripcslashes($field);
             }
@@ -1380,15 +1485,39 @@ $app->scope('/samples/csv/', function ($app) {
 
         $converter = new Converter($handle);
 
-        // Output like: [["header 1","header 2","header 3"],["foo","bar","baz"]]
-        $converter->json($storage . '/output[index].json', false);
+        // // Output like: [["header 1","header 2","header 3"],["foo","bar","baz"]]
+        // $converter->json($storage . '/output[index].json', false);
 
-        // Output like: [{"header 1":"foo","header 2":"bar","header 3":"baz"}]
-        $handle->converter()->json($storage . '/output[pairs].json', true, JSON_PRETTY_PRINT);
+        // // Output like: [{"header 1":"foo","header 2":"bar","header 3":"baz"}]
+        // $handle->converter()->json($storage . '/output[pairs].json', true, JSON_PRETTY_PRINT);
 
-        $handle->converter()->csv($storage . '/output.csv', ';', '"', "\r\n");
+        // $handle->converter()->csv($storage . '/output.csv', ';', '"', "\r\n");
 
-        $handle->converter()->tsv($storage . '/output.tsv');
+        // $handle->converter()->tsv($storage . '/output.tsv');
+
+        $xml = new DOMDocument;
+        $main = $xml->createElement('Main');
+        $xml->appendChild($main);
+
+        $handle->setFilter(function (array &$fields, $index) {
+            // Handle values present in the headers.
+            if ($index === 0) {
+                foreach ($fields as &$field) {
+                    $field = preg_replace('#[^\w]+#', '-', $field);
+                    $field = preg_replace('#-{2,}#', '-', $field);
+                }
+            } else {
+                foreach ($fields as &$field) {
+                    $field = stripcslashes($field);
+                }
+            }
+        });
+
+        $handle->converter()->dom($main);
+
+        Response::type('application/xml');
+
+        echo $xml->saveXML();
     });
 
     $app->action('GET', '/index.json', function () use ($storage) {
@@ -1403,12 +1532,13 @@ $app->scope('/samples/csv/', function ($app) {
 
     $app->action('GET', '/output', function () use ($storage) {
         Response::type('text/csv');
+        header('Content-Disposition: inline; filename="output.csv"');
         header('X-Accel-Redirect: ' . $storage . '/output.csv');
     });
 
     $app->action('GET', '/tsv', function () use ($storage) {
-        // text/tab-separated-values
-        Response::type('text/plain');
+        Response::type('text/tab-separated-values');
+        header('Content-Disposition: inline; filename="output.tsv"');
         header('X-Accel-Redirect: ' . $storage . '/output.tsv');
     });
 });
@@ -1435,7 +1565,7 @@ $app->scope('/samples/tsv/', function ($app) {
         echo '<h2>Contents (columns):</h2>';
         echo '<pre>';
 
-        $handle->setMode(Csv::MODE_COLUMN|Csv::MODE_SKIP_HEADER);
+        $handle->setFlags(Csv::MODE_COLUMN|Csv::SKIP_EMPTY|Csv::SKIP_HEADER);
 
         // Rewind and refresh headers
         $handle->refresh();
@@ -1463,13 +1593,35 @@ $app->scope('/samples/tsv/', function ($app) {
     $app->action('GET', '/convert', function () use ($storage) {
         $handle = new Tsv($storage . '/source.tsv');
 
-        $handle->converter()->json(
-            $storage . '/output[index].json', false, JSON_PRETTY_PRINT
-        )->json(
-            $storage . '/output[pairs].json', true
-        )->csv(
-            $storage . '/output.csv', ';'
-        );
+        $handle->converter()
+               ->json($storage . '/output[index].json', false, JSON_PRETTY_PRINT)
+               ->json($storage . '/output[pairs].json', true)
+               ->csv($storage . '/output.csv', ';')
+               ->tsv($storage . '/output.tsv');
+
+        $xml = new DOMDocument;
+        $main = $xml->createElement('Main');
+        $xml->appendChild($main);
+
+        $handle->setFilter(function (array &$fields, $index) {
+            // Handle values present in the headers.
+            if ($index === 0) {
+                foreach ($fields as &$field) {
+                    $field = preg_replace('#[^\w]+#', '-', $field);
+                    $field = preg_replace('#-{2,}#', '-', $field);
+                }
+            } else {
+                foreach ($fields as &$field) {
+                    $field = stripcslashes($field);
+                }
+            }
+        });
+
+        $handle->converter()->dom($main);
+
+        Response::type('application/xml');
+
+        echo $xml->saveXML();
     });
 
     $app->action('GET', '/index.json', function () use ($storage) {
@@ -1483,13 +1635,14 @@ $app->scope('/samples/tsv/', function ($app) {
     });
 
     $app->action('GET', '/output', function () use ($storage) {
-        // text/tab-separated-values
-        Response::type('text/plain');
+        Response::type('text/tab-separated-values');
+        header('Content-Disposition: inline; filename="output.tsv"');
         header('X-Accel-Redirect: ' . $storage . '/output.tsv');
     });
 
     $app->action('GET', '/csv', function () use ($storage) {
         Response::type('text/csv');
+        header('Content-Disposition: inline; filename="output.csv"');
         header('X-Accel-Redirect: ' . $storage . '/output.csv');
     });
 });

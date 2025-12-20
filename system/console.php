@@ -1,5 +1,4 @@
 <?php
-use Inphinit\App;
 use Inphinit\Experimental\Cli\Command;
 
 $console->action('sample', function (Command $command, array $params, array $residual) {

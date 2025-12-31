@@ -21,7 +21,9 @@ use Inphinit\Utility\Arrays;
 use Inphinit\Utility\Strings;
 use Inphinit\Utility\Version;
 use Inphinit\Utility\Url;
+use Inphinit\Utility\PropertyAccessor;
 
+use Inphinit\Experimental\Http\CookieJar;
 use Inphinit\Experimental\Http\Method;
 
 use Controllers\Samples\TreatyController;
@@ -34,6 +36,11 @@ use Inphinit\Experimental\Delimited\Tsv;
 use Inphinit\Experimental\Cli\Console;
 
 use Inphinit\Experimental\Http\FileResponse;
+
+/**
+ * @var Inphinit\Diagnostics\App $app
+ * @var Inphinit\Diagnostics\Debug $debug
+ */
 
 // Inject CSS for debug if necessary
 $debug->setBeforeView('debug.style');
@@ -666,8 +673,24 @@ $app->scope('/samples/', function ($app, $params) {
 
     });
 
+    $app->action('ANY', '/cookie', function ($app) {
+        echo '123';
+
+        $jar = new CookieJar('sample');
+
+        $jar->foo = '1';
+        $jar->bar = '2';
+        $jar->baz = '3';
+
+        $jar->setExpires('+1 week');
+        $jar->setHttpOnly(true);
+        $jar->setPartitioned(true);
+
+        $jar->send();
+    });
+
     $app->action('ANY', '/session', function ($app) {
-        $session = new Session('sample');
+        $session = new Session('session');
 
         echo 'Session ID: ', $session->getId(), '<br>';
 
@@ -693,7 +716,7 @@ $app->scope('/samples/', function ($app, $params) {
     });
 
     $app->action('ANY', '/session/reset', function ($app) {
-        $session = new Session('sample');
+        $session = new Session('session');
 
         echo 'Session ID: ', $session->getId(), '<br>';
 
@@ -708,7 +731,7 @@ $app->scope('/samples/', function ($app, $params) {
     });
 
     $app->action('ANY', '/session/regenerate', function ($app) {
-        $session = new Session('sample');
+        $session = new Session('session');
 
         $previous = $session->getId();
 
@@ -1089,6 +1112,47 @@ $app->scope('/samples/utilities/', function ($app, $params) {
         $path = Url::canonpath($path);
         echo '<p>After: ', $path,'</p>';
     });
+
+    $app->action('GET', '/others', function () {
+        $items = [
+            'entries' => [
+              'a',
+              'b',
+              'c'
+            ],
+            'foo' => [
+                'bar' => [
+                    'baz' => [
+                        'deep' => 777
+                    ]
+                ]
+            ],
+        ];
+
+        // Equivalent to $items['entries'][0]
+        var_dump(PropertyAccessor::getValue('entries.0', $items));
+
+        // Equivalent to $items['entries'][1]
+        var_dump(PropertyAccessor::getValue('entries.1', $items));
+
+        // Equivalent to $items['entries'][2]
+        var_dump(PropertyAccessor::getValue('entries.2', $items));
+
+        // Equivalent to $items['foo']['bar']['baz']['deep']
+        var_dump(PropertyAccessor::getValue('foo.bar.baz.deep', $items));
+
+        // Equivalent to $items['foo']['bar']['baz']['invalid']
+        var_dump(PropertyAccessor::getValue('foo.bar.baz.invalid', $items));
+
+        // Equivalent to $items['foo']['bar']['baz']['invalid']
+        var_dump(PropertyAccessor::getValue('foo.bar.baz.invalid', $items, 'Alternative value!'));
+
+        // Equivalent to $items['foo']['bar']['baz']
+        var_dump(PropertyAccessor::getValue('foo.bar.baz', $items));
+
+        // Equivalent to $items['foo']['bar']
+        var_dump(PropertyAccessor::getValue('foo.bar', $items));
+    });
 });
 
 $app->scope('/samples/http/', function ($app, $params) {
@@ -1153,93 +1217,59 @@ $app->scope('/samples/http/', function ($app, $params) {
     $app->action('GET', '/negotiation', function ($app, $params) {
         $negotiation = new Negotiation();
 
-
-        // accept: header
         echo '<h2>accept: (content-type)</h2>';
 
-        $priority = $negotiation->getAccept();
+        $priority = $negotiation->topContentType();
 
         echo '<p>Priority: ';
         var_dump($priority);
         echo '</p>';
 
-        $list = $negotiation->accept(Negotiation::HIGH);
+        $list = $negotiation->contentTypes(Negotiation::HIGH);
 
         echo '<p>Types sorted with Negotiation::HIGH</p>';
         echo '<pre>';
         var_dump($list);
         echo '</pre>';
 
-        $list = $negotiation->accept(Negotiation::LOW);
+        $list = $negotiation->contentTypes(Negotiation::LOW);
 
         echo '<p>Types sorted with Negotiation::LOW</p>';
         echo '<pre>';
         var_dump($list);
         echo '</pre>';
 
-        $list = $negotiation->accept(Negotiation::ALL);
+        $list = $negotiation->contentTypes(Negotiation::ALL);
 
         echo '<p>All types (Negotiation::ALL)</p>';
         echo '<pre>';
         var_dump($list);
         echo '</pre>';
 
-
-        // accept-charset: header
-        echo '<hr><h2>accept-charset:</h2>';
-
-        $priority = $negotiation->getCharset();
-
-        echo '<p>Priority: ';
-        var_dump($priority);
-        echo '</p>';
-
-        $list = $negotiation->acceptCharset(Negotiation::HIGH);
-
-        echo '<p>Charsets sorted with Negotiation::HIGH</p>';
-        echo '<pre>';
-        var_dump($list);
-        echo '</pre>';
-
-        $list = $negotiation->acceptCharset(Negotiation::LOW);
-
-        echo '<p>Charsets sorted with Negotiation::LOW</p>';
-        echo '<pre>';
-        var_dump($list);
-        echo '</pre>';
-
-        $list = $negotiation->acceptCharset(Negotiation::ALL);
-
-        echo '<p>All charsets (Negotiation::ALL)</p>';
-        echo '<pre>';
-        var_dump($list);
-        echo '</pre>';
-
-
         // accept-encoding: header
         echo '<hr><h2>accept-encoding:</h2>';
 
-        $priority = $negotiation->getEncoding();
+        $priority = $negotiation->topEncoding();
 
         echo '<p>Priority: ';
         var_dump($priority);
         echo '</p>';
 
-        $list = $negotiation->acceptEncoding(Negotiation::HIGH);
+        $list = $negotiation->encodings(Negotiation::HIGH);
 
         echo '<p>Encodings sorted with Negotiation::HIGH</p>';
         echo '<pre>';
         var_dump($list);
         echo '</pre>';
 
-        $list = $negotiation->acceptEncoding(Negotiation::LOW);
+        $list = $negotiation->encodings(Negotiation::LOW);
 
         echo '<p>Encodings sorted with Negotiation::LOW</p>';
         echo '<pre>';
         var_dump($list);
         echo '</pre>';
 
-        $list = $negotiation->acceptEncoding(Negotiation::ALL);
+        $list = $negotiation->encodings(Negotiation::ALL);
 
         echo '<p>All encodings (Negotiation::ALL)</p>';
         echo '<pre>';
@@ -1250,27 +1280,27 @@ $app->scope('/samples/http/', function ($app, $params) {
         // accept-language: header
         echo '<hr><h2>accept-language:</h2>';
 
-        $priority = $negotiation->getLanguage();
+        $priority = $negotiation->topLanguage();
 
         echo '<p>Priority: ';
         var_dump($priority);
         echo '</p>';
 
-        $list = $negotiation->acceptLanguage(Negotiation::HIGH);
+        $list = $negotiation->languages(Negotiation::HIGH);
 
         echo '<p>Languages sorted with Negotiation::HIGH</p>';
         echo '<pre>';
         var_dump($list);
         echo '</pre>';
 
-        $list = $negotiation->acceptLanguage(Negotiation::LOW);
+        $list = $negotiation->languages(Negotiation::LOW);
 
         echo '<p>Languages sorted with Negotiation::LOW</p>';
         echo '<pre>';
         var_dump($list);
         echo '</pre>';
 
-        $list = $negotiation->acceptLanguage(Negotiation::ALL);
+        $list = $negotiation->languages(Negotiation::ALL);
 
         echo '<p>All languages (Negotiation::ALL)</p>';
         echo '<pre>';
@@ -1281,21 +1311,21 @@ $app->scope('/samples/http/', function ($app, $params) {
         // Custom header
         echo '<hr><h2>Custom header:</h2>';
 
-        $list = $negotiation->header('accept-foo', Negotiation::HIGH);
+        $list = $negotiation->entries('accept-foo', Negotiation::HIGH);
 
         echo '<p>Accept-Foo: sorted with Negotiation::HIGH</p>';
         echo '<pre>';
         var_dump($list);
         echo '</pre>';
 
-        $list = $negotiation->header('accept-foo', Negotiation::LOW);
+        $list = $negotiation->entries('accept-foo', Negotiation::LOW);
 
         echo '<p>Accept-foo: sorted with Negotiation::LOW</p>';
         echo '<pre>';
         var_dump($list);
         echo '</pre>';
 
-        $list = $negotiation->header('accept-foo', Negotiation::ALL);
+        $list = $negotiation->entries('accept-foo', Negotiation::ALL);
 
         echo '<p>All accept-foo: (Negotiation::ALL)</p>';
         echo '<pre>';
@@ -1305,36 +1335,23 @@ $app->scope('/samples/http/', function ($app, $params) {
 
     $app->action('GET', '/negotiation/string', function ($app, $params) {
         $str = <<<EOT
-Foo-header: FOO; q=0.1, BAR; q=0.9, BAZ, BOO; q = 0.3
-Accept: application/xml; q=0.5, application/json; q=0.9
+TE: gzip; q=1.0, deflate; q=0.8
+Custom: foo, bar;q=0.9, baz;q=0.8, quux;q=0.7, waldo;q=0.5
 EOT;
 
         $negotiation = Negotiation::fromString($str);
 
-        // accept: header
-        echo '<h2>Negotiation::fromString()</h2>';
+        $te = $negotiation->top('te', Negotiation::HIGH);
+        var_dump($te);
 
-        echo '<p>String:</p><pre>', $str,'</pre><hr>';
+        $te = $negotiation->entries('te', Negotiation::HIGH);
+        print_r($te);
 
-        $priority = $negotiation->getAccept();
+        $te = $negotiation->top('custom', Negotiation::HIGH);
+        var_dump($te);
 
-        echo '<p>Priority accept: header: ';
-        var_dump($priority);
-        echo '</p><hr>';
-
-        $fooHeaders = $negotiation->accept(Negotiation::HIGH);
-
-        echo '<p>Accept:</p>';
-        echo '<pre>';
-        var_dump($fooHeaders);
-        echo '</pre>';
-
-        $fooHeaders = $negotiation->header('FOO-HEADER', Negotiation::HIGH);
-
-        echo '<p>Foo-Header:</p>';
-        echo '<pre>';
-        var_dump($fooHeaders);
-        echo '</pre>';
+        $custom = $negotiation->entries('custom', Negotiation::HIGH);
+        print_r($custom);
     });
 
     $app->action('GET', '/negotiation/qfactor', function ($app, $params) {
@@ -1344,7 +1361,7 @@ EOT;
 
         echo '<p>Parse: <code>', $entry, '</code></p>';
         echo '<pre>';
-        var_dump($customEntry);
+        print_r($customEntry);
         echo '</pre>';
     });
 

@@ -1,3 +1,9 @@
+<p align="center">
+<a href="https://packagist.org/packages/inphinit/inphinit"><img src="https://img.shields.io/packagist/dt/inphinit/inphinit" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/inphinit/inphinit"><img src="https://img.shields.io/packagist/v/inphinit/inphinit" alt="Última versão estável"></a>
+<a href="https://packagist.org/packages/inphinit/inphinit"><img src="https://img.shields.io/packagist/l/inphinit/inphinit" alt="Licença"></a>
+</p>
+
 - [Instalação](#instalação)
 - [Testes](#testes)
 - [NGINX](#nginx)

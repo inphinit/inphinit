@@ -1,2 +1,3 @@
 @echo off
-php run %*
+php "%~dp0run" %*
+exit /b %ERRORLEVEL%

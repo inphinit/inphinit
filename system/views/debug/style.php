@@ -11,7 +11,7 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.18), 0 1px 2px rgba(0,0,0,0.30);
 }
 .debug-inphinit h3, .debug-inphinit h4, .code-inphinit-header, .code-inphinit-error {
-    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 .debug-inphinit .debug-inphinit {
     background-color: #F7F6F6;

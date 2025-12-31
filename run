@@ -15,9 +15,11 @@ define('INPHINIT_SYSTEM', INPHINIT_ROOT . '/system');
 
 require_once INPHINIT_SYSTEM . '/vendor/inphinit/framework/src/boot_console.php';
 
+/** @var Inphinit\Experimental\Cli\Console $console */
+
 try {
     exit($console->exec($argv));
 } catch (\Exception $ee) {
     fwrite(STDERR, $ee->getMessage());
-    exit(-1);
+    exit(1);
 }

@@ -15,5 +15,5 @@ return array(
     'user' => Env::entry('DB_USER'),
     'pass' => Env::entry('DB_PASS'),
     'database' => Env::entry('DB_DATABASE'),
-    'options'=> '--client_encoding=UTF8'
+    'options' => '--client_encoding=UTF8',
 );

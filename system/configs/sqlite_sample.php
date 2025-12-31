@@ -10,5 +10,5 @@ use Inphinit\Experimental\Environment\Env;
 return array(
     'database' => INPHINIT_SYSTEM . '/foo/bar.db',
     'encryption_key' => Env::entry('DB_ENCRYPTION_KEY'),
-    'mode' => SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE
+    'mode' => SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE,
 );

@@ -2,6 +2,7 @@
 namespace Controllers;
 
 use Inphinit\App;
+use Inphinit\Diagnostics\Checkup;
 use Inphinit\Packages;
 use Inphinit\Viewing\View;
 
@@ -69,14 +70,14 @@ class HomeController
             ],
 
             [
-                'link' => 'http://127.0.0.1:5001/en/docs/production/send-file.html',
-                'title' => 'Simulators',
-                'content' => 'We understand that the built-in web server environment can be limited, so we provide some simulators to facilitate development, e.g., <code>X-Accel-Redirect</code> and <code>X-Sendfile</code> simulator (No configuration is required; simply use the headers as a user on a full server)',
+                'link' => 'https://inphinit.github.io/en/docs/production/send-file.html',
+                'title' => 'X-Accel-Redirect & X-Sendfile',
+                'content' => '<code>X-Accel-Redirect</code> and <code>X-Sendfile</code> are powerful features, but they are not available in environments such as the <strong>Built-in Web Server</strong>. To address this, the framework provides a built-in simulator that enables the use of these headers without any configuration.',
             ],
 
             [
                 'link' => 'https://inphinit.github.io/en/docs/console-commands.html',
-                'title' => 'Command line',
+                'title' => 'Console commands',
                 'content' => 'It is possible to create your own command-line commands, with support for classes (similar to Controllers). In addition to ready-made optimization commands, enable/disable maintenance mode',
                 'experimental' => true,
             ],
@@ -94,5 +95,39 @@ class HomeController
             'time' => null,
             'version' => $version ? $version : ''
         ], View::UNSAFE);
+    }
+
+    public function checkup()
+    {
+        $check = new Checkup();
+
+        $errors = $check->getErrors();
+        $warnings = $check->getWarnings();
+
+        View::data('environment', App::config('environment'));
+
+        View::render('checkup', [
+            'errors' => self::codeTags($errors),
+            'warnings' => self::codeTags($warnings),
+            'build_date' => Checkup::getBuildDate(),
+        ], View::UNSAFE);
+    }
+
+    private static function codeTag($message)
+    {
+        $message = htmlspecialchars($message);
+        $message = preg_replace('#(^|\s)`([^`]+?)`([,.?!\s])#', '$1<code>$2</code>$3', $message);
+        $message = preg_replace('#(^|\s)\*([^*]+?)\*([,.?!\s])#', '$1<em>$2</em>$3', $message);
+
+        return $message;
+    }
+
+    private static function codeTags(array $messages)
+    {
+        foreach ($messages as &$message) {
+            $message = self::codeTag($message);
+        }
+
+        return $messages;
     }
 }

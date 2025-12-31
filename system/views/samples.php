@@ -116,6 +116,7 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/utilities/version">/utilities/version</a></dd>
             <dd><a href="../samples/utilities/url">/utilities/url</a></dd>
             <dd><a href="../samples/packages">/samples/packages</a></dd>
+            <dd><a href="../checkup">/checkup</a></dd>
         </dl>
 
         <dl>

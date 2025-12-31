@@ -1,5 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="<?=INPHINIT_URL?>/favicon.ico">
 <style type="text/css">
 *, ::before, ::after {
@@ -44,7 +45,7 @@ html {
 }
 
 body {
-    min-width: 300px;
+    min-width: 340px;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 800 800"><g fill="none" stroke="%23fff" stroke-width="1.5" stroke-opacity="0.1"><path d="M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63"/><path d="M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764"/><path d="M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880"/><path d="M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382"/><path d="M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269"/></g><g fill="%23fcfcfc" fill-opacity="0.2"><circle cx="769" cy="229" r="4"/><circle cx="539" cy="269" r="4"/><circle cx="603" cy="493" r="4"/><circle cx="731" cy="737" r="4"/><circle cx="520" cy="660" r="4"/><circle cx="309" cy="538" r="4"/><circle cx="295" cy="764" r="4"/><circle cx="40" cy="599" r="4"/><circle cx="102" cy="382" r="4"/><circle cx="127" cy="80" r="4"/><circle cx="370" cy="105" r="4"/><circle cx="578" cy="42" r="4"/><circle cx="237" cy="261" r="4"/><circle cx="390" cy="382" r="4"/></g></svg>');
     background-size: 400px 400px;
 }
@@ -85,8 +86,8 @@ main h2 {
     text-transform: uppercase;
 
     position: fixed;
-    bottom: 1rem;
-    right: 1rem;
+    bottom: .5rem;
+    right: .5rem;
 
     pointer-events: none;
 }
@@ -102,7 +103,6 @@ section .badge {
 }
 
 #intro, #error, #others, #samples {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -110,7 +110,7 @@ section .badge {
 }
 
 #intro {
-    min-height: 400px;
+    min-height: 320px;
 }
 
 #error {
@@ -118,7 +118,23 @@ section .badge {
 }
 
 #others {
+    flex-direction: column;
     height: 100vh;
+}
+
+#others section {
+    flex: 1;
+}
+
+#others section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+}
+
+#others h1 {
+    margin-bottom: 2rem;
 }
 
 #samples {
@@ -131,8 +147,9 @@ section .badge {
 }
 
 #intro h1, #others h1, #samples h1 {
-    font-size: 9.5rem;
+    font-size: 7.5rem;
     font-weight: bold;
+    text-transform: uppercase;
     background: linear-gradient(135deg, #FD6E6A 10%, #FFC600 100%);
     background-clip: text;
     text-fill-color: transparent;
@@ -156,6 +173,7 @@ section .badge {
     justify-content: flex-end;
     gap: .2rem;
     max-height: 66px;
+    width: 100%;
 }
 
 #links > a {
@@ -197,15 +215,17 @@ body * {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 2rem;
-    padding: 2rem;
+    gap: .92rem;
+    padding: .92rem;
+    max-width: 2000px;
+    margin: 0 auto;
 }
 
 #items > a {
     position: relative;
     flex: 1 0 28%;
     display: block;
-    padding: 1.5rem;
+    padding: 1.2rem;
     overflow: hidden;
     color: inherit;
     text-decoration: none;
@@ -222,7 +242,7 @@ body * {
 #items h3 {
     margin: 0 0 1rem 0;
     text-transform: uppercase;
-    font-size: 0.92rem;
+    font-size: 0.72rem;
 }
 
 #items > dl {
@@ -269,19 +289,19 @@ body * {
     background: rgba(255,255,255,.1);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
     #items > a, #items > dl {
         flex: 1 0 48%;
     }
 }
 
 @media (max-width: 890px) {
-    html {
-        font-size: 10px;
+    #intro {
+        min-height: 180px;
     }
 
-    #items > a, #items > dl {
-        flex: 1 0 1;
+    #intro h1 {
+        font-size: 3.2rem;
     }
 }
 

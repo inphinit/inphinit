@@ -1,7 +1,12 @@
-<?php if (INPHINIT_PATH === '/' && $environment === 'development'): ?>
-<a href="./samples/">Samples</a>
+<?php if (INPHINIT_PATH === '/'): ?>
+    <a href="./checkup">Checkup</a>
+
+    <?php if ($environment === 'development'): ?>
+    <a href="./samples/">Samples</a>
+    <?php endif; ?>
+
 <?php else: ?>
-<a href="../">Home</a>
+    <a href="<?=INPHINIT_URL?>/">Home</a>
 <?php endif; ?>
 
 <a href="https://inphinit.github.io/en/docs/"

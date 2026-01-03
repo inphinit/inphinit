@@ -604,8 +604,7 @@ $app->scope('/samples/', function ($app, $params) {
         $handleCurl = new Size(Size::CURL);
         $handleSystem = new Size(Size::SYSTEM);
 
-        $file = __DIR__ . '/main.php';
-        $folder = __DIR__;
+        $file = 'system/main.php';
 
         echo "{$file} file size:<pre>";
 
@@ -678,9 +677,10 @@ $app->scope('/samples/', function ($app, $params) {
 
         $jar = new CookieJar('sample');
 
-        $jar->foo = '1';
-        $jar->bar = '2';
-        $jar->baz = '3';
+        $jar->foo = 1;
+        $jar->bar = 2.5;
+        $jar->baz = 'text';
+        $jar->boo = null;
 
         $jar->setExpires('+1 week');
         $jar->setHttpOnly(true);

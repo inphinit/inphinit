@@ -109,7 +109,6 @@ class HomeController
         View::render('checkup', [
             'errors' => self::codeTags($errors),
             'warnings' => self::codeTags($warnings),
-            'build_date' => Checkup::getBuildDate(),
         ], View::UNSAFE);
     }
 

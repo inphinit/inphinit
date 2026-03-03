@@ -14,9 +14,9 @@ use Inphinit\Viewing\View;
         margin: 0;
     }
     ul.fail li, ul.warn li {
-        border-radius: 4px;
-        margin: 0 0 5px 0;
-        padding: 10px;
+        border-radius: .2rem;
+        margin: 0 0 .35rem 0;
+        padding: .72rem;
         color: #fff;
     }
     ul.fail li {
@@ -80,7 +80,7 @@ use Inphinit\Viewing\View;
                 <?php endif; ?>
 
                 <?php if ($environment === 'development'): ?>
-                <p>PHP <?=PHP_VERSION?> - Build date: <?=$build_date?></p>
+                <p>PHP <?=PHP_VERSION?></p>
                 <?php endif; ?>
             </div>
         </section>

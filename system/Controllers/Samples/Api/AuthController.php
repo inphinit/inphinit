@@ -6,6 +6,6 @@ use Inphinit\App;
 class AuthController
 {
     public function check() {}
-    public function singup() {}
+    public function signup() {}
     public function logout() {}
 }

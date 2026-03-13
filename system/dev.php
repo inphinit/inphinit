@@ -1380,6 +1380,7 @@ EOT;
 
         $contents = Request::get('foo.bar.baz');
         echo '<h2>Request::get(foo.bar.baz):</h2>';
+        echo '<pre>';
         var_dump($contents);
         echo '</pre>';
 
@@ -1413,7 +1414,7 @@ $app->scope('/samples/dashboard/', function ($app, $params) {
     $app->action('GET', '/auth/register', 'Dashboard\AuthController::register');
 
     // Create a new user account
-    $app->action('POST', '/auth/singup', 'Dashboard\AuthController::singup');
+    $app->action('POST', '/auth/signup', 'Dashboard\AuthController::signup');
 
     // Logout
     $app->action('GET', '/auth/logout', 'Dashboard\AuthController::logout');
@@ -1431,7 +1432,7 @@ $app->scope('/samples/api/', function ($app, $params) {
     $app->action('POST', '/auth/login', 'Api\AuthController::check');
 
     // Create a new user account
-    $app->action('POST', '/auth/singup', 'Api\AuthController::singup');
+    $app->action('POST', '/auth/signup', 'Api\AuthController::signup');
 
     // Logout
     $app->action('GET', '/auth/logout', 'Api\AuthController::logout');

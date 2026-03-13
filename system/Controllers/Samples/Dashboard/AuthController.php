@@ -8,6 +8,6 @@ class AuthController
     public function login() {}
     public function check() {}
     public function register() {}
-    public function singup() {}
+    public function signup() {}
     public function logout() {}
 }

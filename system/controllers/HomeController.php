@@ -70,7 +70,7 @@ class HomeController
             ],
 
             [
-                'link' => 'https://inphinit.github.io/en/docs/production/send-file.html',
+                'link' => 'https://inphinit.github.io/en/docs/production/sendfile.html',
                 'title' => 'X-Accel-Redirect & X-Sendfile',
                 'content' => '<code>X-Accel-Redirect</code> and <code>X-Sendfile</code> are powerful features, but they are not available in environments such as the <strong>Built-in Web Server</strong>. To address this, the framework provides a built-in simulator that enables the use of these headers without any configuration.',
             ],

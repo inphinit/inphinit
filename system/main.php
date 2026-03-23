@@ -1,7 +1,5 @@
 <?php
 
-use Inphinit\Http\Response;
-
 /** @var Inphinit\App $app */
 
 $app->action('ANY', '/', 'HomeController::index');

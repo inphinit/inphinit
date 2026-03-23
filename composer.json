@@ -4,7 +4,7 @@
     "keywords": [ "framework", "routing", "url", "http", "dom", "rest", "api" ],
     "license": "MIT",
     "type": "project",
-    "minimum-stability": "stable",
+    "minimum-stability": "beta",
     "prefer-stable": true,
     "config": {
         "vendor-dir": "system/vendor"

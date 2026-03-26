@@ -3,14 +3,14 @@ namespace Controllers;
 
 use Inphinit\App;
 use Inphinit\Diagnostics\Checkup;
-use Inphinit\Packages;
+use Inphinit\Packages\Package;
 use Inphinit\Viewing\View;
 
 class HomeController
 {
     public function index()
     {
-        $version = Packages::info('inphinit/framework', Packages::INFO_VERSION);
+        $version = Package::info('inphinit/framework', Package::VERSION);
 
         View::data('environment', App::config('environment'));
 

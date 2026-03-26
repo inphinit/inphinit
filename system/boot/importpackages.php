@@ -1,40 +1,35 @@
 <?php
 /*
- * Usage with command line: php importpackages.php
+ * Usage with command line: ./run pkg:up
  */
 
-define('INPHINIT_START', microtime(true));
-define('INPHINIT_ROOT', str_replace('\\', '/', dirname(dirname(__DIR__))));
-define('INPHINIT_SYSTEM', INPHINIT_ROOT . '/system');
+$import = new Inphinit\Packages\Import;
 
-require_once INPHINIT_SYSTEM . '/vendor/inphinit/framework/src/boot.php';
+$import->setItem('Inphinit\\Experimental\\', 'vendor/inphinit/framework/src/Experimental');
+$import->setItem('Inphinit\\', 'vendor/inphinit/framework/src/Inphinit');
+$import->setItem('Commands\\', 'Commands');
+$import->setItem('Controllers\\', 'Controllers');
+$import->setItem('Models\\', 'Models');
 
-$packages = new Inphinit\Packages();
+$import->auto();
 
-$packages->setItem('Inphinit\\Experimental\\', 'vendor/inphinit/framework/src/Experimental');
-$packages->setItem('Inphinit\\', 'vendor/inphinit/framework/src/Inphinit');
-$packages->setItem('Commands\\', 'Commands');
-$packages->setItem('Controllers\\', 'Controllers');
-$packages->setItem('Models\\', 'Models');
-
-$packages->auto();
-
-$logs = $packages->logs();
+$logs = $import->logs();
 
 // Save mapped classes
-$packages->save(INPHINIT_SYSTEM . '/boot/namespaces.php');
+$import->save(INPHINIT_SYSTEM . '/boot/namespaces.php');
 
 // Save autoload file scripts
-$packages->saveFiles(INPHINIT_SYSTEM . '/boot/files.php', true);
+$import->saveFiles(INPHINIT_SYSTEM . '/boot/files.php', true);
 
 echo 'Importing packages:', PHP_EOL;
 
 if (count($logs) > 0) {
-    echo PHP_EOL, ' - ', implode(PHP_EOL . ' - ', $logs), PHP_EOL, PHP_EOL;
+    echo PHP_EOL, ' - ', implode(PHP_EOL . ' - ', $logs), PHP_EOL;
 }
 
 try {
-    $packages->refreshMetadata();
+    $pkg = new Inphinit\Packages\Package;
+    $pkg->cache();
 } catch (\Exception $ee) {
-    echo 'Warning: ', $ee->getMessage();
+    echo ' - Warning: ', $ee->getMessage();
 }

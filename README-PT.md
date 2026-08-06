@@ -49,14 +49,20 @@ cd my-application
 Após navegar até o diretório do seu projeto, execute o seguinte comando para iniciar o [servidor web integrado do PHP](https://www.php.net/manual/en/features.commandline.webserver.php):
 
 ```bash
-php -S localhost:5000 -t public index.php
+./run serve
+```
+
+No Windows:
+
+```bash
+run serve
 ```
 
 Em seguida, acesse no seu navegador em `http://localhost:5000/`.
 
-## NGINX
+## nginx
 
-Se você deseja usar o NGINX, pode configurar seu `nginx.conf` da seguinte forma:
+Se você deseja usar o *nginx*, pode configurar seu `nginx.conf` da seguinte forma:
 
 ```none
 location / {
@@ -274,7 +280,7 @@ $app->setPattern('version', '\d+\.\d+');
 ## Documentação
 
 - Inglês: https://inphinit.github.io/en/docs/
-- Português: (Em breve)
+- Português: https://inphinit.github.io/pt/docs/
 - Referência da API: https://inphinit.github.io/api/
 
 A documentação é mantida em um [repositório GitHub](https://github.com/inphinit/inphinit.github.io) separado.

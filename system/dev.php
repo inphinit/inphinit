@@ -6,7 +6,7 @@ use Inphinit\Viewing\View;
 use Inphinit\Config;
 use Inphinit\Event;
 use Inphinit\Session;
-use Inphinit\Packages;
+use Inphinit\Packages\Package;
 
 use Inphinit\Dom\Document;
 
@@ -793,12 +793,12 @@ $app->scope('/samples/', function ($app, $params) {
         ];
 
         foreach ($packages as $package) {
-            echo "{$package} version: ", Packages::info($package, Packages::INFO_VERSION);
-            echo "<br>{$package} type: ", Packages::info($package, Packages::INFO_TYPE);
-            echo "<br>{$package} source: ", Packages::info($package, Packages::INFO_SOURCE);
-            echo "<br>{$package} time: ", Packages::info($package, Packages::INFO_TIME);
-            echo "<br>{$package} url: ", Packages::info($package, Packages::INFO_URL);
-            echo "<br>{$package} description: ", Packages::info($package, Packages::INFO_DESCRIPTION);
+            echo "{$package} version: ", Package::info($package, Package::VERSION);
+            echo "<br>{$package} type: ", Package::info($package, Package::TYPE);
+            echo "<br>{$package} source: ", Package::info($package, Package::SOURCE);
+            echo "<br>{$package} time: ", Package::info($package, Package::TIME);
+            echo "<br>{$package} url: ", Package::info($package, Package::URL);
+            echo "<br>{$package} description: ", Package::info($package, Package::DESCRIPTION);
             echo '<hr>';
         }
     });

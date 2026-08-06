@@ -49,14 +49,20 @@ cd my-application
 After navigating to your project directory, run the following command to start the [PHP built-in web server](https://www.php.net/manual/en/features.commandline.webserver.php):
 
 ```bash
-php -S localhost:5000 -t public index.php
+./run serve
+```
+
+On Windows:
+
+```bash
+run serve
 ```
 
 Then access it in your browser at `http://localhost:5000/`.
 
-## NGINX
+## nginx
 
-If you want to use NGINX, you can configure your `nginx.conf` as follows:
+If you want to use *nginx*, you can configure your `nginx.conf` as follows:
 
 ```none
 location / {
@@ -274,7 +280,7 @@ $app->setPattern('version', '\d+\.\d+');
 ## Documentation
 
 - English: https://inphinit.github.io/en/docs/
-- Portuguese: (Coming soon)
+- Portuguese: https://inphinit.github.io/pt/docs/
 - API Reference: https://inphinit.github.io/api/
 
 The documentation is maintained in a separate [GitHub repository](https://github.com/inphinit/inphinit.github.io).

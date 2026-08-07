@@ -7,4 +7,4 @@ require_once INPHINIT_SYSTEM . '/vendor/inphinit/framework/src/boot.php';
 
 /** @var Inphinit\App $app */
 
-return $app->exec();
+$app->exec();

@@ -1,0 +1,27 @@
+# Disallow AI bots
+User-agent: AI2Bot
+User-agent: anthropic-ai
+User-agent: Applebot-Extended
+User-agent: Bytespider
+User-agent: CCbot
+User-agent: Claude-Web
+User-agent: ClaudeBot
+User-agent: cohere-training-data-crawler
+User-agent: Diffbot
+User-agent: FacebookBot
+User-agent: Google-Extended
+User-agent: GPTBot
+User-agent: ImagesiftBot
+User-agent: Kangaroo Bot
+User-agent: Meta-ExternalAgent
+User-agent: Omgili
+User-agent: Omgilibot
+User-agent: PanguBot
+User-agent: Timpibot
+User-agent: Webzio-Extended
+Disallow: /
+
+User-agent: *
+Disallow: /v2/
+Disallow: /v3/
+Disallow: /search/*

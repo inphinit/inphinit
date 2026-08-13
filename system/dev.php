@@ -612,32 +612,32 @@ $app->scope('/samples/', function ($app, $params) {
 
         try {
             var_dump($handleFallback->get($file));
-        } catch (Exception $e) {
-            echo '(' . $e->getCode() . ') ' . $e->getMessage() . "\r\n";
+        } catch (Exception $ex) {
+            echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
         }
 
         echo '<br>With Size::COM: ';
 
         try {
             var_dump($handleCom->get($file));
-        } catch (Exception $e) {
-            echo '(' . $e->getCode() . ') ' . $e->getMessage() . "\r\n";
+        } catch (Exception $ex) {
+            echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
         }
 
         echo '<br>With Size::CURL: ';
 
         try {
             var_dump($handleCurl->get($file));
-        } catch (Exception $e) {
-            echo '(' . $e->getCode() . ') ' . $e->getMessage() . "\r\n";
+        } catch (Exception $ex) {
+            echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
         }
 
         echo '<br>With Size::SYSTEM: ';
 
         try {
             var_dump($handleSystem->get($file));
-        } catch (Exception $e) {
-            echo '(' . $e->getCode() . ') ' . $e->getMessage() . "\r\n";
+        } catch (Exception $ex) {
+            echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
         }
         echo '</pre><hr>';
 
@@ -649,24 +649,24 @@ $app->scope('/samples/', function ($app, $params) {
 
         try {
             var_dump($handleCom->get($file));
-        } catch (Exception $e) {
-            echo '(' . $e->getCode() . ') ' . $e->getMessage() . "\r\n";
+        } catch (Exception $ex) {
+            echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
         }
 
         echo '<br>Size::CURL: ';
 
         try {
             var_dump($handleCurl->get($file));
-        } catch (Exception $e) {
-            echo '(' . $e->getCode() . ') ' . $e->getMessage() . "\r\n";
+        } catch (Exception $ex) {
+            echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
         }
 
         echo '<br>Size::SYSTEM: ';
 
         try {
             var_dump($handleSystem->get($file));
-        } catch (Exception $e) {
-            echo '(' . $e->getCode() . ') ' . $e->getMessage() . "\r\n";
+        } catch (Exception $ex) {
+            echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
         }
         echo '</pre>';
 
@@ -962,32 +962,32 @@ $app->scope('/samples/utilities/', function ($app, $params) {
 
         try {
             $version->major = 'a';
-        } catch (\Exception $e) {
-            echo '$version->major: ', $e->getMessage(), '<br>';
+        } catch (\Exception $ex) {
+            echo '$version->major: ', $ex->getMessage(), '<br>';
         }
 
         try {
             $version->minor = false;
-        } catch (\Exception $e) {
-            echo '$version->minor: ', $e->getMessage(), '<br>';
+        } catch (\Exception $ex) {
+            echo '$version->minor: ', $ex->getMessage(), '<br>';
         }
 
         try {
             $version->patch = [];
-        } catch (\Exception $e) {
-            echo '$version->patch: ', $e->getMessage(), '<br>';
+        } catch (\Exception $ex) {
+            echo '$version->patch: ', $ex->getMessage(), '<br>';
         }
 
         try {
             $version->prerelease = 'test';
-        } catch (\Exception $e) {
-            echo '$version->prerelease: ', $e->getMessage(), '<br>';
+        } catch (\Exception $ex) {
+            echo '$version->prerelease: ', $ex->getMessage(), '<br>';
         }
 
         try {
             $version->build = 'test';
-        } catch (\Exception $e) {
-            echo '$version->build: ', $e->getMessage(), '<br>';
+        } catch (\Exception $ex) {
+            echo '$version->build: ', $ex->getMessage(), '<br>';
         }
 
         // __toString

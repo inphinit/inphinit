@@ -30,6 +30,6 @@ if (count($logs) > 0) {
 try {
     $pkg = new Inphinit\Packages\Package;
     $pkg->cache();
-} catch (\Exception $ee) {
-    echo ' - Warning: ', $ee->getMessage();
+} catch (\Exception $ex) {
+    echo ' - Warning: ', $ex->getMessage();
 }

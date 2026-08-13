@@ -4,6 +4,8 @@ use Inphinit\Http\Request;
 use Inphinit\Http\Status;
 use Inphinit\Viewing\View;
 
+/** @var int $code */
+
 if ($code === 503) {
     echo 'This site is currently down for maintenance and should be back soon!';
 } else {

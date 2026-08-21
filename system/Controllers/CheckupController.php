@@ -25,8 +25,8 @@ class CheckupController
     private static function codeTag($message)
     {
         $message = htmlspecialchars($message);
-        $message = preg_replace('#(^|\s)`([^`]+?)`([,.?!\s]|$)#', '$1<code>$2</code>$3', $message);
-        $message = preg_replace('#(^|\s)\*([^*]+?)\*([,.?!\s]|$)#', '$1<em>$2</em>$3', $message);
+        $message = preg_replace('#(^|[\s\\(\\)\\[\\]\\{\\}])`([^`]+?)`([,.?!\s\\(\\)\\[\\]\\{\\}]|$)#', '$1<code>$2</code>$3', $message);
+        $message = preg_replace('#(^|[\s\\(\\)\\[\\]\\{\\}])\*([^*]+?)\*([,.?!\s\\(\\)\\[\\]\\{\\}]|$)#', '$1<em>$2</em>$3', $message);
 
         return $message;
     }

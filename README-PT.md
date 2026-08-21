@@ -105,27 +105,31 @@ location / {
 ## Estrutura de Pastas
 
 ```bash
-├───.htaccess                  # Arquivo de configuração do Apache para lidar com requisições e roteamento
-├───index.php                  # Ponto de entrada principal; modifique constantes apenas se necessário
-├───server                     # Atalho para iniciar o servidor built-in do PHP no Linux ou macOS
-├───server.bat                 # Atalho para iniciar o servidor built-in do PHP no Windows
-├───web.config                 # Arquivo de configuração do IIS para reescrita de URL e roteamento
-├───public/                    # Contém assets estáticos e scripts PHP standalone fora do fluxo principal
-│   └───.htaccess              # Configuração do Apache para servir arquivos estáticos ou scripts standalone
-└───system/                    # Contém todo o código-fonte e configuração da aplicação
-    ├───dev.php                # Ponto de entrada para o modo de desenvolvimento; executa antes de main.php
-    ├───errors.php             # Lida com páginas de erro (ex: 404, 405) e pode renderizar arquivos estáticos ou views
-    ├───main.php               # Arquivo principal de roteamento e definição de eventos para todos os ambientes
-    ├───boot/                  # Configurações de Autoload e inicialização (similar ao autoload do Composer)
-    │   ├───importpackages.php # Define imports adicionais de pacotes para o autoloader
-    │   └───namespaces.php     # Mapeia namespaces para diretórios para o autoloader de classes
-    ├───configs/               # Contém arquivos de configuração; evite commitar dados sensíveis ao controle de versão
-    │   ├───app.php            # Configuração da aplicação; modifique os valores existentes conforme necessário
-    │   └───debug.php          # Configuração de debug; modifique os valores existentes conforme necessário
-    ├───Controllers/           # Contém classes Controller referenciadas nas definições de rota
-    ├───storage/               # Usado para arquivos temporários, logs ou dados de cache
-    ├───vendor/                # Dependências de terceiros e o núcleo do framework
-    └───views/                 # Contém templates e arquivos de view
+├───.env.sample                # Durante instalação, este arquivo é copiado automaticamente para `.env`.
+├───.htaccess                  # Configura roteamento e tratamento de erros HTTP para Apache.
+├───web.config                 # Configura roteamento e tratamento de erros HTTP para IIS.
+├───Caddyfile                  # Configura roteamento e tratamento de erros HTTP para Caddy e FrankenPHP.
+├───index.php                  # Entrada da aplicação; configura autoload e as estruturas de diretórios.
+├───run                        # Executa comandos de CLI definidos em `system/console.php`.
+├───run.bat                    # Executa comandos de CLI definidos em `system/console.php` no Windows.
+├───public/                    # Contém ativos estáticos e scripts PHP independentes públicos.
+│   └───.htaccess              # Configura o comportamento do Apache arquivos e scripts públicos.
+└───system/                    # Contém o código-fonte principal da aplicação.
+    ├───console.php            # Define comandos de CLI personalizados.
+    ├───dev.php                # Atua como `main.php` especificamente para o ambiente de desenvolvimento.
+    ├───errors.php             # Gerencia a renderização de páginas de erro personalizadas do SAPI.
+    ├───main.php               # Define o roteamento da aplicação e a lógica de inicialização.
+    ├───boot/                  # Contém configurações do autoload, extensões mapeadas e metadados.
+    │   ├───importpackages.php # Importa pacotes do Composer instalados para o autoload da aplicação.
+    │   ├───media_types.php    # Mapeia extensões para Content-Type para o servidor web embutido do PHP.
+    │   └───namespaces.php     # Indexa namespaces de pacotes do Composer (gerado por importpackages.php).
+    ├───configs/               # Contém arquivos de configuração.
+    │   └───debug.php          # Configura depuração, atalho para seu editor e assistente.
+    ├───Controllers/           # Contém classes de controlador invocadas pelos manipuladores de rota.
+    ├───Commands/              # Contém classes de comando usadas pela interface CLI embutida.
+    ├───storage/               # Contém arquivos gerados pela aplicação (ex.: caches, logs, temporários).
+    ├───vendor/                # Contém framework e dependências de terceiros gerenciadas pelo Composer.
+    └───views/                 # Contém arquivos visualização (view).
 ```
 
 No modo de desenvolvimento, o script `system/dev.php` é sempre executado primeiro, seguido por `system/main.php`. Se ocorrer um erro (ex: 404 ou 405), o último script a ser executado será `system/errors.php`.

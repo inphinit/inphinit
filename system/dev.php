@@ -604,11 +604,16 @@ $app->scope('/samples/', function ($app, $params) {
         $handleCurl = new Size(Size::CURL);
         $handleSystem = new Size(Size::SYSTEM);
 
-        $file = 'system/main.php';
+        $file = 'public/sample.txt';
+        $file = 'system/big.txt';
 
         echo "{$file} file size:<pre>";
 
-        echo 'With fallback: Size::COM|Size::CURL|Size::SYSTEM: ';
+        echo 'With filesize() function: ';
+
+        var_dump(filesize($file));
+
+        echo '<br>With fallback: Size::COM|Size::CURL|Size::SYSTEM: ';
 
         try {
             var_dump($handleFallback->get($file));
@@ -1448,6 +1453,8 @@ $app->scope('/samples/csv/', function ($app) {
     $app->action('GET', '/', function () use ($storage) {
         $handle = new Csv($storage . '/source.csv');
 
+        $handle->setFlags(Csv::STRICT);
+
         $handle->setEndOfLine("\n");
 
         echo '<h2>Headers:</h2>';
@@ -1467,7 +1474,7 @@ $app->scope('/samples/csv/', function ($app) {
         echo '<h2>Contents (columns):</h2>';
         echo '<pre>';
 
-        $handle->setFlags(Csv::MODE_COLUMN|Csv::SKIP_EMPTY|Csv::SKIP_HEADER);
+        $handle->setFlags(Csv::MODE_COLUMN|Csv::SKIP_BLANK|Csv::SKIP_HEADER);
 
         $handle->setFilter(function (array &$fields, $index) {
             foreach ($fields as &$field) {
@@ -1583,7 +1590,7 @@ $app->scope('/samples/tsv/', function ($app) {
         echo '<h2>Contents (columns):</h2>';
         echo '<pre>';
 
-        $handle->setFlags(Csv::MODE_COLUMN|Csv::SKIP_EMPTY|Csv::SKIP_HEADER);
+        $handle->setFlags(Csv::MODE_COLUMN|Csv::SKIP_BLANK|Csv::SKIP_HEADER);
 
         // Rewind and refresh headers
         $handle->refresh();

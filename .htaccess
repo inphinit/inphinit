@@ -4,7 +4,7 @@
 
 IndexIgnore *
 
-# Redirect page errors to route system
+# Redirect SAPI to errors.php
 ErrorDocument 403 /index.php
 ErrorDocument 500 /index.php
 

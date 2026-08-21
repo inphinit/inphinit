@@ -1,0 +1,25 @@
+# Sample file for using Caddy or FrankenPHP
+
+# Domain name of server
+localhost {
+    # Set the project root
+    root ./
+
+    # Enable compression (optional)
+    encode zstd br gzip
+
+    # Remove Server: header
+    header -Server
+
+    # Redirect SAPI to errors.php
+    handle_errors {
+        rewrite /errors.php
+        file_server
+    }
+
+    # Execute PHP files from the public/ directory and serve assets
+    php_server {
+        root ./
+        try_files public/{path} index.php
+    }
+}

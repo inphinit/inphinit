@@ -10,26 +10,26 @@ class HelloCommand
      * A example
      *
      * @param \Inphinit\Experimental\Cli\Command $command
-     * @param array $params
-     * @param array $residual
+     * @param array $options
+     * @param array $residues
      */
-    public function index(Command $command, array $params, array $residual)
+    public function index(Command $command, array $options, array $residues)
     {
         $name = $command->getName();
 
         echo "{$name}\n";
         echo str_repeat('=', strlen($name)), "\n";
 
-        echo "\nParams:\n";
+        echo "\nOptions:\n";
 
-        foreach ($params as $key => $value) {
+        foreach ($options as $key => $value) {
             echo "{$key} => {$value}\n";
         }
 
         echo "\n---------\n";
         echo "Residual:\n";
 
-        foreach ($residual as $key => $value) {
+        foreach ($residues as $key => $value) {
             echo "{$key} => {$value}\n";
         }
 

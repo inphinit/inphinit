@@ -2,7 +2,7 @@
 ~*
 
 # Logs
-php_errors.log
+*.log
 
 # IDEs and tools
 /.fleet
@@ -24,5 +24,12 @@ php_errors.log
 !/system/storage/session/.keep
 !/system/storage/tmp/.keep
 
-# Others
+# Env
 .env
+.env.backup
+.env.production
+
+# Others
+.DS_Store
+desktop.ini
+Thumbs.db

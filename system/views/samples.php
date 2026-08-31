@@ -25,6 +25,7 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/memory">/memory</a></dd>
             <dd><a href="../samples/routes">/routes/routes (list routes)</a></dd>
             <dd><a href="../samples/views">/views</a></dd>
+            <dd><a href="../checkup">/checkup</a></dd>
         </dl>
 
         <dl>
@@ -116,7 +117,6 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/utilities/version">/utilities/version</a></dd>
             <dd><a href="../samples/utilities/url">/utilities/url</a></dd>
             <dd><a href="../samples/packages">/samples/packages</a></dd>
-            <dd><a href="../checkup">/checkup</a></dd>
         </dl>
 
         <dl>

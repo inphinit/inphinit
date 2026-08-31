@@ -5,13 +5,23 @@
 
 $import = new Inphinit\Packages\Import;
 
-$import->setItem('Inphinit\\Experimental\\', 'vendor/inphinit/framework/src/Experimental');
-$import->setItem('Inphinit\\', 'vendor/inphinit/framework/src/Inphinit');
-$import->setItem('Commands\\', 'Commands');
-$import->setItem('Controllers\\', 'Controllers');
-$import->setItem('Models\\', 'Models');
+// Populates namespaces and classes from composer
+$import->classmap();
+$import->psr4();
+$import->psr0();
 
-$import->auto();
+// Populate namespaces from framework boot
+$import->boot();
+
+// Manually populates namespaces
+$import->setItem('Inphinit\\Experimental', 'vendor/inphinit/framework/src/Experimental');
+$import->setItem('Inphinit', 'vendor/inphinit/framework/src/Inphinit');
+$import->setItem('Commands', 'Commands');
+$import->setItem('Controllers', 'Controllers');
+$import->setItem('Models', 'Models');
+
+// Populates script files from composer
+$import->files();
 
 $logs = $import->logs();
 
@@ -29,6 +39,7 @@ if (count($logs) > 0) {
 
 try {
     $pkg = new Inphinit\Packages\Package;
+    $pkg->clear();
     $pkg->cache();
 } catch (\Exception $ex) {
     echo ' - Warning: ', $ex->getMessage();

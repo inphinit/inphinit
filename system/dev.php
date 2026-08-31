@@ -1017,105 +1017,94 @@ $app->scope('/samples/utilities/', function ($app, $params) {
     });
 
     $app->action('GET', '/url', function () {
-        $str = "http://usêr:pãss@sample.io:443/foo/../--x--/--/./ã é ô ü/user@local/Ã É Ô Ü/[½] [‱]/①Ⓐ➊❶⓫⓿⑴/Αλφαβητικός/섭지코지/\r\ntest\t /?Z=1&B=2&C=3&Y=4#fragment";
+        $input = "http://usêr:pãss@sample.io:443/foo/../--x--/--/./ã é ô ü/user@local/Ã É Ô Ü/[½] [‱]/①Ⓐ➊❶⓫⓿⑴/Αλφαβητικός/섭지코지/\r\ntest\t /?Z=1&B=2&C=3&Y=4#fragment";
 
-        echo 'Original: ', $str, '<hr>';
-
-        $url = new Url($str);
+        // Normalize URL
+        $url = new Url($input);
         $url->normalize();
-        echo '<h2>Canon URL path:</h2>', $url;
+        echo '<h2>Normalize URL:</h2>';
+        echo '<p><strong>Input:</strong> ', $input,'</p>';
+        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
 
-        echo '<pre>';
-        var_dump($url);
-        echo '</pre><hr>';
-
-        $url = new Url($str);
+        // PATH_ASCII
+        $url = new Url($input);
         $url->normalize(Url::PATH_ASCII);
-        echo '<h2>PATH_ASCII:</h2>', $url;
+        echo '<h2>Normalize URL with PATH_ASCII:</h2>';
+        echo '<p><strong>Input:</strong> ', $input,'</p>';
+        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
 
-        echo '<pre>';
-        var_dump($url);
-        echo '</pre><hr>';
-
-        $url = new Url($str);
+        // PATH_UNICODE
+        $url = new Url($input);
         $url->normalize(Url::PATH_UNICODE);
-        echo '<h2>PATH_UNICODE:</h2>', $url;
+        echo '<h2>Normalize URL with PATH_UNICODE:</h2>';
+        echo '<p><strong>Input:</strong> ', $input,'</p>';
+        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
 
-        echo '<pre>';
-        var_dump($url);
-        echo '</pre><hr>';
-
-        $url = new Url($str);
+        // PATH_SLUG
+        $url = new Url($input);
         $url->normalize(Url::PATH_SLUG);
-        echo '<h2>PATH_SLUG:</h2>', $url;
+        echo '<h2>Normalize URL with PATH_SLUG:</h2>';
+        echo '<p><strong>Input:</strong> ', $input,'</p>';
+        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
 
-        echo '<pre>';
-        var_dump($url);
-        echo '</pre><hr>';
-
-        $url = new Url($str);
+        // SORT_QUERY
+        $url = new Url($input);
         $url->normalize(Url::SORT_QUERY);
-        echo '<h2>SORT_QUERY:</h2>', $url;
+        echo '<h2>SORT_QUERY:</h2>';
+        echo '<p><strong>Input:</strong> ', $input,'</p>';
+        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
 
-        echo '<pre>';
-        var_dump($url);
-        echo '</pre><hr>';
-
-        $url = new Url($str);
+        // PATH_UNICODE+PATH_SLUG+SORT_QUERY
+        $url = new Url($input);
         $url->normalize(Url::PATH_UNICODE|Url::PATH_SLUG|Url::SORT_QUERY);
-        echo '<h2>PATH_UNICODE+PATH_SLUG+SORT_QUERY:</h2>', $url;
+        echo '<h2>Normalize URL with PATH_UNICODE+PATH_SLUG+SORT_QUERY:</h2>';
+        echo '<p><strong>Input:</strong> ', $input,'</p>';
+        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
 
-        echo '<pre>';
-        var_dump($url);
-        echo '</pre><hr>';
-
-        $url = new Url($str);
+        // PATH_ASCII+PATH_SLUG+SORT_QUERY
+        $url = new Url($input);
         $url->normalize(Url::PATH_ASCII|Url::PATH_SLUG|Url::SORT_QUERY);
-        echo '<h2>PATH_ASCII+PATH_SLUG+SORT_QUERY:</h2>', $url;
+        echo '<h2>Normalize URL with PATH_ASCII+PATH_SLUG+SORT_QUERY:</h2>';
+        echo '<p><strong>Input:</strong> ', $input,'</p>';
+        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
 
-        echo '<pre>';
-        var_dump($url);
-        echo '</pre><hr>';
-
-        $url = new Url('/foo/../bar/./á é í/user@localhost/Á É Í Ó/Αλφαβητικός/');
-        $url->normalize(Url::PATH_ASCII|Url::PATH_SLUG);
-        echo '<h2>Only path (PATH_ASCII+PATH_SLUG):</h2>', $url;
-
-        echo '<pre>';
-        var_dump($url);
-        echo '</pre><hr>';
-
-        $url = new Url('C:\\foo\\..\bar\\.\á é í\\userlocalhost\\Á É Í Ó\\Αλφαβητικός\\');
+        // PATH_ASCII+PATH_SLUG
+        $input = '/foo/../bar/./á é í/user@localhost/Á É Í Ó/Αλφαβητικός/';
+        $url = new Url($input);
         $url->normalize();
-        echo '<h2>Windows path:</h2>', $url;
+        echo '<h2>Only path (PATH_ASCII+PATH_SLUG):</h2>';
+        echo '<p><strong>Input:</strong> ', $input,'</p>';
+        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
 
-        echo '<pre>';
-        var_dump($url);
-        echo '</pre><hr>';
-
-        $url = new Url('mailto:섭지코지@Αλφαβητικός.io?subject=This is the+subject&cc=someone_else@example.com&body=This is the+body http://example.io/2000/svg');
+        // Windows path
+        $input = 'C:\\foo\\..\bar\\.\á é í\\userlocalhost\\Á É Í Ó\\Αλφαβητικός\\';
+        $url = new Url($input);
         $url->normalize();
-        echo '<h2>Using mailto:</h2>', $url;
+        echo '<h2>Windows path:</h2>';
+        echo '<p><strong>Input:</strong> ', $input,'</p>';
+        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
 
-        echo '<pre>';
-        var_dump($url);
-        echo '</pre><hr>';
+        // mailto
+        $input = 'mailto:섭지코지@Αλφαβητικός.io?subject=This is the+subject&cc=someone_else@example.com&body=This is the+body http://example.io/2000/svg';
+        $url = new Url($input);
+        $url->normalize();
+        echo '<h2>Normalize mailto URL:</h2>';
+        echo '<p><strong>Input:</strong> ', $input,'</p>';
+        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
 
-        $path = '/home/foo/../bar/./test.txt';
-
+        // Canon
+        $input = '/home/foo/../bar/./test.txt';
+        $output = Url::canonpath($input);
         echo '<h2>Canon path:</h2>';
-        echo '<p>Before: ', $path,'</p>';
+        echo '<p><strong>Input:</strong> ', $input,'</p>';
+        echo '<p><strong>Output:</strong> ', $output,'</p><hr>';
 
-        $path = Url::canonpath($path);
-        echo '<p>After: ', $path,'</p><hr>';
-
-        $path = 'C:\\home\\foo\\..\\bar\\.\\test.txt';
-
-        echo '<h2>Canon path:</h2>';
-        echo '<p>Before: ', $path,'</p>';
-
-        $path = Url::canonpath($path);
-        echo '<p>After: ', $path,'</p>';
+        // Windows path
+        $input = 'C:\\home\\foo\\..\\bar\\.\\test.txt';
+        $output = Url::canonpath($input);
+        echo '<h2>Canon Windows path:</h2>';
+        echo '<p><strong>Input:</strong> ', $input,'</p>';
+        echo '<p><strong>Output:</strong> ', $output,'</p><hr>';
     });
 
     $app->action('GET', '/others', function () {

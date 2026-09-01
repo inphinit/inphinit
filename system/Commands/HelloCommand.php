@@ -1,7 +1,6 @@
 <?php
 namespace Commands;
 
-use Inphinit\Viewing\View;
 use Inphinit\Experimental\Cli\Command;
 
 class HelloCommand

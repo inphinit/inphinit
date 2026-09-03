@@ -222,18 +222,18 @@ $app->action('GET', '/samples/routes', function ($app) {
 });
 
 $app->scope('/samples/routes/treaty/', function ($app, $params) {
-    TreatyController::action($app);
+    TreatyController::dispatch();
 
     /*
     Is equivant to:
 
     $app->action('GET', '/', 'TreatyController:getIndex');
-    $app->action('ANY', '/foo-bar-baz', 'TreatyController:anyFooBarBaz');
+    $app->action('ANY', '/foo-bar-baz/', 'TreatyController:anyFooBarBaz');
     */
 });
 
 $app->scope('/samples/routes/resource/', function ($app, $params) {
-    ResourceController::action($app);
+    ResourceController::dispatch();
 
     /*
     Is equivant to:
@@ -925,7 +925,7 @@ $app->scope('/samples/utilities/', function ($app, $params) {
 
         foreach ($items as $str) {
             echo 'Original: ', $str, '<br>';
-            echo 'ASCII: ', Strings::toAscii($str), '<hr>';
+            echo 'ASCII: ', Strings::ascii($str), '<hr>';
         }
 
         echo '<h2>Capitalize</h2>';

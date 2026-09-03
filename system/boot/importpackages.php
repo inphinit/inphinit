@@ -5,15 +5,15 @@
 
 $import = new Inphinit\Packages\Import;
 
-// Populates namespaces and classes from composer
+// Populates namespace prefixed and classes from Composer
 $import->classmap();
 $import->psr4();
 $import->psr0();
 
-// Populate namespaces from framework boot
+// Populates namespace prefixed and classes from system/boot/namespace.php
 $import->boot();
 
-// Manually populates namespaces
+// Manually set namespace prefixed and classes
 $import->setItem('Inphinit\\Experimental', 'vendor/inphinit/framework/src/Experimental');
 $import->setItem('Inphinit', 'vendor/inphinit/framework/src/Inphinit');
 $import->setItem('Commands', 'Commands');

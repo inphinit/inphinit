@@ -18,9 +18,9 @@ class ResourceController extends \Inphinit\Routing\Resource
         return 'store';
     }
 
-    public function show()
+    public function show($app, $params)
     {
-        return 'show';
+        return 'show: ' . $params['id'];
     }
 
     public function edit()

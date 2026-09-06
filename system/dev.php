@@ -605,7 +605,6 @@ $app->scope('/samples/', function ($app, $params) {
         $handleSystem = new Size(Size::SYSTEM);
 
         $file = 'public/sample.txt';
-        $file = 'system/big.txt';
 
         echo "{$file} file size:<pre>";
 

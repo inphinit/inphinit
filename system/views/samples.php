@@ -101,10 +101,11 @@ use Inphinit\Viewing\View;
         </dl>
 
         <dl>
-            <dt>Session</dt>
+            <dt>Session & Cookie jar</dt>
             <dd><a href="../samples/session">/session</a></dd>
             <dd><a href="../samples/session/reset">/session/reset</a></dd>
             <dd><a href="../samples/session/regenerate">/session/regenerate</a></dd>
+            <dd><a href="../samples/cookie">/samples/cookie</a></dd>
         </dl>
 
         <dl>

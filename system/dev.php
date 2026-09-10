@@ -602,40 +602,42 @@ $app->scope('/samples/', function ($app, $params) {
     });
 
     $app->action('ANY', '/file/permissions', function () {
-        $main_file = INPHINIT_SYSTEM . '/main.php';
+        $sample_file = INPHINIT_SYSTEM . '/storage/samples/lines.txt';
 
         echo '<p>Get permissions:</p>';
 
         echo '<ul>';
 
         // Returns a string in octal format, example: 0666
-        $perms = File::permissions($main_file);
+        $perms = File::permissions($sample_file);
         echo '<li>Permissions (octal format): ', $perms,'</li>';
 
         // Returns symbolic format, example: -rw-rw-rw-
-        $perms = File::permissions($main_file, true);
+        $perms = File::permissions($sample_file, true);
         echo '<li>Permissions (full format): ', $perms,'</li>';
 
         // Using lstat()
-        $perms = File::permissions($main_file, false, true);
+        $perms = File::permissions($sample_file, false, true);
         echo '<li>Permissions (with lstat): ', $perms,'</li>';
 
         echo '</ul>';
     });
 
     $app->action('GET', '/file/lines', function () {
+        $sample_file = INPHINIT_SYSTEM . '/storage/samples/lines.txt';
+
         echo '<pre>';
 
-        $entries = File::lines(INPHINIT_SYSTEM . '/storage/samples/lines.txt', 0, 10);
+        $entries = File::lines($sample_file, 0, 10);
         print_r(array_map('rtrim', $entries));
 
-        $entries = File::lines(INPHINIT_SYSTEM . '/storage/samples/lines.txt', 25, 10);
+        $entries = File::lines($sample_file, 25, 10);
         print_r(array_map('rtrim', $entries));
 
-        $entries = File::lines(INPHINIT_SYSTEM . '/storage/samples/lines.txt', 100, 5);
+        $entries = File::lines($sample_file, 100, 5);
         print_r(array_map('rtrim', $entries));
 
-        $entries = File::lines(INPHINIT_SYSTEM . '/storage/samples/lines.txt', 499, 5);
+        $entries = File::lines($sample_file, 499, 5);
         print_r(array_map('rtrim', $entries));
 
         echo '</pre>';
@@ -647,18 +649,18 @@ $app->scope('/samples/', function ($app, $params) {
         $handleCurl = new Size(Size::CURL);
         $handleSystem = new Size(Size::SYSTEM);
 
-        $file = 'public/sample.txt';
+        $sample_file = INPHINIT_SYSTEM . '/storage/samples/lines.txt';
 
-        echo "{$file} file size:<pre>";
+        echo "Get '{$sample_file}' file size:<pre>";
 
         echo 'With filesize() function: ';
 
-        var_dump(filesize($file));
+        var_dump(filesize($sample_file));
 
         echo '<br>With fallback: Size::COM|Size::CURL|Size::SYSTEM: ';
 
         try {
-            var_dump($handleFallback->get($file));
+            var_dump($handleFallback->get($sample_file));
         } catch (Exception $ex) {
             echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
         }
@@ -666,7 +668,7 @@ $app->scope('/samples/', function ($app, $params) {
         echo '<br>With Size::COM: ';
 
         try {
-            var_dump($handleCom->get($file));
+            var_dump($handleCom->get($sample_file));
         } catch (Exception $ex) {
             echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
         }
@@ -674,7 +676,7 @@ $app->scope('/samples/', function ($app, $params) {
         echo '<br>With Size::CURL: ';
 
         try {
-            var_dump($handleCurl->get($file));
+            var_dump($handleCurl->get($sample_file));
         } catch (Exception $ex) {
             echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
         }
@@ -682,20 +684,20 @@ $app->scope('/samples/', function ($app, $params) {
         echo '<br>With Size::SYSTEM: ';
 
         try {
-            var_dump($handleSystem->get($file));
+            var_dump($handleSystem->get($sample_file));
         } catch (Exception $ex) {
             echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
         }
         echo '</pre><hr>';
 
-        $file = 'invalid.txt';
+        $invalid_file = 'invalid.txt';
 
-        echo "{$file} file size:<pre>";
+        echo "{$invalid_file} file size:<pre>";
 
         echo 'Size::COM: ';
 
         try {
-            var_dump($handleCom->get($file));
+            var_dump($handleCom->get($invalid_file));
         } catch (Exception $ex) {
             echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
         }
@@ -703,7 +705,7 @@ $app->scope('/samples/', function ($app, $params) {
         echo '<br>Size::CURL: ';
 
         try {
-            var_dump($handleCurl->get($file));
+            var_dump($handleCurl->get($invalid_file));
         } catch (Exception $ex) {
             echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
         }
@@ -711,7 +713,7 @@ $app->scope('/samples/', function ($app, $params) {
         echo '<br>Size::SYSTEM: ';
 
         try {
-            var_dump($handleSystem->get($file));
+            var_dump($handleSystem->get($invalid_file));
         } catch (Exception $ex) {
             echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
         }
@@ -720,20 +722,48 @@ $app->scope('/samples/', function ($app, $params) {
     });
 
     $app->action('ANY', '/cookie', function ($app) {
-        echo '123';
+        // CookieJar 1
+        $jar1 = new CookieJar('samplejar1');
 
-        $jar = new CookieJar('sample');
+        $jar1->foo = 1;
+        $jar1->bar = 2.5;
 
-        $jar->foo = 1;
-        $jar->bar = 2.5;
-        $jar->baz = 'text';
-        $jar->boo = null;
+        $jar1->setExpires('+1 week');
+        $jar1->setHttpOnly(true);
+        $jar1->setPartitioned(true);
 
-        $jar->setExpires('+1 week');
-        $jar->setHttpOnly(true);
-        $jar->setPartitioned(true);
+        $jar1->send();
 
-        $jar->send();
+        // CookieJar 2
+        $jar2 = new CookieJar('samplejar2');
+
+        $jar2->baz = 'text';
+
+        if (mt_rand(0, 1) === 1) {
+            // It will inform the browser that it must CREATE the cookie
+            $jar2->boo = 'Created';
+        } else {
+            // It will inform the browser that it must REMOVE the cookie
+            $jar2->boo = null;
+        }
+
+        $jar2->setExpires('+1 day');
+        $jar2->setHttpOnly(true);
+
+        $jar2->send();
+
+        echo '<h2>From CookieJar:</h2>';
+
+        echo '$jar1->foo: ', $jar1->foo, '<br>';
+        echo '$jar1->bar: ', $jar1->bar, '<br>';
+
+        echo '$jar1->baz: ', $jar2->baz, '<br>';
+        echo '$jar1->boo: ', $jar2->boo, '<br>';
+
+        echo '<h2>From $_COOKIE:</h2>';
+        echo '<pre>';
+        var_dump($_COOKIE);
+        echo '</pre>';
     });
 
     $app->action('ANY', '/session', function ($app) {
@@ -1203,7 +1233,7 @@ $app->scope('/samples/http/', function ($app, $params) {
     });
 
     $app->action('ANY', '/cache', function () {
-        View::render('home', [
+        View::render('welcome', [
             'environment' => App::config('environment'),
             'items' => [],
             'version' => null,
@@ -1239,7 +1269,7 @@ $app->scope('/samples/http/', function ($app, $params) {
 
     // HTTP Response download page
     $app->action('ANY', '/download', function () {
-        View::render('home', [
+        View::render('welcome', [
             'environment' => App::config('environment'),
             'items' => [],
             'version' => null,

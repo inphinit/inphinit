@@ -23,6 +23,7 @@
 !/system/storage/tmp/.keep
 
 # Samples
+!/system/storage/private/sample.txt
 !/system/storage/samples/lines.txt
 !/system/storage/samples/csv/MacOS9.csv
 !/system/storage/samples/csv/source.csv

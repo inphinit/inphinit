@@ -5,7 +5,7 @@ use Inphinit\App;
 use Inphinit\Packages\Package;
 use Inphinit\Viewing\View;
 
-class HomeController
+class WelcomeController
 {
     public function index()
     {
@@ -89,7 +89,7 @@ class HomeController
             ],
         ];
 
-        View::render('home', [
+        View::render('welcome', [
             'items' => $items,
             'time' => null,
             'version' => $version ? $version : ''

@@ -18,11 +18,15 @@
 /system/boot/metadata/*
 /system/storage/*
 /system/vendor/*
-
-# Folders
-!/system/boot/metadata/.keep
+!/system/storage/logs/.keep
 !/system/storage/session/.keep
 !/system/storage/tmp/.keep
+
+# Samples
+!/system/storage/samples/lines.txt
+!/system/storage/samples/csv/MacOS9.csv
+!/system/storage/samples/csv/source.csv
+!/system/storage/samples/tsv/source.tsv
 
 # Env
 .env

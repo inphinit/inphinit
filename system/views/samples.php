@@ -110,8 +110,10 @@ use Inphinit\Viewing\View;
         <dl>
             <dt>Others</dt>
             <dd><a href="../samples/event">/event</a></dd>
-            <dd><a href="../samples/file">/file</a></dd>
-            <dd><a href="../samples/filesize">/filesize</a></dd>
+            <dd><a href="../samples/file/exists">/file/exists</a></dd>
+            <dd><a href="../samples/file/permissions">/file/permissions</a></dd>
+            <dd><a href="../samples/file/lines">/file/lines</a></dd>
+            <dd><a href="../samples/file/size">/file/size</a></dd>
             <dd><a href="../samples/utilities/arrays">/utilities/arrays</a></dd>
             <dd><a href="../samples/utilities/strings">/utilities/strings</a></dd>
             <dd><a href="../samples/utilities/version">/utilities/version</a></dd>

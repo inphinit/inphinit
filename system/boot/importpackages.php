@@ -25,10 +25,10 @@ $import->files();
 
 $logs = $import->logs();
 
-// Save mapped classes
+// Create a script containing an array that maps all populated classes and namespaces
 $import->save(INPHINIT_SYSTEM . '/boot/namespaces.php');
 
-// Save autoload file scripts
+// Creates a script to load scripts mapped from `"autoload": {"files": [...]}`
 $import->saveFiles(INPHINIT_SYSTEM . '/boot/files.php', true);
 
 echo 'Importing packages:', PHP_EOL;
@@ -39,8 +39,14 @@ if (count($logs) > 0) {
 
 try {
     $pkg = new Inphinit\Packages\Package;
+
+    // Clear package metadata cache
     $pkg->clear();
+
+    // Create package metadata cache
     $pkg->cache();
+
+    echo ' - Updated package metadata', PHP_EOL;
 } catch (\Exception $ex) {
-    echo ' - Warning: ', $ex->getMessage();
+    echo ' - Warning: ', $ex->getMessage(), PHP_EOL;
 }

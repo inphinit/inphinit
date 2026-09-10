@@ -560,45 +560,88 @@ $app->scope('/samples/', function ($app, $params) {
         $config->commit(); // Save
     });
 
-    $app->action('ANY', '/file', function () {
-        echo '<pre>';
-
+    $app->action('ANY', '/file/exists', function () {
         $files = [
-            'MAIN.PHP',
-            'main.php',
-            'MAIN.php',
-            'Main.php',
-            'main.PHP'
+            'file:/' . INPHINIT_SYSTEM . '/main.php',
+            'file://' . INPHINIT_SYSTEM . '/main.php',
+            'file:///' . INPHINIT_SYSTEM . '/main.php',
+            'FILE:///' . INPHINIT_SYSTEM . '/main.php',
+            INPHINIT_SYSTEM . '/main.php',
+            INPHINIT_SYSTEM . '/MAIN.PHP',
+            INPHINIT_SYSTEM . '/MAIN.php',
+            INPHINIT_SYSTEM . '/Main.php',
+            INPHINIT_SYSTEM . '/main.PHP',
+            'system/main.php',
         ];
 
-        echo "Check file exists with file_exists():\n";
+        $native = array();
+        $fw = array();
 
-        foreach ($files as $file) {
-            $file = INPHINIT_SYSTEM . '/' . $file;
-            echo "{$file}: ";
-            var_dump(file_exists($file));
+        foreach ($files as $index => $file) {
+            $native[$index] = file_exists($file) ? "\u{2714}\u{FE0F}" : "\u{274C}";
         }
 
-        echo "Check file exists (case-sensitive any systems) with File::exists():\n";
-
-        foreach ($files as $file) {
-            $file = INPHINIT_SYSTEM . '/' . $file;
-            echo "{$file}: ";
-            var_dump(File::exists($file));
+        foreach ($files as $index => $file) {
+            $fw[$index] = File::exists($file) ? "\u{2714}\u{FE0F}" : "\u{274C}";
         }
+
+        echo '<table>';
+        echo '<thead>';
+        echo '<tr><th>Path</th><th>file_exists</th><th>File::exists</th></tr>';
+        echo '</thead>';
+        echo '<tbody>';
+
+        foreach ($files as $index => $file) {
+            echo '<tr><td>', $file, '</td>';
+            echo '<td>', $native[$index],'</td>';
+            echo '<td>', $fw[$index],'</td></tr>';
+        }
+
+        echo '</tbody>';
+        echo '</table>';
+    });
+
+    $app->action('ANY', '/file/permissions', function () {
+        $main_file = INPHINIT_SYSTEM . '/main.php';
+
+        echo '<p>Get permissions:</p>';
+
+        echo '<ul>';
 
         // Returns a string in octal format, example: 0666
-        echo 'Permissions: ';
-        var_dump(File::permissions(INPHINIT_SYSTEM . '/main.php'));
+        $perms = File::permissions($main_file);
+        echo '<li>Permissions (octal format): ', $perms,'</li>';
 
         // Returns symbolic format, example: -rw-rw-rw-
-        echo 'Permissions: ';
-        var_dump(File::permissions(INPHINIT_SYSTEM . '/main.php', true));
+        $perms = File::permissions($main_file, true);
+        echo '<li>Permissions (full format): ', $perms,'</li>';
+
+        // Using lstat()
+        $perms = File::permissions($main_file, false, true);
+        echo '<li>Permissions (with lstat): ', $perms,'</li>';
+
+        echo '</ul>';
+    });
+
+    $app->action('GET', '/file/lines', function () {
+        echo '<pre>';
+
+        $entries = File::lines(INPHINIT_SYSTEM . '/storage/samples/lines.txt', 0, 10);
+        print_r(array_map('rtrim', $entries));
+
+        $entries = File::lines(INPHINIT_SYSTEM . '/storage/samples/lines.txt', 25, 10);
+        print_r(array_map('rtrim', $entries));
+
+        $entries = File::lines(INPHINIT_SYSTEM . '/storage/samples/lines.txt', 100, 5);
+        print_r(array_map('rtrim', $entries));
+
+        $entries = File::lines(INPHINIT_SYSTEM . '/storage/samples/lines.txt', 499, 5);
+        print_r(array_map('rtrim', $entries));
 
         echo '</pre>';
     });
 
-    $app->action('GET', '/filesize', function () {
+    $app->action('GET', '/file/size', function () {
         $handleFallback = new Size(); // Same new Size(Size::COM|Size::CURL|Size::SYSTEM)
         $handleCom = new Size(Size::COM);
         $handleCurl = new Size(Size::CURL);

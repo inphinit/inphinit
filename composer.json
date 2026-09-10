@@ -31,7 +31,7 @@
             "php -r \"file_exists('.env') || copy('.env.sample', '.env');\""
         ],
         "post-update-cmd": [
-            "php system/boot/importpackages.php"
+            "php run pkg:up"
         ]
     }
 }

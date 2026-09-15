@@ -42,9 +42,10 @@ To install via Git:
 ```bash
 git clone --recurse-submodules https://github.com/inphinit/inphinit.git my-application
 cd my-application
+cp .env.sample .env
 ```
 
-## Testing
+## Starting a development server
 
 After navigating to your project directory, run the following command to start the [PHP built-in web server](https://www.php.net/manual/en/features.commandline.webserver.php):
 

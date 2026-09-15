@@ -870,13 +870,23 @@ $app->scope('/samples/', function ($app, $params) {
         ];
 
         foreach ($packages as $package) {
-            echo "{$package} version: ", Package::info($package, Package::VERSION);
-            echo "<br>{$package} type: ", Package::info($package, Package::TYPE);
-            echo "<br>{$package} source: ", Package::info($package, Package::SOURCE);
-            echo "<br>{$package} time: ", Package::info($package, Package::TIME);
-            echo "<br>{$package} url: ", Package::info($package, Package::URL);
-            echo "<br>{$package} description: ", Package::info($package, Package::DESCRIPTION);
-            echo '<hr>';
+            $version = Package::info($package, Package::VERSION);
+            echo "{$package} version: {$version}<br>";
+
+            $type = Package::info($package, Package::TYPE);
+            echo "{$package} type: {$type}<br>";
+
+            $source = Package::info($package, Package::SOURCE);
+            echo "{$package} source: {$source}<br>";
+
+            $time = Package::info($package, Package::TIME);
+            echo "{$package} time: {$time}<br>";
+
+            $url = Package::info($package, Package::URL);
+            echo "{$package} url: {$url}<br>";
+
+            $description = Package::info($package, Package::DESCRIPTION);
+            echo "{$package} description: {$description}<hr>";
         }
     });
 });
@@ -1089,94 +1099,134 @@ $app->scope('/samples/utilities/', function ($app, $params) {
     });
 
     $app->action('GET', '/url', function () {
-        $input = "http://usêr:pãss@sample.io:443/foo/../--x--/--/./ã é ô ü/user@local/Ã É Ô Ü/[½] [‱]/①Ⓐ➊❶⓫⓿⑴/Αλφαβητικός/섭지코지/\r\ntest\t /?Z=1&B=2&C=3&Y=4#fragment";
+        $input = 'http://usêr:pãss@sample.io:7000/foo/../--x--/--/./ã é ô ü/user@local/Ã É Ô Ü/[½] [‱]/①Ⓐ➊❶⓫⓿⑴/Αλφαβητικός/섭지코지/\r\ntest\t /?Z=1&B=2&C=3&Y=4&field[z]=1&field[w]=2&field[3]=3&field[2]=4&field[1]=5#fragment';
 
-        // Normalize URL
         $url = new Url($input);
-        $url->normalize();
-        echo '<h2>Normalize URL:</h2>';
-        echo '<p><strong>Input:</strong> ', $input,'</p>';
-        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
+
+        // SCHEME_ALIGN
+        $modified = $url->modify(Url::SCHEME_ALIGN);
+
+        echo '<h2>Modify URL with SCHEME_ALIGN:</h2>';
+        echo '<ul>';
+        echo '<li><strong>Input:</strong> ', $input,'</li>';
+        echo '<li><strong>Output:</strong> ', $modified,'</li>';
+        echo '</ul>';
 
         // PATH_ASCII
-        $url = new Url($input);
-        $url->normalize(Url::PATH_ASCII);
-        echo '<h2>Normalize URL with PATH_ASCII:</h2>';
-        echo '<p><strong>Input:</strong> ', $input,'</p>';
-        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
+        $modified = $url->modify(Url::PATH_ASCII);
+
+        echo '<h2>Modify URL with PATH_ASCII:</h2>';
+        echo '<ul>';
+        echo '<li><strong>Input:</strong> ', $input,'</li>';
+        echo '<li><strong>Output:</strong> ', $modified,'</li>';
+        echo '</ul>';
 
         // PATH_UNICODE
-        $url = new Url($input);
-        $url->normalize(Url::PATH_UNICODE);
-        echo '<h2>Normalize URL with PATH_UNICODE:</h2>';
-        echo '<p><strong>Input:</strong> ', $input,'</p>';
-        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
+        $modified = $url->modify(Url::PATH_UNICODE);
+
+        echo '<h2>Modify URL with PATH_UNICODE:</h2>';
+        echo '<ul>';
+        echo '<li><strong>Input:</strong> ', $input,'</li>';
+        echo '<li><strong>Output:</strong> ', $modified,'</li>';
+        echo '</ul>';
 
         // PATH_SLUG
-        $url = new Url($input);
-        $url->normalize(Url::PATH_SLUG);
-        echo '<h2>Normalize URL with PATH_SLUG:</h2>';
-        echo '<p><strong>Input:</strong> ', $input,'</p>';
-        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
+        $modified = $url->modify(Url::PATH_SLUG);
+
+        echo '<h2>Modify URL with PATH_SLUG:</h2>';
+        echo '<ul>';
+        echo '<li><strong>Input:</strong> ', $input,'</li>';
+        echo '<li><strong>Output:</strong> ', $modified,'</li>';
+        echo '</ul>';
+
+        // PATH_RESOLVE
+        $modified = $url->modify(Url::PATH_RESOLVE);
+
+        echo '<h2>Modify URL with PATH_RESOLVE:</h2>';
+        echo '<ul>';
+        echo '<li><strong>Input:</strong> ', $input,'</li>';
+        echo '<li><strong>Output:</strong> ', $modified,'</li>';
+        echo '</ul>';
 
         // SORT_QUERY
-        $url = new Url($input);
-        $url->normalize(Url::SORT_QUERY);
+        $modified = $url->modify(Url::SORT_QUERY);
         echo '<h2>SORT_QUERY:</h2>';
-        echo '<p><strong>Input:</strong> ', $input,'</p>';
-        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
+        echo '<ul>';
+        echo '<li><strong>Input:</strong> ', $input,'</li>';
+        echo '<li><strong>Output:</strong> ', $modified,'</li>';
+        echo '</ul>';
 
-        // PATH_UNICODE+PATH_SLUG+SORT_QUERY
-        $url = new Url($input);
-        $url->normalize(Url::PATH_UNICODE|Url::PATH_SLUG|Url::SORT_QUERY);
-        echo '<h2>Normalize URL with PATH_UNICODE+PATH_SLUG+SORT_QUERY:</h2>';
-        echo '<p><strong>Input:</strong> ', $input,'</p>';
-        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
+        // PATH_UNICODE+PATH_RESOLVE+PATH_SLUG+SORT_QUERY
+        $modified = $url->modify(Url::PATH_UNICODE|Url::PATH_RESOLVE|Url::PATH_SLUG|Url::SORT_QUERY);
 
-        // PATH_ASCII+PATH_SLUG+SORT_QUERY
-        $url = new Url($input);
-        $url->normalize(Url::PATH_ASCII|Url::PATH_SLUG|Url::SORT_QUERY);
-        echo '<h2>Normalize URL with PATH_ASCII+PATH_SLUG+SORT_QUERY:</h2>';
-        echo '<p><strong>Input:</strong> ', $input,'</p>';
-        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
+        echo '<h2>Modify URL with PATH_UNICODE+PATH_RESOLVE+PATH_SLUG+SORT_QUERY:</h2>';
+        echo '<ul>';
+        echo '<li><strong>Input:</strong> ', $input,'</li>';
+        echo '<li><strong>Output:</strong> ', $modified,'</li>';
+        echo '</ul>';
 
-        // PATH_ASCII+PATH_SLUG
-        $input = '/foo/../bar/./á é í/user@localhost/Á É Í Ó/Αλφαβητικός/';
-        $url = new Url($input);
-        $url->normalize();
-        echo '<h2>Only path (PATH_ASCII+PATH_SLUG):</h2>';
-        echo '<p><strong>Input:</strong> ', $input,'</p>';
-        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
+        // PATH_ASCII+PATH_RESOLVE+PATH_SLUG+SORT_QUERY
+        $modified = $url->modify(Url::PATH_ASCII|Url::PATH_RESOLVE|Url::PATH_SLUG|Url::SORT_QUERY);
 
-        // Windows path
-        $input = 'C:\\foo\\..\bar\\.\á é í\\userlocalhost\\Á É Í Ó\\Αλφαβητικός\\';
+        echo '<h2>Modify URL with PATH_ASCII+PATH_RESOLVE+PATH_SLUG+SORT_QUERY:</h2>';
+        echo '<ul>';
+        echo '<li><strong>Input:</strong> ', $input,'</li>';
+        echo '<li><strong>Output:</strong> ', $modified,'</li>';
+        echo '</ul>';
+
+        // HOST_IDNA_ASCII+PATH_ASCII+PATH_RESOLVE
+        $input = 'https://你好.com/foo/bar/baz/../你好/';
         $url = new Url($input);
-        $url->normalize();
-        echo '<h2>Windows path:</h2>';
-        echo '<p><strong>Input:</strong> ', $input,'</p>';
-        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
+        $url = $url->modify(Url::HOST_IDNA_ASCII|Url::PATH_ASCII|Url::PATH_RESOLVE);
+
+        echo '<h2>Modify URL with HOST_IDNA_ASCII+PATH_ASCII+PATH_RESOLVE:</h2>';
+        echo '<ul>';
+        echo '<li><strong>Input:</strong> ', $input,'</li>';
+        echo '<li><strong>Output:</strong> ', $url,'</li>';
+        echo '</ul>';
 
         // mailto
         $input = 'mailto:섭지코지@Αλφαβητικός.io?subject=This is the+subject&cc=someone_else@example.com&body=This is the+body http://example.io/2000/svg';
         $url = new Url($input);
-        $url->normalize();
-        echo '<h2>Normalize mailto URL:</h2>';
-        echo '<p><strong>Input:</strong> ', $input,'</p>';
-        echo '<p><strong>Output:</strong> ', $url,'</p><hr>';
+        $url = $url->modify(Url::SORT_QUERY);
 
-        // Canon
-        $input = '/home/foo/../bar/./test.txt';
-        $output = Url::canonpath($input);
-        echo '<h2>Canon path:</h2>';
-        echo '<p><strong>Input:</strong> ', $input,'</p>';
-        echo '<p><strong>Output:</strong> ', $output,'</p><hr>';
+        echo '<h2>With mailto:</h2>';
+        echo '<ul>';
+        echo '<li><strong>Input:</strong> ', $input,'</li>';
+        echo '<li><strong>Output:</strong> ', $url,'</li>';
+        echo '</ul>';
+
+        // Path
+        $input = '/home/foo/../bar/./á é í/userlocalhost/Á É Í Ó/Αλφαβητικός/';
+        $url = new Url($input);
+        $url = $url->modify(Url::PATH_RESOLVE);
+
+        echo '<h2>Resolve path:</h2>';
+        echo '<ul>';
+        echo '<li><strong>Input:</strong> ', $input,'</li>';
+        echo '<li><strong>Output:</strong> ', $url,'</li>';
+        echo '</ul>';
 
         // Windows path
-        $input = 'C:\\home\\foo\\..\\bar\\.\\test.txt';
-        $output = Url::canonpath($input);
-        echo '<h2>Canon Windows path:</h2>';
-        echo '<p><strong>Input:</strong> ', $input,'</p>';
-        echo '<p><strong>Output:</strong> ', $output,'</p><hr>';
+        $input = 'C:\\foo\\..\bar\\.\á é í\\userlocalhost\\Á É Í Ó\\Αλφαβητικός\\';
+        $url = new Url($input);
+        $url = $url->modify(Url::PATH_RESOLVE);
+
+        echo '<h2>Resolve Windows path:</h2>';
+        echo '<ul>';
+        echo '<li><strong>Input:</strong> ', $input,'</li>';
+        echo '<li><strong>Output:</strong> ', $url,'</li>';
+        echo '</ul>';
+
+        // to string without modifications
+        $input = 'https://localhost:443/sample/';
+        $url = new Url($input);
+
+        echo '<h2>To String:</h2>';
+        echo '<ul>';
+        echo '<li><strong>Input:</strong> ', $input,'</li>';
+        echo '<li><strong>Output:</strong> ', $url,'</li>';
+        echo '</ul>';
     });
 
     $app->action('GET', '/others', function () {

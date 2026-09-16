@@ -128,7 +128,7 @@ $app->scope('/samples/debug/', function ($app, $params) {
     $app->action('GET', '/eval-error', function () {
         echo "Foo\n";
 
-        eval('echo $undefined_variable;');
+        eval('echo $foo_bar_baz;');
 
         echo "Bar\n";
 
@@ -753,12 +753,20 @@ $app->scope('/samples/', function ($app, $params) {
         $jar2->send();
 
         echo '<h2>From CookieJar:</h2>';
+        echo '<ul>';
 
-        echo '$jar1->foo: ', $jar1->foo, '<br>';
-        echo '$jar1->bar: ', $jar1->bar, '<br>';
+        $jar1_foo = var_export($jar1->foo, true);
+        echo "<li>\$jar1->foo: {$jar1_foo}</li>";
 
-        echo '$jar1->baz: ', $jar2->baz, '<br>';
-        echo '$jar1->boo: ', $jar2->boo, '<br>';
+        $jar1_bar = var_export($jar1->bar, true);
+        echo "<li>\$jar1->foo: {$jar1_bar}</li>";
+
+        $jar2_baz = var_export($jar2->baz, true);
+        echo "<li>\$jar2->baz: {$jar2_baz}</li>";
+
+        $jar2_boo = var_export($jar2->boo, true);
+        echo "<li>\$jar2->boo: {$jar2_boo}</li>";
+        echo '</ul>';
 
         echo '<h2>From $_COOKIE:</h2>';
         echo '<pre>';

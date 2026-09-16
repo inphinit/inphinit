@@ -17,8 +17,8 @@ class CheckupController
         View::data('environment', App::config('environment'));
 
         View::render('checkup', [
-            'errors' => self::codeTags($errors),
-            'warnings' => self::codeTags($warnings),
+            'errors' => self::minMarkdown($errors),
+            'warnings' => self::minMarkdown($warnings),
         ], View::UNSAFE);
     }
 
@@ -31,7 +31,7 @@ class CheckupController
         return $message;
     }
 
-    private static function codeTags(array $messages)
+    private static function minMarkdown(array $messages)
     {
         foreach ($messages as &$message) {
             $message = self::codeTag($message);

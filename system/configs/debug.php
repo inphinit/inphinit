@@ -4,13 +4,16 @@ return array(
      * Defines which external assistant service should be used when debugging errors.
      *
      * Accepted values:
-     *   - 'chatgpt'    → OpenAI ChatGPT
-     *   - 'claude'     → Anthropic Claude
-     *   - 'duck.ai'    → DuckDuckGo AI Chat
-     *   - 'duckduckgo' → DuckDuckGo search
-     *   - 'google'     → Google Search
-     *   - 'google.ai'  → Google AI / Gemini
-     *   - 'perplexity' → Perplexity AI
+     *   - 'chatgpt'     → OpenAI ChatGPT
+     *   - 'claude'      → Anthropic Claude
+     *   - 'claude.code' → Claude Code
+     *   - 'codex'       → OpenAI Codex
+     *   - 'cursor'      → Cursor
+     *   - 'duck.ai'     → DuckDuckGo AI
+     *   - 'duckduckgo'  → DuckDuckGo Search
+     *   - 'google'      → Google Search
+     *   - 'google.ai'   → Google AI
+     *   - 'perplexity'  → Perplexity AI
      *
      * You can also specify a custom URL containing the placeholder {error},
      * which will be replaced by the actual error message.

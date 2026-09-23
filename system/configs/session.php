@@ -2,7 +2,7 @@
 return array(
     'domain' => null,
     'expires' => '+1 day',
-    'http_only' => false,
+    'http_only' => true,
     'name' => 'appsession',
     'partitioned' => false,
     'path' => '/',

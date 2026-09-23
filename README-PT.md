@@ -1,11 +1,17 @@
 <p align="center">
-<a href="https://packagist.org/packages/inphinit/inphinit"><img src="https://img.shields.io/packagist/dt/inphinit/inphinit" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/inphinit/inphinit"><img src="https://img.shields.io/packagist/v/inphinit/inphinit" alt="Última versão estável"></a>
-<a href="https://packagist.org/packages/inphinit/inphinit"><img src="https://img.shields.io/packagist/l/inphinit/inphinit" alt="Licença"></a>
+<a href="https://packagist.org/packages/inphinit/inphinit">
+<img src="https://img.shields.io/packagist/dt/inphinit/inphinit" alt="Total Downloads">
+</a>
+<a href="https://packagist.org/packages/inphinit/inphinit">
+<img src="https://img.shields.io/packagist/v/inphinit/inphinit" alt="Última versão estável">
+</a>
+<a href="https://packagist.org/packages/inphinit/inphinit">
+<img src="https://img.shields.io/packagist/l/inphinit/inphinit" alt="Licença">
+</a>
 </p>
 
 - [Instalação](#instalação)
-- [Testes](#testes)
+- [Iniciando um servidor de desenvolvimento](#iniciando-um-servidor-de-desenvolvimento)
 - [NGINX](#nginx)
 - [Estrutura de pastas](#estrutura-de-pastas)
 - [Criando rotas](#criando-rotas)
@@ -20,8 +26,8 @@ Requisitos:
 1. Recomendado: *PHP 8* (consulte as versões atualmente suportadas em https://www.php.net/supported-versions.php)
    - Mínimo: *PHP 5.4* (a compatibilidade retroativa é mantida para ambientes com limitações para upgrades)
    - Se precisar de um servidor completo no Windows ou macOS, considere usar WampServer, XAMPP, Laragon, EasyPHP ou AMPPS.
-2. (Opcional) A extensão PHP Intl é necessária para a classe `Inphinit\Utility\Strings`.
-3. (Opcional) A extensão PHP COM ou cURL é necessária para a classe `Inphinit\Filesystem\Size`.
+1. (Opcional) A extensão PHP Intl é necessária para a classe `Inphinit\Utility\Strings`.
+1. (Opcional) A extensão PHP COM ou cURL é necessária para a classe `Inphinit\Filesystem\Size`.
 
 Após instalar o PHP, você pode instalar o Inphinit usando o Composer ou o Git.
 
@@ -45,7 +51,7 @@ cd my-application
 cp .env.sample .env
 ```
 
-## Testes
+## Iniciando um servidor de desenvolvimento
 
 Após acessar o diretório do seu projeto, execute o comando a seguir para iniciar o [servidor web integrado do PHP](https://www.php.net/manual/en/features.commandline.webserver.php):
 

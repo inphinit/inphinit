@@ -37,6 +37,8 @@ use Inphinit\Experimental\Cli\Console;
 
 use Inphinit\Experimental\Http\FileResponse;
 
+use Inphinit\Experimental\Utility\Markdown;
+
 /**
  * @var Inphinit\Diagnostics\App $app
  * @var Inphinit\Diagnostics\Debug $debug
@@ -1018,14 +1020,43 @@ $app->scope('/samples/utilities/', function ($app, $params) {
             echo 'ASCII: ', Strings::ascii($str), '<hr>';
         }
 
-        echo '<h2>Capitalize</h2>';
+        echo '<h2>String cases</h2>';
 
         echo '<pre>';
-        var_dump(Strings::capitalize('foo-bar-baz'));
+        var_dump(Strings::camel('foo bar baz'));
+        var_dump(Strings::kebab('foo bar baz'));
+        var_dump(Strings::pascal('foo bar baz'));
+        var_dump(Strings::snake('foo bar baz'));
+        echo '<br>';
 
-        var_dump(Strings::capitalize('foo bar baz', ' '));
+        var_dump(Strings::camel('fOo bAR BaZ'));
+        var_dump(Strings::kebab('fOo bAR BaZ'));
+        var_dump(Strings::pascal('fOo bAR BaZ'));
+        var_dump(Strings::snake('fOo bAR BaZ'));
+        echo '<br>';
 
-        var_dump(Strings::capitalize('foo:bar:baz', ':', '_'));
+        var_dump(Strings::camel('foo_bar_baz'));
+        var_dump(Strings::kebab('foo_bar_baz'));
+        var_dump(Strings::pascal('foo_bar_baz'));
+        var_dump(Strings::snake('foo_bar_baz'));
+        echo '<br>';
+
+        var_dump(Strings::camel('FooBarBaz'));
+        var_dump(Strings::kebab('FooBarBaz'));
+        var_dump(Strings::pascal('FooBarBaz'));
+        var_dump(Strings::snake('FooBarBaz'));
+        echo '<br>';
+
+        var_dump(Strings::camel('getUserID'));
+        var_dump(Strings::kebab('getUserID'));
+        var_dump(Strings::pascal('getUserID'));
+        var_dump(Strings::snake('getUserID'));
+        echo '<br>';
+
+        var_dump(Strings::camel('parseXMLFile'));
+        var_dump(Strings::kebab('parseXMLFile'));
+        var_dump(Strings::pascal('parseXMLFile'));
+        var_dump(Strings::snake('parseXMLFile'));
         echo '</pre>';
     });
 
@@ -1564,6 +1595,19 @@ $app->scope('/samples/api/', function ($app, $params) {
     // Samples
     $app->action('GET', '/products/', 'Api\ProductsController::list');
     $app->action('GET', '/products/<id>', 'Api\ProductsController::show');
+});
+
+$app->scope('/samples/markdown/', function ($app) {
+    $app->action('GET', '/file', function () {
+        $parser = new Markdown(true);
+        $parser->enableHtml(true);
+        echo $parser->fromFile(INPHINIT_SYSTEM . '/storage/samples/sample.md');
+    });
+
+    $app->action('GET', '/string', function () {
+        $parser = new Markdown();
+        echo $parser->fromString('Samples *Italic*, **Bold**, `var x = 1;`!');
+    });
 });
 
 $app->scope('/samples/csv/', function ($app) {

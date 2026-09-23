@@ -3,6 +3,7 @@ namespace Controllers;
 
 use Inphinit\App;
 use Inphinit\Diagnostics\Checkup;
+use Inphinit\Experimental\Utility\Markdown;
 use Inphinit\Viewing\View;
 
 class CheckupController
@@ -16,27 +17,19 @@ class CheckupController
 
         View::data('environment', App::config('environment'));
 
-        View::render('checkup', [
-            'errors' => self::minMarkdown($errors),
-            'warnings' => self::minMarkdown($warnings),
-        ], View::UNSAFE);
-    }
+        $parser = new Markdown();
 
-    private static function codeTag($message)
-    {
-        $message = htmlspecialchars($message);
-        $message = preg_replace('#(^|[\s\\(\\)\\[\\]\\{\\}])`([^`]+?)`([,.?!\s\\(\\)\\[\\]\\{\\}]|$)#', '$1<code>$2</code>$3', $message);
-        $message = preg_replace('#(^|[\s\\(\\)\\[\\]\\{\\}])\*([^*]+?)\*([,.?!\s\\(\\)\\[\\]\\{\\}]|$)#', '$1<em>$2</em>$3', $message);
-
-        return $message;
-    }
-
-    private static function minMarkdown(array $messages)
-    {
-        foreach ($messages as &$message) {
-            $message = self::codeTag($message);
+        foreach ($errors as &$error) {
+            $error = $parser->fromInlineString($error);
         }
 
-        return $messages;
+        foreach ($warnings as &$warning) {
+            $warning = $parser->fromInlineString($warning);
+        }
+
+        View::render('checkup', [
+            'errors' => $errors,
+            'warnings' => $warnings,
+        ], View::UNSAFE);
     }
 }

@@ -11,10 +11,13 @@ localhost {
     # Remove Server: header
     header -Server
 
-    # Redirect SAPI to errors.php
+    # Ignore hidden files
+    @hidden path_regexp ^/\.|/\.
+    rewrite @hidden /index.php
+
+    # Redirect SAPI errors (403, 500) to the application's route system
     handle_errors {
-        rewrite /errors.php
-        file_server
+        rewrite /index.php
     }
 
     # Execute PHP files from the public/ directory and serve assets

@@ -17,6 +17,4 @@ $hello = $console->action('hello', 'HelloCommand::index')
 # $scheduler->setTimeZone(new \DateTimeZone('America/Sao_Paulo'));
 
 // Schedule the "hello" command to run at 3:00 AM (UTC).
-$scheduler->command('mytask', $hello, [
-    'name' => 'Task Master!'
-])->cron(0, 3, '*', '*', '*', '*');
+$scheduler->command('mytask', $hello, ['name' => 'Task Master!'])->cron(0, 3, '*', '*', '*', '*');

@@ -576,8 +576,8 @@ $app->scope('/samples/', function ($app, $params) {
             'system/main.php',
         ];
 
-        $native = array();
-        $fw = array();
+        $native = [];
+        $fw = [];
 
         foreach ($files as $index => $file) {
             $native[$index] = file_exists($file) ? "\u{2714}\u{FE0F}" : "\u{274C}";
@@ -1606,7 +1606,7 @@ $app->scope('/samples/markdown/', function ($app) {
 
     $app->action('GET', '/string', function () {
         $parser = new Markdown();
-        echo $parser->fromString('Samples *Italic*, **Bold**, `var x = 1;`!');
+        echo $parser->fromString('Samples *Italic*, `var x = 1;`! [![alt](/favicon.ico "caption")](http://localhost:5000/ "title")');
     });
 });
 

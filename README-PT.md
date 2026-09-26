@@ -34,19 +34,19 @@ Após instalar o PHP, você pode instalar o Inphinit usando o Composer ou o Git.
 Para instalar usando o Composer, execute o comando (consulte mais detalhes em https://getcomposer.org/doc/03-cli.md):
 
 ```bash
-php composer.phar create-project inphinit/inphinit my-application
+php composer.phar create-project inphinit/inphinit:^2.1-beta.13 my-application
 ```
 
 Se o Composer estiver instalado globalmente, use:
 
 ```bash
-composer create-project inphinit/inphinit my-application
+composer create-project inphinit/inphinit:^2.1-beta.13 my-application
 ```
 
 Para instalar usando o Git:
 
 ```bash
-git clone --recurse-submodules https://github.com/inphinit/inphinit.git my-application
+git clone --recurse-submodules -b 2.1-beta.13 https://github.com/inphinit/inphinit.git my-application
 cd my-application
 cp .env.sample .env
 ```

@@ -17,4 +17,13 @@ $hello = $console->action('hello', 'HelloCommand::index')
 # $scheduler->setTimeZone(new \DateTimeZone('America/Sao_Paulo'));
 
 // Schedule the "hello" command to run at 3:00 AM (UTC).
-$scheduler->command('mytask', $hello, ['name' => 'Task Master!'])->cron(0, 3, '*', '*', '*', '*');
+$scheduler->command('mytask', $hello, ['name' => 'Task Master!'])->cron(0, 3, '*', '*', '*');
+
+// Schedule the session file cleanup command to run on Sunday at 04:00.
+/*
+$session_clear = $console->getCommand('session:clear');
+
+if ($session_clear !== null) {
+    $scheduler->command('session_clear_task', $session_clear, [])->cron(0, 4, '*', '*', 0);
+}
+*/

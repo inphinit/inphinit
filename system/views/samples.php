@@ -158,6 +158,7 @@ use Inphinit\Viewing\View;
             <dt>Commands</dt>
             <dd><a href="../samples/commands/run">/commands/run (equiv. <code>run hello --name &lt;name&gt;</code>)</a></dd>
             <dd><a href="../samples/commands/unknown">/commands/unknown (equiv. <code>run unknown</code>)</a></dd>
+            <dd><a href="../samples/commands/restrict">/commands/restrict</a></dd>
         </dl>
         </section>
     </main>

@@ -12,9 +12,9 @@ use Inphinit\Experimental\Environment\Env;
 
 return array(
     'host' => Env::entry('DB_HOST'),
+    'port' => Env::entry('DB_PORT'),
     'user' => Env::entry('DB_USER'),
     'pass' => Env::entry('DB_PASS'),
     'database' => Env::entry('DB_DATABASE'),
     'charset'=> 'utf8',
-    'report_mode' => MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT,
 );

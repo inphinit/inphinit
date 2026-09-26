@@ -3,7 +3,11 @@
  * Usage with command line: ./run pkg:up
  */
 
-$import = new Inphinit\Packages\Import;
+use Inphinit\Packages\Import;
+use Inphinit\Packages\Package;
+
+// Import namespaces and classes path to the inphinit-autoloader system
+$import = new Import;
 
 // Populates namespace prefixed and classes from Composer
 $import->classmap();
@@ -38,12 +42,13 @@ if (count($logs) > 0) {
 }
 
 try {
-    $pkg = new Inphinit\Packages\Package;
+    // Create cache metadata of composer packages
+    $pkg = new Package(INPHINIT_ROOT . '/composer.lock');
 
-    // Clear package metadata cache
+    // Clear metadata cache
     $pkg->clear();
 
-    // Create package metadata cache
+    // Create metadata cache
     $pkg->cache();
 
     echo ' - Updated package metadata', PHP_EOL;

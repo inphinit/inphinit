@@ -17,6 +17,14 @@ class CheckupController
 
         View::data('environment', App::config('environment'));
 
+        try {
+            $php_build_date = Checkup::getPhpBuildDate();
+        } catch (\Exception $ex) {
+            $php_build_date = 'Unknown';
+        }
+
+        View::data('php_build_date', $php_build_date);
+
         $parser = new Markdown();
 
         foreach ($errors as &$error) {

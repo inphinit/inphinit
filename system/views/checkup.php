@@ -80,7 +80,7 @@ use Inphinit\Viewing\View;
                 <?php endif; ?>
 
                 <?php if ($environment === 'development'): ?>
-                <p>PHP <?=PHP_VERSION?></p>
+                <p>PHP <?=PHP_VERSION?> (PHP Build date: <?=$php_build_date?>)</p>
                 <?php endif; ?>
             </div>
         </section>

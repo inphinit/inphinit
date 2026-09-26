@@ -141,7 +141,7 @@ $app->scope('/samples/debug/', function ($app, $params) {
 
     $app->action('GET', '/trigger-error', function () {
         echo "Foo\n";
-        trigger_error('Sample notice');
+        trigger_error('Sample notice, <b>bold</b>, <i>italic</i>');
         echo "Bar\n";
     });
 });
@@ -214,6 +214,11 @@ $app->scope('/samples/commands/', function ($app, $params) {
         ]);
 
         echo '</pre>';
+    });
+
+    $app->action('GET', '/restrict', function () {
+        // `run serve` cannot executes out of the CLI
+        $output = Console::run('serve', [], $status);
     });
 });
 
@@ -369,7 +374,7 @@ $app->scope('/samples/dom/', function ($app, $params) {
     $app->action('GET', '/css-selector', function () {
         $handle = new Document(Document::HTML);
 
-        $handle->load('<html><head></head><body><div x=\'abc"def\'>Hello World!</div><div id=\'foo\'>bar</div></body></html>');
+        $handle->loadString('<html><head></head><body><div x=\'abc"def\'>Hello World!</div><div id=\'foo\'>bar</div></body></html>');
 
         $size = $handle->selector()->count('body div');
 
@@ -395,7 +400,7 @@ $app->scope('/samples/dom/', function ($app, $params) {
 
         $handle = new Document(Document::XML);
 
-        $handle->load('<root xmlns:book="https://book.io"><node foo="bar" baz="foobar">contents</node><book:tag>baz</book:tag></root>');
+        $handle->loadString('<root xmlns:book="https://book.io"><node foo="bar" baz="foobar">contents</node><book:tag>baz</book:tag></root>');
 
         print_r($handle->document());
 
@@ -488,7 +493,7 @@ $app->scope('/samples/dom/', function ($app, $params) {
         Document::setSeverityLevels(Document::ERROR|Document::FATAL|Document::WARNING);
 
         $handle = new Document(Document::XML);
-        $handle->load('public/error.xml', true);
+        $handle->loadFile('public/error.xml');
 
         echo '<pre>';
         var_dump(htmlspecialchars($handle->dump($handle->document())));
@@ -1601,12 +1606,16 @@ $app->scope('/samples/markdown/', function ($app) {
     $app->action('GET', '/file', function () {
         $parser = new Markdown(true);
         $parser->enableHtml(true);
-        echo $parser->fromFile(INPHINIT_SYSTEM . '/storage/samples/sample.md');
+
+        echo $parser->fromFile(INPHINIT_SYSTEM . '/storage/samples/markdown.md');
     });
 
     $app->action('GET', '/string', function () {
+        $input = 'Samples *Italic*, `var x = 1;`! [![alt](/favicon.ico "caption")](http://localhost:5000/ "title")';
+
         $parser = new Markdown();
-        echo $parser->fromString('Samples *Italic*, `var x = 1;`! [![alt](/favicon.ico "caption")](http://localhost:5000/ "title")');
+
+        echo $parser->fromString($input);
     });
 });
 

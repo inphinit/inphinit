@@ -64,17 +64,17 @@ $debug->setErrorView('debug.error');
 
 $app->setNamespace('Controllers\\Samples');
 
+$app->action('GET', '/samples/', function () {
+    View::data('environment', App::config('environment'));
+    View::render('samples');
+});
+
 $app->action('GET', '/samples/info', function ($app) {
     phpinfo();
 });
 
 $app->action('GET', '/samples/memory', function () {
     return 'memory peak usage: ' . round(memory_get_peak_usage() / 1024 / 1024, 3) . 'MB';
-});
-
-$app->action('GET', '/samples/', function () {
-    View::data('environment', App::config('environment'));
-    View::render('samples');
 });
 
 $app->action('ANY', '/samples/views', function () {
@@ -839,7 +839,7 @@ $app->scope('/samples/', function ($app, $params) {
     });
 
     $app->action('GET', '/sendfile/header', function () {
-        $dir = __DIR__;
+        $dir = INPHINIT_SYSTEM;
 
         // headers to download response
         Response::download('sample.txt');
@@ -848,8 +848,18 @@ $app->scope('/samples/', function ($app, $params) {
         header("X-Accel-Redirect: {$dir}/storage/private/sample.txt");
     });
 
+    $app->action('GET', '/sendfile/header', function () {
+        $dir = INPHINIT_SYSTEM;
+
+        // headers to download response
+        Response::download('sample.txt');
+
+        header("X-Accel-Redirect: {$dir}/storage/private/not_exists_file.txt");
+    });
+
     $app->action('GET', '/sendfile/<mode>', function ($app, $params) {
-        $dir = __DIR__;
+        $dir = INPHINIT_SYSTEM;
+
         $path = "{$dir}/storage/private/sample.txt";
 
         $handle = new FileResponse($path, 'output.txt');
@@ -1607,11 +1617,23 @@ $app->scope('/samples/markdown/', function ($app) {
         $parser = new Markdown(true);
         $parser->enableHtml(true);
 
+        echo '<!DOCTYPE html>';
+        echo '<html>';
+        echo '<head>';
+        echo '<title>Markdown output</title>';
+        echo '<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover">';
+        echo '</head>';
+        echo '<body>';
+        echo '<main>';
         echo $parser->fromFile(INPHINIT_SYSTEM . '/storage/samples/markdown.md');
+        echo '</main>';
+        echo '</body>';
+        echo '</html>';
     });
 
     $app->action('GET', '/string', function () {
-        $input = 'Samples *Italic*, `var x = 1;`! [![alt](/favicon.ico "caption")](http://localhost:5000/ "title")';
+        $input  = 'Samples *Italic*, `var x = 1;`! [![alt](/favicon.ico "caption")](http://localhost:5000/ "title")';
+        $input .= "\x00"; // NUL
 
         $parser = new Markdown();
 

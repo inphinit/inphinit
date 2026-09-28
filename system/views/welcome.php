@@ -29,7 +29,7 @@ use Inphinit\Viewing\View;
             <?php foreach($items as $item): ?>
             <a rel="nofollow noopener noreferrer" target="_blank" href="<?=$item['link']?>">
                 <h3><?=$item['title']?></h3>
-                <p><?=$item['content']?></p>
+                <p><?=$markdown->fromString($item['body'])?></p>
 
                 <?php if (empty($item['experimental']) === false): ?>
                     <div class="badge">Experimental</div>
@@ -40,7 +40,13 @@ use Inphinit\Viewing\View;
         <?php endif; ?>
 
         <?php if ($environment === 'development'): ?>
-            <div class="badge">Development Mode</div>
+            <div class="badge">
+            <?php if ($portuguese): ?>
+                Modo de Desenvolvimento
+            <?php else: ?>
+                Development Mode
+            <?php endif; ?>
+            </div>
         <?php endif; ?>
     </main>
 </body>

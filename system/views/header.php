@@ -41,7 +41,8 @@ html {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     font-size: 16px;
     color: #F7F6F6;
-    background: linear-gradient( 135deg, #262833 10%, #101015 100%);
+    background-image: linear-gradient(135deg, #262833 10%, #101015 100%);
+    background-size: cover;
 }
 
 body {

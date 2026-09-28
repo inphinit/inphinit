@@ -15,22 +15,35 @@
 
 # Inphinit
 /system/boot/env.php
-/system/boot/metadata/*
-/system/storage/*
 /system/vendor/*
-!/system/boot/metadata/.keep
+/system/boot/metadata/*
+
+# Ignores storage content
+/system/storage/**
+
+# Preserves the storage folders used by the application
+!/system/storage/private/
+!/system/storage/samples/
+!/system/storage/logs/
+!/system/storage/session/
+!/system/storage/tmp/
+
+# Preserves .keep files
+!/system/storage/private/.keep
+!/system/storage/samples/.keep
 !/system/storage/logs/.keep
 !/system/storage/session/.keep
 !/system/storage/tmp/.keep
 
-# Samples
+# Preserves the samples
 !/system/storage/private/sample.txt
+!/system/storage/samples/bar.txt
 !/system/storage/samples/csv/MacOS9.csv
 !/system/storage/samples/csv/source.csv
+!/system/storage/samples/tsv/source.tsv
 !/system/storage/samples/lines.txt
 !/system/storage/samples/markdown.md
 !/system/storage/samples/sqlite.db
-!/system/storage/samples/tsv/source.tsv
 
 # Env
 .env

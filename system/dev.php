@@ -848,7 +848,7 @@ $app->scope('/samples/', function ($app, $params) {
         header("X-Accel-Redirect: {$dir}/storage/private/sample.txt");
     });
 
-    $app->action('GET', '/sendfile/header', function () {
+    $app->action('GET', '/sendfile/header/not_exists', function () {
         $dir = INPHINIT_SYSTEM;
 
         // headers to download response

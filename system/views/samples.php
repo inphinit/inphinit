@@ -127,6 +127,7 @@ use Inphinit\Viewing\View;
         <dl>
             <dt>Sendfile</dt>
             <dd><a href="../samples/sendfile/header">/samples/sendfile/header</a></dd>
+            <dd><a href="../samples/sendfile/header/not_exists">/samples/sendfile/header/not_exists</a></dd>
             <dd><a href="../samples/sendfile/x-accel-redirect">/samples/sendfile/&lt;mode&gt; (X-Accel-Redirect)</a></dd>
             <dd><a href="../samples/sendfile/x-sendfile">/samples/sendfile/&lt;mode&gt; (X-Sendfile)</a></dd>
             <dd><a href="../samples/sendfile/fallback">/samples/sendfile/&lt;mode&gt; (fallback)</a></dd>

@@ -34,19 +34,19 @@ After installing PHP, you can install Inphinit via Composer or Git.
 To install via Composer, run the command (see more details at https://getcomposer.org/doc/03-cli.md):
 
 ```bash
-php composer.phar create-project inphinit/inphinit:^2.1-beta.13 my-application
+php composer.phar create-project inphinit/inphinit:^2.1-beta.15 my-application
 ```
 
 If Composer is installed globally, use:
 
 ```bash
-composer create-project inphinit/inphinit:^2.1-beta.13 my-application
+composer create-project inphinit/inphinit:^2.1-beta.15 my-application
 ```
 
 To install via Git:
 
 ```bash
-git clone --recurse-submodules -b 2.1-beta.13 https://github.com/inphinit/inphinit.git my-application
+git clone --recurse-submodules -b 2.1-beta.15 https://github.com/inphinit/inphinit.git my-application
 cd my-application
 cp .env.sample .env
 ```
@@ -295,3 +295,9 @@ $app->setPattern('version', '\d+\.\d+');
 - API Reference: https://inphinit.github.io/api/
 
 The documentation is maintained in a separate [GitHub repository](https://github.com/inphinit/inphinit.github.io).
+
+## To-Do
+
+New features are being planned or are already under development, and are updated in the framework core repository:
+
+- https://github.com/inphinit/framework#to-do-list

@@ -31,7 +31,5 @@ class HelloCommand
         foreach ($residues as $key => $value) {
             echo "{$key} => {$value}\n";
         }
-
-        echo "\n";
     }
 }

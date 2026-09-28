@@ -18,6 +18,7 @@
 - [Agrupando rotas](#agrupando-rotas)
 - [Padrões de rotas e URLs](#padrões-de-rotas-e-urls)
 - [Documentação](#documentação)
+- [To-Do](#to-do)
 
 ## Instalação
 
@@ -34,19 +35,19 @@ Após instalar o PHP, você pode instalar o Inphinit usando o Composer ou o Git.
 Para instalar usando o Composer, execute o comando (consulte mais detalhes em https://getcomposer.org/doc/03-cli.md):
 
 ```bash
-php composer.phar create-project inphinit/inphinit:^2.1-beta.13 my-application
+php composer.phar create-project inphinit/inphinit:^2.1-beta.15 my-application
 ```
 
 Se o Composer estiver instalado globalmente, use:
 
 ```bash
-composer create-project inphinit/inphinit:^2.1-beta.13 my-application
+composer create-project inphinit/inphinit:^2.1-beta.15 my-application
 ```
 
 Para instalar usando o Git:
 
 ```bash
-git clone --recurse-submodules -b 2.1-beta.13 https://github.com/inphinit/inphinit.git my-application
+git clone --recurse-submodules -b 2.1-beta.15 https://github.com/inphinit/inphinit.git my-application
 cd my-application
 cp .env.sample .env
 ```
@@ -298,3 +299,9 @@ $app->setPattern('version', '\d+\.\d+');
 - Referência da API: https://inphinit.github.io/api/
 
 A documentação é mantida em um [repositório separado no GitHub](https://github.com/inphinit/inphinit.github.io).
+
+## To-Do
+
+Novos recursos estão sendo planejados ou já estão em desenvolvimento e são atualizados no repositório principal da estrutura:
+
+- https://github.com/inphinit/framework#to-do-list

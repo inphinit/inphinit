@@ -29,6 +29,7 @@
 !/system/storage/samples/csv/source.csv
 !/system/storage/samples/lines.txt
 !/system/storage/samples/markdown.md
+!/system/storage/samples/sqlite.db
 !/system/storage/samples/tsv/source.tsv
 
 # Env

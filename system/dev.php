@@ -493,7 +493,7 @@ $app->scope('/samples/dom/', function ($app, $params) {
         Document::setSeverityLevels(Document::ERROR|Document::FATAL|Document::WARNING);
 
         $handle = new Document(Document::XML);
-        $handle->loadFile('public/error.xml');
+        $handle->loadFile(INPHINIT_SYSTEM . '/storage/samples/error.xml');
 
         echo '<pre>';
         var_dump(htmlspecialchars($handle->dump($handle->document())));
@@ -1632,12 +1632,27 @@ $app->scope('/samples/markdown/', function ($app) {
     });
 
     $app->action('GET', '/string', function () {
-        $input  = 'Samples *Italic*, `var x = 1;`! [![alt](/favicon.ico "caption")](http://localhost:5000/ "title")';
+        $input  = 'Samples *Italic*,';
+        $input .= '`var x = 1;`! ';
+        $input .= '[![alt](/favicon.ico "caption")](http://localhost:5000/ "title")';
+        $input .= "\n---\n";
         $input .= "\x00"; // NUL
+        $input .= "\n---\n";
 
         $parser = new Markdown();
-
         echo $parser->fromString($input);
+    });
+
+    $app->action('GET', '/inline', function () {
+        $input  = 'Samples *Italic*,';
+        $input .= '`var x = 1;`! ';
+        $input .= '[![alt](/favicon.ico "caption")](http://localhost:5000/ "title")';
+        $input .= "\n---\n";
+        $input .= "\x00"; // NUL
+        $input .= "\n---\n";
+
+        $parser = new Markdown();
+        echo $parser->fromInlineString($input);
     });
 });
 

@@ -42,10 +42,11 @@
 !/system/storage/samples/bar.txt
 !/system/storage/samples/csv/
 !/system/storage/samples/csv/
-!/system/storage/samples/tsv/
 !/system/storage/samples/csv/MacOS9.csv
 !/system/storage/samples/csv/source.csv
+!/system/storage/samples/tsv/
 !/system/storage/samples/tsv/source.tsv
+!/system/storage/samples/error.xml
 !/system/storage/samples/lines.txt
 !/system/storage/samples/markdown.md
 !/system/storage/samples/sqlite.db

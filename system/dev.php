@@ -1333,13 +1333,19 @@ $app->scope('/samples/http/', function ($app, $params) {
     $app->action('ANY', '/cache/etag', function () {
         $cache = new Cache();
 
-        if ($cache->start(10) === Cache::CACHED) {
+        // This header will be stored for cache usage
+        header('X-Foo: bar');
+
+        if ($cache->start(30) === Cache::CACHED) {
             return;
         }
 
+        // This header will be stored for cache usage
+        header('X-Content-Type-Options: nosniff');
+
         echo 'Hour: [', date('h:i:s'), "]<br>\n";
 
-        for ($i = 0; $i < 50000; ++$i) {
+        for ($i = 0; $i < 5000; ++$i) {
             if ($i % 10 === 0) {
                 echo "<br>\n";
             }

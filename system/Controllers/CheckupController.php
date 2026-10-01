@@ -11,11 +11,13 @@ class CheckupController
     public function checkup()
     {
         $check = new Checkup();
+        $markdown = new Markdown();
 
         $errors = $check->getErrors();
         $warnings = $check->getWarnings();
 
         View::data('environment', App::config('environment'));
+        View::data('markdown', $markdown);
 
         try {
             $php_build_date = Checkup::getPhpBuildDate();
@@ -25,19 +27,17 @@ class CheckupController
 
         View::data('php_build_date', $php_build_date);
 
-        $parser = new Markdown();
-
-        foreach ($errors as &$error) {
-            $error = $parser->fromInlineString($error);
+        foreach ($errors as $error) {
+            $error = $error;
         }
 
-        foreach ($warnings as &$warning) {
-            $warning = $parser->fromInlineString($warning);
+        foreach ($warnings as $warning) {
+            $warning = $warning;
         }
 
         View::render('checkup', [
             'errors' => $errors,
             'warnings' => $warnings,
-        ], View::UNSAFE);
+        ]);
     }
 }

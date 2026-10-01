@@ -1,7 +1,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="<?=INPHINIT_URL?>/favicon.ico">
+<link rel="icon" href="<?=INPHINIT_BASE_URL?>/favicon.ico">
 <style type="text/css">
 *, ::before, ::after {
     box-sizing: border-box;
@@ -34,7 +34,7 @@ html, body {
 }
 
 h1, h2, h3 {
-    font-weight: 600;
+    font-weight: bold;
 }
 
 html {
@@ -47,8 +47,6 @@ html {
 
 body {
     min-width: 340px;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 800 800"><g fill="none" stroke="%23fff" stroke-width="1.5" stroke-opacity="0.1"><path d="M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63"/><path d="M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764"/><path d="M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880"/><path d="M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382"/><path d="M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269"/></g><g fill="%23fcfcfc" fill-opacity="0.2"><circle cx="769" cy="229" r="4"/><circle cx="539" cy="269" r="4"/><circle cx="603" cy="493" r="4"/><circle cx="731" cy="737" r="4"/><circle cx="520" cy="660" r="4"/><circle cx="309" cy="538" r="4"/><circle cx="295" cy="764" r="4"/><circle cx="40" cy="599" r="4"/><circle cx="102" cy="382" r="4"/><circle cx="127" cy="80" r="4"/><circle cx="370" cy="105" r="4"/><circle cx="578" cy="42" r="4"/><circle cx="237" cy="261" r="4"/><circle cx="390" cy="382" r="4"/></g></svg>');
-    background-size: 400px 400px;
 }
 
 code {
@@ -231,8 +229,11 @@ body * {
     color: inherit;
     text-decoration: none;
     border-radius: .4rem;
-    background: rgba(0,0,0,.1);
     border: thin solid rgba(255,255,255,.2);
+    background: rgba(0,0,0,.1);
+    background-position: right top;
+    background-repeat: no-repeat;
+    background-image: url('data:image/svg+xml,<svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="grid" x1="2" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%23595959" stop-opacity="1" /><stop offset="1" stop-color="%23595959" stop-opacity="0" /></linearGradient></defs><path d="M0,20 L200,20 M0,40 L200,40 M0,60 L200,60 M0,80 L200,80 M0,100 L200,100 M0,120 L200,120 M0,140 L200,140 M0,160 L200,160 M0,180 L200,180 M20,0 L20,200 M40,0 L40,200 M60,0 L60,200 M80,0 L80,200 M100,0 L100,200 M120,0 L120,200 M140,0 L140,200 M160,0 L160,200 M180,0 L180,200 M0,0 L200,0 L200,200 L0,200 Z" fill="none" stroke="url(%23grid)" stroke-width="1" shape-rendering="crispEdges" /></svg>');
 }
 
 #items > a:hover, #items > a:active, #items > a:focus {

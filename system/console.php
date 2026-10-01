@@ -16,8 +16,10 @@ $hello = $console->action('hello', 'HelloCommand::index')
 // By default, the Scheduler uses UTC; to change, edit and uncomment the following line:
 # $scheduler->setTimeZone(new \DateTimeZone('America/Sao_Paulo'));
 
-// Schedules the "hello" command to run every minute in the development environment
-$scheduler->command('mytask', $hello, ['name' => 'Task Master!'])->cron('*/1', '*', '*', '*', '*')->runInEnvironments(['development']);
+// // Schedules the "hello" command to run every two minutes in the development environment
+$scheduler->command('mytask', $hello, [
+    'name' => 'Task Master!'
+])->cron('*', '*', '*', '*', '*')->runInEnvironments(['development']);
 
 // Schedules the session file cleanup command to run on Sunday at 04:00.
 /*
@@ -27,4 +29,3 @@ if ($session_clear !== null) {
     $scheduler->command('session_clear_task', $session_clear, [])->cron(0, 4, '*', '*', 0);
 }
 */
-

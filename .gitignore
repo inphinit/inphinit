@@ -22,17 +22,22 @@
 /system/storage/**
 
 # Preserves the storage folders used by the application
+!/system/storage/cache/
+!/system/storage/cache/output/
+!/system/storage/logs/
 !/system/storage/private/
 !/system/storage/samples/
-!/system/storage/logs/
+!/system/storage/schedule/
 !/system/storage/session/
 !/system/storage/tmp/
 
 # Preserves .keep files
 !/system/boot/metadata/.keep
+!/system/storage/cache/output/.keep
 !/system/storage/logs/.keep
 !/system/storage/private/.keep
 !/system/storage/samples/.keep
+!/system/storage/schedule/.keep
 !/system/storage/session/.keep
 !/system/storage/tmp/.keep
 !/system/vendor/.keep

@@ -62,7 +62,10 @@ use Inphinit\Viewing\View;
                 <?php if ($errors): ?>
                 <ul class="fail">
                     <?php foreach ($errors as $error): ?>
-                    <li><strong>Fail:</strong> <?=$error?></li>
+                    <li>
+                        <strong>Fail:</strong>
+                        <?=$markdown->fromInlineString($error)?>
+                    </li>
                     <?php endforeach; ?>
                 </ul>
                 <?php endif; ?>
@@ -70,7 +73,10 @@ use Inphinit\Viewing\View;
                 <?php if ($warnings): ?>
                 <ul class="warn">
                     <?php foreach ($warnings as $warn): ?>
-                    <li><strong>Recommended:</strong> <?=$warn?></li>
+                    <li>
+                        <strong>Recommended:</strong>
+                        <?=$markdown->fromInlineString($warn)?>
+                    </li>
                     <?php endforeach; ?>
                 </ul>
                 <?php endif; ?>

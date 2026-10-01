@@ -6,7 +6,7 @@
     <?php endif; ?>
 
 <?php else: ?>
-    <a href="<?=INPHINIT_URL?>/">Home</a>
+    <a href="<?=INPHINIT_BASE_URL?>/">Home</a>
 <?php endif; ?>
 
 <a href="https://twitter.com/inphinitphp"

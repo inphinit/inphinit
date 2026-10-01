@@ -90,6 +90,7 @@ use Inphinit\Viewing\View;
         <dl>
             <dt>HTTP</dt>
             <dd><a href="../samples/http/cache">/http/cache</a></dd>
+            <dd><a href="../samples/http/cache/etag">/http/cache/etag</a></dd>
             <dd><a href="../samples/http/download">/http/download</a></dd>
             <dd><a href="../samples/http/is">/http/is</a></dd>
             <dd><a href="../samples/http/negotiation">/http/negotiation</a></dd>

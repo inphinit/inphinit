@@ -1,43 +1,35 @@
 <?php
 
 use Inphinit\App;
-use Inphinit\Viewing\View;
-
 use Inphinit\Config;
-use Inphinit\Event;
-use Inphinit\Session;
-use Inphinit\Packages\Package;
-
 use Inphinit\Dom\Document;
-
+use Inphinit\Event;
 use Inphinit\Filesystem\File;
 use Inphinit\Filesystem\Size;
-
 use Inphinit\Http\Negotiation;
 use Inphinit\Http\Request;
 use Inphinit\Http\Response;
-
+use Inphinit\Packages\Package;
+use Inphinit\Session;
 use Inphinit\Utility\Arrays;
-use Inphinit\Utility\Strings;
-use Inphinit\Utility\Version;
-use Inphinit\Utility\Url;
 use Inphinit\Utility\PropertyAccessor;
+use Inphinit\Utility\Strings;
+use Inphinit\Utility\Url;
+use Inphinit\Utility\Version;
+use Inphinit\Viewing\View;
 
-use Inphinit\Experimental\Http\CookieJar;
-use Inphinit\Experimental\Http\Method;
-
-use Controllers\Samples\TreatyController;
-use Controllers\Samples\ResourceController;
-
+use Inphinit\Experimental\Cli\Console;
 use Inphinit\Experimental\Delimited\Converter;
 use Inphinit\Experimental\Delimited\Csv;
 use Inphinit\Experimental\Delimited\Tsv;
-
-use Inphinit\Experimental\Cli\Console;
-
+use Inphinit\Experimental\Http\Cache;
+use Inphinit\Experimental\Http\CookieJar;
 use Inphinit\Experimental\Http\FileResponse;
-
+use Inphinit\Experimental\Http\Method;
 use Inphinit\Experimental\Utility\Markdown;
+
+use Controllers\Samples\ResourceController;
+use Controllers\Samples\TreatyController;
 
 /**
  * @var Inphinit\Diagnostics\App $app
@@ -205,15 +197,6 @@ $app->scope('/samples/commands/', function ($app, $params) {
     $app->action('GET', '/unknown', function () {
         // Equivalent to the `run unknown` command
         $output = Console::run('unknown', [], $status);
-
-        echo '<pre>';
-
-        var_dump([
-            'output' => $output,
-            'status' => $status
-        ]);
-
-        echo '</pre>';
     });
 
     $app->action('GET', '/restrict', function () {
@@ -1345,6 +1328,24 @@ $app->scope('/samples/http/', function ($app, $params) {
         ]);
 
         Response::cache(30);
+    });
+
+    $app->action('ANY', '/cache/etag', function () {
+        $cache = new Cache();
+
+        if ($cache->start(10) === Cache::CACHED) {
+            return;
+        }
+
+        echo 'Hour: [', date('h:i:s'), "]<br>\n";
+
+        for ($i = 0; $i < 50000; ++$i) {
+            if ($i % 10 === 0) {
+                echo "<br>\n";
+            }
+
+            echo $i, '; ';
+        }
     });
 
     $app->action('GET', '/is', function () {

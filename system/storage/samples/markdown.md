@@ -13,7 +13,13 @@ snake_case snake_case
 
 Olá, Mündô! <file:///home/bar/baz>, <https://inphinit.github.io/en/>, <foo@bar>
 
-Link image: [![alt](/favicon.ico "caption")](#fragment "title")
+Link image:
+
+[![alt](/favicon.ico "caption 1")](#fragment1 "title 1")
+
+Link image + text:
+
+[*Emphasis*, **Strong**, ![alt](/favicon.ico "caption 2"), `code`](#fragment2 "title 2")
 
 ## Horizontal lines
 

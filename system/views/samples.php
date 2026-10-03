@@ -106,7 +106,7 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/session">/session</a></dd>
             <dd><a href="../samples/session/reset">/session/reset</a></dd>
             <dd><a href="../samples/session/regenerate">/session/regenerate</a></dd>
-            <dd><a href="../samples/cookie">/samples/cookie</a></dd>
+            <dd><a href="../samples/cookie">/cookie</a></dd>
         </dl>
 
         <dl>
@@ -120,37 +120,39 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/utilities/strings">/utilities/strings</a></dd>
             <dd><a href="../samples/utilities/version">/utilities/version</a></dd>
             <dd><a href="../samples/utilities/url">/utilities/url</a></dd>
-            <dd><a href="../samples/packages">/samples/packages</a></dd>
-            <dd><a href="../samples/markdown/file">/samples/markdown/file</a></dd>
-            <dd><a href="../samples/markdown/string">/samples/markdown/string</a></dd>
+            <dd><a href="../samples/packages">/packages</a></dd>
+            <dd><a href="../samples/storage">/storage</a></dd>
+            <dd><a href="../samples/storage/error">/storage/error</a></dd>
+            <dd><a href="../samples/markdown/file">/markdown/file</a></dd>
+            <dd><a href="../samples/markdown/string">/markdown/string</a></dd>
         </dl>
 
         <dl>
             <dt>Sendfile</dt>
-            <dd><a href="../samples/sendfile/header">/samples/sendfile/header</a></dd>
-            <dd><a href="../samples/sendfile/header/not_exists">/samples/sendfile/header/not_exists</a></dd>
-            <dd><a href="../samples/sendfile/x-accel-redirect">/samples/sendfile/&lt;mode&gt; (X-Accel-Redirect)</a></dd>
-            <dd><a href="../samples/sendfile/x-sendfile">/samples/sendfile/&lt;mode&gt; (X-Sendfile)</a></dd>
-            <dd><a href="../samples/sendfile/fallback">/samples/sendfile/&lt;mode&gt; (fallback)</a></dd>
-            <dd><a href="../samples/sendfile/alternate">/samples/sendfile/&lt;mode&gt; (X-Accel-Redirect or X-Sendfile)</a></dd>
+            <dd><a href="../samples/sendfile/header">/sendfile/header</a></dd>
+            <dd><a href="../samples/sendfile/header/not_exists">/sendfile/header/not_exists</a></dd>
+            <dd><a href="../samples/sendfile/x-accel-redirect">/sendfile/&lt;mode&gt; (X-Accel-Redirect)</a></dd>
+            <dd><a href="../samples/sendfile/x-sendfile">/sendfile/&lt;mode&gt; (X-Sendfile)</a></dd>
+            <dd><a href="../samples/sendfile/fallback">/sendfile/&lt;mode&gt; (fallback)</a></dd>
+            <dd><a href="../samples/sendfile/alternate">/sendfile/&lt;mode&gt; (X-Accel-Redirect or X-Sendfile)</a></dd>
         </dl>
 
         <dl>
             <dt>CSV (Experimental)</dt>
-            <dd><a href="../samples/csv/">/samples/csv/</a></dd>
-            <dd><a href="../samples/csv/convert">/samples/csv/convert</a></dd>
-            <dd><a href="../samples/csv/index.json">/samples/csv/index.json</a></dd>
-            <dd><a href="../samples/csv/pairs.json">/samples/csv/pairs.json</a></dd>
-            <dd><a href="../samples/csv/output">/samples/csv/output</a></dd>
-            <dd><a href="../samples/csv/tsv">/samples/csv/tsv</a></dd>
+            <dd><a href="../samples/csv/">/csv/</a></dd>
+            <dd><a href="../samples/csv/convert">/csv/convert</a></dd>
+            <dd><a href="../samples/csv/index.json">/csv/index.json</a></dd>
+            <dd><a href="../samples/csv/pairs.json">/csv/pairs.json</a></dd>
+            <dd><a href="../samples/csv/output">/csv/output</a></dd>
+            <dd><a href="../samples/csv/tsv">/csv/tsv</a></dd>
 
             <dt>TSV (Experimental)</dt>
-            <dd><a href="../samples/tsv/">/samples/tsv/</a></dd>
-            <dd><a href="../samples/tsv/convert">/samples/tsv/convert</a></dd>
-            <dd><a href="../samples/tsv/index.json">/samples/tsv/index.json</a></dd>
-            <dd><a href="../samples/tsv/pairs.json">/samples/tsv/pairs.json</a></dd>
-            <dd><a href="../samples/tsv/output">/samples/tsv/output</a></dd>
-            <dd><a href="../samples/tsv/csv">/samples/tsv/csv</a></dd>
+            <dd><a href="../samples/tsv/">/tsv/</a></dd>
+            <dd><a href="../samples/tsv/convert">/tsv/convert</a></dd>
+            <dd><a href="../samples/tsv/index.json">/tsv/index.json</a></dd>
+            <dd><a href="../samples/tsv/pairs.json">/tsv/pairs.json</a></dd>
+            <dd><a href="../samples/tsv/output">/tsv/output</a></dd>
+            <dd><a href="../samples/tsv/csv">/tsv/csv</a></dd>
         </dl>
 
         <dl>

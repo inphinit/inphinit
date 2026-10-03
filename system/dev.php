@@ -27,6 +27,7 @@ use Inphinit\Experimental\Http\CookieJar;
 use Inphinit\Experimental\Http\FileResponse;
 use Inphinit\Experimental\Http\Method;
 use Inphinit\Experimental\Utility\Markdown;
+use Inphinit\Experimental\Storage;
 
 use Controllers\Samples\ResourceController;
 use Controllers\Samples\TreatyController;
@@ -897,6 +898,16 @@ $app->scope('/samples/', function ($app, $params) {
             echo "{$package} description: {$description}<hr>";
         }
     });
+
+    // Storage
+    $app->action('GET', '/storage', function () {
+        var_dump(Storage::path('foo.txt'));
+        var_dump(Storage::path('foo/bar/baz.txt'));
+    });
+
+    $app->action('GET', '/storage/error', function () {
+        var_dump(Storage::path('..'));
+    });
 });
 
 // Utilities
@@ -1345,9 +1356,11 @@ $app->scope('/samples/http/', function ($app, $params) {
 
         echo 'Hour: [', date('h:i:s'), "]<br>\n";
 
-        for ($i = 0; $i < 5000; ++$i) {
+        $j = 0;
+
+        for ($i = 0; $i < 1000; ++$i) {
             if ($i % 10 === 0) {
-                echo "<br>\n";
+                echo "<br>\n[", sprintf('%03d', ++$j), '] = ';
             }
 
             echo $i, '; ';

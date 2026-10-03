@@ -145,6 +145,14 @@ Blockquote + Table:
 >
 > For production see [web servers](#web-servers).
 
+Table:
+
+| A | B |
+|---|---|
+| 1 | 2 |
+A | B
+## título | alguma coisa
+
 ## Create routes
 
 To create a new route, edit the `system/main.php` file, if you want the route to only be available in development mode, then edit the `system/dev.php` file.
@@ -169,3 +177,15 @@ Here are basic instructions to configure Inphinit on servers:
 * [IIS](https://inphinit.github.io/en/docs/web-servers/iis.html)
 * [IIS Express](https://inphinit.github.io/en/docs/web-servers/iis-express.html)
 * [Nginx](https://inphinit.github.io/en/docs/web-servers/nginx.html)
+
+## Codes
+
+Test `<script>console.log('log1');</script>`!
+
+- Foo `<script>console.log('log2');</script>` bar!
+
+```javascript
+<script>
+console.log('log3');
+</script>
+```

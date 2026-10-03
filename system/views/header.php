@@ -27,7 +27,6 @@ body > .skip:focus {
 }
 
 html, body {
-    background: #262833;
     min-height: 100vh;
     padding: 0;
     margin: 0;
@@ -41,12 +40,15 @@ html {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     font-size: 16px;
     color: #F7F6F6;
-    background-image: linear-gradient(135deg, #262833 10%, #101015 100%);
+    background: #262833;
     background-size: cover;
+    background-image: linear-gradient(135deg, #1e1e25 10%, #101015 100%);
 }
 
 body {
     min-width: 340px;
+    background-attachment: fixed;
+    background-size: 200px 200px;
 }
 
 code {
@@ -228,12 +230,6 @@ body * {
     overflow: hidden;
     color: inherit;
     text-decoration: none;
-    border-radius: .4rem;
-    border: thin solid rgba(255,255,255,.2);
-    background: rgba(0,0,0,.1);
-    background-position: right top;
-    background-repeat: no-repeat;
-    background-image: url('data:image/svg+xml,<svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="grid" x1="2" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%23595959" stop-opacity="1" /><stop offset="1" stop-color="%23595959" stop-opacity="0" /></linearGradient></defs><path d="M0,20 L200,20 M0,40 L200,40 M0,60 L200,60 M0,80 L200,80 M0,100 L200,100 M0,120 L200,120 M0,140 L200,140 M0,160 L200,160 M0,180 L200,180 M20,0 L20,200 M40,0 L40,200 M60,0 L60,200 M80,0 L80,200 M100,0 L100,200 M120,0 L120,200 M140,0 L140,200 M160,0 L160,200 M180,0 L180,200 M0,0 L200,0 L200,200 L0,200 Z" fill="none" stroke="url(%23grid)" stroke-width="1" shape-rendering="crispEdges" /></svg>');
 }
 
 #items > a:hover, #items > a:active, #items > a:focus {
@@ -247,13 +243,22 @@ body * {
     font-size: 0.72rem;
 }
 
+#items > a, #items > dl {
+    border-radius: .4rem;
+    border: thin solid rgba(255,255,255,.2);
+    background: #262833;
+}
+
+body, #items > a {
+    background-position: right top;
+    background-repeat: no-repeat;
+    background-image: url('data:image/svg+xml,<svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="grid" x1="2" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%23595959" stop-opacity="1" /><stop offset="1" stop-color="%23595959" stop-opacity="0" /></linearGradient></defs><path d="M0,20 L200,20 M0,40 L200,40 M0,60 L200,60 M0,80 L200,80 M0,100 L200,100 M0,120 L200,120 M0,140 L200,140 M0,160 L200,160 M0,180 L200,180 M20,0 L20,200 M40,0 L40,200 M60,0 L60,200 M80,0 L80,200 M100,0 L100,200 M120,0 L120,200 M140,0 L140,200 M160,0 L160,200 M180,0 L180,200 M0,0 L200,0 L200,200 L0,200 Z" fill="none" stroke="url(%23grid)" stroke-width="1" shape-rendering="crispEdges" /></svg>');
+}
+
 #items > dl {
     flex: 1 0 28%;
     display: block;
     overflow: hidden;
-    border-radius: .4rem;
-    background: rgba(0,0,0,.1);
-    border: thin solid rgba(255,255,255,.2);
 }
 
 #items > dl:hover {

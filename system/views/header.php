@@ -232,8 +232,7 @@ body * {
     text-decoration: none;
 }
 
-#items > a:hover, #items > a:active, #items > a:focus {
-    background-color: rgba(0,0,0,.24);
+#items > a:hover, #items > a:active, #items > a:focus, #items > dl:hover {
     border-color: rgba(255,255,255,.4);
 }
 
@@ -259,11 +258,6 @@ body, #items > a {
     flex: 1 0 28%;
     display: block;
     overflow: hidden;
-}
-
-#items > dl:hover {
-    background-color: rgba(0,0,0,.24);
-    border-color: rgba(255,255,255,.4);
 }
 
 #items > dl > dt, #items > dl > dd {

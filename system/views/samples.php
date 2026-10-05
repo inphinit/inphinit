@@ -25,11 +25,14 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/memory">/memory</a></dd>
             <dd><a href="../samples/routes">/routes/routes (list routes)</a></dd>
             <dd><a href="../samples/views">/views</a></dd>
-            <dd><a href="../checkup">/checkup</a></dd>
+            <dt>Public (without route system)</dt>
+            <dd><a href="../public_samples/">/public_samples/</a></dd>
+            <dd><a href="../robots.txt">/robots.txt</a></dd>
+            <dd><a href="../sitemap.xml">/sitemap.xml</a></dd>
         </dl>
 
         <dl>
-            <dt>Resource controller</dt>
+            <dt>Resource routes</dt>
             <dd><a href="../samples/routes/resource/">/routes/resource/</a></dd>
             <dd><a href="../samples/routes/resource/create">/routes/resource/create</a></dd>
             <dd><a href="../samples/routes/resource/100/edit">/routes/resource/&lt;id&gt;/edit</a></dd>
@@ -37,7 +40,7 @@ use Inphinit\Viewing\View;
         </dl>
 
         <dl>
-            <dt>Implicit controller</dt>
+            <dt>Implicit routes</dt>
             <dd><a href="../samples/routes/treaty/">/routes/treaty/</a></dd>
             <dd><a href="../samples/routes/treaty/foo-bar-baz">/routes/treaty/foo-bar-baz</a></dd>
         </dl>

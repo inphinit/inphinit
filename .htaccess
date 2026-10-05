@@ -14,12 +14,14 @@ RewriteEngine On
 # RewriteCond %{HTTP:Authorization} .
 # RewriteRule . - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-# Ignore hidden files
-RewriteRule ^\.|/\. index.php [L]
+# Skip root/index
+RewriteRule ^index\.php(?:/|$) - [L]
 
 # Redirect to public folder
-RewriteCond %{REQUEST_URI} !(^$|/$|public/|index\.php(/|$))
-RewriteRule ^(.*)$ public/$1 [L]
+RewriteRule ^((?!public/).+)$ public/$1 [L]
+
+# Ignore hidden files
+RewriteRule ^\.|/\. index.php [L]
 
 # Redirect all urls to index.php if no exits files
 RewriteCond %{REQUEST_FILENAME} !-d

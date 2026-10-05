@@ -462,14 +462,11 @@ $app->scope('/samples/dom/', function ($app, $params) {
                     '@comment' => 'foobar'
                 ]
             ]);
+
+            header('Content-Type: application/xml');
         }
 
-        echo '<pre>';
-        print_r($handle->document());
-        print_r($handle->selector()->first('.sample'));
-        print_r($handle->selector()->first('node[foo=bar]'));
-        var_dump(htmlspecialchars($handle->dump($handle->root())));
-        echo '</pre>';
+        echo $handle->dump($handle->root());
     });
 
     // XML error

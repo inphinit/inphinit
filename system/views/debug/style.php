@@ -25,6 +25,8 @@
     border-radius: 4px;
     overflow: hidden;
     color: #dfe0e0;
+    pointer-events: auto;
+    text-transform: none;
 }
 .code-inphinit .hl-line {
     background-color: #656565;

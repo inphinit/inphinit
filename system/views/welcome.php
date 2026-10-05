@@ -41,11 +41,7 @@ use Inphinit\Viewing\View;
 
         <?php if ($environment === 'development'): ?>
             <div class="badge">
-            <?php if ($portuguese): ?>
-                Modo de Desenvolvimento
-            <?php else: ?>
-                Development Mode
-            <?php endif; ?>
+            Development mode
             </div>
         <?php endif; ?>
     </main>

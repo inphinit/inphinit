@@ -22,12 +22,13 @@ use Inphinit\Experimental\Cli\Console;
 use Inphinit\Experimental\Delimited\Converter;
 use Inphinit\Experimental\Delimited\Csv;
 use Inphinit\Experimental\Delimited\Tsv;
+use Inphinit\Experimental\Environment\Env;
 use Inphinit\Experimental\Http\Cache;
 use Inphinit\Experimental\Http\CookieJar;
 use Inphinit\Experimental\Http\FileResponse;
 use Inphinit\Experimental\Http\Method;
+use Inphinit\Experimental\Utility\Storage;
 use Inphinit\Experimental\Utility\Markdown;
-use Inphinit\Experimental\Storage;
 
 use Controllers\Samples\ResourceController;
 use Controllers\Samples\TreatyController;
@@ -36,9 +37,6 @@ use Controllers\Samples\TreatyController;
  * @var Inphinit\Diagnostics\App $app
  * @var Inphinit\Diagnostics\Debug $debug
  */
-
-// Inject CSS for debug if necessary
-$debug->setBeforeView('debug.style');
 
 // Display errors
 $debug->setErrorView('debug.error');
@@ -203,6 +201,37 @@ $app->scope('/samples/commands/', function ($app, $params) {
     $app->action('GET', '/restrict', function () {
         // `run serve` cannot executes out of the CLI
         $output = Console::run('serve', [], $status);
+    });
+});
+
+// Env
+$app->scope('/samples/env/', function ($app, $params) {
+    $app->action('GET', '/parse', function () {
+        print_r($_ENV);
+        // Force values for tests
+        $_ENV['SAMPLE_BOOL_1'] = '1';
+        $_ENV['SAMPLE_BOOL_TRUE'] = 'true';
+        $_ENV['SAMPLE_BOOL_YES'] = 'true';
+        $_ENV['SAMPLE_BOOL_ON'] = 'true';
+        $_ENV['SAMPLE_BOOL_0'] = '1';
+        $_ENV['SAMPLE_BOOL_FALSE'] = 'FALSE';
+        $_ENV['SAMPLE_BOOL_NO'] = 'NO';
+        $_ENV['SAMPLE_BOOL_OFF'] = 'OFF';
+        $_ENV['SAMPLE_FLOAT'] = '1';
+        $_ENV['SAMPLE_INT'] = '1';
+
+        echo '<pre>';
+        echo '<li>SAMPLE_BOOL_1 => ', var_export(Env::bool('SAMPLE_BOOL_1')), '</li>';
+        echo '<li>SAMPLE_BOOL_TRUE => ', var_export(Env::bool('SAMPLE_BOOL_TRUE')), '</li>';
+        echo '<li>SAMPLE_BOOL_YES => ', var_export(Env::bool('SAMPLE_BOOL_YES')), '</li>';
+        echo '<li>SAMPLE_BOOL_ON => ', var_export(Env::bool('SAMPLE_BOOL_ON')), '</li>';
+        echo '<li>SAMPLE_BOOL_0 => ', var_export(Env::bool('SAMPLE_BOOL_0')), '</li>';
+        echo '<li>SAMPLE_BOOL_FALSE => ', var_export(Env::bool('SAMPLE_BOOL_FALSE')), '</li>';
+        echo '<li>SAMPLE_BOOL_NO => ', var_export(Env::bool('SAMPLE_BOOL_NO')), '</li>';
+        echo '<li>SAMPLE_BOOL_OFF => ', var_export(Env::bool('SAMPLE_BOOL_OFF')), '</li>';
+        echo '<li>SAMPLE_FLOAT => ', var_export(Env::float('SAMPLE_FLOAT')), '</li>';
+        echo '<li>SAMPLE_INT => ', var_export(Env::int('SAMPLE_INT')), '</li>';
+        echo '</pre>';
     });
 });
 
@@ -1319,7 +1348,7 @@ $app->scope('/samples/utilities/', function ($app, $params) {
 $app->scope('/samples/http/', function ($app, $params) {
     Method::override();
 
-    $app->action(['DELETE', 'PATCH', 'PUT'], '/methods', function () {
+    $app->action(['DELETE', 'PATCH', 'PUT', 'QUERY'], '/methods', function () {
         $original = Method::original();
         $current = $_SERVER['REQUEST_METHOD'];
 
@@ -1344,7 +1373,7 @@ $app->scope('/samples/http/', function ($app, $params) {
         // This header will be stored for cache usage
         header('X-Foo: bar');
 
-        if ($cache->start(30) === Cache::CACHED) {
+        if ($cache->start(20) === Cache::CACHED) {
             return;
         }
 

@@ -9,6 +9,6 @@
         <a href="test.php">test.php</a>
     </li>
     <li>
-        <a href="forbidden/">forbidden/</a>
+        <a href="forbidden/">forbidden/ (Apache)</a>
     </li>
 </ul>

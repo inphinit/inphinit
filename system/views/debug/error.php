@@ -1,7 +1,9 @@
 <?php
 use Inphinit\Diagnostics\Debug;
+use Inphinit\Viewing\View;
 ?>
-<div class="code-inphinit">
+<div class="code-inphinit" xmlns="http://www.w3.org/1999/xhtml">
+<?php View::once('debug.style'); ?>
 <div class="code-inphinit-header"><?=Debug::editor($file, $line)?></div>
 <div class="code-inphinit-error">
 <?=nl2br(Debug::assistant($message))?>

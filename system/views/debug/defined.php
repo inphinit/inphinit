@@ -1,4 +1,8 @@
+<?php
+use Inphinit\Viewing\View;
+?>
 <div class="debug-inphinit">
+<?php View::once('debug.style'); ?>
 <h3>Classes</h3>
 <ul>
 <?php foreach ($classes as $current): ?>

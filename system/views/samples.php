@@ -102,6 +102,7 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/http/get?foo[bar][baz]=hi!&amp;foo[list][0]=hello&amp;foo[list][1]=world">/http/get</a></dd>
             <dd><a href="../samples/http/methods?_method=DELETE">/http/methods?_method=DELETE (Experimental)</a></dd>
             <dd><a href="../samples/http/methods?_HttpMethod=patch">/http/methods?_HttpMethod=patch (Experimental)</a></dd>
+            <dd><a href="../samples/http/methods?_HttpMethod=query">/http/methods?_HttpMethod=query (Experimental)</a></dd>
         </dl>
 
         <dl>
@@ -166,6 +167,8 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/commands/run">/commands/run (equiv. <code>run hello --name &lt;name&gt;</code>)</a></dd>
             <dd><a href="../samples/commands/unknown">/commands/unknown (equiv. <code>run unknown</code>)</a></dd>
             <dd><a href="../samples/commands/restrict">/commands/restrict</a></dd>
+            <dt>Env variables</dt>
+            <dd><a href="../samples/env/parse">/env/parse</a></dd>
         </dl>
         </section>
     </main>

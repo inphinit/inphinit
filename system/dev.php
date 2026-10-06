@@ -207,7 +207,6 @@ $app->scope('/samples/commands/', function ($app, $params) {
 // Env
 $app->scope('/samples/env/', function ($app, $params) {
     $app->action('GET', '/parse', function () {
-        print_r($_ENV);
         // Force values for tests
         $_ENV['SAMPLE_BOOL_1'] = '1';
         $_ENV['SAMPLE_BOOL_TRUE'] = 'true';

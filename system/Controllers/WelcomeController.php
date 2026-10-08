@@ -59,7 +59,7 @@ class WelcomeController
             ],
 
             [
-                'title' => 'Implicit Route Controllers',
+                'title' => 'Implicit Routes',
                 'link' => 'https://inphinit.github.io/en/docs/routing/implicit-route-controllers.html',
                 'body' => '**Implicit route controllers** allow routes to be defined directly from the method names of a class. Each method name follows a convention that combines the **HTTP method** with the **route path**. For example, a method named `getInfo()` represents the route `GET /info`, while `postPing()` represents `POST /ping`. The framework interprets this convention and automatically registers the corresponding routes. This mechanism reduces the need to individually declare each call to `$app->action()`, concentrating in a single class both the implementation of the action and the implicit definition of the HTTP method and route path.',
                 'experimental' => false,
@@ -110,7 +110,7 @@ class WelcomeController
             [
                 'title' => 'Console Commands',
                 'link' => 'https://inphinit.github.io/en/docs/console-commands.html',
-                'body' => 'The **console command** system allows custom commands to be created for execution in the **CLI** environment. A command can be implemented as a *closure*, a `callable`, or a class method, allowing command-line task logic to be organized similarly to the organization used with controllers in the HTTP context. These commands are located in the `system/Commands/` directory, providing a dedicated structure for organizing functionality executed through the command line.',
+                'body' => 'The **console command** system allows custom commands to be created for execution in the **CLI** environment. A command can be implemented as a *closure*, a `callable`, or a class method, allowing command-line task logic to be organized similarly to the organization used with controllers in the WEB context. These commands are located in the `system/Commands/` directory, providing a dedicated structure for organizing functionality executed through the command line.',
                 'experimental' => true,
             ],
 

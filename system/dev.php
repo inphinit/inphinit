@@ -100,7 +100,11 @@ $app->action('ANY', '/samples/views', function () {
 $app->scope('/samples/debug/', function ($app, $params) {
     $app->action('GET', '/warning', function () {
         echo "Foo\n";
-        echo $nonExistentVariable;
+
+        for ($i = 0; $i < 10; $i++) {
+            echo $nonExistentVariable, "\n";
+        }
+
         echo "Bar\n";
         echo $_SERVER['NON_EXISTENT_INDEX'];
         echo "Baz\n";
@@ -594,11 +598,11 @@ $app->scope('/samples/', function ($app, $params) {
         $fw = [];
 
         foreach ($files as $index => $file) {
-            $native[$index] = file_exists($file) ? "\u{2714}\u{FE0F}" : "\u{274C}";
+            $native[$index] = file_exists($file) ? "&#x2714;&#xFE0F;" : "&#x274C;";
         }
 
         foreach ($files as $index => $file) {
-            $fw[$index] = File::exists($file) ? "\u{2714}\u{FE0F}" : "\u{274C}";
+            $fw[$index] = File::exists($file) ? "&#x2714;&#xFE0F;" : "&#x274C;";
         }
 
         echo '<table>';
@@ -1368,11 +1372,12 @@ $app->scope('/samples/http/', function ($app, $params) {
 
     $app->action('ANY', '/cache/etag', function () {
         $cache = new Cache();
+        $cache->setLifetime(1, 0, 0);
 
         // This header will be stored for cache usage
         header('X-Foo: bar');
 
-        if ($cache->start(20) === Cache::CACHED) {
+        if ($cache->start() === Cache::CACHED) {
             return;
         }
 

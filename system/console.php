@@ -18,7 +18,7 @@ $hello = $console->action('hello', 'HelloCommand::index')
 
 // // Schedules the "hello" command to run every two minutes in the development environment
 $scheduler->command('mytask', $hello, [
-    'name' => 'Task Master!'
+    'name' => 'Taskmaster!'
 ])->cron('*', '*', '*', '*', '*')->runInEnvironments(['development']);
 
 // Schedules the session file cleanup command to run on Sunday at 04:00.

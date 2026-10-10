@@ -565,19 +565,35 @@ $app->scope('/samples/', function ($app, $params) {
 
         echo '<pre>';
 
-        var_dump('Before:', $config);
+        echo "Before:\n";
+
+        var_dump($config);
 
         $config->float = 99.9;
         $config->int = 100;
         $config->octal = 0666;
 
+        echo "\n\nAfter runtime:\n";
+
+        var_dump($config);
+
+        $config->reload();
+
+        $config->float = 599.9;
+        $config->int = 151;
+        $config->octal = 0655;
+
         unset($config->string); // Remove
 
-        var_dump('After:', $config);
+        $config->commit(); // Save
+
+        $config->reload();
+
+        echo "\n\nAfter commit:\n";
+
+        var_dump($config);
 
         echo '</pre>';
-
-        $config->commit(); // Save
     });
 
     $app->action('ANY', '/file/exists', function () {

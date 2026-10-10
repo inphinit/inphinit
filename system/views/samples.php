@@ -116,6 +116,7 @@ use Inphinit\Viewing\View;
         <dl>
             <dt>Others</dt>
             <dd><a href="../samples/event">/event</a></dd>
+            <dd><a href="../samples/config">/config</a></dd>
             <dd><a href="../samples/file/exists">/file/exists</a></dd>
             <dd><a href="../samples/file/permissions">/file/permissions</a></dd>
             <dd><a href="../samples/file/lines">/file/lines</a></dd>

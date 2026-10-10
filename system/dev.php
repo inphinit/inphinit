@@ -1372,7 +1372,9 @@ $app->scope('/samples/http/', function ($app, $params) {
 
     $app->action('ANY', '/cache/etag', function () {
         $cache = new Cache();
-        $cache->setLifetime(1, 0, 0);
+
+        // 1-minute cache
+        $cache->setLifetime(0, 0, 1);
 
         // This header will be stored for cache usage
         header('X-Foo: bar');

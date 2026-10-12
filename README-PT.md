@@ -24,8 +24,8 @@
 
 Requisitos:
 
-1. Recomendado: *PHP 8* (consulte as versões atualmente suportadas em https://www.php.net/supported-versions.php)
-   - Mínimo: *PHP 5.4* (a compatibilidade retroativa é mantida para ambientes com limitações para upgrades)
+1. PHP 8 (consulte as versões atualmente suportadas em https://www.php.net/supported-versions.php)
+   - Nota: Compatível com versões anteriores até o PHP 5.4.
    - Se precisar de um servidor completo no Windows ou macOS, considere usar WampServer, XAMPP, Laragon, EasyPHP ou AMPPS.
 1. (Opcional) A extensão PHP Intl é necessária para a classe `Inphinit\Utility\Strings`.
 1. (Opcional) A extensão PHP COM ou cURL é necessária para a classe `Inphinit\Filesystem\Size`.
@@ -35,19 +35,19 @@ Após instalar o PHP, você pode instalar o Inphinit usando o Composer ou o Git.
 Para instalar usando o Composer, execute o comando (consulte mais detalhes em https://getcomposer.org/doc/03-cli.md):
 
 ```bash
-php composer.phar create-project inphinit/inphinit:^2.1-beta.15 my-application
+php composer.phar create-project inphinit/inphinit:^2.1-beta.17 my-application
 ```
 
 Se o Composer estiver instalado globalmente, use:
 
 ```bash
-composer create-project inphinit/inphinit:^2.1-beta.15 my-application
+composer create-project inphinit/inphinit:^2.1-beta.17 my-application
 ```
 
 Para instalar usando o Git:
 
 ```bash
-git clone --recurse-submodules -b 2.1-beta.15 https://github.com/inphinit/inphinit.git my-application
+git clone --recurse-submodules -b 2.1-beta.17 https://github.com/inphinit/inphinit.git my-application
 cd my-application
 cp .env.sample .env
 ```
@@ -76,36 +76,30 @@ Se quiser usar o *nginx*, configure seu `nginx.conf` da seguinte forma:
 
 ```none
 location / {
-    root /home/foo/bar/my-application;
+    root /home/foo/bar/my-application/public;
 
-    # Redireciona erros de página para o sistema de rotas
-    error_page 403 /index.php/RESERVED.INPHINIT-403.html;
-    error_page 500 /index.php/RESERVED.INPHINIT-500.html;
+    # Redirect page errors to route system
+    error_page 403 /index.php;
+    error_page 500 /index.php;
 
-    try_files /public$uri /index.php?$query_string;
-
-    location = / {
-        try_files $uri /index.php?$query_string;
+    # Ignore hidden files: ^\.|/\.
+    location ~ /\. {
+        rewrite ^ /index.php last;
     }
 
-    location ~ /\. {
-        try_files /index.php$uri /index.php?$query_string;
+    # Redirect all urls to index.php if no exists files
+    location / {
+        try_files $uri /index.php$is_args$args;
     }
 
     location ~ \.php$ {
-        # Substitua pelo endereço do seu FPM ou FastCGI
+        # Replace with your FPM or FastCGI address
         fastcgi_pass 127.0.0.1:9000;
 
         fastcgi_index index.php;
         include fastcgi_params;
 
-        set $teeny_suffix "";
-
-        if ($uri != "/index.php") {
-            set $teeny_suffix "/public";
-        }
-
-        fastcgi_param SCRIPT_FILENAME $realpath_root$teeny_suffix$fastcgi_script_name;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     }
 }
 ```

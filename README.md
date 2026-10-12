@@ -23,8 +23,8 @@
 
 Requirements:
 
-1. Recommended: *PHP 8* (see the currently supported versions at https://www.php.net/supported-versions.php)
-   - Minimum: *PHP 5.4* (backward compatibility is preserved for environments with upgrade limitations)
+1. PHP 8 (see the currently supported versions at https://www.php.net/supported-versions.php)
+   - Note: Backward compatible down to PHP 5.4
    - If you need a full-featured server on Windows or macOS, consider using WampServer, XAMPP, Laragon, EasyPHP, or AMPPS.
 1. (Optional) The Intl PHP extension, required for the `Inphinit\Utility\Strings` class.
 1. (Optional) The COM or cURL PHP extension, required for the `Inphinit\Filesystem\Size` class.
@@ -34,19 +34,19 @@ After installing PHP, you can install Inphinit via Composer or Git.
 To install via Composer, run the command (see more details at https://getcomposer.org/doc/03-cli.md):
 
 ```bash
-php composer.phar create-project inphinit/inphinit:^2.1-beta.15 my-application
+php composer.phar create-project inphinit/inphinit:^2.1-beta.17 my-application
 ```
 
 If Composer is installed globally, use:
 
 ```bash
-composer create-project inphinit/inphinit:^2.1-beta.15 my-application
+composer create-project inphinit/inphinit:^2.1-beta.17 my-application
 ```
 
 To install via Git:
 
 ```bash
-git clone --recurse-submodules -b 2.1-beta.15 https://github.com/inphinit/inphinit.git my-application
+git clone --recurse-submodules -b 2.1-beta.17 https://github.com/inphinit/inphinit.git my-application
 cd my-application
 cp .env.sample .env
 ```
@@ -73,20 +73,20 @@ If you want to use *nginx*, you can configure your `nginx.conf` as follows:
 
 ```none
 location / {
-    root /home/foo/bar/my-application;
+    root /home/foo/bar/my-application/public;
 
     # Redirect page errors to route system
-    error_page 403 /index.php/RESERVED.INPHINIT-403.html;
-    error_page 500 /index.php/RESERVED.INPHINIT-500.html;
+    error_page 403 /index.php;
+    error_page 500 /index.php;
 
-    try_files /public$uri /index.php?$query_string;
-
-    location = / {
-        try_files $uri /index.php?$query_string;
+    # Ignore hidden files: ^\.|/\.
+    location ~ /\. {
+        rewrite ^ /index.php last;
     }
 
-    location ~ /\. {
-        try_files /index.php$uri /index.php?$query_string;
+    # Redirect all urls to index.php if no exists files
+    location / {
+        try_files $uri /index.php$is_args$args;
     }
 
     location ~ \.php$ {
@@ -96,13 +96,7 @@ location / {
         fastcgi_index index.php;
         include fastcgi_params;
 
-        set $teeny_suffix "";
-
-        if ($uri != "/index.php") {
-            set $teeny_suffix "/public";
-        }
-
-        fastcgi_param SCRIPT_FILENAME $realpath_root$teeny_suffix$fastcgi_script_name;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     }
 }
 ```

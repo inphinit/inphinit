@@ -1,29 +1,3 @@
-<IfModule mod_negotiation.c>
-    Options -MultiViews
-</IfModule>
-
-IndexIgnore *
-
-# Redirect SAPI to errors.php
-ErrorDocument 403 /index.php
-ErrorDocument 500 /index.php
-
+# Fallback for quick use where configuring a VirtualHost is not possible
 RewriteEngine On
-
-# Handle Authorization Header
-# RewriteCond %{HTTP:Authorization} .
-# RewriteRule . - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-
-# Skip root/index
-RewriteRule ^index\.php(?:/|$) - [L]
-
-# Redirect to public folder
-RewriteRule ^((?!public/).+)$ public/$1 [L]
-
-# Ignore hidden files
-RewriteRule ^\.|/\. index.php [L]
-
-# Redirect all urls to index.php if no exits files
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ index.php [L]
+RewriteRule ^(.*)$ public/$1 [L]

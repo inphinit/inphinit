@@ -5,3 +5,21 @@
         FileETag None
     </FilesMatch>
 </IfModule>
+
+# Redirect SAPI to errors.php
+ErrorDocument 403 /public/index.php
+ErrorDocument 500 /public/index.php
+
+RewriteEngine On
+
+# Handle Authorization Header
+# RewriteCond %{HTTP:Authorization} .
+# RewriteRule . - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# Ignore hidden files
+RewriteRule ^\.|/\. index.php [L]
+
+# Redirect all urls to index.php if no exits files
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]

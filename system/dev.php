@@ -29,6 +29,7 @@ use Inphinit\Experimental\Http\FileResponse;
 use Inphinit\Experimental\Http\Method;
 use Inphinit\Experimental\Utility\Storage;
 use Inphinit\Experimental\Utility\Markdown;
+use Inphinit\Experimental\Validation\Validator;
 
 use Controllers\Samples\ResourceController;
 use Controllers\Samples\TreatyController;
@@ -1946,5 +1947,31 @@ $app->scope('/samples/tsv/', function ($app) {
         Response::type('text/csv');
         header('Content-Disposition: inline; filename="output.csv"');
         header('X-Accel-Redirect: ' . $storage . '/output.csv');
+    });
+});
+
+$app->scope('/samples/validation/', function ($app) {
+    $app->action('GET', '/', function () {
+        $validator = Validator::get();
+
+        // Set message of a standard rule
+        $validator->setMessage('regex', 'Not matches with REGEXP');
+
+        // Set message of an extended rule
+        $validator->getRuleInstance('cpf')->setMessage('default', 'INVALID CPF');
+
+        $validator->field('cnpj', $cnpj, 'cnpj|required');
+        $validator->field('cpf', $cpf, 'cpf|required');
+        $validator->field('ip', $ip, 'ip|required');
+        $validator->field('password', $password, 'password|min:8|max:15|required');
+        $validator->field('confirm', $confirm, 'equals:password|required');
+        $validator->field('re', $re, 'regex:/^\D+$/|required');
+
+        if ($validator->valid()) {
+            return json_encode([true]);
+        }
+
+        Response::status(400);
+        return json_encode($validator->failures());
     });
 });

@@ -130,6 +130,7 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/storage/error">/storage/error</a></dd>
             <dd><a href="../samples/markdown/file">/markdown/file</a></dd>
             <dd><a href="../samples/markdown/string">/markdown/string</a></dd>
+            <dd><a href="../samples/validation/?cnpj=86.7MI.UFV/0001-88&amp;cpf=764.995.510-90&amp;ip=127.0.0.1&amp;password=a28wHGihSN0T$&amp;confirm=a28wHGihSN0T$&amp;re=ABC">/validation</a></dd>
         </dl>
 
         <dl>

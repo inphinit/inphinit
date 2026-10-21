@@ -1967,8 +1967,25 @@ $app->scope('/samples/validation/', function ($app) {
         $validator->field('confirm', $confirm, 'equals:password|required');
         $validator->field('re', $re, 'regex:/^\D+$/|required');
 
+        $validator->field('decimal', $decimal, 'decimal|required');
+        $validator->field('integer', $integer, 'integer|required');
+        $validator->field('bool', $bool, 'boolean|in:1,0|required');
+
+        $validator->field('cnpj', $cnpj, 'required');
+
         if ($validator->valid()) {
-            return json_encode([true]);
+            return json_encode([
+                'success' => true,
+                'cnpj' => $cnpj,
+                'cpf' => $cpf,
+                'ip' => $ip,
+                'password' => $password,
+                'confirm' => $confirm,
+                're' => $re,
+                'decimal' => $decimal,
+                'integer' => $integer,
+                'bool' => $bool,
+            ]);
         }
 
         Response::status(400);

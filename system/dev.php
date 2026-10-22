@@ -224,18 +224,47 @@ $app->scope('/samples/env/', function ($app, $params) {
         $_ENV['SAMPLE_FLOAT'] = '1';
         $_ENV['SAMPLE_INT'] = '1';
 
-        echo '<pre>';
-        echo '<li>SAMPLE_BOOL_1 => ', var_export(Env::bool('SAMPLE_BOOL_1')), '</li>';
-        echo '<li>SAMPLE_BOOL_TRUE => ', var_export(Env::bool('SAMPLE_BOOL_TRUE')), '</li>';
-        echo '<li>SAMPLE_BOOL_YES => ', var_export(Env::bool('SAMPLE_BOOL_YES')), '</li>';
-        echo '<li>SAMPLE_BOOL_ON => ', var_export(Env::bool('SAMPLE_BOOL_ON')), '</li>';
-        echo '<li>SAMPLE_BOOL_0 => ', var_export(Env::bool('SAMPLE_BOOL_0')), '</li>';
-        echo '<li>SAMPLE_BOOL_FALSE => ', var_export(Env::bool('SAMPLE_BOOL_FALSE')), '</li>';
-        echo '<li>SAMPLE_BOOL_NO => ', var_export(Env::bool('SAMPLE_BOOL_NO')), '</li>';
-        echo '<li>SAMPLE_BOOL_OFF => ', var_export(Env::bool('SAMPLE_BOOL_OFF')), '</li>';
-        echo '<li>SAMPLE_FLOAT => ', var_export(Env::float('SAMPLE_FLOAT')), '</li>';
-        echo '<li>SAMPLE_INT => ', var_export(Env::int('SAMPLE_INT')), '</li>';
-        echo '</pre>';
+        echo '<ul>';
+        echo '<li>SAMPLE_BOOL_1 => ';
+        var_dump(Env::bool('SAMPLE_BOOL_1'));
+        echo '</li>';
+
+        echo '<li>SAMPLE_BOOL_TRUE => ';
+        var_dump(Env::bool('SAMPLE_BOOL_TRUE'));
+        echo '</li>';
+
+        echo '<li>SAMPLE_BOOL_YES => ';
+        var_dump(Env::bool('SAMPLE_BOOL_YES'));
+        echo '</li>';
+
+        echo '<li>SAMPLE_BOOL_ON => ';
+        var_dump(Env::bool('SAMPLE_BOOL_ON'));
+        echo '</li>';
+
+        echo '<li>SAMPLE_BOOL_0 => ';
+        var_dump(Env::bool('SAMPLE_BOOL_0'));
+        echo '</li>';
+
+        echo '<li>SAMPLE_BOOL_FALSE => ';
+        var_dump(Env::bool('SAMPLE_BOOL_FALSE'));
+        echo '</li>';
+
+        echo '<li>SAMPLE_BOOL_NO => ';
+        var_dump(Env::bool('SAMPLE_BOOL_NO'));
+        echo '</li>';
+
+        echo '<li>SAMPLE_BOOL_OFF => ';
+        var_dump(Env::bool('SAMPLE_BOOL_OFF'));
+        echo '</li>';
+
+        echo '<li>SAMPLE_FLOAT => ';
+        var_dump(Env::float('SAMPLE_FLOAT'));
+        echo '</li>';
+
+        echo '<li>SAMPLE_INT => ';
+        var_dump(Env::int('SAMPLE_INT'));
+        echo '</li>';
+        echo '</ul>';
     });
 });
 
@@ -681,80 +710,99 @@ $app->scope('/samples/', function ($app, $params) {
     });
 
     $app->action('GET', '/file/size', function () {
-        $handleFallback = new Size(); // Same new Size(Size::COM|Size::CURL|Size::SYSTEM)
-        $handleCom = new Size(Size::COM);
-        $handleCurl = new Size(Size::CURL);
-        $handleSystem = new Size(Size::SYSTEM);
+        File::strict(false);
 
         $sample_file = INPHINIT_SYSTEM . '/storage/samples/lines.txt';
+        $invalid_file = 'invalid.txt';
 
-        echo "Get '{$sample_file}' file size:<pre>";
+        echo "<p>Get '{$sample_file}' file size:</p><ul>";
 
-        echo 'With filesize() function: ';
+        echo '<li>filesize(): ';
 
         var_dump(filesize($sample_file));
 
-        echo '<br>With fallback: Size::COM|Size::CURL|Size::SYSTEM: ';
+        echo '</li>';
+
+        echo '<li>Size::COM|Size::CURL|Size::SYSTEM: ';
 
         try {
+            $handleFallback = new Size();
             var_dump($handleFallback->get($sample_file));
         } catch (Exception $ex) {
-            echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
+            echo $ex->getMessage();
         }
 
-        echo '<br>With Size::COM: ';
+        echo '</li>';
+
+        echo '<li>Size::COM: ';
 
         try {
+            $handleCom = new Size(Size::COM);
             var_dump($handleCom->get($sample_file));
         } catch (Exception $ex) {
-            echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
+            echo $ex->getMessage();
         }
 
-        echo '<br>With Size::CURL: ';
+        echo '</li>';
+
+        echo '<li>Size::CURL: ';
 
         try {
+            $handleCurl = new Size(Size::CURL);
             var_dump($handleCurl->get($sample_file));
         } catch (Exception $ex) {
-            echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
+            echo $ex->getMessage();
         }
 
-        echo '<br>With Size::SYSTEM: ';
+        echo '</li>';
+
+        echo '<li>Size::SYSTEM: ';
 
         try {
+            $handleSystem = new Size(Size::SYSTEM);
             var_dump($handleSystem->get($sample_file));
         } catch (Exception $ex) {
-            echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
+            echo $ex->getMessage();
         }
-        echo '</pre><hr>';
 
-        $invalid_file = 'invalid.txt';
+        echo '</li></ul>';
 
-        echo "{$invalid_file} file size:<pre>";
+        echo "<p>Get '{$invalid_file}' file size:</p><ul>";
 
-        echo 'Size::COM: ';
+        echo '<li>Size::COM: ';
 
         try {
+            $handleCom = new Size(Size::COM);
             var_dump($handleCom->get($invalid_file));
         } catch (Exception $ex) {
-            echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
+            echo $ex->getMessage();
         }
 
-        echo '<br>Size::CURL: ';
+        echo '</li>';
+
+        echo '<li>Size::CURL: ';
 
         try {
+            $handleCurl = new Size(Size::CURL);
             var_dump($handleCurl->get($invalid_file));
         } catch (Exception $ex) {
-            echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
+            echo $ex->getMessage();
         }
 
-        echo '<br>Size::SYSTEM: ';
+        echo '</li>';
+
+        echo '<li>Size::SYSTEM: ';
 
         try {
+            $handleSystem = new Size(Size::SYSTEM);
             var_dump($handleSystem->get($invalid_file));
         } catch (Exception $ex) {
-            echo '(' . $ex->getCode() . ') ' . $ex->getMessage() . "\r\n";
+            echo $ex->getMessage();
         }
-        echo '</pre>';
+
+        echo '</li>';
+
+        echo '</ul>';
 
     });
 
@@ -1038,10 +1086,6 @@ $app->scope('/samples/utilities/', function ($app, $params) {
 
         echo '<br>Arrays::ksort($multidimentional, SORT_STRING):<br>';
         Arrays::ksort($multidimentional, SORT_STRING);
-        print_r($multidimentional);
-
-        echo '<br>Arrays::ksort($multidimentional, SORT_LOCALE_STRING):<br>';
-        Arrays::ksort($multidimentional, SORT_LOCALE_STRING);
         print_r($multidimentional);
 
         echo '<br>Arrays::ksort($multidimentional, SORT_NATURAL):<br>';
@@ -1969,7 +2013,7 @@ $app->scope('/samples/validation/', function ($app) {
 
         $validator->field('decimal', $decimal, 'decimal|required');
         $validator->field('integer', $integer, 'integer|required');
-        $validator->field('bool', $bool, 'boolean|in:1,0|required');
+        $validator->field('bool', $bool, 'boolean|required');
 
         $validator->field('cnpj', $cnpj, 'required');
 

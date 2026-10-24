@@ -1,0 +1,15 @@
+<?php
+#parse("header")
+
+#if (${NAMESPACE})
+namespace ${NAMESPACE};
+#end
+
+use Inphinit\App;
+
+class ${NAME}
+{
+    public function index(App $app, array $params)
+    {
+    }
+}

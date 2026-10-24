@@ -1,0 +1,15 @@
+<?php
+#parse("header")
+
+#if (${NAMESPACE})
+namespace ${NAMESPACE};
+#end
+
+use Inphinit\Experimental\Cli\Command;
+
+class ${NAME}
+{
+    public function index(Command $command, array $options, array $residues)
+    {
+    }
+}

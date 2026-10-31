@@ -9,7 +9,41 @@ use Inphinit\App;
 
 class ${NAME}
 {
+    // listing of the resource
     public function index(App $app, array $params)
     {
+    }
+
+    // Show the form for creating a new resource
+    public function create(App $app, array $params)
+    {
+    }
+
+    // Stores a resource
+    public function store(App $app, array $params)
+    {
+    }
+
+    // Displays a specific feature
+    public function show(App $app, array $params)
+    {
+        $id = $params['id'];
+    }
+
+    // Displays the form for editing a specific resource
+    public function edit(string $id)
+    {
+    }
+
+    // Updates a specific resource
+    public function update(App $app, array $params)
+    {
+        $id = $params['id'];
+    }
+
+    // Remove a specific resource
+    public function destroy(App $app, array $params)
+    {
+        $id = $params['id'];
     }
 }

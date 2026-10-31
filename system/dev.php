@@ -35,6 +35,7 @@ use Controllers\Samples\ResourceController;
 use Controllers\Samples\TreatyController;
 
 /**
+ * @var Inphinit\Experimental\Http\Forwarded|null $forwarded
  * @var Inphinit\Diagnostics\App $app
  * @var Inphinit\Diagnostics\Debug $debug
  */

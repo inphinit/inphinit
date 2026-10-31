@@ -2,8 +2,10 @@
 use Inphinit\Experimental\Cli\Command;
 use Inphinit\Experimental\Scheduling\Task;
 
-/** @var Inphinit\Experimental\Cli\Console $console */
-/** @var Inphinit\Experimental\Scheduling\Scheduler $scheduler */
+/**
+ * @var Inphinit\Experimental\Cli\Console $console
+ * @var Inphinit\Experimental\Scheduling\Scheduler $scheduler
+ */
 
 $console->action('sample', function (Command $command, array $options, array $residues) {
     echo 'You execute ', $command->getName(), ' command';

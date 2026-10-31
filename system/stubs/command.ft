@@ -9,7 +9,7 @@ use Inphinit\Experimental\Cli\Command;
 
 class ${NAME}
 {
-    public function index(Command $command, array $options, array $residues)
+    public function handle(Command $command, array $options, array $residues)
     {
     }
 }

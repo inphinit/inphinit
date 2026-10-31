@@ -1,6 +1,8 @@
 <?php
-
-/** @var Inphinit\App $app */
+/**
+ * @var Inphinit\Experimental\Http\Forwarded|null $forwarded
+ * @var Inphinit\App $app
+ */
 
 $app->action('ANY', '/', 'WelcomeController::index');
 $app->action('GET', '/checkup', 'CheckupController::checkup');

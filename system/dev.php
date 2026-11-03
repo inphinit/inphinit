@@ -2016,8 +2016,6 @@ $app->scope('/samples/validation/', function ($app) {
         $validator->field('integer', $integer, 'integer|required');
         $validator->field('bool', $bool, 'boolean|required');
 
-        $validator->field('cnpj', $cnpj, 'required');
-
         if ($validator->valid()) {
             return json_encode([
                 'success' => true,

@@ -294,8 +294,8 @@ body, #items > a {
 
 #items > dl > dd > a:hover,
 #items > dl > dd > a:active,
-#items > dl > dd > a:focus
-#items > dl > dd > form button:hover, {
+#items > dl > dd > a:focus,
+#items > dl > dd > form button:hover {
     background: rgba(255,255,255,.1);
 }
 

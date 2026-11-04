@@ -277,16 +277,25 @@ body, #items > a {
     border-top: thin solid rgba(255,255,255,.2);
 }
 
-#items > dl > dd > a {
+#items > dl > dd > a, #items > dl > dd > form button {
     color: inherit;
     display: block;
     padding: 1rem;
     text-decoration: none;
 }
 
+#items > dl > dd > form button {
+    background: transparent;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    text-align: left;
+}
+
 #items > dl > dd > a:hover,
 #items > dl > dd > a:active,
-#items > dl > dd > a:focus {
+#items > dl > dd > a:focus
+#items > dl > dd > form button:hover, {
     background: rgba(255,255,255,.1);
 }
 

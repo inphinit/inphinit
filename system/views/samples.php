@@ -100,9 +100,18 @@ use Inphinit\Viewing\View;
             <dd><a href="../samples/http/negotiation/string">/http/negotiation/string</a></dd>
             <dd><a href="../samples/http/negotiation/qfactor">/http/negotiation/qfactor</a></dd>
             <dd><a href="../samples/http/get?foo[bar][baz]=hi!&amp;foo[list][0]=hello&amp;foo[list][1]=world">/http/get</a></dd>
-            <dd><a href="../samples/http/methods?_method=DELETE">/http/methods?_method=DELETE (Experimental)</a></dd>
-            <dd><a href="../samples/http/methods?_HttpMethod=patch">/http/methods?_HttpMethod=patch (Experimental)</a></dd>
-            <dd><a href="../samples/http/methods?_HttpMethod=query">/http/methods?_HttpMethod=query (Experimental)</a></dd>
+            <dd>
+                <form method="post" action="../samples/http/methods">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button>_method=DELETE (Experimental)</button>
+                </form>
+            </dd>
+            <dd>
+                <form method="post" action="../samples/http/methods">
+                    <input type="hidden" name="_method" value="patch">
+                    <button>_method=patch (Experimental)</button>
+                </form>
+            </dd>
         </dl>
 
         <dl>

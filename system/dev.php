@@ -1414,7 +1414,7 @@ $app->scope('/samples/http/', function ($app, $params) {
     Method::override();
 
     $app->action(['DELETE', 'PATCH', 'PUT', 'QUERY'], '/methods', function () {
-        $original = Method::original();
+        $original = $_SERVER['REQUEST_METHOD_ORIGINAL'];
         $current = $_SERVER['REQUEST_METHOD'];
 
         echo 'Original method: ', $original, '<br>';

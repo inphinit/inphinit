@@ -282,6 +282,7 @@ body, #items > a {
     display: block;
     padding: 1rem;
     text-decoration: none;
+    font-size: 1em;
 }
 
 #items > dl > dd > form button {

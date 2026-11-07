@@ -596,32 +596,6 @@ $app->scope('/samples/', function ($app, $params) {
 
         echo '<pre>';
 
-        echo "Before:\n";
-
-        var_dump($config);
-
-        $config->float = 99.9;
-        $config->int = 100;
-        $config->octal = 0666;
-
-        echo "\n\nAfter runtime:\n";
-
-        var_dump($config);
-
-        $config->reload();
-
-        $config->float = 599.9;
-        $config->int = 151;
-        $config->octal = 0655;
-
-        unset($config->string); // Remove
-
-        $config->commit(); // Save
-
-        $config->reload();
-
-        echo "\n\nAfter commit:\n";
-
         var_dump($config);
 
         echo '</pre>';

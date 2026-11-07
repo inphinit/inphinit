@@ -31,8 +31,9 @@ class ${NAME}
     }
 
     // Displays the form for editing a specific resource
-    public function edit(string $id)
+    public function edit(App $app, array $params)
     {
+        $id = $params['id'];
     }
 
     // Updates a specific resource

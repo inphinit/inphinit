@@ -290,7 +290,7 @@ $app->setPattern('version', '\d+\.\d+');
 
 - Inglês: https://inphinit.github.io/en/docs/
 - Português: https://inphinit.github.io/pt/docs/
-- Referência da API: https://inphinit.github.io/api/
+- Referência da API: https://inphinit.github.io/api/api/2.1/
 
 A documentação é mantida em um [repositório separado no GitHub](https://github.com/inphinit/inphinit.github.io).
 

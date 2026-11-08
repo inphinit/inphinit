@@ -286,7 +286,7 @@ $app->setPattern('version', '\d+\.\d+');
 
 - English: https://inphinit.github.io/en/docs/
 - Portuguese: https://inphinit.github.io/pt/docs/
-- API Reference: https://inphinit.github.io/api/
+- API Reference: https://inphinit.github.io/api/api/2.1/
 
 The documentation is maintained in a separate [GitHub repository](https://github.com/inphinit/inphinit.github.io).
 

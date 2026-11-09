@@ -2,10 +2,10 @@
     "name": "inphinit/inphinit",
     "description": "A framework for easy creation of routes",
     "keywords": [
-        "apache", "api", "api", "caddy", "caddy2", "caddyfile", "caddyserver",
-        "composer", "css", "dom", "framework", "franken", "frankenphp", "http",
-        "iis", "iis", "inphinit", "nginx", "php", "php5", "php7", "php8",
-        "rest", "router", "routing", "routing", "url"
+        "apache", "api", "caddy", "caddy2", "caddyfile", "caddyserver", "composer",
+        "css", "dom", "framework", "franken", "frankenphp", "html", "http", "iis",
+        "iis", "inphinit", "lighttpd", "nginx", "php", "php5", "php7", "php8",
+        "rest", "router", "routing", "url"
     ],
     "license": "MIT",
     "type": "project",

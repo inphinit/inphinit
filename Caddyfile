@@ -3,7 +3,7 @@
 # Domain name of server
 localhost {
     # Set the project root
-    root ./
+    root ./public/
 
     # Enable compression (optional)
     encode zstd br gzip
@@ -22,7 +22,6 @@ localhost {
 
     # Execute PHP files from the public/ directory and serve assets
     php_server {
-        root ./
-        try_files public/{path} index.php
+        try_files {path} index.php
     }
 }
